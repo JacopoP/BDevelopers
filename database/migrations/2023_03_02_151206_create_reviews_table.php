@@ -18,7 +18,7 @@ return new class extends Migration
 
             // Review
             $table->date('date');
-            $table->string('text', 255)->nullable();
+            $table->text('text');
             $table->string('full_name', 128)->nullable();
 
             $table->timestamps();
