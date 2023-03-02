@@ -19,7 +19,9 @@ class ReviewFactory extends Factory
         return [
             'date' => fake()->dateTimeBetween('-24 week'),
             'text' => fake()->text(255),
-            'full_name' => fake()->name(),
+            'full_name' => fake()->boolean()
+                        ? fake()->name()
+                        : NULL,
         ];
     }
 }
