@@ -17,13 +17,13 @@ class DeveloperFactory extends Factory
     public function definition()
     {
         return [
-            'address' => fake() -> address(),
-            'phone_number' => fake() -> phoneNumber(),
-            'profile_path' => fake() -> imageUrl(640, 480, 'animals', true),
-            'cv_path' => fake() -> url(),
-            'portfolio_url' => fake() -> url(),
-            'about_me' => fake() -> sentence(),
-            'performances' => fake() -> sentence(),
+            'address' => fake() -> boolean() ? fake() -> address() : NULL,
+            'phone_number' => fake() -> boolean() ? fake() -> phoneNumber() : NULL,
+            'profile_path' => fake() -> boolean() ? fake() -> imageUrl(640, 480, 'animals', true) : NULL,
+            'cv_path' => fake() -> boolean() ? fake() -> url() : NULL,
+            'portfolio_url' => fake() -> boolean() ? fake() -> url() : NULL,
+            'about_me' => fake() -> boolean() ? fake() -> sentence() : NULL,
+            'performances' => fake() -> boolean() ? fake() -> sentence() : NULL,
         ];
     }
 }
