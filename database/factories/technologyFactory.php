@@ -13,9 +13,20 @@ class technologyFactory extends Factory
         return [
 
             'name' => fake()->words(3, true),
-            'version' => rand(1, 20),
-            'logo_path' => fake()->url(),
-            'description'  => fake()->words(20, true),
+            'version' =>  fake()->boolean()
+                ?   rand(1, 20)
+                :   null,
+            'logo_path' =>  fake()->boolean()
+                ?   fake()->url()
+                :   null,
+            'description' =>  fake()->boolean()
+                ?   fake()->words(20, true)
+                :   null,
+
+            // 'name' => fake()->words(3, true),
+            // 'version' => rand(1, 20),
+            // 'logo_path' => fake()->url(),
+            // 'description'  => fake()->words(20, true),
         ];
 
 
