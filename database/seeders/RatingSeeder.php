@@ -16,6 +16,25 @@ class RatingSeeder extends Seeder
      */
     public function run()
     {
-        Rating::factory()->count(10)->create();
+        $ratings = [
+            [
+                'value' => 1
+            ],
+            [
+                'value' => 2
+            ],
+            [
+                'value' => 3
+            ],
+            [
+                'value' => 4
+            ],
+            [
+                'value' => 5
+            ],
+        ];
+        foreach ($ratings as $rating) {
+            Rating::make($rating)->save();
+        }
     }
 }

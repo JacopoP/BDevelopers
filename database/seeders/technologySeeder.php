@@ -8,7 +8,7 @@ use Illuminate\Database\Seeder;
 
 use App\Models\Technology;
 
-class technologySeeder extends Seeder
+class TechnologySeeder extends Seeder
 {
 
     public function run()
