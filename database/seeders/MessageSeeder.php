@@ -2,9 +2,13 @@
 
 namespace Database\Seeders;
 
-use App\Models\Message;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+
+// Model
+use App\Models\Message;
+use App\Models\Developer;
+
 
 class MessageSeeder extends Seeder
 {
@@ -15,6 +19,12 @@ class MessageSeeder extends Seeder
      */
     public function run()
     {
-        Message::factory(1000)->create();
+        Message::factory(1000)->make()->each(function($d){
+
+            $developer = Developer::inRandomOrder() -> first();
+
+            $d -> developer() -> associate($developer);
+            $d -> save(); 
+        });
     }
 }

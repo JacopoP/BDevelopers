@@ -16,12 +16,12 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             UserSeeder::class,
-            DeveloperSeeder::class,
             RatingSeeder::class,
             SponsorSeeder::class,
+            TechnologySeeder::class,
+            DeveloperSeeder::class,
             ReviewSeeder::class,
             MessageSeeder::class,
-            TechnologySeeder::class,
         ]);
     }
 }

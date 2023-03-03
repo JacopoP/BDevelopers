@@ -2,9 +2,12 @@
 
 namespace Database\Seeders;
 
-use App\Models\Review;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+
+// Model
+use App\Models\Review;
+use App\Models\Developer;
 
 class ReviewSeeder extends Seeder
 {
@@ -15,6 +18,11 @@ class ReviewSeeder extends Seeder
      */
     public function run()
     {
-        Review::factory(200)->create();
+        Review::factory(200)->make()->each(function($d){
+            $developer = Developer::inRandomOrder() -> first();
+
+            $d -> developer() -> associate($developer);
+            $d -> save(); 
+        });
     }
 }
