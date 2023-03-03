@@ -14,4 +14,9 @@ class Technology extends Model
         'logo_path',
         'description',
     ];
+
+    public function developers()
+    {
+        return $this->belongsToMany(Developer::class);
+    }
 }

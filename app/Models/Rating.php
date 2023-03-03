@@ -12,4 +12,11 @@ class Rating extends Model
     protected $fillable = [
         'value',
     ];
+
+
+
+    public function developers()
+    {
+        return $this->belongsToMany(Developer::class);
+    }
 }
