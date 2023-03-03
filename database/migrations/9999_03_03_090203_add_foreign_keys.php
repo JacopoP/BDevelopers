@@ -16,7 +16,8 @@ return new class extends Migration
         Schema::table('developers', function (Blueprint $table) {
 
             // $table->foreignId('user_id')->primary()->constrained();
-            $table->unsignedBigInteger('id')->primary();
+            // $table->unsignedBigInteger('id')->primary();
+            $table->id();
             $table->foreign('id')->references('id')->on('users');
         });
         Schema::table('developer_technology', function (Blueprint $table) {
