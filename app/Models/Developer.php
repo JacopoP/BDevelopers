@@ -29,7 +29,8 @@ class Developer extends Model
     }
     public function sponsors()
     {
-        return $this->belongsToMany(Sponsor::class);
+        // return $this->belongsToMany(Sponsor::class);
+        return $this->belongsToMany(Sponsor::class)->withPivot('date_start', 'date_end')->withTimestamps();
     }
     public function messages()
     {
