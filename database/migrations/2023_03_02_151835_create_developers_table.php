@@ -14,8 +14,6 @@ return new class extends Migration
     public function up()
     {
         Schema::create('developers', function (Blueprint $table) {
-            $table -> id();
-
             $table -> string('address') -> nullable(true);
             $table -> string('phone_number', 32) -> nullable(true);
             $table -> string('profile_path') -> nullable(true);
