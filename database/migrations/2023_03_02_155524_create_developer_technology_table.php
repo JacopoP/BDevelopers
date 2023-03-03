@@ -9,13 +9,13 @@ return new class extends Migration
 
     public function up()
     {
-        Schema::create('developer_tecnology', function (Blueprint $table) {
+        Schema::create('developer_technology', function (Blueprint $table) {
             $table->timestamps();
         });
     }
 
     public function down()
     {
-        Schema::dropIfExists('developer_tecnology');
+        Schema::dropIfExists('developer_technology');
     }
 };
