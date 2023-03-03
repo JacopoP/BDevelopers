@@ -10,9 +10,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('developer_tecnology', function (Blueprint $table) {
-            $table->id();
-            $table->bigInteger('technology_id');
-            $table->bigInteger('developer_id');
+            $table->timestamps();
         });
     }
 

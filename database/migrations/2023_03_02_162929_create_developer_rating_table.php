@@ -14,7 +14,6 @@ return new class extends Migration
     public function up()
     {
         Schema::create('developer_rating', function (Blueprint $table) {
-            $table->id();
             $table->timestamps();
         });
     }
