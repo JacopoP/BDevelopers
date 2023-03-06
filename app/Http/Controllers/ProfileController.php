@@ -60,4 +60,10 @@ class ProfileController extends Controller
 
         return Redirect::to('/');
     }
+
+    // DeveloperSettings
+    public function DevEdit(){
+
+        return Inertia::render('Profile/DeveloperSettings');
+    }
 }
