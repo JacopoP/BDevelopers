@@ -72,6 +72,9 @@ class ProfileController extends Controller
     public function DevCreate($id){
         $user = User::with('developer') -> find($id);
         $technologies = Technology::all();
-        return Inertia::render('Profile/DeveloperSettings');
+        // dd($user);
+        // dd($request);
+        
+        return Inertia::render('Profile/DeveloperSettings', ['user' => $user]);
     }
 }

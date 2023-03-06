@@ -1,11 +1,16 @@
 <script>
     // @vite('resources/js/app.js');
+    import { usePage } from '@inertiajs/vue3';
 
+    import { computed } from 'vue';
+    const auth = computed(() => usePage().props.auth.user);
+    console.log(user);
+    console.log(auth);
 </script>
 
 <template>
 
-    <form class="d-flex flex-column" method="post" action="{{ route('profile.dev.create') }}">
+    <form v-if="user.id == auth.user" class="d-flex flex-column" method="post" action="{{ route('profile.dev.create') }}">
 
         <input type="text" name="address" placeholder="Name" value="">
         <input type="text" name="phone_number" placeholder="PhoneNumber">
