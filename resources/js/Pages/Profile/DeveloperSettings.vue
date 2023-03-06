@@ -1,17 +1,14 @@
-<script>
-    // @vite('resources/js/app.js');
-    import { usePage } from '@inertiajs/vue3';
-
-    import { computed } from 'vue';
-    const auth = computed(() => usePage().props.auth.user);
-    console.log(user);
-    console.log(auth);
+<script setup>
+// @vite('resources/js/app.js');
+defineProps({
+    user: Object,
+    technologies: Array,
+});
 </script>
 
 <template>
-
-    <form v-if="user.id == auth.user" class="d-flex flex-column" method="post" action="{{ route('profile.dev.create') }}">
-
+    <form v-if="user.id == $page.props.auth.user.id" class="d-flex flex-column" method="post"
+        action="{{ route('profile.dev.create') }}">
         <input type="text" name="address" placeholder="Name" value="">
         <input type="text" name="phone_number" placeholder="PhoneNumber">
         <input type="file" name="profile_path" placeholder="Profile Image">
@@ -19,15 +16,14 @@
         <input type="text" name="portfolio_url" placeholder="portfolio URL">
         <textarea name="about_me" cols="30" rows="3" placeholder="Write about you"></textarea>
         <textarea name="performances" cols="30" rows="3" placeholder="Write here the jobs you offer"></textarea>
-
         <input class="btn" type="submit" value="SEND">
     </form>
-
 </template>
 
 <style lang="scss">
 @use 'resources/sass/general.scss' as *;
-.test{
+
+.test {
     color: $brand_primary;
 }
 </style>
