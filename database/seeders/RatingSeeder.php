@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\Rating;
-
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+
+use App\Models\Rating;
 
 class RatingSeeder extends Seeder
 {

@@ -20,3 +20,4 @@ class Technology extends Model
         return $this->belongsToMany(Developer::class);
     }
 }
+
