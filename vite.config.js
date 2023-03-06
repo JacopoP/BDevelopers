@@ -6,7 +6,7 @@ export default defineConfig({
     plugins: [
         laravel({
             input: [
-                'resources/scss/general.scss',
+                'resources/sass/general.scss',
                 'resources/js/app.js'
             ],
             refresh: true,
