@@ -35,7 +35,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     // DeveloperSettings
-    Route::get('/developer', [ProfileController::class, 'DevEdit'])->name('profile.dev.set');
+    Route::get('/developer{id}', [ProfileController::class, 'DevCreate'])->name('profile.dev.create');
 });
 
 require __DIR__.'/auth.php';

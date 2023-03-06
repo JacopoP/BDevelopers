@@ -45,6 +45,6 @@ class User extends Authenticatable
 
     public function developer()
     {
-        return $this->hasOne(Developer::class);
+        return $this->hasOne(Developer::class, 'id', 'id');
     }
 }

@@ -11,6 +11,13 @@ use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 use Inertia\Response;
 
+// Models
+use App\Models\User;
+use App\Models\Developer;
+use App\Models\Technology;
+
+$active_user = 0;
+
 class ProfileController extends Controller
 {
     /**
@@ -62,8 +69,9 @@ class ProfileController extends Controller
     }
 
     // DeveloperSettings
-    public function DevEdit(){
-
+    public function DevCreate($id){
+        $user = User::with('developer') -> find($id);
+        $technologies = Technology::all();
         return Inertia::render('Profile/DeveloperSettings');
     }
 }
