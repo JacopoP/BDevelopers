@@ -7,14 +7,10 @@ import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
 // NavLinks
 import DropdownLink from '@/Components/DropdownLink.vue';
 import NavLink from '@/Components/NavLink.vue';
-import { Link, usePage, useForm } from '@inertiajs/vue3';
+import { Link, useForm } from '@inertiajs/vue3';
 // Head
 import { Head } from '@inertiajs/vue3';
 
-import { computed } from 'vue';
-
-
-const token = computed(() => usePage().props.auth.csfr_token);
 
 const showingNavigationDropdown = ref(false);
 // @vite('resources/js/app.js');

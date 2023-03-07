@@ -8,6 +8,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -91,17 +92,21 @@ class ProfileController extends Controller
             'performances' => 'nullable|string',
         ]);
 
+        $developer = Developer::find(Auth::id());
+
         if(isset($data['profile_path'])){
             $profile_path = Storage::put('uploads/profile_photo', $data['profile_path']);
             $data['profile_path'] = $profile_path;
+        }else{
+            $data['profile_path'] = $developer -> profile_path;
         }
         if(isset($data['profile_cv'])){
-            // $cv_path = Storage::put('uploads/profile_cv', $data['cv_path']);
-            $cv_path = Storage::disk('public/storage') -> put('uploads/profile_cv', $data['cv_path']);
+            $cv_path = Storage::put('uploads/profile_cv', $data['cv_path']);
             $data['cv_path'] = $cv_path;
+        }else{
+            $data['cv_path'] = $developer -> cv_path;
         }
-
-        $developer = Developer::find(Auth::id());
+        
 
         $developer -> update($data);
 
