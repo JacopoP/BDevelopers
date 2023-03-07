@@ -78,5 +78,36 @@ class ProfileController extends Controller
         $developerTechnology = $developer -> technologies();
         return Inertia::render('Profile/DeveloperSettings', compact('technologies', 'developer', 'developerTechnology'));
     }
+
+    public function DevStore(Request $request){
+        
+        $data = $request -> validate([
+            'address' => 'nullable|string',
+            'phone_number' => 'nullable|string|max:32',
+            'profile_path' => 'nullable|mimes:jpg,bmp,png,svg,jpeg,gif,webp|max:2048',
+            'cv_path' => 'nullable|mimes:pdf,docx,jpeg,png,jpg|max:2048',
+            'portfolio_url' => 'nullable|string',
+            'about_me' => 'nullable|string',
+            'performances' => 'nullable|string',
+        ]);
+
+        if(isset($data['profile_path'])){
+            $profile_path = Storage::put('uploads/profile_photo', $data['profile_path']);
+            $data['profile_path'] = $profile_path;
+        }
+        if(isset($data['profile_cv'])){
+            // $cv_path = Storage::put('uploads/profile_cv', $data['cv_path']);
+            $cv_path = Storage::disk('public/storage') -> put('uploads/profile_cv', $data['cv_path']);
+            $data['cv_path'] = $cv_path;
+        }
+
+        $developer = Developer::find(Auth::id());
+
+        $developer -> update($data);
+
+        $developer -> save();
+
+        return redirect() -> back();
+    }
     
 }

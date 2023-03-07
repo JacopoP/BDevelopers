@@ -3,20 +3,43 @@ import { ref } from 'vue';
 
 import ApplicationLogo from '@/Components/ApplicationLogo.vue';
 import Dropdown from '@/Components/Dropdown.vue';
+import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
+// NavLinks
 import DropdownLink from '@/Components/DropdownLink.vue';
 import NavLink from '@/Components/NavLink.vue';
-import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
-import { Link } from '@inertiajs/vue3';
+import { Link, usePage, useForm } from '@inertiajs/vue3';
+// Head
+import { Head } from '@inertiajs/vue3';
+
+import { computed } from 'vue';
+
+
+const token = computed(() => usePage().props.auth.csfr_token);
 
 const showingNavigationDropdown = ref(false);
 // @vite('resources/js/app.js');
-defineProps({
-    user: Object,
+
+const props = defineProps({
     technologies: Array,
+    developer: Object,
 });
+console.log(props);
+
+const form = useForm({
+    address: props.developer.address,
+    phone_number: props.developer.phone_number,
+    profile_path: null,
+    cv_path: null,
+    portfolio_url: props.developer.portfolio_url,
+    about_me: props.developer.about_me,
+    performances: props.developer.performances,
+   
+});
+console.log(form);
 </script>
     
 <template>
+    <Head title="Settings"/>
     <nav class="bg-white border-b border-gray-100">
         <!-- Primary Navigation Menu -->
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -121,15 +144,18 @@ defineProps({
 
     <div class="container d-flex justify-content-center mt-3">
         <div class="w-50">
-            <form class="d-flex flex-column gap-3" method="post"
-                action="{{ route('profile.dev.create') }}">
-                <input class="my_incput" type="text" name="address" placeholder="Address" value="">
-                <input class="my_incput" type="text" name="phone_number" placeholder="PhoneNumber">
-                <input type="file" name="profile_path" placeholder="Profile Image">
-                <input type="file" name="cv_path">
-                <input class="my_incput" type="text" name="portfolio_url" placeholder="portfolio URL">
-                <textarea class="my_incput" name="about_me" cols="30" rows="3" placeholder="Write about you"></textarea>
-                <textarea class="my_incput" name="performances" cols="30" rows="3" placeholder="Write here the jobs you offer"></textarea>
+            <form class="d-flex flex-column gap-3" method="post" enctype="multipart/form-data"
+                @submit.prevent="form.post(route('profile.dev.store'))">
+                <!-- CSRF -->
+                <!-- <input type="hidden" name="_token" :value="token"> -->
+
+                <input class="my_incput" type="text" name="address" placeholder="Address" v-model="form.address">
+                <input class="my_incput" type="text" name="phone_number" placeholder="PhoneNumber" v-model="form.phone_number">
+                <input type="file" name="profile_path" placeholder="Profile Image" @input="form.profile_path = $event.target.files[0]">
+                <input type="file" name="cv_path" @input="form.cv_path = $event.target.files[0]">
+                <input class="my_incput" type="text" name="portfolio_url" placeholder="portfolio URL" v-model="form.portfolio_url">
+                <textarea class="my_incput" name="about_me" cols="30" rows="3" placeholder="Write about you" v-model="form.about_me"></textarea>
+                <textarea class="my_incput" name="performances" cols="30" rows="3" placeholder="Write here the jobs you offer" v-model="form.performances"></textarea>
                 <div class="d-flex justify-content-center">
                     <input class="btn btn-primary" type="submit" value="SEND">
                 </div>

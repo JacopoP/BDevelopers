@@ -17,6 +17,7 @@ const form = useForm({
     last: user.last,
     email: user.email,
 });
+
 </script>
 
 <template>

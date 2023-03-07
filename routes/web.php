@@ -36,6 +36,8 @@ Route::middleware('auth')->group(function () {
 
     // DeveloperSettings
     Route::get('/developer', [ProfileController::class, 'DevCreate'])->name('profile.dev.create');
+
+    Route::post('/developer', [ProfileController::class, 'DevStore'])->name('profile.dev.store');
 });
 
 require __DIR__.'/auth.php';
