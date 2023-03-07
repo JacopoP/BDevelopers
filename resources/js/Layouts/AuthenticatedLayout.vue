@@ -105,7 +105,9 @@ const showingNavigationDropdown = ref(false);
                         </div>
 
                         <div class="mt-3 space-y-1">
-                            <ResponsiveNavLink :href="route('profile.edit')"> Developer Settings</ResponsiveNavLink>
+                            <ResponsiveNavLink :href="route('profile.dev.create', $page.props.auth.user)">
+                                Developer Settings
+                            </ResponsiveNavLink>
                             <ResponsiveNavLink :href="route('profile.edit')"> Profile </ResponsiveNavLink>
                             <ResponsiveNavLink :href="route('logout')" method="post" as="button">
                                 Log Out
