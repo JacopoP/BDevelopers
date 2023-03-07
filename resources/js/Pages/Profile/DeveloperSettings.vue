@@ -145,13 +145,13 @@ console.log(form);
                 <!-- CSRF -->
                 <!-- <input type="hidden" name="_token" :value="token"> -->
 
-                <input class="my_incput" type="text" name="address" placeholder="Address" v-model="form.address">
-                <input class="my_incput" type="text" name="phone_number" placeholder="PhoneNumber" v-model="form.phone_number">
+                <input class="my_input" type="text" name="address" placeholder="Address" v-model="form.address">
+                <input class="my_input" type="text" name="phone_number" placeholder="PhoneNumber" v-model="form.phone_number">
                 <input type="file" name="profile_path" placeholder="Profile Image" @input="form.profile_path = $event.target.files[0]">
                 <input type="file" name="cv_path" @input="form.cv_path = $event.target.files[0]">
-                <input class="my_incput" type="text" name="portfolio_url" placeholder="portfolio URL" v-model="form.portfolio_url">
-                <textarea class="my_incput" name="about_me" cols="30" rows="3" placeholder="Write about you" v-model="form.about_me"></textarea>
-                <textarea class="my_incput" name="performances" cols="30" rows="3" placeholder="Write here the jobs you offer" v-model="form.performances"></textarea>
+                <input class="my_input" type="text" name="portfolio_url" placeholder="portfolio URL" v-model="form.portfolio_url">
+                <textarea class="my_input" name="about_me" cols="30" rows="3" placeholder="Write about you" v-model="form.about_me"></textarea>
+                <textarea class="my_input" name="performances" cols="30" rows="3" placeholder="Write here the jobs you offer" v-model="form.performances"></textarea>
                 <div class="d-flex justify-content-center">
                     <input class="btn btn-primary" type="submit" value="SEND">
                 </div>
@@ -167,7 +167,7 @@ console.log(form);
     color: $brand_primary;
 }
 
-.my_incput{
+.my_input{
     border-radius: 30px;
     padding: 10px 20px;
 }
