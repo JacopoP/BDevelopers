@@ -128,7 +128,9 @@ console.log(form);
                 </div>
 
                 <div class="mt-3 space-y-1">
-                    <ResponsiveNavLink :href="route('profile.edit')"> Developer Settings</ResponsiveNavLink>
+                    <ResponsiveNavLink :href="route('profile.dev.create', $page.props.auth.user)">
+                        Developer Settings
+                    </ResponsiveNavLink>
                     <ResponsiveNavLink :href="route('profile.edit')"> Profile </ResponsiveNavLink>
                     <ResponsiveNavLink :href="route('logout')" method="post" as="button">
                         Log Out
@@ -142,19 +144,32 @@ console.log(form);
         <div class="w-50">
             <form class="d-flex flex-column gap-3" method="post" enctype="multipart/form-data"
                 @submit.prevent="form.post(route('profile.dev.store'))">
-                <!-- CSRF -->
-                <!-- <input type="hidden" name="_token" :value="token"> -->
 
-                <input class="my_input" type="text" name="address" placeholder="Address" v-model="form.address">
-                <input class="my_input" type="text" name="phone_number" placeholder="PhoneNumber" v-model="form.phone_number">
-                <input type="file" name="profile_path" placeholder="Profile Image" @input="form.profile_path = $event.target.files[0]">
-                <input type="file" name="cv_path" @input="form.cv_path = $event.target.files[0]">
-                <input class="my_input" type="text" name="portfolio_url" placeholder="portfolio URL" v-model="form.portfolio_url">
-                <textarea class="my_input" name="about_me" cols="30" rows="3" placeholder="Write about you" v-model="form.about_me"></textarea>
-                <textarea class="my_input" name="performances" cols="30" rows="3" placeholder="Write here the jobs you offer" v-model="form.performances"></textarea>
+                <!-- Address -->
+                <input class="rounded-pill px-4" type="text" name="address" placeholder="Address" v-model="form.address">
+
+                <!-- Phone -->
+                <input class="rounded-pill px-4" type="text" name="phone_number" placeholder="PhoneNumber" v-model="form.phone_number">
+
+                <!-- Profile IMG -->
+                <input class="form-control border-dark rounded-pill" type="file" name="profile_path" @input="form.profile_path = $event.target.files[0]" :value="form.profile_path">
+                <!-- Profile FILE -->
+                <input class="form-control border-dark rounded-pill" type="file" name="cv_path" @input="form.cv_path = $event.target.files[0]">
+
+                <!-- URL -->
+                <input class="rounded-pill px-4" type="text" name="portfolio_url" placeholder="portfolio URL" v-model="form.portfolio_url">
+
+                <!-- About YOU -->
+                <textarea class="rounded px-4" name="about_me" cols="30" rows="3" placeholder="Write about you" v-model="form.about_me"></textarea>
+
+                <!-- Performances -->
+                <textarea class="rounded px-4" name="performances" cols="30" rows="3" placeholder="Write here the jobs you offer" v-model="form.performances"></textarea>
+
+                <!-- Submit -->
                 <div class="d-flex justify-content-center">
                     <input class="btn btn-primary" type="submit" value="SEND">
                 </div>
+                
             </form>
         </div>
     </div>
@@ -165,10 +180,5 @@ console.log(form);
 
 .test {
     color: $brand_primary;
-}
-
-.my_input{
-    border-radius: 30px;
-    padding: 10px 20px;
 }
 </style>
