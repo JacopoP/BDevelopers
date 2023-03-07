@@ -59,8 +59,10 @@ class ProfileController extends Controller
         $user = $request->user();
 
         Auth::logout();
-
+        
+        $user -> developer() -> delete();
         $user->delete();
+
 
         $request->session()->invalidate();
         $request->session()->regenerateToken();
@@ -69,9 +71,12 @@ class ProfileController extends Controller
     }
 
     // DeveloperSettings
-    public function DevCreate($id){
-        $user = User::with('developer') -> find($id);
-        $technologies = Technology::all();
-        return Inertia::render('Profile/DeveloperSettings', ['user' => $user]);
+    public function DevCreate(){
+        // $user = User::with('developer') -> find($id);
+        $technologies = Technology::all();  
+        $developer = Developer::find(Auth::id());
+        $developerTechnology = $developer -> technologies();
+        return Inertia::render('Profile/DeveloperSettings', compact('technologies', 'developer', 'developerTechnology'));
     }
+    
 }
