@@ -100,7 +100,7 @@ class ProfileController extends Controller
         }else{
             $data['profile_path'] = $developer -> profile_path;
         }
-        if(isset($data['profile_cv'])){
+        if(isset($data['cv_path'])){
             $cv_path = Storage::put('uploads/profile_cv', $data['cv_path']);
             $data['cv_path'] = $cv_path;
         }else{
