@@ -16,7 +16,6 @@ return new class extends Migration
         Schema::create('technologies', function (Blueprint $table) {
             $table->id();
             $table->string('name', 64)->unique();
-            $table->string('version', 16)->nullable();
             $table->string('logo_path')->nullable();
             $table->text('description')->nullable();
             $table->timestamps();
