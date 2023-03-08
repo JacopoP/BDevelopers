@@ -14,15 +14,15 @@ const showingNavigationDropdown = ref(false);
 
 <template>
 
-<nav class="bg-white border-b border-gray-100">
+<nav class="bg-white border border-buttom border-secondary-subtle">
     <!-- Primary Navigation Menu -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between h-16">
+    <div class="container px-4">
+        <div class="d-flex justify-content-between" style="height: 60px;">
             <div class="flex">
                 <!-- Logo -->
-                <div class="shrink-0 flex items-center">
+                <div class="d-flex align-items-center">
                     <Link :href="route('dashboard')">
-                    <ApplicationLogo class="block h-9 w-auto fill-current text-gray-800" />
+                    <ApplicationLogo class="d-block" style="height: 40px;"/>
                     </Link>
                 </div>
 
