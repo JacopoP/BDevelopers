@@ -1,19 +1,10 @@
 <script setup>
-import { ref } from 'vue';
-
-import ApplicationLogo from '@/Components/ApplicationLogo.vue';
-import Dropdown from '@/Components/Dropdown.vue';
-import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
-// NavLinks
-import DropdownLink from '@/Components/DropdownLink.vue';
-import NavLink from '@/Components/NavLink.vue';
-import { Link, useForm } from '@inertiajs/vue3';
+import { useForm } from '@inertiajs/vue3';
 // Head
 import { Head } from '@inertiajs/vue3';
 
+import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 
-const showingNavigationDropdown = ref(false);
-// @vite('resources/js/app.js');
 
 const props = defineProps({
     technologies: Array,
@@ -36,128 +27,70 @@ const form = useForm({
     
 <template>
     <Head title="Settings"/>
-    <nav class="bg-white border-b border-gray-100">
-        <!-- Primary Navigation Menu -->
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16">
-                <div class="flex">
-                    <!-- Logo -->
-                    <div class="shrink-0 flex items-center">
-                        <Link :href="route('dashboard')">
-                        <ApplicationLogo class="block h-9 w-auto fill-current text-gray-800" />
-                        </Link>
-                    </div>
+    <AuthenticatedLayout>
+        <template #header>
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">Developer Settings</h2>
+        </template>
 
-                    <!-- Navigation Links -->
-                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                        <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
-                            Dashboard
-                        </NavLink>
-                    </div>
-                </div>
-
-                <div class="hidden sm:flex sm:items-center sm:ml-6">
-                    <!-- Settings Dropdown -->
-                    <div class="ml-3 relative">
-                        <Dropdown align="right" width="48">
-                            <template #trigger>
-                                <span class="inline-flex rounded-md">
-                                    <button type="button"
-                                        class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
-                                        {{ $page.props.auth.user.name }}
-
-                                        <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg"
-                                            viewBox="0 0 20 20" fill="currentColor">
-                                            <path fill-rule="evenodd"
-                                                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                                clip-rule="evenodd" />
-                                        </svg>
-                                    </button>
-                                </span>
-                            </template>
-
-                            <template #content>
-                                <DropdownLink :href="route('profile.dev.create', $page.props.auth.user)">
-                                    Developer Settings
-                                </DropdownLink>
-                                <DropdownLink :href="route('profile.edit')"> Profile </DropdownLink>
-                                <DropdownLink :href="route('logout')" method="post" as="button">
-                                    Log Out
-                                </DropdownLink>
-                            </template>
-                        </Dropdown>
-                    </div>
-                </div>
-
-                <!-- Hamburger -->
-                <div class="-mr-2 flex items-center sm:hidden">
-                    <button @click="showingNavigationDropdown = !showingNavigationDropdown"
-                        class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out">
-                        <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-                            <path :class="{
-                                hidden: showingNavigationDropdown,
-                                'inline-flex': !showingNavigationDropdown,
-                            }" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M4 6h16M4 12h16M4 18h16" />
-                            <path :class="{
-                                hidden: !showingNavigationDropdown,
-                                'inline-flex': showingNavigationDropdown,
-                            }" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M6 18L18 6M6 6l12 12" />
-                        </svg>
-                    </button>
+        <template #main>
+            <!-- Form -->
+            <div class="container d-flex justify-content-center my-5">
+                <div class="w-50">
+                    <form class="d-flex flex-column gap-3" method="post" enctype="multipart/form-data"
+                        @submit.prevent="form.post(route('profile.dev.store'))">
+        
+                        <!-- Address -->
+                        <div class="d-flex" v-if="form.address !== null">
+                            <label for="address" class="bg-primary rounded-pill px-3 py-1">Address</label>
+                        </div>
+                        <input id="address" class="rounded-pill px-4" type="text" name="address" placeholder="Address" v-model="form.address">
+        
+                        <!-- Phone -->
+                        <div class="d-flex" v-if="form.phone_number !== null">
+                            <label for="phone_number" class="bg-primary rounded-pill px-3 py-1">Phone Number</label>
+                        </div>
+                        <input id="phone_number" class="rounded-pill px-4" type="text" name="phone_number" placeholder="PhoneNumber" v-model="form.phone_number">
+        
+                        <!-- Profile IMG -->
+                        <div class="d-flex">
+                            <label for="profile_path" class="bg-primary rounded-pill px-3 py-1">Profile Image</label>
+                        </div>
+                        <input id="profile_path" class="form-control border-dark rounded-pill" type="file" name="profile_path" @input="form.profile_path = $event.target.files[0]" :value="form.profile_path">
+                        <!-- Profile FILE -->
+                        <div class="d-flex">
+                            <label for="cv_path" class="bg-primary rounded-pill px-3 py-1">CV</label>
+                        </div>
+                        <input id="cv_path" class="form-control border-dark rounded-pill" type="file" name="cv_path" @input="form.cv_path = $event.target.files[0]">
+        
+                        <!-- URL -->
+                        <div class="d-flex" v-if="form.portfolio_url !== null">
+                            <label for="portfolio_url" class="bg-primary rounded-pill px-3 py-1">URL</label>
+                        </div>
+                        <input id="portfolio_url" class="rounded-pill px-4" type="text" name="portfolio_url" placeholder="portfolio URL" v-model="form.portfolio_url">
+        
+                        <!-- About YOU -->
+                        <div class="d-flex" v-if="form.about_me !== null">
+                            <label for="about_me" class="bg-primary rounded-pill px-3 py-1">About ME</label>
+                        </div>
+                        <textarea id="about_me" class="rounded px-4" name="about_me" cols="30" rows="3" placeholder="Write about you" v-model="form.about_me"></textarea>
+        
+                        <!-- Performances -->
+                        <div class="d-flex" v-if="form.performances !== null">
+                            <label for="performances" class="bg-primary rounded-pill px-3 py-1">Performances</label>
+                        </div>
+                        <textarea id="performances" class="rounded px-4" name="performances" cols="30" rows="3" placeholder="Write here the jobs you offer" v-model="form.performances"></textarea>
+        
+                        <!-- Submit -->
+                        <div class="d-flex justify-content-center">
+                            <input class="btn btn-primary" type="submit" value="SEND">
+                        </div>
+                        
+                    </form>
                 </div>
             </div>
-        </div>
+        </template>
+    </AuthenticatedLayout>
 
-        <!-- Responsive Navigation Menu -->
-        <div :class="{ block: showingNavigationDropdown, hidden: !showingNavigationDropdown }" class="sm:hidden">
-            <div class="pt-2 pb-3 space-y-1">
-                <ResponsiveNavLink :href="route('dashboard')" :active="route().current('dashboard')">
-                    Dashboard
-                </ResponsiveNavLink>
-            </div>
-
-            <!-- Responsive Settings Options -->
-            <div class="pt-4 pb-1 border-t border-gray-200">
-                <div class="px-4">
-                    <div class="font-medium text-base text-gray-800">
-                        {{ $page.props.auth.user.name }}
-                    </div>
-                    <div class="font-medium text-sm text-gray-500">{{ $page.props.auth.user.email }}</div>
-                </div>
-
-                <div class="mt-3 space-y-1">
-                    <ResponsiveNavLink :href="route('profile.edit')"> Developer Settings</ResponsiveNavLink>
-                    <ResponsiveNavLink :href="route('profile.edit')"> Profile </ResponsiveNavLink>
-                    <ResponsiveNavLink :href="route('logout')" method="post" as="button">
-                        Log Out
-                    </ResponsiveNavLink>
-                </div>
-            </div>
-        </div>
-    </nav>
-
-    <div class="container d-flex justify-content-center mt-3">
-        <div class="w-50">
-            <form class="d-flex flex-column gap-3" method="post" enctype="multipart/form-data"
-                @submit.prevent="form.post(route('profile.dev.store'))">
-                <!-- CSRF -->
-                <!-- <input type="hidden" name="_token" :value="token"> -->
-
-                <input class="my_input" type="text" name="address" placeholder="Address" v-model="form.address">
-                <input class="my_input" type="text" name="phone_number" placeholder="PhoneNumber" v-model="form.phone_number">
-                <input type="file" name="profile_path" placeholder="Profile Image" @input="form.profile_path = $event.target.files[0]">
-                <input type="file" name="cv_path" @input="form.cv_path = $event.target.files[0]">
-                <input class="my_input" type="text" name="portfolio_url" placeholder="portfolio URL" v-model="form.portfolio_url">
-                <textarea class="my_input" name="about_me" cols="30" rows="3" placeholder="Write about you" v-model="form.about_me"></textarea>
-                <textarea class="my_input" name="performances" cols="30" rows="3" placeholder="Write here the jobs you offer" v-model="form.performances"></textarea>
-                <div class="d-flex justify-content-center">
-                    <input class="btn btn-primary" type="submit" value="SEND">
-                </div>
-            </form>
-        </div>
-    </div>
 </template>
 
 <style lang="scss">
@@ -165,10 +98,5 @@ const form = useForm({
 
 .test {
     color: $brand_primary;
-}
-
-.my_input{
-    border-radius: 30px;
-    padding: 10px 20px;
 }
 </style>
