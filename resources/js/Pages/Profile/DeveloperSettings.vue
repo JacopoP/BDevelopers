@@ -19,7 +19,7 @@ const props = defineProps({
     technologies: Array,
     developer: Object,
 });
-console.log(props);
+// console.log(props);
 
 const form = useForm({
     address: props.developer.address,
@@ -31,7 +31,7 @@ const form = useForm({
     performances: props.developer.performances,
    
 });
-console.log(form);
+// console.log(form);
 </script>
     
 <template>
