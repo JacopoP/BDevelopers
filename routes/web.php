@@ -40,4 +40,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/developer', [ProfileController::class, 'DevStore'])->name('profile.dev.store');
 });
 
-require __DIR__.'/auth.php';
+// developer show per UI
+Route::get('/show{id}', [ProfileController::class, 'DevShow'])->name('show');
+
+require __DIR__ . '/auth.php';

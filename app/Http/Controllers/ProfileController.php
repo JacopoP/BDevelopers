@@ -60,8 +60,8 @@ class ProfileController extends Controller
         $user = $request->user();
 
         Auth::logout();
-        
-        $user -> developer() -> delete();
+
+        $user->developer()->delete();
         $user->delete();
 
 
@@ -72,17 +72,19 @@ class ProfileController extends Controller
     }
 
     // DeveloperSettings
-    public function DevCreate(){
+    public function DevCreate()
+    {
         // $user = User::with('developer') -> find($id);
-        $technologies = Technology::all();  
+        $technologies = Technology::all();
         $developer = Developer::find(Auth::id());
-        $developerTechnology = $developer -> technologies();
+        $developerTechnology = $developer->technologies();
         return Inertia::render('Profile/DeveloperSettings', compact('technologies', 'developer', 'developerTechnology'));
     }
 
-    public function DevStore(Request $request){
-        
-        $data = $request -> validate([
+    public function DevStore(Request $request)
+    {
+
+        $data = $request->validate([
             'address' => 'nullable|string',
             'phone_number' => 'nullable|string|max:32',
             'profile_path' => 'nullable|mimes:jpg,bmp,png,svg,jpeg,gif,webp|max:2048',
@@ -94,25 +96,32 @@ class ProfileController extends Controller
 
         $developer = Developer::find(Auth::id());
 
-        if(isset($data['profile_path'])){
+        if (isset($data['profile_path'])) {
             $profile_path = Storage::put('uploads/profile_photo', $data['profile_path']);
             $data['profile_path'] = $profile_path;
-        }else{
-            $data['profile_path'] = $developer -> profile_path;
+        } else {
+            $data['profile_path'] = $developer->profile_path;
         }
-        if(isset($data['cv_path'])){
+        if (isset($data['cv_path'])) {
             $cv_path = Storage::put('uploads/profile_cv', $data['cv_path']);
             $data['cv_path'] = $cv_path;
-        }else{
-            $data['cv_path'] = $developer -> cv_path;
+        } else {
+            $data['cv_path'] = $developer->cv_path;
         }
-        
 
-        $developer -> update($data);
 
-        $developer -> save();
+        $developer->update($data);
 
-        return redirect() -> back();
+        $developer->save();
+
+        return redirect()->back();
     }
-    
+
+
+    public function DevShow()
+    {
+        $dato = [14];
+        // dd($data);
+        return Inertia::render('Profile/DevShow', $dato);
+    }
 }
