@@ -41,6 +41,6 @@ Route::middleware('auth')->group(function () {
 });
 
 // developer show per UI
-Route::get('/show{id}', [ProfileController::class, 'DevShow'])->name('show');
+Route::get('/show', [ProfileController::class, 'DevShow'])->name('show');
 
 require __DIR__ . '/auth.php';

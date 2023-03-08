@@ -120,8 +120,8 @@ class ProfileController extends Controller
 
     public function DevShow()
     {
-        $dato = [14];
-        // dd($data);
-        return Inertia::render('Profile/DevShow', $dato);
+        // $dato = [12];
+        // dd($dato);
+        return Inertia::render('Profile/DevShow');
     }
 }

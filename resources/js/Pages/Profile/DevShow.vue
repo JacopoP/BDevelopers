@@ -1,26 +1,30 @@
 <script setup>
 import { ref } from 'vue';
+import { useForm } from '@inertiajs/vue3';
+
+// tentativo di importare l'array "dato"
+const props = defineProps([
+    'message',
+    'review',
+    'rating',
+    'developer'
+]);
+
+console.log(props);
 
 
+const form = useForm({
+    address: props.developer.address,
 
-
-// Head
-import { Head } from '@inertiajs/vue3';
-
-
-
-
-const props = defineProps({
-    dato: Array,
 });
-// console.log(props);
 
 
-// console.log(form);
 </script>
     
 <template>
-    <div>{{ $page.props.dato }}</div>
+    <h1>qualcosa</h1>
+    <!-- non funzionante -->
+    <div>{{ form.address }}</div>
 </template>
 
 <style lang="scss">
