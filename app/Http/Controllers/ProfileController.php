@@ -126,9 +126,6 @@ class ProfileController extends Controller
 
         $developer = Developer::find(Auth::id());
 
-        $cv=$developer->cv_path;
-        $pfp=$developer->profile_path;
-
         if(isset($developer->cv_path)){
             Storage::delete([$developer->cv_path]);
         }
