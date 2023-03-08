@@ -34,6 +34,7 @@ const form = useForm({
 
         <template #main>
             <!-- Form -->
+            <a :href="route('profile.dev.delete')">X</a>
             <div class="container d-flex justify-content-center my-5">
                 <div class="w-50">
                     <form class="d-flex flex-column gap-3" method="post" enctype="multipart/form-data"

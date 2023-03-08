@@ -38,6 +38,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/developer', [ProfileController::class, 'DevCreate'])->name('profile.dev.create');
 
     Route::post('/developer', [ProfileController::class, 'DevStore'])->name('profile.dev.store');
+
+    Route::get('/developer/delete', [ProfileController::class, 'DevDelete'])->name('profile.dev.delete');
 });
 
 require __DIR__.'/auth.php';

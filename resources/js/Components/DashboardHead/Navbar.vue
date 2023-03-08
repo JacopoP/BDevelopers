@@ -27,14 +27,14 @@ const showingNavigationDropdown = ref(false);
                 </div>
 
                 <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                <div class="d-flex align-items-center px-4">
                     <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
                         Dashboard
                     </NavLink>
                 </div>
             </div>
 
-            <div class="hidden sm:flex sm:items-center sm:ml-6">
+            <div class="d-sm-flex align-items-sm-center">
                 <!-- Settings Dropdown -->
                 <div class="ml-3 relative">
                     <Dropdown align="right" width="48">

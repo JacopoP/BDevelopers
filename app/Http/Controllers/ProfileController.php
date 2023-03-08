@@ -107,12 +107,31 @@ class ProfileController extends Controller
             $data['cv_path'] = $developer -> cv_path;
         }
         
-
         $developer -> update($data);
 
-        $developer -> save();
-
-        return redirect() -> back();
+        return redirect() -> route('dashboard');
     }
+
+    public function DevDelete(){
+
+        $data = [
+            'address' => null,
+            'phone_number' => null,
+            'profile_path' => null,
+            'cv_path' => null,
+            'portfolio_url' => null,
+            'about_me' => null,
+            'performances' => null,
+        ];
+
+        $developer = Developer::find(Auth::id());
+
+        Storage::delete([($developer->cv_path), ($developer->profile_path)]); 
+        
+        $developer -> update($data);
+
+        return redirect() -> route('dashboard');
+    }
+    //in DevSettings <a :href="route('profile.dev.delete')">X</a>
     
 }
