@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\DeveloperController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -35,11 +36,11 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     // DeveloperSettings
-    Route::get('/developer', [ProfileController::class, 'DevCreate'])->name('profile.dev.create');
+    Route::get('/developer', [DeveloperController::class, 'DevCreate'])->name('profile.dev.create');
 
-    Route::post('/developer', [ProfileController::class, 'DevStore'])->name('profile.dev.store');
+    Route::post('/developer', [DeveloperController::class, 'DevStore'])->name('profile.dev.store');
 
-    Route::get('/developer/delete', [ProfileController::class, 'DevDelete'])->name('profile.dev.delete');
+    Route::get('/developer/delete', [DeveloperController::class, 'DevDelete'])->name('profile.dev.delete');
 });
 
 require __DIR__.'/auth.php';
