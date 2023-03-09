@@ -29,7 +29,11 @@ class ApiController extends Controller
         $developers=Developer::with('user', 'technologies', 'ratings', 'reviews', 'sponsors')
         ->whereHas('user', function($query) use ($data){
             $query->where('name', 'like', '%' .$data['nFilter'] .'%')
-                ->where('last', 'like', '%' .$data['lFilter'] .'%');
+                ->where('last', 'like', '%' .$data['lFilter'] .'%')
+                ->orWhere(function($query) use ($data) {
+                    $query->where('name', 'like', '%' .$data['lFilter'] .'%')
+                          ->where('last', 'like', '%' .$data['nFilter'] .'%');
+                });
         })
         ->limit(25)->get();
         return response()->json([
