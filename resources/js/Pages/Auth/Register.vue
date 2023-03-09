@@ -141,12 +141,12 @@ const submit = () => {
             <div class="d-flex align-items-center justify-content-end mt-4">
                 <Link
                     :href="route('login')"
-                    class="text-decoration-underline fs-6 text-secondary rounded"
+                    class="text-decoration-underline fs-6 text-secondary"
                 >
                     Already registered?
                 </Link>
 
-                <PrimaryButton class="ml-4" :class="{ 'text-opacity-50': form.processing }" :disabled="form.processing">
+                <PrimaryButton class="ms-4" :class="{ 'text-opacity-50': form.processing }" :disabled="form.processing">
                     Register
                 </PrimaryButton>
             </div>
