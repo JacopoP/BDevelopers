@@ -17,11 +17,14 @@ const form = useForm({
     password: '',
     remember: false,
 });
-
+// Regex
+const mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 const submit = () => {
-    form.post(route('login'), {
-        onFinish: () => form.reset('password'),
-    });
+    if(!(!form.email.match(mailformat)) && !((form.password.length < 8))){
+        form.post(route('login'), {
+            onFinish: () => form.reset('password'),
+        });
+    }
 };
 </script>
 
@@ -29,7 +32,7 @@ const submit = () => {
     <GuestLayout>
         <Head title="Log in" />
 
-        <div v-if="status" class="mb-4 font-medium text-sm text-green-600">
+        <div v-if="status" class="mb-4 text-success">
             {{ status }}
         </div>
 
@@ -40,7 +43,7 @@ const submit = () => {
                 <TextInput
                     id="email"
                     type="email"
-                    class="mt-1 block w-full"
+                    class="mt-1 w-100"
                     v-model="form.email"
                     required
                     autofocus
@@ -49,6 +52,12 @@ const submit = () => {
 
                 <InputError class="mt-2" :message="form.errors.email" />
             </div>
+            <!-- Email Verify -->
+            <div v-show="!form.email.match(mailformat) && form.email.length" class="mt-2 shadow bg-secondary rounded px-3 py-2">
+                <span class="text-light fw-semibold">
+                    Email format not valid
+                </span> 
+            </div>
 
             <div class="mt-4">
                 <InputLabel for="password" value="Password" />
@@ -56,7 +65,7 @@ const submit = () => {
                 <TextInput
                     id="password"
                     type="password"
-                    class="mt-1 block w-full"
+                    class="mt-1 w-100"
                     v-model="form.password"
                     required
                     autocomplete="current-password"
@@ -64,24 +73,30 @@ const submit = () => {
 
                 <InputError class="mt-2" :message="form.errors.password" />
             </div>
+            <!-- Password Min -->
+            <div v-show="(form.password.length < 8) && form.password.length" class="mt-2 shadow bg-danger rounded px-3 py-2">
+                <span class="text-light fw-semibold">
+                    The Password must have at least 8 characters
+                </span> 
+            </div>
 
-            <div class="block mt-4">
-                <label class="flex items-center">
+            <div class="mt-4">
+                <label class="d-flex align-items-center">
                     <Checkbox name="remember" v-model:checked="form.remember" />
-                    <span class="ml-2 text-sm text-gray-600">Remember me</span>
+                    <span class="ms-2 fs-6 text-secondary">Remember me</span>
                 </label>
             </div>
 
-            <div class="flex items-center justify-end mt-4">
+            <div class="d-flex align-items-center justify-content-end mt-4">
                 <Link
                     v-if="canResetPassword"
                     :href="route('password.request')"
-                    class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                    class="text-decoration-underline fs-6 text-secondary"
                 >
                     Forgot your password?
                 </Link>
 
-                <PrimaryButton class="ml-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
+                <PrimaryButton class="ms-4" :class="{ 'text-opacity-50': form.processing }" :disabled="form.processing">
                     Log in
                 </PrimaryButton>
             </div>
