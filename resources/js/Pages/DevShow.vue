@@ -1,11 +1,8 @@
 <script setup>
-import { ref } from 'vue';
 import { useForm } from '@inertiajs/vue3';
-
 // tentativo di importare l'array "dato"
 const props = defineProps([
     'developer',
-    'review'
 ]);
 
 console.log(props);
@@ -16,17 +13,18 @@ const dati = {
     last: props.developer.user.last,
     address: props.developer.address,
     profile_path: props.developer.profile_path,
-    review: props.review.text,
-
-
 };
 
 const form = useForm({
-
-    text: props.review.text,
-
+    text: null,
+    full_name: null,
 });
 
+function submit() {
+    // if (form.text !== null) {
+    form.post(route('review.store', props.developer.id))
+    // }
+}
 
 </script>
     
@@ -38,18 +36,16 @@ const form = useForm({
         <li>profile_path: {{ dati.profile_path }}</li>
     </ul>
 
-    <form action="" @submit.prevent="form.post(route('ReviewStore', 'id'))">
-        <!-- 
-                è vero ma attualmente non è molto determinante
-            
-                -->
-        <label for="review">review</label>
+    <form method="post" @submit.prevent="form.post(route('review.store', developer.id))">
+        <label for="text">review</label>
         <br>
-        <textarea name="review" v-model="dati.review"></textarea>
+        <textarea id="text" v-model="form.text"></textarea>
         <br>
+        <label for="full_name">If u want to add your name</label>
+        <br>
+        <input type="text" v-model="form.full_name">
         <input type="submit">
     </form>
-    <div>review: {{ dati.review }}</div>
 </template>
 
 <style lang="scss">
