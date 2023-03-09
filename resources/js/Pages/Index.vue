@@ -17,6 +17,11 @@ export default {
     methods: {
         goFilter: function () {
             console.log(this.nameFilter, this.ratingFilter, this.reviewFilter, this.techFilter);
+            axios.get(api + 'search' + this.nameFilter + this.ratingFilter + this.reviewFilter + this.techFilter)
+                .then((res) => {
+                    this.developers = res.data.response.developers
+                })
+                .catch((err) => console.log(err));
         }
     },
     mounted() {
