@@ -39,13 +39,17 @@ const form = useForm({
     </ul>
 
     <form action="" @submit.prevent="form.post(route('ReviewStore', 'id'))">
+        <!-- 
+                è vero ma attualmente non è molto determinante
+            
+                -->
         <label for="review">review</label>
         <br>
         <textarea name="review" v-model="dati.review"></textarea>
         <br>
         <input type="submit">
     </form>
-    <li>review: {{ dati.review }}</li>
+    <div>review: {{ dati.review }}</div>
 </template>
 
 <style lang="scss">
