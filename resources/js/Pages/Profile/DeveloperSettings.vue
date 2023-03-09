@@ -4,13 +4,14 @@ import { useForm } from '@inertiajs/vue3';
 import { Head } from '@inertiajs/vue3';
 
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
+import { ref } from 'vue';
 
 
 const props = defineProps({
     technologies: Array,
     developer: Object,
+    developerTechnology: Array,
 });
-// console.log(props);
 
 const form = useForm({
     address: props.developer.address,
@@ -20,8 +21,11 @@ const form = useForm({
     portfolio_url: props.developer.portfolio_url,
     about_me: props.developer.about_me,
     performances: props.developer.performances,
-
+    developer_technologies: ref(props.developerTechnology ? props.developerTechnology.map(tech => {
+        return tech.id;
+    }) : []),
 });
+
 // console.log(form);
 </script>
     
@@ -88,6 +92,57 @@ const form = useForm({
                         <textarea id="performances" class="rounded px-4" name="performances" cols="30" rows="3"
                             placeholder="Write here the jobs you offer" v-model="form.performances"></textarea>
 
+
+                        <!-- Technologies section-->
+                        <section class="technology">
+
+                            <!-- subtitle -->
+                            <h5 class="text-center mb-2">
+                                Technologies
+                            </h5>
+
+                            <!-- section subheader -->
+                            <div class="text-center mb-3">
+                                <!-- known technologies list -->
+                                <small v-if="form.developer_technologies.length" class="text-center text-secondary">
+                                    <template v-for="(tech, counter) in form.developer_technologies" class="">
+                                        <template v-if="counter > 0">
+                                            &#44;
+                                        </template>
+                                        {{ technologies[tech].name }}
+                                    </template>
+                                </small>
+
+                                <!-- placeholder for technologies list (in case no tech has been chosen) -->
+                                <small v-else class="text-center text-secondary">
+                                    Really? Don't you know any technology? 🤨
+                                </small>
+                            </div>
+
+                            <!-- checkboxes (with GRID layout) -->
+                            <div class="container">
+                                <div class="row justify-content-evenly">
+
+                                    <!-- single tech icon -->
+                                    <div class="col-3 form-check d-flex align-items-center" v-for="tech in technologies">
+
+                                        <!-- hidden (d-none) checkbox to make the checking system work -->
+                                        <input class="form-check-input d-none" type="checkbox" :value="tech.id"
+                                            :id="tech.id" v-model="form.developer_technologies">
+
+                                        <!-- fake checkbox made with icon (visually toggled with dynamic class) -->
+                                        <label class="form-check-label " :for="tech.id">
+                                            <img :src="tech.logo_path" alt="" class="tech-icon"
+                                                :class="{ disabled: !form.developer_technologies.includes(tech.id) }">
+                                        </label>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </section>
+
+
                         <!-- Submit -->
                         <div class="d-flex justify-content-center">
                             <input class="btn btn-primary" type="submit" value="SEND">
@@ -100,8 +155,33 @@ const form = useForm({
     </AuthenticatedLayout>
 </template>
 
-<style lang="scss">@use 'resources/sass/general.scss' as *;
+<style lang="scss">
+@use 'resources/sass/general.scss' as *;
 
 .test {
     color: $brand_primary;
-}</style>
+}
+
+.tech-icon {
+    transition: all .15s ease-in-out;
+
+    &:hover {
+        filter: grayscale(15%) drop-shadow(0 0 1rem crimson);
+        transform: translateY(-5px);
+    }
+}
+
+.disabled {
+    filter: grayscale(100%);
+    opacity: .5;
+    transition: all .15s ease-in-out;
+    transform: scale(0.7);
+
+
+    &:hover {
+        filter: grayscale(85%) drop-shadow(0 0 1rem #2bce82);
+        opacity: .7;
+        transform: translateY(-5px);
+    }
+}
+</style>
