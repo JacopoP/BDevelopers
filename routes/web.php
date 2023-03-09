@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use App\Http\Controllers\Emacontroller;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,6 +42,9 @@ Route::middleware('auth')->group(function () {
 });
 
 // developer show per UI
-Route::get('/show', [ProfileController::class, 'DevShow'])->name('show');
+Route::get('/show{id}', [Emacontroller::class, 'DevShow'])->name('show');
+
+Route::get('/singleDev{developer}', [Emacontroller::class, 'singleDev'])
+    ->name('singleDev');
 
 require __DIR__ . '/auth.php';

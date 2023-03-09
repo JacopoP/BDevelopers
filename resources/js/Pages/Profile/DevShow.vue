@@ -4,16 +4,15 @@ import { useForm } from '@inertiajs/vue3';
 
 // tentativo di importare l'array "dato"
 const props = defineProps([
-    'message',
-    'review',
-    'rating',
     'developer'
 ]);
 
 console.log(props);
 
 
-const form = useForm({
+const forms = useForm({
+    name: props.developer.user.name,
+    last: props.developer.user.last,
     address: props.developer.address,
 
 });
@@ -22,9 +21,12 @@ const form = useForm({
 </script>
     
 <template>
-    <h1>qualcosa</h1>
-    <!-- non funzionante -->
-    <div>{{ form.address }}</div>
+    <h1>Developers</h1>
+    <ul>
+        <li>Cognome: {{ forms.last }}</li>
+        <li>Nome: {{ forms.name }}</li>
+        <li>Indirizzo: {{ forms.address }}</li>
+    </ul>
 </template>
 
 <style lang="scss">
