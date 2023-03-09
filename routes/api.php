@@ -20,3 +20,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('v1/index', [ApiController::class, 'index']);
+
+Route::post('v1/search', [ApiController::class, 'filter']);

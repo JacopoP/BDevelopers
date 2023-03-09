@@ -9,15 +9,24 @@ export default {
         return {
             developers: Object,
             nameFilter: '',
-            ratingFilter: Number,
-            reviewFilter: Number,
-            techFilter: [],
+            post: {
+                nFilter: '',
+                lFilter: '',
+                ratingFilter: null,
+                reviewFilter: null,
+                techFilter: [],
+            }
         }
     },
     methods: {
         goFilter: function () {
-            console.log(this.nameFilter, this.ratingFilter, this.reviewFilter, this.techFilter);
-            axios.get(api + 'search' + this.nameFilter + this.ratingFilter + this.reviewFilter + this.techFilter)
+            let textArray = this.nameFilter.split(' ');
+            console.log(textArray);
+            this.post.nFilter = textArray[0];
+            if (textArray.length >= 1) { textArray.shift() };
+            this.post.lFilter = textArray.join(' ');
+            console.log(this.post);
+            axios.post(api + 'search', this.post)
                 .then((res) => {
                     this.developers = res.data.response.developers
                 })
@@ -38,9 +47,9 @@ export default {
     <form @submit.prevent="goFilter">
         <h2>Filters</h2>
         <label for="nameFilter">Name</label>
-        <input type="text" v-model="nameFilter" name="nameFilter" placeholder="name">
+        <input type="text" v-model="this.nameFilter" name="nameFilter" placeholder="name">
         <label for="ratingFilter">Raitings avarage</label>
-        <select v-model="ratingFilter" id="raitingFilter">
+        <select v-model="this.post.ratingFilter" id="raitingFilter">
             <option :value="null">Reset</option>
             <option value="1">1+</option>
             <option value="2">2+</option>
@@ -48,7 +57,7 @@ export default {
             <option value="4">4+</option>
         </select>
         <label for="reviewFilter">Review number</label>
-        <select v-model="reviewFilter" id="raitingFilter">
+        <select v-model="this.post.reviewFilter" id="raitingFilter">
             <option :value="null">Reset</option>
             <option value="5">5+</option>
             <option value="10">10+</option>
@@ -57,7 +66,7 @@ export default {
         </select>
         <h2>Technology filter</h2>
         <div v-for="technology in this.technologies">
-            <input type="checkbox" v-model="this.techFilter" :value="technology.id">
+            <input type="checkbox" v-model="this.post.techFilter" :value="technology.id">
             <label for="techFilter[]">{{ technology.name }}</label>
         </div>
         <input type="submit" value="Filter">

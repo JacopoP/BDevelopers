@@ -21,6 +21,22 @@ class ApiController extends Controller
             'response' => [
                 'developers' => $developers,
             ]
-            ]);
+        ]);
+    }
+
+    public function filter(Request $request){
+        $data = $request->all();
+        $developers=Developer::with('user', 'technologies', 'ratings', 'reviews', 'sponsors')
+        ->whereHas('user', function($query) use ($data){
+            $query->where('name', 'like', '%' .$data['nFilter'] .'%')
+                ->where('last', 'like', '%' .$data['lFilter'] .'%');
+        })
+        ->limit(25)->get();
+        return response()->json([
+            'success' => true,
+            'response' => [
+                'developers' => $developers,
+            ]
+        ]);
     }
 }
