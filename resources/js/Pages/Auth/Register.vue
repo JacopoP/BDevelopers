@@ -14,6 +14,7 @@ const form = useForm({
     password_confirmation: '',
     terms: false,
 });
+// Regex
 const mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 const submit = () => {
     if((form.password == form.password_confirmation) && !(form.name.length > 64 || (form.name.length < 2)) && !(form.last.length > 64 || (form.last.length < 2)) && !(!form.email.match(mailformat)) && !((form.password.length < 8))){
