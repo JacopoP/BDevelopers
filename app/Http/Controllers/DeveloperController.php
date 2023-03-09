@@ -21,12 +21,14 @@ class DeveloperController extends Controller
             // $user = User::with('developer') -> find($id);
             $technologies = Technology::all();  
             $developer = Developer::find(Auth::id());
-            $developerTechnology = $developer -> technologies();
+            $developerTechnology = $developer -> technologies() -> get();
+
             return Inertia::render('Profile/DeveloperSettings', compact('technologies', 'developer', 'developerTechnology'));
         }
     
         public function DevStore(Request $request){
             
+            // Run validations
             $data = $request -> validate([
                 'address' => 'nullable|string',
                 'phone_number' => 'nullable|string|max:32',
@@ -37,8 +39,10 @@ class DeveloperController extends Controller
                 'performances' => 'nullable|string',
             ]);
     
+            // Get currently logged developer
             $developer = Developer::find(Auth::id());
     
+            // Files update logics
             if(isset($data['profile_path'])){
                 $profile_path = Storage::put('uploads/profile_photo', $data['profile_path']);
                 $data['profile_path'] = $profile_path;
@@ -53,6 +57,9 @@ class DeveloperController extends Controller
             }
             
             $developer -> update($data);
+
+            // Technologies update
+            $developer -> technologies() -> sync($request->developer_technologies);
     
             return redirect() -> route('dashboard');
         }
