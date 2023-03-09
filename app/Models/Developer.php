@@ -2,8 +2,11 @@
 
 namespace App\Models;
 
+use DateInterval;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use DateTime;
+use Illuminate\Support\Facades\Auth;
 
 class Developer extends Model
 {
@@ -27,11 +30,6 @@ class Developer extends Model
     {
         return $this->belongsToMany(Technology::class);
     }
-    public function sponsors()
-    {
-        // return $this->belongsToMany(Sponsor::class);
-        return $this->belongsToMany(Sponsor::class)->withPivot('date_start', 'date_end')->withTimestamps();
-    }
     public function messages()
     {
         return $this->hasMany(Message::class);
@@ -43,5 +41,30 @@ class Developer extends Model
     public function ratings()
     {
         return $this->belongsToMany(Rating::class);
+    }
+
+
+    // SPONSORSHIPS SECTION
+    // relation
+    public function sponsors()
+    {
+        // return $this->belongsToMany(Sponsor::class);
+        return $this->belongsToMany(Sponsor::class)->withPivot('date_start', 'date_end')->withTimestamps();
+    }
+
+    /**
+     * Add a sponsorship to the logged developer
+     */
+    public function addSponsorship(DateTime $start_date, $tier_id)
+    {
+        // Add date
+        $end_date = clone($start_date);
+        $end_date->add(new DateInterval('PT' . Sponsor::find($tier_id)['length'] . 'H'));
+
+        // Add sposorship
+        $this->sponsors()->attach($tier_id, [
+            'date_start' => $start_date,
+            'date_end' => $end_date
+        ]);
     }
 }

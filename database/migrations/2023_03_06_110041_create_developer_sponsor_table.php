@@ -14,8 +14,8 @@ return new class extends Migration
     public function up()
     {
         Schema::create('developer_sponsor', function (Blueprint $table) {
-            $table -> date('date_start');
-            $table -> date('date_end');
+            $table -> dateTime('date_start');
+            $table -> dateTime('date_end');
             $table->timestamps();
         });
     }
