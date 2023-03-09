@@ -16,9 +16,11 @@ const form = useForm({
 });
 
 const submit = () => {
-    form.post(route('register'), {
-        onFinish: () => form.reset('password', 'password_confirmation'),
-    });
+    if(form.password == form.password_confirmation){
+        form.post(route('register'), {
+            onFinish: () => form.reset('password', 'password_confirmation'),
+        });
+    }
 };
 </script>
 
@@ -116,5 +118,8 @@ const submit = () => {
                 </PrimaryButton>
             </div>
         </form>
+        <div v-show="form.password != form.password_confirmation" class="bg-danger px-3 py-2">
+            Password no match
+        </div>
     </GuestLayout>
 </template>
