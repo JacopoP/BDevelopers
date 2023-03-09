@@ -17,10 +17,10 @@ return new class extends Migration
             $table->id();
 
             // Review
-            $table->date('date');
+            $table->date('date')->default(today());
             $table->text('text');
             $table->string('full_name', 128)->nullable();
-            
+
             $table->timestamps();
         });
     }

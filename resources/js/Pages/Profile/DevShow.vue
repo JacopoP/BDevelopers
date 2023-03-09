@@ -4,16 +4,26 @@ import { useForm } from '@inertiajs/vue3';
 
 // tentativo di importare l'array "dato"
 const props = defineProps([
-    'developer'
+    'developer',
+    'review'
 ]);
 
 console.log(props);
 
 
-const forms = useForm({
+const dati = {
     name: props.developer.user.name,
     last: props.developer.user.last,
     address: props.developer.address,
+    profile_path: props.developer.profile_path,
+    review: props.review.text,
+
+
+};
+
+const form = useForm({
+
+    text: props.review.text,
 
 });
 
@@ -23,10 +33,19 @@ const forms = useForm({
 <template>
     <h1>Developers</h1>
     <ul>
-        <li>Cognome: {{ forms.last }}</li>
-        <li>Nome: {{ forms.name }}</li>
-        <li>Indirizzo: {{ forms.address }}</li>
+        <li>Cognome: {{ dati.last }}</li>
+        <li>Nome: {{ dati.name }}</li>
+        <li>profile_path: {{ dati.profile_path }}</li>
     </ul>
+
+    <form action="" @submit.prevent="form.post(route('ReviewStore', 'id'))">
+        <label for="review">review</label>
+        <br>
+        <textarea name="review" v-model="dati.review"></textarea>
+        <br>
+        <input type="submit">
+    </form>
+    <li>review: {{ dati.review }}</li>
 </template>
 
 <style lang="scss">
