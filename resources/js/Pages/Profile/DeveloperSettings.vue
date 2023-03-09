@@ -6,6 +6,9 @@ import { Head } from '@inertiajs/vue3';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { ref } from 'vue';
 
+import ColorThief from 'colorthief/dist/color-thief.mjs';
+const CORS_PROXY = 'https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?container=focus&refresh=2592000&url=';
+
 
 const props = defineProps({
     technologies: Array,
@@ -26,7 +29,38 @@ const form = useForm({
     }) : []),
 });
 
-// console.log(form);
+const CT = new ColorThief();
+
+// const img_shades = [];
+props.technologies.forEach((technology) => {
+
+    // retrieve img
+    const img = new Image();
+    img.crossOrigin = 'Anonymous';
+    img.src = CORS_PROXY + encodeURIComponent(technology.logo_path);
+
+    // wait for img to load
+    img.addEventListener('load', () => {
+
+        // extract dominant color
+        let c = CT.getColor(img);
+
+        function setShade(c){
+            document.getElementById('img-' + technology.id).style.filter = "drop-shadow(0 0 1rem rgb(" + c[0] + "," + c[1] + "," + c[2] + "))";
+            // "drop-shadow(0 0 1rem " + c + ")";
+        }
+
+        if(document.readyState !== 'loading'){
+            setShade(c);
+            return;
+        }
+        document.addEventListener('DOMContentLoaded', setShade(color));
+    });
+
+});
+/* for (let technology of props.technologies) {
+} */
+
 </script>
     
 <template>
@@ -133,7 +167,7 @@ const form = useForm({
 
                                         <!-- fake checkbox made with icon (visually toggled with dynamic class) -->
                                         <label class="form-check-label " :for="tech.id">
-                                            <img :src="tech.logo_path" alt="" class="tech-icon"
+                                            <img :src="tech.logo_path" alt="" class="tech-icon" :id="'img-' + tech.id"
                                                 :class="{ disabled: !form.developer_technologies.includes(tech.id) }">
                                         </label>
 
@@ -167,7 +201,7 @@ const form = useForm({
     transition: all .15s ease-in-out;
 
     &:hover {
-        filter: grayscale(15%) drop-shadow(0 0 1rem crimson);
+        filter: grayscale(15%);
         transform: translateY(-5px);
     }
 }

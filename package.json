@@ -20,6 +20,8 @@
         "vue": "^3.2.41"
     },
     "dependencies": {
-        "sass": "^1.58.3"
+        "colorthief": "^2.4.0",
+        "sass": "^1.58.3",
+        "vue-color-thief": "^0.0.1"
     }
 }
