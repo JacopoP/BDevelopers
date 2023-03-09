@@ -16,7 +16,6 @@ return new class extends Migration {
             $table->id();
 
             // Review
-            $table->date('date');
             $table->text('text');
             $table->string('full_name', 128)->nullable();
 
