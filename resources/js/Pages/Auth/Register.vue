@@ -35,7 +35,7 @@ const submit = () => {
                 <TextInput
                     id="name"
                     type="text"
-                    class="mt-1 block w-full"
+                    class="mt-1 w-100"
                     v-model="form.name"
                     required
                     autofocus
@@ -44,13 +44,13 @@ const submit = () => {
 
                 <InputError class="mt-2" :message="form.errors.name" />
             </div>
-            <div>
+            <div class="mt-4">
                 <InputLabel for="last" value="Last Name" />
 
                 <TextInput
                     id="last"
                     type="text"
-                    class="mt-1 block w-full"
+                    class="mt-1 w-100"
                     v-model="form.last"
                     required
                     autofocus
@@ -66,7 +66,7 @@ const submit = () => {
                 <TextInput
                     id="email"
                     type="email"
-                    class="mt-1 block w-full"
+                    class="mt-1 w-100"
                     v-model="form.email"
                     required
                     autocomplete="username"
@@ -81,7 +81,7 @@ const submit = () => {
                 <TextInput
                     id="password"
                     type="password"
-                    class="mt-1 block w-full"
+                    class="mt-1 w-100"
                     v-model="form.password"
                     required
                     autocomplete="new-password"
@@ -96,7 +96,7 @@ const submit = () => {
                 <TextInput
                     id="password_confirmation"
                     type="password"
-                    class="mt-1 block w-full"
+                    class="mt-1 w-100"
                     v-model="form.password_confirmation"
                     required
                     autocomplete="new-password"
@@ -104,22 +104,26 @@ const submit = () => {
 
                 <InputError class="mt-2" :message="form.errors.password_confirmation" />
             </div>
+            
+            <!-- Password Verify -->
+            <div v-show="form.password != form.password_confirmation" class="mt-2 shadow bg-danger rounded px-3 py-2">
+                <span class="text-light fw-semibold">
+                    Password no match
+                </span> 
+            </div>
 
-            <div class="flex items-center justify-end mt-4">
+            <div class="d-flex align-items-center justify-content-end mt-4">
                 <Link
                     :href="route('login')"
-                    class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                    class="text-decoration-underline fs-6 text-secondary rounded"
                 >
                     Already registered?
                 </Link>
 
-                <PrimaryButton class="ml-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
+                <PrimaryButton class="ml-4" :class="{ 'text-opacity-50': form.processing }" :disabled="form.processing">
                     Register
                 </PrimaryButton>
             </div>
         </form>
-        <div v-show="form.password != form.password_confirmation" class="bg-danger px-3 py-2">
-            Password no match
-        </div>
     </GuestLayout>
 </template>
