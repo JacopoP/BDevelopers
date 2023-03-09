@@ -105,11 +105,12 @@ const form = useForm({
                             <div class="text-center mb-3">
                                 <!-- known technologies list -->
                                 <small v-if="form.developer_technologies.length" class="text-center text-secondary">
-                                    <template v-for="(tech, counter) in form.developer_technologies" class="">
+                                    <template v-for="(id, counter) in form.developer_technologies" class="">
                                         <template v-if="counter > 0">
                                             &#44;
                                         </template>
-                                        {{ technologies[tech].name }}
+                                        <!-- {{ technologies[id-1].name }} -->
+                                        {{ technologies.find(technology => technology.id == id).name }}
                                     </template>
                                 </small>
 
