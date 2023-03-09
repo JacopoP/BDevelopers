@@ -14,9 +14,9 @@ const form = useForm({
     password_confirmation: '',
     terms: false,
 });
-
+const mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 const submit = () => {
-    if(form.password == form.password_confirmation){
+    if((form.password == form.password_confirmation) && !(form.name.length > 64 || (form.name.length < 2)) && !(form.last.length > 64 || (form.last.length < 2)) && !(!form.email.match(mailformat)) && !((form.password.length < 8))){
         form.post(route('register'), {
             onFinish: () => form.reset('password', 'password_confirmation'),
         });
@@ -44,6 +44,13 @@ const submit = () => {
 
                 <InputError class="mt-2" :message="form.errors.name" />
             </div>
+            <!-- Last Verify -->
+            <div v-show="form.name.length > 64 || (form.name.length < 2 && form.name.length)" class="mt-2 shadow bg-warning rounded px-3 py-2">
+                <span class="text-dark fw-semibold">
+                    Must be between 2 and 64 characters
+                </span> 
+            </div>
+
             <div class="mt-4">
                 <InputLabel for="last" value="Last Name" />
 
@@ -58,6 +65,12 @@ const submit = () => {
                 />
 
                 <InputError class="mt-2" :message="form.errors.last" />
+            </div>
+            <!-- Last Verify -->
+            <div v-show="form.last.length > 64 || (form.last.length < 2 && form.last.length)" class="mt-2 shadow bg-warning rounded px-3 py-2">
+                <span class="text-dark fw-semibold">
+                    Must be between 2 and 64 characters
+                </span> 
             </div>
 
             <div class="mt-4">
@@ -74,6 +87,12 @@ const submit = () => {
 
                 <InputError class="mt-2" :message="form.errors.email" />
             </div>
+            <!-- Email Verify -->
+            <div v-show="!form.email.match(mailformat) && form.email.length" class="mt-2 shadow bg-secondary rounded px-3 py-2">
+                <span class="text-light fw-semibold">
+                    Email format not valid
+                </span> 
+            </div>
 
             <div class="mt-4">
                 <InputLabel for="password" value="Password" />
@@ -88,6 +107,12 @@ const submit = () => {
                 />
 
                 <InputError class="mt-2" :message="form.errors.password" />
+            </div>
+            <!-- Password Min -->
+            <div v-show="(form.password.length < 8) && form.password.length" class="mt-2 shadow bg-danger rounded px-3 py-2">
+                <span class="text-light fw-semibold">
+                    The Password must have at least 8 characters
+                </span> 
             </div>
 
             <div class="mt-4">
@@ -108,7 +133,7 @@ const submit = () => {
             <!-- Password Verify -->
             <div v-show="form.password != form.password_confirmation" class="mt-2 shadow bg-danger rounded px-3 py-2">
                 <span class="text-light fw-semibold">
-                    Password no match
+                    Password not matching
                 </span> 
             </div>
 
