@@ -21,11 +21,10 @@ export default {
     methods: {
         goFilter: function () {
             let textArray = this.nameFilter.split(' ');
-            console.log(textArray);
             this.post.nFilter = textArray[0];
             if (textArray.length >= 1) { textArray.shift() };
             this.post.lFilter = textArray.join(' ');
-            console.log(this.post);
+
             axios.post(api + 'search', this.post)
                 .then((res) => {
                     this.developers = res.data.response.developers

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 // Models
 use App\Models\User;
@@ -26,7 +27,7 @@ class ApiController extends Controller
 
     public function filter(Request $request){
         $data = $request->all();
-
+        
         // filter per name
         $developers=Developer::with('user', 'technologies', 'ratings', 'reviews', 'sponsors')
         ->whereHas('user', function($query) use ($data){
@@ -45,9 +46,11 @@ class ApiController extends Controller
             forEach($developer->technologies as $technology){
                 $techIds[]=$technology->id;
             }
-            // $reviewN = Review::groupBy('developer_id')->having('developer_id', '=', $developer->id)->count();
+            $reviews = Review::groupBy('developer_id')->having('developer_id', '=', $developer->id)->select('developer_id', DB::raw('count(*) as total'))->get();
+            if(count($reviews) > 0)  $reviewN = $reviews[0]->total;
+
             if (count(array_intersect($techIds, $data['techFilter'])) != count($data['techFilter'])) $delete = true;
-            // if($reviewN < $data['reviewFilter']) $delete= true;
+            if($reviewN < $data['reviewFilter']) $delete= true;
             if($delete) unset($developers[$index]);
         }
         return response()->json([
