@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DeveloperController;
+use App\Http\Controllers\IndexController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -43,6 +44,8 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/developer/delete', [DeveloperController::class, 'DevDelete'])->name('profile.dev.delete');
 });
+
+Route::get('/index', [IndexController::class, 'goToIndex'])->name('index');
 
 // developer show per UI
 Route::get('/show{id}', [Emacontroller::class, 'DevShow'])->name('show');
