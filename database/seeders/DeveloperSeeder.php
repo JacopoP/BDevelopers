@@ -44,8 +44,6 @@ class DeveloperSeeder extends Seeder
             $new_developer->technologies()->attach($technologies);
 
             // Sponsor
-            /* $sponsors = Sponsor::inRandomOrder() -> limit(rand(1,3)) -> get();
-            $new_developer -> sponsors() -> attach($sponsors, ['date_start' => fake()->date(), 'date_end' => fake()->date()]); */
             $spon_number = rand(1, 5);
             for ($i = 0; $i < $spon_number; $i++) {
                 $new_developer->addSponsorship(
