@@ -29,20 +29,21 @@ const submit = () => {
 </script>
 
 <template>
-    <GuestLayout class="bg-dark overflow-hidden">
+    <GuestLayout class="bg-dark overflow-hidden py-5">
         <Head title="Log in" />
 
         <div v-if="status" class="mb-4 text-success">
             {{ status }}
         </div>
 
+        <!-- Create Account -->
+        <div class="mb-4 mt-4">
+            <h4 class="text-light fw-bold">Create an account</h4>
+            <span class="text-light">Let's get started!</span>
+        </div>
+
         <form @submit.prevent="submit" style="min-width: 300px;">
 
-            <!-- Create Account -->
-            <div class="mb-4 mt-4">
-                <h4 class="text-light fw-bold">Create an account</h4>
-                <span class="text-light">Let's get started!</span>
-            </div>
             
             <div class="my_text_input_label">
                 <InputLabel class="my_input_label bg-dark" for="email" value="Email" />
@@ -94,7 +95,7 @@ const submit = () => {
                 </label>
             </div>
 
-            <div class="d-flex flex-column align-items-center mt-4 gap-4">
+            <div class="d-flex flex-column mt-4 gap-4">
                
 
                 <PrimaryButton class="my_login_button mt-3" :class="{ 'text-opacity-50': form.processing }" :disabled="form.processing">
@@ -104,13 +105,13 @@ const submit = () => {
                 <Link
                     v-if="canResetPassword"
                     :href="route('password.request')"
-                    class="text-decoration-underline fs-6 text-secondary"
+                    class="text-decoration-underline fs-6 text-secondary text-center"
                 >
                     Forgot your password?
                 </Link>
             </div>
         </form>
-
+        <!-- Square & Circle -->
         <div class="my_element_container d-flex justify-content-between">
             <div class="my_square"></div>
             <div class="my_circle"></div>
@@ -118,14 +119,3 @@ const submit = () => {
     </GuestLayout>
 </template>
 
-<style>
-    .my_text_input_label{
-        position: relative;
-    }
-    .my_input_label{
-        z-index: 1;
-        position: absolute;
-        top: -10px;
-        left: 15px;
-    }
-</style>

@@ -26,12 +26,18 @@ const submit = () => {
 </script>
 
 <template>
-    <GuestLayout>
+    <GuestLayout class="bg-dark overflow-hidden py-5">
         <Head title="Register" />
 
-        <form @submit.prevent="submit">
-            <div>
-                <InputLabel for="name" value="Name" />
+        <!-- Create Account -->
+        <div class="mb-4 mt-4">
+            <h4 class="text-light fw-bold">Create an account</h4>
+            <span class="text-light">Let's get started!</span>
+        </div>
+
+        <form @submit.prevent="submit" style="min-width: 300px;">
+            <div class="my_text_input_label mt-5">
+                <InputLabel class="my_input_label bg-dark" for="name" value="Name" />
 
                 <TextInput
                     id="name"
@@ -52,8 +58,8 @@ const submit = () => {
                 </span> 
             </div>
 
-            <div class="mt-4">
-                <InputLabel for="last" value="Last Name" />
+            <div class="my_text_input_label mt-4">
+                <InputLabel class="my_input_label bg-dark" for="last" value="Last Name" />
 
                 <TextInput
                     id="last"
@@ -61,7 +67,6 @@ const submit = () => {
                     class="mt-1 w-100"
                     v-model="form.last"
                     required
-                    autofocus
                     autocomplete="last"
                 />
 
@@ -74,8 +79,8 @@ const submit = () => {
                 </span> 
             </div>
 
-            <div class="mt-4">
-                <InputLabel for="email" value="Email" />
+            <div class="my_text_input_label mt-4">
+                <InputLabel class="my_input_label bg-dark" for="email" value="Email" />
 
                 <TextInput
                     id="email"
@@ -95,8 +100,8 @@ const submit = () => {
                 </span> 
             </div>
 
-            <div class="mt-4">
-                <InputLabel for="password" value="Password" />
+            <div class="my_text_input_label mt-4">
+                <InputLabel class="my_input_label bg-dark" for="password" value="Password" />
 
                 <TextInput
                     id="password"
@@ -116,8 +121,8 @@ const submit = () => {
                 </span> 
             </div>
 
-            <div class="mt-4">
-                <InputLabel for="password_confirmation" value="Confirm Password" />
+            <div class="my_text_input_label mt-4">
+                <InputLabel class="my_input_label bg-dark" for="password_confirmation" value="Confirm Password" />
 
                 <TextInput
                     id="password_confirmation"
@@ -138,18 +143,25 @@ const submit = () => {
                 </span> 
             </div>
 
-            <div class="d-flex align-items-center justify-content-end mt-4">
+            <div class="d-flex flex-column mt-4 gap-4">
+                
+                <PrimaryButton class="my_login_button" :class="{ 'text-opacity-50': form.processing }" :disabled="form.processing">
+                    Register
+                </PrimaryButton>
+
                 <Link
                     :href="route('login')"
-                    class="text-decoration-underline fs-6 text-secondary"
+                    class="text-decoration-underline fs-6 text-secondary text-center"
                 >
                     Already registered?
                 </Link>
-
-                <PrimaryButton class="ms-4" :class="{ 'text-opacity-50': form.processing }" :disabled="form.processing">
-                    Register
-                </PrimaryButton>
             </div>
         </form>
+        <!-- Square & Circle -->
+        <div class="my_element_container d-flex justify-content-between">
+            <div class="my_square"></div>
+            <div class="my_circle"></div>
+        </div>
     </GuestLayout>
 </template>
+
