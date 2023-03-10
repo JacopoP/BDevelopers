@@ -38,19 +38,29 @@ class ApiController extends Controller
                           ->where('last', 'like', '%' .$data['nFilter'] .'%');
                 });
         })
-        ->limit(100)->get();
+        ->get();
 
         foreach($developers as $index => $developer){
             $delete = false;
+
             $techIds=[];
             forEach($developer->technologies as $technology){
                 $techIds[]=$technology->id;
             }
+
             $reviews = Review::groupBy('developer_id')->having('developer_id', '=', $developer->id)->select('developer_id', DB::raw('count(*) as total'))->get();
             if(count($reviews) > 0)  $reviewN = $reviews[0]->total;
 
+            $avg= 0;
+            foreach($developer->ratings as $rating){
+                $avg += $rating->value; 
+            }
+            if(count($developer->ratings)) $avg /= count($developer->ratings);
+
             if (count(array_intersect($techIds, $data['techFilter'])) != count($data['techFilter'])) $delete = true;
-            if($reviewN < $data['reviewFilter']) $delete= true;
+            if($reviewN < $data['reviewFilter']) $delete = true;
+            if($avg < $data['ratingFilter']) $delete = true;
+
             if($delete) unset($developers[$index]);
         }
         return response()->json([

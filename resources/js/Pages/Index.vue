@@ -49,7 +49,7 @@ export default {
         <input type="text" v-model="this.nameFilter" name="nameFilter" placeholder="name">
         <label for="ratingFilter">Raitings avarage</label>
         <select v-model="this.post.ratingFilter" id="raitingFilter">
-            <option :value="null">Reset</option>
+            <option value="0">Reset</option>
             <option value="1">1+</option>
             <option value="2">2+</option>
             <option value="3">3+</option>
@@ -57,7 +57,7 @@ export default {
         </select>
         <label for="reviewFilter">Review number</label>
         <select v-model="this.post.reviewFilter" id="raitingFilter">
-            <option :value="null">Reset</option>
+            <option value="0">Reset</option>
             <option value="5">5+</option>
             <option value="10">10+</option>
             <option value="50">50+</option>
