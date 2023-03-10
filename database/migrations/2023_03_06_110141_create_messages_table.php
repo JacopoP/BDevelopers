@@ -20,7 +20,6 @@ return new class extends Migration
             $table->text('text');
             $table->string('email', 255);
             $table->string('full_name', 128);
-            $table->date('date_sent');
             $table->boolean('seen')->default(false);
 
             $table->timestamps();
