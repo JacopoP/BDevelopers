@@ -9,11 +9,11 @@ const form = useForm({
     full_name: null,
 });
 
-function submit() {
-    if (form.text !== null) {
-        form.post(route('review.store', props.developer.id))
-    }
-}
+// function submit() {
+//     if (form.text !== null) {
+//         form.post(route('review.store', props.developer.id))
+//     }
+// }
 
 </script>
 
@@ -26,6 +26,6 @@ function submit() {
         <label for="full_name">If u want to add your name</label>
         <br>
         <input type="text" v-model="form.full_name">
-        <input type="submit">
+        <input type="submit" value="Send a review">
     </form>
 </template>

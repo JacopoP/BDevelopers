@@ -45,6 +45,7 @@ Route::middleware('auth')->group(function () {
 Route::get('/show{id}', [Emacontroller::class, 'DevShow'])->name('show');
 Route::post('/review{id}', [Emacontroller::class, 'ReviewStore'])->name('review.store');
 Route::post('/message{id}', [Emacontroller::class, 'MessageStore'])->name('message.store');
+Route::post('/rating{id}', [Emacontroller::class, 'RatingStore'])->name('rating.store');
 
 
 require __DIR__ . '/auth.php';

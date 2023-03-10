@@ -10,6 +10,7 @@ use App\Models\Developer;
 use App\Models\User;
 use App\Models\Review;
 use App\Models\Message;
+use App\Models\Rating;
 
 
 class Emacontroller extends Controller
@@ -50,6 +51,17 @@ class Emacontroller extends Controller
         $message=Message::make($data);
         $message->developer()->associate($developer);
         $message->save();
+        return redirect()->back();
+    }
+
+    public function RatingStore(Request $request, $id)
+    {
+        $data = $request->all();
+        
+        $developer = Developer::find($id);
+        
+        $rating=Rating::find($data['rating']);
+        $rating->developers()->attach($developer);
         return redirect()->back();
     }
 }

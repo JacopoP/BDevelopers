@@ -2,6 +2,7 @@
 import { useForm } from '@inertiajs/vue3';
 import ReviewForm from '@/Pages/ShowComponents/ReviewForm.vue'
 import MessageForm from '@/Pages/ShowComponents/MessageForm.vue'
+import RatingForm from '@/Pages/ShowComponents/RatingForm.vue'
 const props = defineProps([
     'developer',
 ]);
@@ -37,6 +38,8 @@ function submit() {
     <ReviewForm :developer="developer" />
     <br>
     <MessageForm :developer="developer" />
+    <br>
+    <RatingForm :developer="developer" />
 </template>
 
 <style lang="scss">

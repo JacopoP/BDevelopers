@@ -6,16 +6,16 @@ const props = defineProps([
 ]);
 
 const form = useForm({
-    text: null,
+    ratind: null,
     email: null,
     full_name: null,
 });
 
-function submit() {
-    if (form.text !== null) {
-        form.post(route('review.store', props.developer.id))
-    }
-}
+// function submit() {
+//     if (form.text !== null) {
+//         form.post(route('review.store', props.developer.id))
+//     }
+// }
 
 </script>
 
@@ -33,6 +33,6 @@ function submit() {
         <br>
         <textarea id="text" v-model="form.text"></textarea>
         <br>
-        <input type="submit">
+        <input type="submit" value="Send a message">
     </form>
 </template>
