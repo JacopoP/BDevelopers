@@ -45,12 +45,12 @@ props.technologies.forEach((technology) => {
         // extract dominant color
         let c = CT.getColor(img);
 
-        function setShade(c){
+        function setShade(c) {
             document.getElementById('img-' + technology.id).style.filter = "drop-shadow(0 0 1rem rgb(" + c[0] + "," + c[1] + "," + c[2] + "))";
             // "drop-shadow(0 0 1rem " + c + ")";
         }
 
-        if(document.readyState !== 'loading'){
+        if (document.readyState !== 'loading') {
             setShade(c);
             return;
         }
@@ -184,6 +184,7 @@ props.technologies.forEach((technology) => {
                         </div>
 
                     </form>
+                    <a :href="route('profile.dev.delete')">X</a>
                 </div>
             </div>
         </template>

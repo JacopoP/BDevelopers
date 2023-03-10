@@ -88,7 +88,5 @@ class DeveloperController extends Controller
             $developer -> update($data);
     
             return redirect() -> route('dashboard');
-        }
-        //in DevSettings <a :href="route('profile.dev.delete')">X</a>
-        
+        }        
 }
