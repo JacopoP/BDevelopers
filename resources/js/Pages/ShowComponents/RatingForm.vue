@@ -7,13 +7,6 @@ const props = defineProps([
 const form = useForm({
     rating: null,
 });
-
-// function submit() {
-//     if (form.text !== null) {
-//         form.post(route('review.store', props.developer.id))
-//     }
-// }
-
 </script>
 
 <template>

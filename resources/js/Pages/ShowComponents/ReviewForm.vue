@@ -9,16 +9,16 @@ const form = useForm({
     full_name: null,
 });
 
-// function submit() {
-//     if (form.text !== null) {
-//         form.post(route('review.store', props.developer.id))
-//     }
-// }
+function submit() {
+    if (form.text !== null) {
+        form.post(route('review.store', props.developer.id))
+    }
+}
 
 </script>
 
 <template>
-    <form method="post" @submit.prevent="form.post(route('review.store', developer.id))">
+    <form method="post" @submit.prevent="submit">
         <label for="text">review</label>
         <br>
         <textarea id="text" v-model="form.text"></textarea>

@@ -32,8 +32,8 @@ function submit() {
     <ul>
         <li>Cognome: {{ dati.last }}</li>
         <li>Nome: {{ dati.name }}</li>
-        <li>profile_path: {{ dati.profile_path }}</li>
     </ul>
+    <img :src="dati.profile_path">
 
     <ReviewForm :developer="developer" />
     <br>
@@ -45,8 +45,16 @@ function submit() {
 <style lang="scss">
 @use 'resources/sass/general.scss' as *;
 
+body {
+    padding: 20px;
+}
+
 .test {
     color: $brand_primary;
+}
+
+img {
+    width: 100px
 }
 
 .my_input {

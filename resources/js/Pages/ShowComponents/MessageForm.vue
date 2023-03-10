@@ -6,21 +6,21 @@ const props = defineProps([
 ]);
 
 const form = useForm({
-    ratind: null,
+    text: null,
     email: null,
     full_name: null,
 });
 
-// function submit() {
-//     if (form.text !== null) {
-//         form.post(route('review.store', props.developer.id))
-//     }
-// }
+function submit() {
+    if (form.text !== null) {
+        form.post(route('message.store', props.developer.id))
+    }
+}
 
 </script>
 
 <template>
-    <form method="post" @submit.prevent="form.post(route('message.store', developer.id))">
+    <form method="post" @submit.prevent="submit">
         <label for="full_name">Your Name</label>
         <br>
         <TextInput id="full_name" type="text" v-model="form.full_name" required autocomplete="name" />
