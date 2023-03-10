@@ -75,7 +75,8 @@ export default {
     <ul>
         <li v-for="developer in this.developers">
             {{ developer.user.name }} {{ developer.user.last }} <br>
-            {{ developer.user.email }}
+            {{ developer.user.email }} <br>
+            <span v-for="tech in developer.technologies">{{ tech.name }}&nbsp;</span>
             <hr>
         </li>
     </ul>
