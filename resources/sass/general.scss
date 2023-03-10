@@ -37,3 +37,19 @@
     background-color: $brand_fourth;
     rotate: 43deg;
 }
+
+
+
+
+
+// Register / Login / forgot-password
+
+.my_text_input_label{
+    position: relative;
+}
+.my_input_label{
+    z-index: 1;
+    position: absolute;
+    top: -10px;
+    left: 15px;
+}
