@@ -11,6 +11,7 @@ use App\Models\User;
 use App\Models\Rating;
 use App\Models\Technology;
 use App\Models\Sponsor;
+use DateTime;
 
 class DeveloperSeeder extends Seeder
 {
@@ -20,32 +21,37 @@ class DeveloperSeeder extends Seeder
      * @return void
      */
 
-    
+
     public function run()
     {
         $Users = User::all();
 
-        foreach( $Users as $User){
+        foreach ($Users as $User) {
             // Developer
             $new_developer = Developer::factory()->make();
 
-            $new_developer -> user() -> associate($User);
+            $new_developer->user()->associate($User);
             // $new_developer['id'] = $User['id'];
 
-            $new_developer -> save();
+            $new_developer->save();
 
             // Rating
-            $ratings = Rating::inRandomOrder() -> limit(rand(1,5)) -> get();
-            $new_developer -> ratings() -> attach($ratings);
-            
+            $ratings = Rating::inRandomOrder()->limit(rand(1, 5))->get();
+            $new_developer->ratings()->attach($ratings);
+
             // Technologies
-            $technologies = Technology::inRandomOrder() -> limit(rand(1,5)) -> get();
-            $new_developer -> technologies() -> attach($technologies);
+            $technologies = Technology::inRandomOrder()->limit(rand(1, 5))->get();
+            $new_developer->technologies()->attach($technologies);
 
             // Sponsor
-            $sponsors = Sponsor::inRandomOrder() -> limit(rand(1,3)) -> get();
-            $new_developer -> sponsors() -> attach($sponsors, ['date_start' => fake()->date(), 'date_end' => fake()->date()]);
+            $spon_number = rand(1, 5);
+            for ($i = 0; $i < $spon_number; $i++) {
+                $new_developer->addSponsorship(
+                    // generate random DateTime
+                    DateTime::createFromFormat('Y-m-d H:i:s', (fake()->date('Y-m-d') . ' ' . fake()->time('H:i:s'))),
+                    rand(1, 3)
+                );
+            }
         }
-
     }
 }
