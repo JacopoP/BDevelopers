@@ -2,6 +2,9 @@
 import { useForm } from '@inertiajs/vue3';
 // Head
 import { Head } from '@inertiajs/vue3';
+// FORM
+import InputLabel from '@/Components/InputLabel.vue';
+import TextInput from '@/Components/TextInput.vue';
 
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { ref } from 'vue';
@@ -67,64 +70,107 @@ props.technologies.forEach((technology) => {
     <Head title="Settings" />
     <AuthenticatedLayout>
         <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">Developer Settings</h2>
+            <div class="d-flex justify-content-between">
+                <h2>Developer Settings</h2>
+                <a :href="route('profile.dev.delete')" class="btn btn-danger text-light fw-bold">Delete</a>
+            </div>
         </template>
 
         <template #main>
             <!-- Form -->
             <div class="container d-flex justify-content-center my-5">
                 <div class="w-50">
-                    <form class="d-flex flex-column gap-3" method="post" enctype="multipart/form-data"
+                    <form class="d-flex flex-column gap-4" method="post" enctype="multipart/form-data"
                         @submit.prevent="form.post(route('profile.dev.store'))">
 
+
                         <!-- Address -->
-                        <div class="d-flex" v-if="form.address !== null">
-                            <label for="address" class="bg-primary rounded-pill px-3 py-1">Address</label>
+                        <div class="my_text_input_label">
+                            <InputLabel class="my_input_label bg-dark" for="address" value="Address" />
+
+                            <TextInput
+                                placeholder="address"
+                                id="address"
+                                type="address"
+                                class="mt-1 w-100 p-2"
+                                v-model="form.address"
+                                required
+                                autofocus
+                                autocomplete="username"
+                            />
                         </div>
-                        <input id="address" class="rounded-pill px-4" type="text" name="address" placeholder="Address"
-                            v-model="form.address">
+
 
                         <!-- Phone -->
-                        <div class="d-flex" v-if="form.phone_number !== null">
-                            <label for="phone_number" class="bg-primary rounded-pill px-3 py-1">Phone Number</label>
-                        </div>
-                        <input id="phone_number" class="rounded-pill px-4" type="text" name="phone_number"
-                            placeholder="PhoneNumber" v-model="form.phone_number">
+                        <div class="my_text_input_label">
+                            <InputLabel class="my_input_label bg-dark" for="phone_number" value="Phone Number" />
 
+                            <TextInput
+                                placeholder="phone_number"
+                                id="phone_number"
+                                type="phone_number"
+                                class="mt-1 w-100 p-2"
+                                v-model="form.phone_number"
+                                required
+                                autofocus
+                                autocomplete="username"
+                            />
+                        </div>
+                        
+                        
                         <!-- Profile IMG -->
-                        <div class="d-flex">
-                            <label for="profile_path" class="bg-primary rounded-pill px-3 py-1">Profile Image</label>
+                        <div class="mx-auto">
+                            <label for="profile_path" class="bg-primary px-3 py-1 rounded-pill text-light cursor-pointer">Upload Image</label>
                         </div>
                         <input id="profile_path" class="form-control border-dark rounded-pill" type="file"
                             name="profile_path" @input="form.profile_path = $event.target.files[0]"
-                            :value="form.profile_path">
+                            :value="form.profile_path"
+                        >
+
                         <!-- Profile FILE -->
-                        <div class="d-flex">
-                            <label for="cv_path" class="bg-primary rounded-pill px-3 py-1">CV</label>
+                        <div class="mx-auto">
+                            <label for="cv_path" class="bg-primary rounded-pill text-light px-3 py-1">CV</label>
                         </div>
                         <input id="cv_path" class="form-control border-dark rounded-pill" type="file" name="cv_path"
-                            @input="form.cv_path = $event.target.files[0]">
+                            @input="form.cv_path = $event.target.files[0]"
+                        >
+                        
 
                         <!-- URL -->
-                        <div class="d-flex" v-if="form.portfolio_url !== null">
-                            <label for="portfolio_url" class="bg-primary rounded-pill px-3 py-1">URL</label>
-                        </div>
-                        <input id="portfolio_url" class="rounded-pill px-4" type="text" name="portfolio_url"
-                            placeholder="portfolio URL" v-model="form.portfolio_url">
+                        <div class="my_text_input_label">
+                            <InputLabel class="my_input_label bg-dark" for="portfolio_url" value="Portfolio URL" />
 
-                        <!-- About YOU -->
-                        <div class="d-flex" v-if="form.about_me !== null">
-                            <label for="about_me" class="bg-primary rounded-pill px-3 py-1">About ME</label>
+                            <TextInput
+                                placeholder="portfolio_url"
+                                id="portfolio_url"
+                                type="portfolio_url"
+                                class="mt-1 w-100 p-2"
+                                v-model="form.portfolio_url"
+                                required
+                                autofocus
+                                autocomplete="username"
+                            />
                         </div>
-                        <textarea id="about_me" class="rounded px-4" name="about_me" cols="30" rows="3"
-                            placeholder="Write about you" v-model="form.about_me"></textarea>
+
+
+                        <!-- About ME -->
+                        <div class="my_text_input_label">
+                            <InputLabel class="my_input_label bg-dark" for="about_me" value="About ME" />
+
+                            <textarea id="about_me" class="bg-dark text-light rounded px-4 w-100" name="about_me" cols="30" rows="3"
+                                placeholder="Write about you" v-model="form.about_me">
+                            </textarea>
+                        </div>
+
 
                         <!-- Performances -->
-                        <div class="d-flex" v-if="form.performances !== null">
-                            <label for="performances" class="bg-primary rounded-pill px-3 py-1">Performances</label>
+                        <div class="my_text_input_label">
+                            <InputLabel class="my_input_label bg-dark" for="performances" value="Performances" />
+
+                            <textarea id="performances" class="bg-dark text-light rounded px-4 w-100" name="performances" cols="30" rows="3"
+                                placeholder="About your Job" v-model="form.performances">
+                            </textarea>
                         </div>
-                        <textarea id="performances" class="rounded px-4" name="performances" cols="30" rows="3"
-                            placeholder="Write here the jobs you offer" v-model="form.performances"></textarea>
 
 
                         <!-- Technologies section-->
@@ -184,7 +230,7 @@ props.technologies.forEach((technology) => {
                         </div>
 
                     </form>
-                    <a :href="route('profile.dev.delete')">X</a>
+
                 </div>
             </div>
         </template>
@@ -219,5 +265,10 @@ props.technologies.forEach((technology) => {
         opacity: .7;
         transform: translateY(-5px);
     }
+}
+
+// To remove from display input file 
+input[type="file"] {
+    display: none;
 }
 </style>
