@@ -10,3 +10,30 @@
 .my_login_button{
     background-color: $brand_third;
 }
+
+
+// Square & Circle
+.my_element_container{
+    position: relative;
+    min-width: 300px;
+    min-height: 300px;
+}
+.my_circle{
+    position: absolute;
+    left: 250%;
+    top: 5%;
+    width: 250%;
+    height: 250%;
+    border-radius: 50%;
+    background-color: $brand_third;
+}
+.my_square{
+    position: absolute;
+    right: 240%;
+    top: -110%;
+    width: 200%;
+    height: 200%;
+    border-radius: 15px;
+    background-color: $brand_fourth;
+    rotate: 43deg;
+}
