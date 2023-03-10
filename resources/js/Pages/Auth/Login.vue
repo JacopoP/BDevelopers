@@ -29,16 +29,23 @@ const submit = () => {
 </script>
 
 <template>
-    <GuestLayout>
+    <GuestLayout class="bg-dark">
         <Head title="Log in" />
 
         <div v-if="status" class="mb-4 text-success">
             {{ status }}
         </div>
 
-        <form @submit.prevent="submit">
-            <div>
-                <InputLabel for="email" value="Email" />
+        <form @submit.prevent="submit" style="min-width: 300px;">
+
+            <!-- Create Account -->
+            <div class="mb-4">
+                <h4 class="text-light fw-bold">Create an account</h4>
+                <span class="text-light">Let's get started!</span>
+            </div>
+            
+            <div class="my_text_input_label">
+                <InputLabel class="my_input_label bg-dark" for="email" value="Email" />
 
                 <TextInput
                     id="email"
@@ -59,8 +66,8 @@ const submit = () => {
                 </span> 
             </div>
 
-            <div class="mt-4">
-                <InputLabel for="password" value="Password" />
+            <div class="my_text_input_label mt-4">
+                <InputLabel class="my_input_label bg-dark" for="password" value="Password" />
 
                 <TextInput
                     id="password"
@@ -87,7 +94,13 @@ const submit = () => {
                 </label>
             </div>
 
-            <div class="d-flex align-items-center justify-content-end mt-4">
+            <div class="d-flex flex-column align-items-center mt-4 gap-4">
+               
+
+                <PrimaryButton class="my_login_button mt-3" :class="{ 'text-opacity-50': form.processing }" :disabled="form.processing">
+                    Log in
+                </PrimaryButton>
+
                 <Link
                     v-if="canResetPassword"
                     :href="route('password.request')"
@@ -95,11 +108,19 @@ const submit = () => {
                 >
                     Forgot your password?
                 </Link>
-
-                <PrimaryButton class="ms-4" :class="{ 'text-opacity-50': form.processing }" :disabled="form.processing">
-                    Log in
-                </PrimaryButton>
             </div>
         </form>
     </GuestLayout>
 </template>
+
+<style>
+    .my_text_input_label{
+        position: relative;
+    }
+    .my_input_label{
+        z-index: 1;
+        position: absolute;
+        top: -10px;
+        left: 15px;
+    }
+</style>
