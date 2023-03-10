@@ -5,6 +5,7 @@ use App\Http\Controllers\DeveloperController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use App\Http\Controllers\Emacontroller;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,4 +44,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/developer/delete', [DeveloperController::class, 'DevDelete'])->name('profile.dev.delete');
 });
 
-require __DIR__.'/auth.php';
+// developer show per UI
+Route::get('/show{id}', [Emacontroller::class, 'DevShow'])->name('show');
+Route::post('/review{id}', [Emacontroller::class, 'ReviewStore'])->name('review.store');
+Route::post('/message{id}', [Emacontroller::class, 'MessageStore'])->name('message.store');
+Route::post('/rating{id}', [Emacontroller::class, 'RatingStore'])->name('rating.store');
+
+
+require __DIR__ . '/auth.php';

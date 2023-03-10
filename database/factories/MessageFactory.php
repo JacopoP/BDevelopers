@@ -20,7 +20,6 @@ class MessageFactory extends Factory
             'text' => fake()->sentences(5, true),
             'email' => fake()->safeEmail(),
             'full_name' => fake()->name(),
-            'date_sent' => fake()->dateTimeBetween('-24 week'),
             'seen' => fake()->boolean(80),
         ];
     }
