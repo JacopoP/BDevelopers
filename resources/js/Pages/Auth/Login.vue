@@ -29,7 +29,7 @@ const submit = () => {
 </script>
 
 <template>
-    <GuestLayout class="bg-dark">
+    <GuestLayout class="bg-dark overflow-hidden">
         <Head title="Log in" />
 
         <div v-if="status" class="mb-4 text-success">
@@ -39,7 +39,7 @@ const submit = () => {
         <form @submit.prevent="submit" style="min-width: 300px;">
 
             <!-- Create Account -->
-            <div class="mb-4">
+            <div class="mb-4 mt-4">
                 <h4 class="text-light fw-bold">Create an account</h4>
                 <span class="text-light">Let's get started!</span>
             </div>
@@ -110,6 +110,11 @@ const submit = () => {
                 </Link>
             </div>
         </form>
+
+        <div class="my_element_container d-flex justify-content-between">
+            <div class="my_square"></div>
+            <div class="my_circle"></div>
+        </div>
     </GuestLayout>
 </template>
 
