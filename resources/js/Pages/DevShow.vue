@@ -35,11 +35,14 @@ function submit() {
     </ul>
     <img :src="dati.profile_path">
 
+    <h2>Review</h2>
     <ReviewForm :developer="developer" />
     <br>
-    <MessageForm :developer="developer" />
-    <br>
+    <h2>Rating</h2>
     <RatingForm :developer="developer" />
+    <br>
+    <h2>Message</h2>
+    <MessageForm :developer="developer" />
 </template>
 
 <style lang="scss">
