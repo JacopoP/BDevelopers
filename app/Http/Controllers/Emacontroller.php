@@ -9,7 +9,7 @@ use Inertia\Response;
 use App\Models\Developer;
 use App\Models\User;
 use App\Models\Review;
-
+use App\Models\Message;
 
 
 class Emacontroller extends Controller
@@ -17,9 +17,7 @@ class Emacontroller extends Controller
     public function DevShow($id)
     {
         $developer = Developer::with('user')->find($id);
-        // return Inertia::render('Profile/DevShow', compact('developer'));
-        $review = Review::with('developer')->find($id);
-        return Inertia::render('DevShow', compact('developer', 'review'));
+        return Inertia::render('DevShow', compact('developer'));
     }
 
 
@@ -27,7 +25,7 @@ class Emacontroller extends Controller
     public function ReviewStore(Request $request, $id)
     {
         $data = $request->validate([
-            'text' => 'string|max:255',
+            'text' => 'string|max:500',
             'full_name' => 'nullable|string|max:128'
         ]);
         
@@ -36,6 +34,22 @@ class Emacontroller extends Controller
         $review=Review::make($data);
         $review->developer()->associate($developer);
         $review->save();
+        return redirect()->back();
+    }
+
+    public function MessageStore(Request $request, $id)
+    {
+        $data = $request->validate([
+            'text' => 'string|max:500',
+            'email' => 'string|max:255',
+            'full_name' => 'string|max:128'
+        ]);
+        
+        $developer = Developer::find($id);
+        
+        $message=Message::make($data);
+        $message->developer()->associate($developer);
+        $message->save();
         return redirect()->back();
     }
 }

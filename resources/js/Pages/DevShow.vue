@@ -1,12 +1,10 @@
 <script setup>
 import { useForm } from '@inertiajs/vue3';
-// tentativo di importare l'array "dato"
+import ReviewForm from '@/Pages/ShowComponents/ReviewForm.vue'
+import MessageForm from '@/Pages/ShowComponents/MessageForm.vue'
 const props = defineProps([
     'developer',
 ]);
-
-console.log(props);
-
 
 const dati = {
     name: props.developer.user.name,
@@ -21,9 +19,9 @@ const form = useForm({
 });
 
 function submit() {
-    // if (form.text !== null) {
-    form.post(route('review.store', props.developer.id))
-    // }
+    if (form.text !== null) {
+        form.post(route('review.store', props.developer.id))
+    }
 }
 
 </script>
@@ -36,16 +34,9 @@ function submit() {
         <li>profile_path: {{ dati.profile_path }}</li>
     </ul>
 
-    <form method="post" @submit.prevent="form.post(route('review.store', developer.id))">
-        <label for="text">review</label>
-        <br>
-        <textarea id="text" v-model="form.text"></textarea>
-        <br>
-        <label for="full_name">If u want to add your name</label>
-        <br>
-        <input type="text" v-model="form.full_name">
-        <input type="submit">
-    </form>
+    <ReviewForm :developer="developer" />
+    <br>
+    <MessageForm :developer="developer" />
 </template>
 
 <style lang="scss">
