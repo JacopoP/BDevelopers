@@ -244,7 +244,8 @@ props.technologies.forEach((technology) => {
 </template>
 
 <style lang="scss">
-@use 'resources/sass/general.scss' as *;
+@use 'resources/sass/variable.scss' as *;
+@use 'resources/sass/form-style.scss';
 
 .disabled {
     filter: grayscale(100%);
@@ -262,6 +263,7 @@ props.technologies.forEach((technology) => {
 
 .tech-icon{
     transition: all .15s ease-in-out;
+    cursor: pointer;
 
     &:hover {
         filter: grayscale(15%);
