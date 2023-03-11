@@ -50,12 +50,15 @@ const submit = () => {
                 />
 
                 <InputError class="mt-2" :message="form.errors.name" />
-            </div>
-            <!-- Last Verify -->
-            <div v-show="form.name.length > 64 || (form.name.length < 2 && form.name.length)" class="mt-2 shadow bg-warning rounded px-3 py-2">
-                <span class="text-dark fw-semibold">
-                    Must be between 2 and 64 characters
-                </span>
+                <!-- Last Verify -->
+                <div v-show="form.name.length > 64 || (form.name.length < 2 && form.name.length)">
+                    <div class="my_warning_alert rounded-circle bg-warning px-2">
+                        <span class="text-dark">!</span>
+                        <span class="my_warning_alert_text mt-2 shadow bg-warning rounded text-dark px-3 py-2">
+                            Must be between 2 and 64 characters
+                        </span>
+                    </div>
+                </div>
             </div>
 
             <div class="my_text_input_label mt-4">
@@ -71,12 +74,15 @@ const submit = () => {
                 />
 
                 <InputError class="mt-2" :message="form.errors.last" />
-            </div>
-            <!-- Last Verify -->
-            <div v-show="form.last.length > 64 || (form.last.length < 2 && form.last.length)" class="mt-2 shadow bg-warning rounded px-3 py-2">
-                <span class="text-dark fw-semibold">
-                    Must be between 2 and 64 characters
-                </span>
+                <!-- Last Verify -->
+                <div v-show="form.last.length > 64 || (form.last.length < 2 && form.last.length)">
+                    <div class="my_warning_alert rounded-circle bg-warning px-2">
+                        <span class="text-dark">!</span>
+                        <span class="my_warning_alert_text mt-2 shadow bg-warning rounded text-dark px-3 py-2">
+                            Must be between 2 and 64 characters
+                        </span>
+                    </div>
+                </div>
             </div>
 
             <div class="my_text_input_label mt-4">
@@ -92,12 +98,15 @@ const submit = () => {
                 />
 
                 <InputError class="mt-2" :message="form.errors.email" />
-            </div>
-            <!-- Email Verify -->
-            <div v-show="!form.email.match(mailformat) && form.email.length" class="mt-2 shadow bg-secondary rounded px-3 py-2">
-                <span class="text-light fw-semibold">
-                    Email format not valid
-                </span>
+                <!-- Email Verify -->
+                <div v-show="!form.email.match(mailformat) && form.email.length">
+                    <div class="my_danger_alert rounded-circle bg-danger px-2">
+                        <span class="text-light">!</span>
+                        <span class="my_danger_alert_text mt-2 shadow bg-danger rounded text-light px-3 py-2">
+                            Email format not valid
+                        </span>
+                    </div>
+                </div>
             </div>
 
             <div class="my_text_input_label mt-4">

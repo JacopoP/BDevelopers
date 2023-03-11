@@ -59,12 +59,15 @@ const submit = () => {
                 />
 
                 <InputError class="mt-2" :message="form.errors.email" />
-            </div>
-            <!-- Email Verify -->
-            <div v-show="!form.email.match(mailformat) && form.email.length" class="mt-2 shadow bg-secondary rounded px-3 py-2">
-                <span class="text-light fw-semibold">
-                    Email format not valid
-                </span>
+                <!-- Email Verify -->
+                <div v-show="!form.email.match(mailformat) && form.email.length">
+                    <div class="my_danger_alert rounded-circle bg-danger px-2">
+                        <span class="text-light">!</span>
+                        <span class="my_danger_alert_text mt-2 shadow bg-danger rounded text-light px-3 py-2">
+                            Email format not valid
+                        </span>
+                    </div>
+                </div>
             </div>
 
             <div class="my_text_input_label mt-4">

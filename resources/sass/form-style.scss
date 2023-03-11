@@ -41,6 +41,35 @@
     display: flex;
 }
 
+// Alert Warning
+.my_warning_alert{
+    position: absolute;
+    top: 15px;
+    right: 10px;
+}
+.my_warning_alert_text{
+    z-index: 2;
+    display: none;
+    position: absolute;
+    top: 40px;
+    right: -5px;
+}
+.my_warning_alert_text::before {
+    content: "";
+    position: absolute;
+    top: 0px;
+    left: 70%;
+    transform: translateX(-50%);
+    border: 10px solid transparent;
+    border-bottom-color: #ffc107;
+    rotate: 130deg;
+}
+.my_warning_alert:hover .my_warning_alert_text{
+    display: flex;
+}
+
+
+
 
 .my_login_button {
     background-color: $brand_third;
