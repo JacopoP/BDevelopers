@@ -67,8 +67,8 @@ props.technologies.forEach((technology) => {
 </script>
     
 <template>
-    <Head title="Settings" />
-    <AuthenticatedLayout>
+    <AuthenticatedLayout class="overflow-hidden">
+        <Head title="Settings" />
         <template #header>
             <div class="d-flex justify-content-between">
                 <h2>Developer Settings</h2>
@@ -78,7 +78,7 @@ props.technologies.forEach((technology) => {
 
         <template #main>
             <!-- Form -->
-            <div class="container d-flex justify-content-center my-5">
+            <div class="container d-flex flex-column align-items-center my-5">
                 <div class="w-50">
                     <form class="d-flex flex-column gap-4" method="post" enctype="multipart/form-data"
                         @submit.prevent="form.post(route('profile.dev.store'))">
@@ -94,7 +94,6 @@ props.technologies.forEach((technology) => {
                                 type="address"
                                 class="mt-1 w-100 p-2"
                                 v-model="form.address"
-                                required
                                 autocomplete="username"
                             />
                         </div>
@@ -110,7 +109,6 @@ props.technologies.forEach((technology) => {
                                 type="phone_number"
                                 class="mt-1 w-100 p-2"
                                 v-model="form.phone_number"
-                                required
                                 autocomplete="username"
                             />
                         </div>
@@ -118,7 +116,7 @@ props.technologies.forEach((technology) => {
                         
                         <!-- Profile IMG -->
                         <div class="mx-auto">
-                            <label for="profile_path" class="bg-primary px-3 py-1 rounded-pill text-light cursor-pointer">Upload Image</label>
+                            <label for="profile_path" class="my_login_button px-3 py-1 rounded-pill text-light cursor-pointer">Upload Image</label>
                         </div>
                         <input id="profile_path" class="form-control border-dark rounded-pill" type="file"
                             name="profile_path" @input="form.profile_path = $event.target.files[0]"
@@ -127,7 +125,7 @@ props.technologies.forEach((technology) => {
 
                         <!-- Profile FILE -->
                         <div class="mx-auto">
-                            <label for="cv_path" class="bg-primary rounded-pill text-light px-3 py-1">CV</label>
+                            <label for="cv_path" class="my_login_button rounded-pill text-light px-3 py-1">CV</label>
                         </div>
                         <input id="cv_path" class="form-control border-dark rounded-pill" type="file" name="cv_path"
                             @input="form.cv_path = $event.target.files[0]"
@@ -144,7 +142,6 @@ props.technologies.forEach((technology) => {
                                 type="portfolio_url"
                                 class="mt-1 w-100 p-2"
                                 v-model="form.portfolio_url"
-                                required
                                 autocomplete="username"
                             />
                         </div>
@@ -174,15 +171,17 @@ props.technologies.forEach((technology) => {
                         <section class="technology">
 
                             <!-- subtitle -->
-                            <h5 class="text-center mb-2">
-                                Technologies
-                            </h5>
+                            <div class="d-flex justify-content-center">
+                                <h5 class="my_register_button text-center fw-bold rounded-pill text-light mb-2 px-3 py-2">
+                                    Technologies
+                                </h5>
+                            </div>
 
                             <!-- section subheader -->
                             <div class="text-center mb-3">
                                 <!-- known technologies list -->
                                 <small v-if="form.developer_technologies.length" class="text-center text-secondary">
-                                    <template v-for="(id, counter) in form.developer_technologies" class="">
+                                    <template v-for="(id, counter) in form.developer_technologies">
                                         <template v-if="counter > 0">
                                             &#44;
                                         </template>
@@ -199,19 +198,21 @@ props.technologies.forEach((technology) => {
 
                             <!-- checkboxes (with GRID layout) -->
                             <div class="container">
-                                <div class="row justify-content-evenly">
+                                <div class="row row-cols-3 justify-content-evenly gap-y-5">
 
                                     <!-- single tech icon -->
-                                    <div class="col-3 form-check d-flex align-items-center" v-for="tech in technologies">
+                                    <div class="form-check d-flex justify-content-center align-items-center" v-for="tech in technologies">
 
                                         <!-- hidden (d-none) checkbox to make the checking system work -->
                                         <input class="form-check-input d-none" type="checkbox" :value="tech.id"
                                             :id="tech.id" v-model="form.developer_technologies">
 
                                         <!-- fake checkbox made with icon (visually toggled with dynamic class) -->
-                                        <label class="form-check-label " :for="tech.id">
-                                            <img :src="tech.logo_path" alt="" class="tech-icon" :id="'img-' + tech.id"
-                                                :class="{ disabled: !form.developer_technologies.includes(tech.id) }">
+                                        <label class="form-check-label" :for="tech.id">
+                                            <div class="my_tech_icon">
+                                                <img :src="tech.logo_path" alt="" class="tech-icon" :id="'img-' + tech.id"
+                                                    :class="{ disabled: !form.developer_technologies.includes(tech.id) }">
+                                            </div>
                                         </label>
 
                                     </div>
@@ -223,32 +224,23 @@ props.technologies.forEach((technology) => {
 
                         <!-- Submit -->
                         <div class="d-flex justify-content-center">
-                            <input class="btn btn-primary" type="submit" value="SEND">
+                            <input class="my_login_button btn btn-secondary rounded-pill text-light border-0" type="submit" value="SEND">
                         </div>
 
                     </form>
 
                 </div>
+
             </div>
+
+
         </template>
+        
     </AuthenticatedLayout>
 </template>
 
 <style lang="scss">
 @use 'resources/sass/general.scss' as *;
-
-.test {
-    color: $brand_primary;
-}
-
-.tech-icon {
-    transition: all .15s ease-in-out;
-
-    &:hover {
-        filter: grayscale(15%);
-        transform: translateY(-5px);
-    }
-}
 
 .disabled {
     filter: grayscale(100%);
@@ -257,15 +249,41 @@ props.technologies.forEach((technology) => {
     transform: scale(0.7);
 
 
-    &:hover {
+    &.my_tech_icon:hover .tech-icon {
         filter: grayscale(85%) drop-shadow(0 0 1rem #2bce82);
         opacity: .7;
         transform: translateY(-5px);
     }
 }
 
+.tech-icon{
+    transition: all .15s ease-in-out;
+
+    &:hover {
+        filter: grayscale(15%);
+        transform: translateY(-5px);
+    }
+}
 // To remove from display input file 
 input[type="file"] {
     display: none;
 }
+
+// TechIcon
+.my_tech_icon{
+    width: 80px;
+    height: 80px;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: $brand_secondary;
+    border-radius: 50%;
+
+}
+.my_tech_icon:hover .tech-icon {
+    filter: grayscale(15%);
+    transform: translateY(-5px);
+}
+
 </style>

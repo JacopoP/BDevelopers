@@ -10,6 +10,12 @@
 .my_login_button{
     background-color: $brand_third;
 }
+.my_register_button{
+    background-color: $brand_fourth;
+}
+.my_background_secondary{
+    background-color: $brand_secondary;
+}
 
 
 // Square & Circle
@@ -39,9 +45,6 @@
 }
 
 
-
-
-
 // Register / Login / forgot-password
 
 .my_text_input_label{
@@ -53,4 +56,6 @@
     top: -10px;
     left: 15px;
 }
+
+
 
