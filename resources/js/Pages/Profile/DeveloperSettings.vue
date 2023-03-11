@@ -59,7 +59,6 @@ props.technologies.forEach((technology) => {
         }
         document.addEventListener('DOMContentLoaded', setShade(color));
     });
-
 });
 /* for (let technology of props.technologies) {
 } */
@@ -121,6 +120,7 @@ props.technologies.forEach((technology) => {
                         <input id="profile_path" class="form-control border-dark rounded-pill" type="file"
                             name="profile_path" @input="form.profile_path = $event.target.files[0]"
                         >
+                        <span class="text-light text-center">{{form.profile_path}}</span>
 
                         <!-- Profile FILE -->
                         <div class="mx-auto">
@@ -197,7 +197,7 @@ props.technologies.forEach((technology) => {
 
                             <!-- checkboxes (with GRID layout) -->
                             <div>
-                                <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 justify-content-evenly gap-y-5 mt-5 border border-secondary border-4 rounded py-4">
+                                <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 justify-content-evenly gap-y-5 mt-5 border border-secondary border-4 rounded py-4 overflow-auto">
 
                                     <!-- single tech icon -->
                                     <div class="d-flex justify-content-center align-items-center" v-for="tech in technologies">
