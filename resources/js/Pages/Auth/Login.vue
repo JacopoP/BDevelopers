@@ -20,7 +20,7 @@ const form = useForm({
 // Regex
 const mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 const submit = () => {
-    if(!(!form.email.match(mailformat)) && !((form.password.length < 8))){
+    if(!(!form.email.match(mailformat)) && !((form.password.length < 8))) {
         form.post(route('login'), {
             onFinish: () => form.reset('password'),
         });
@@ -42,20 +42,20 @@ const submit = () => {
             <span class="text-light">Let's get started!</span>
         </div>
 
-        <form @submit.prevent="submit" style="min-width: 300px;">
+        <form @submit.prevent="submit" style="min-width:450px">
 
-            
+
             <div class="my_text_input_label">
                 <InputLabel class="my_input_label bg-dark" for="email" value="Email" />
 
-                <TextInput
-                    id="email"
-                    type="email"
-                    class="mt-1 w-100"
-                    v-model="form.email"
-                    required
+                <TextInput 
+                    id="email" 
+                    type="email" 
+                    class="mt-1 w-100" 
+                    v-model="form.email" 
+                    required 
                     autofocus
-                    autocomplete="username"
+                    autocomplete="username" 
                 />
 
                 <InputError class="mt-2" :message="form.errors.email" />
@@ -64,19 +64,19 @@ const submit = () => {
             <div v-show="!form.email.match(mailformat) && form.email.length" class="mt-2 shadow bg-secondary rounded px-3 py-2">
                 <span class="text-light fw-semibold">
                     Email format not valid
-                </span> 
+                </span>
             </div>
 
             <div class="my_text_input_label mt-4">
                 <InputLabel class="my_input_label bg-dark" for="password" value="Password" />
 
-                <TextInput
-                    id="password"
-                    type="password"
-                    class="mt-1 w-100"
-                    v-model="form.password"
+                <TextInput 
+                    id="password" 
+                    type="password" 
+                    class="mt-1 w-100" 
+                    v-model="form.password" 
                     required
-                    autocomplete="current-password"
+                    autocomplete="current-password" 
                 />
 
                 <InputError class="mt-2" :message="form.errors.password" />
@@ -85,7 +85,7 @@ const submit = () => {
             <div v-show="(form.password.length < 8) && form.password.length" class="mt-2 shadow bg-danger rounded px-3 py-2">
                 <span class="text-light fw-semibold">
                     The Password must have at least 8 characters
-                </span> 
+                </span>
             </div>
 
             <div class="mt-4">
@@ -96,26 +96,24 @@ const submit = () => {
             </div>
 
             <div class="d-flex flex-column mt-4 gap-4">
-               
+
 
                 <PrimaryButton class="my_login_button mt-3" :class="{ 'text-opacity-50': form.processing }" :disabled="form.processing">
                     Log in
                 </PrimaryButton>
 
-                <Link
-                    v-if="canResetPassword"
+                <Link 
+                    v-if="canResetPassword" 
                     :href="route('password.request')"
                     class="text-decoration-underline fs-6 text-secondary text-center"
                 >
-                    Forgot your password?
+                Forgot your password?
                 </Link>
             </div>
         </form>
-        <!-- Square & Circle -->
-        <div class="my_element_container d-flex justify-content-between">
-            <div class="my_square"></div>
-            <div class="my_circle"></div>
-        </div>
     </GuestLayout>
 </template>
 
+<style scoped lang="scss">
+@use '../../../sass/guest-layout-style.scss';
+</style>

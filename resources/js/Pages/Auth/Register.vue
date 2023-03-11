@@ -35,18 +35,18 @@ const submit = () => {
             <span class="text-light">Let's get started!</span>
         </div>
 
-        <form @submit.prevent="submit" style="min-width: 300px;">
+        <form @submit.prevent="submit" style="min-width:450px">
             <div class="my_text_input_label mt-5">
                 <InputLabel class="my_input_label bg-dark" for="name" value="Name" />
 
-                <TextInput
-                    id="name"
-                    type="text"
-                    class="mt-1 w-100"
-                    v-model="form.name"
-                    required
+                <TextInput 
+                    id="name" 
+                    type="text" 
+                    class="mt-1 w-100" 
+                    v-model="form.name" 
+                    required 
                     autofocus
-                    autocomplete="name"
+                    autocomplete="name" 
                 />
 
                 <InputError class="mt-2" :message="form.errors.name" />
@@ -55,19 +55,19 @@ const submit = () => {
             <div v-show="form.name.length > 64 || (form.name.length < 2 && form.name.length)" class="mt-2 shadow bg-warning rounded px-3 py-2">
                 <span class="text-dark fw-semibold">
                     Must be between 2 and 64 characters
-                </span> 
+                </span>
             </div>
 
             <div class="my_text_input_label mt-4">
                 <InputLabel class="my_input_label bg-dark" for="last" value="Last Name" />
 
-                <TextInput
-                    id="last"
-                    type="text"
-                    class="mt-1 w-100"
-                    v-model="form.last"
-                    required
-                    autocomplete="last"
+                <TextInput 
+                    id="last" 
+                    type="text" 
+                    class="mt-1 w-100" 
+                    v-model="form.last" 
+                    required 
+                    autocomplete="last" 
                 />
 
                 <InputError class="mt-2" :message="form.errors.last" />
@@ -76,19 +76,19 @@ const submit = () => {
             <div v-show="form.last.length > 64 || (form.last.length < 2 && form.last.length)" class="mt-2 shadow bg-warning rounded px-3 py-2">
                 <span class="text-dark fw-semibold">
                     Must be between 2 and 64 characters
-                </span> 
+                </span>
             </div>
 
             <div class="my_text_input_label mt-4">
                 <InputLabel class="my_input_label bg-dark" for="email" value="Email" />
 
-                <TextInput
-                    id="email"
-                    type="email"
-                    class="mt-1 w-100"
-                    v-model="form.email"
+                <TextInput 
+                    id="email" 
+                    type="email" 
+                    class="mt-1 w-100" 
+                    v-model="form.email" 
                     required
-                    autocomplete="username"
+                    autocomplete="username" 
                 />
 
                 <InputError class="mt-2" :message="form.errors.email" />
@@ -97,19 +97,19 @@ const submit = () => {
             <div v-show="!form.email.match(mailformat) && form.email.length" class="mt-2 shadow bg-secondary rounded px-3 py-2">
                 <span class="text-light fw-semibold">
                     Email format not valid
-                </span> 
+                </span>
             </div>
 
             <div class="my_text_input_label mt-4">
                 <InputLabel class="my_input_label bg-dark" for="password" value="Password" />
 
-                <TextInput
-                    id="password"
-                    type="password"
-                    class="mt-1 w-100"
-                    v-model="form.password"
+                <TextInput 
+                    id="password" 
+                    type="password" 
+                    class="mt-1 w-100" 
+                    v-model="form.password" 
                     required
-                    autocomplete="new-password"
+                    autocomplete="new-password" 
                 />
 
                 <InputError class="mt-2" :message="form.errors.password" />
@@ -118,50 +118,49 @@ const submit = () => {
             <div v-show="(form.password.length < 8) && form.password.length" class="mt-2 shadow bg-danger rounded px-3 py-2">
                 <span class="text-light fw-semibold">
                     The Password must have at least 8 characters
-                </span> 
+                </span>
             </div>
 
             <div class="my_text_input_label mt-4">
                 <InputLabel class="my_input_label bg-dark" for="password_confirmation" value="Confirm Password" />
 
-                <TextInput
-                    id="password_confirmation"
-                    type="password"
+                <TextInput 
+                    id="password_confirmation" 
+                    type="password" 
                     class="mt-1 w-100"
-                    v-model="form.password_confirmation"
-                    required
-                    autocomplete="new-password"
+                    v-model="form.password_confirmation" 
+                    required 
+                    autocomplete="new-password" 
                 />
 
                 <InputError class="mt-2" :message="form.errors.password_confirmation" />
             </div>
-            
+
             <!-- Password Verify -->
             <div v-show="form.password != form.password_confirmation" class="mt-2 shadow bg-danger rounded px-3 py-2">
                 <span class="text-light fw-semibold">
                     Password not matching
-                </span> 
+                </span>
             </div>
 
             <div class="d-flex flex-column mt-4 gap-4">
-                
-                <PrimaryButton class="my_login_button" :class="{ 'text-opacity-50': form.processing }" :disabled="form.processing">
+
+                <PrimaryButton class="my_login_button" :style="{ 'opacity: .5': form.processing }" :disabled="form.processing">
                     Register
                 </PrimaryButton>
 
-                <Link
-                    :href="route('login')"
+                <Link 
+                    :href="route('login')" 
                     class="text-decoration-underline fs-6 text-secondary text-center"
                 >
-                    Already registered?
+                Already registered?
                 </Link>
             </div>
         </form>
-        <!-- Square & Circle -->
-        <div class="my_element_container d-flex justify-content-between">
-            <div class="my_square"></div>
-            <div class="my_circle"></div>
-        </div>
     </GuestLayout>
 </template>
 
+
+<style scoped lang="scss">
+@use '../../../sass/guest-layout-style.scss';
+</style>
