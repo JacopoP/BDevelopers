@@ -207,11 +207,12 @@ props.technologies.forEach((technology) => {
                                             :id="tech.id" v-model="form.developer_technologies">
 
                                         <!-- fake checkbox made with icon (visually toggled with dynamic class) -->
-                                        <label class="form-check-label" :for="tech.id">
+                                        <label class="form-check-label text-center" :for="tech.id">
                                             <div class="my_tech_icon">
                                                 <img :src="tech.logo_path" alt="" class="tech-icon" :id="'img-' + tech.id"
                                                     :class="{ disabled: !form.developer_technologies.includes(tech.id) }">
                                             </div>
+                                            <span class="text-light fw-bold">{{ tech.name }}</span>
                                         </label>
 
                                     </div>
@@ -225,6 +226,7 @@ props.technologies.forEach((technology) => {
                         <div class="d-flex justify-content-center" v-if="form.address == null && form.phone_number == null && form.portfolio_url == null && form.about_me == null && form.performances == null">
                             <input class="my_login_button btn btn-secondary rounded-pill text-light border-0" type="submit" value="SEND">
                         </div>
+                        <!-- Update -->
                         <div class="d-flex justify-content-center" v-else>
                             <input class="my_login_button btn btn-secondary rounded-pill text-light border-0" type="submit" value="UPDATE">
                         </div>
