@@ -95,7 +95,6 @@ props.technologies.forEach((technology) => {
                                 class="mt-1 w-100 p-2"
                                 v-model="form.address"
                                 required
-                                autofocus
                                 autocomplete="username"
                             />
                         </div>
@@ -112,7 +111,6 @@ props.technologies.forEach((technology) => {
                                 class="mt-1 w-100 p-2"
                                 v-model="form.phone_number"
                                 required
-                                autofocus
                                 autocomplete="username"
                             />
                         </div>
@@ -147,7 +145,6 @@ props.technologies.forEach((technology) => {
                                 class="mt-1 w-100 p-2"
                                 v-model="form.portfolio_url"
                                 required
-                                autofocus
                                 autocomplete="username"
                             />
                         </div>
