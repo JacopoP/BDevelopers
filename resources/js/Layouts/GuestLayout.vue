@@ -8,11 +8,12 @@ import { Link } from '@inertiajs/vue3';
     <div class="d-flex flex-column justify-content-top align-items-center position-relative" id="my_container">
         <div>
             <Link href="/">
-            <ApplicationLogo />
+                <ApplicationLogo />
             </Link>
         </div>
-
-        <div>
+        
+        <!-- z-index -->
+        <div style="z-index: 9;">
             <slot />
         </div>
         <div class="my_square"></div>

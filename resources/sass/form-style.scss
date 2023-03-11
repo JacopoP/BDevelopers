@@ -13,6 +13,35 @@
     left: 15px;
 }
 
+
+// Alert 
+.my_danger_alert{
+    position: absolute;
+    top: 15px;
+    right: 10px;
+}
+.my_danger_alert_text{
+    z-index: 2;
+    display: none;
+    position: absolute;
+    top: 40px;
+    right: -5px;
+}
+.my_danger_alert_text::before {
+    content: "";
+    position: absolute;
+    top: 0px;
+    left: 70%;
+    transform: translateX(-50%);
+    border: 10px solid transparent;
+    border-bottom-color: #dc3545;
+    rotate: 130deg;
+}
+.my_danger_alert:hover .my_danger_alert_text{
+    display: flex;
+}
+
+
 .my_login_button {
     background-color: $brand_third;
 }

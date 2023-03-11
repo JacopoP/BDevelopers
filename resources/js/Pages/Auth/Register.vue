@@ -26,7 +26,7 @@ const submit = () => {
 </script>
 
 <template>
-    <GuestLayout class="bg-dark overflow-hidden py-5">
+    <GuestLayout class="container-fluid bg-dark overflow-hidden py-5">
         <Head title="Register" />
 
         <!-- Create Account -->
@@ -35,7 +35,7 @@ const submit = () => {
             <span class="text-light">Let's get started!</span>
         </div>
 
-        <form @submit.prevent="submit" style="min-width:450px">
+        <form @submit.prevent="submit">
             <div class="my_text_input_label mt-5">
                 <InputLabel class="my_input_label bg-dark" for="name" value="Name" />
 
@@ -113,12 +113,15 @@ const submit = () => {
                 />
 
                 <InputError class="mt-2" :message="form.errors.password" />
-            </div>
-            <!-- Password Min -->
-            <div v-show="(form.password.length < 8) && form.password.length" class="mt-2 shadow bg-danger rounded px-3 py-2">
-                <span class="text-light fw-semibold">
-                    The Password must have at least 8 characters
-                </span>
+                <!-- Password Min -->
+                <div v-show="(form.password.length < 8) && form.password.length">
+                    <div class="my_danger_alert rounded-circle bg-danger px-2">
+                        <span class="text-light">!</span>
+                        <span class="my_danger_alert_text mt-2 shadow bg-danger rounded text-light px-3 py-2">
+                            The Password must have at least 8 characters
+                        </span>
+                    </div>
+                </div>
             </div>
 
             <div class="my_text_input_label mt-4">
@@ -134,14 +137,18 @@ const submit = () => {
                 />
 
                 <InputError class="mt-2" :message="form.errors.password_confirmation" />
+                
+                <!-- Password Verify -->
+                <div v-show="form.password != form.password_confirmation">
+                    <div class="my_danger_alert rounded-circle bg-danger px-2">
+                        <span class="text-light">!</span>
+                        <span class="my_danger_alert_text mt-2 shadow bg-danger rounded text-light px-3 py-2">
+                            Password not matching
+                        </span>
+                    </div>
+                </div>
             </div>
 
-            <!-- Password Verify -->
-            <div v-show="form.password != form.password_confirmation" class="mt-2 shadow bg-danger rounded px-3 py-2">
-                <span class="text-light fw-semibold">
-                    Password not matching
-                </span>
-            </div>
 
             <div class="d-flex flex-column mt-4 gap-4">
 
