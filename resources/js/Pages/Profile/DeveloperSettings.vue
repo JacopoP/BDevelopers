@@ -72,7 +72,7 @@ props.technologies.forEach((technology) => {
         <template #header>
             <div class="d-flex justify-content-between">
                 <h2>Developer Settings</h2>
-                <a :href="route('profile.dev.delete')" class="btn btn-danger text-light fw-bold">Delete</a>
+                <a :href="route('profile.dev.delete')" class="btn btn-danger text-light fw-bold d-flex align-items-center">Delete</a>
             </div>
         </template>
 
