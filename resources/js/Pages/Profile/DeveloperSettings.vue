@@ -120,12 +120,11 @@ props.technologies.forEach((technology) => {
                         </div>
                         <input id="profile_path" class="form-control border-dark rounded-pill" type="file"
                             name="profile_path" @input="form.profile_path = $event.target.files[0]"
-                            :value="form.profile_path"
                         >
 
                         <!-- Profile FILE -->
                         <div class="mx-auto">
-                            <label for="cv_path" class="my_login_button rounded-pill text-light px-3 py-1">CV</label>
+                            <label for="cv_path" class="my_login_button rounded-pill text-light px-3 py-1 cursor-pointer">Curriculum Vitae</label>
                         </div>
                         <input id="cv_path" class="form-control border-dark rounded-pill" type="file" name="cv_path"
                             @input="form.cv_path = $event.target.files[0]"
@@ -197,11 +196,11 @@ props.technologies.forEach((technology) => {
                             </div>
 
                             <!-- checkboxes (with GRID layout) -->
-                            <div class="container">
-                                <div class="row row-cols-3 justify-content-evenly gap-y-5">
+                            <div>
+                                <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 justify-content-evenly gap-y-5 mt-5 border border-secondary border-4 rounded py-4">
 
                                     <!-- single tech icon -->
-                                    <div class="form-check d-flex justify-content-center align-items-center" v-for="tech in technologies">
+                                    <div class="d-flex justify-content-center align-items-center" v-for="tech in technologies">
 
                                         <!-- hidden (d-none) checkbox to make the checking system work -->
                                         <input class="form-check-input d-none" type="checkbox" :value="tech.id"
@@ -223,8 +222,11 @@ props.technologies.forEach((technology) => {
 
 
                         <!-- Submit -->
-                        <div class="d-flex justify-content-center">
+                        <div class="d-flex justify-content-center" v-if="form.address == null && form.phone_number == null && form.portfolio_url == null && form.about_me == null && form.performances == null">
                             <input class="my_login_button btn btn-secondary rounded-pill text-light border-0" type="submit" value="SEND">
+                        </div>
+                        <div class="d-flex justify-content-center" v-else>
+                            <input class="my_login_button btn btn-secondary rounded-pill text-light border-0" type="submit" value="UPDATE">
                         </div>
 
                     </form>
