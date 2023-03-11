@@ -1,0 +1,26 @@
+@import './variable.scss';
+
+// Register / Login / forgot-password / DeveloperSettings
+
+.my_text_input_label {
+    position: relative;
+}
+
+.my_input_label {
+    z-index: 1;
+    position: absolute;
+    top: -10px;
+    left: 15px;
+}
+
+.my_login_button {
+    background-color: $brand_third;
+}
+
+.my_register_button {
+    background-color: $brand_fourth;
+}
+
+.my_background_secondary {
+    background-color: $brand_secondary;
+}

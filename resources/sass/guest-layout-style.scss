@@ -1,26 +1,7 @@
 @import './variable.scss';
-
-
-.my_login_button {
-    background-color: $brand_third;
-}
-
-.my_register_button {
-    background-color: $brand_fourth;
-}
-
-.my_background_secondary {
-    background-color: $brand_secondary;
-}
-
+@import './form-style.scss';
 
 // Square & Circle
-.my_element_container {
-    position: relative;
-    min-width: 300px;
-    min-height: 300px;
-}
-
 .my_circle {
     position: absolute;
     right: -300px;
@@ -40,18 +21,4 @@
     border-radius: 15px;
     background-color: $brand_fourth;
     rotate: 43deg;
-}
-
-
-// Register / Login / forgot-password
-
-.my_text_input_label {
-    position: relative;
-}
-
-.my_input_label {
-    z-index: 1;
-    position: absolute;
-    top: -10px;
-    left: 15px;
 }
