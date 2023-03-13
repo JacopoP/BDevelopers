@@ -4,10 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Inertia\Inertia;
-use Inertia\Response;
+use Illuminate\Support\Facades\Auth;
 
+// MODELS
 use App\Models\Developer;
-use App\Models\User;
 use App\Models\Review;
 use App\Models\Message;
 use App\Models\Rating;
@@ -29,10 +29,10 @@ class Emacontroller extends Controller
             'text' => 'string|max:500',
             'full_name' => 'nullable|string|max:128'
         ]);
-        
+
         $developer = Developer::find($id);
-        
-        $review=Review::make($data);
+
+        $review = Review::make($data);
         $review->developer()->associate($developer);
         $review->save();
         return redirect()->back();
@@ -45,10 +45,10 @@ class Emacontroller extends Controller
             'email' => 'string|max:255',
             'full_name' => 'string|max:128'
         ]);
-        
+
         $developer = Developer::find($id);
-        
-        $message=Message::make($data);
+
+        $message = Message::make($data);
         $message->developer()->associate($developer);
         $message->save();
         return redirect()->back();
@@ -57,11 +57,19 @@ class Emacontroller extends Controller
     public function RatingStore(Request $request, $id)
     {
         $data = $request->all();
-        
+
         $developer = Developer::find($id);
-        
-        $rating=Rating::find($data['rating']);
+
+        $rating = Rating::find($data['rating']);
         $rating->developers()->attach($developer);
-        return redirect()->back();
+    }
+    public function dashboard()
+    {
+
+        // Get currently logged developer
+        $developer = Developer::with('user', 'ratings', 'reviews', 'technologies', 'messages', 'sponsors')->find(Auth::id());
+
+
+        return Inertia::render('Dashboard', compact('developer'));
     }
 }
