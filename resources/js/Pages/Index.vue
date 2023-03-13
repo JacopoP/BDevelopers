@@ -1,9 +1,13 @@
 <script>
 import axios from 'axios';
+import { Link } from '@inertiajs/vue3';
 const apiUrl = 'http://localhost:8000/api/';
 const apiVersion = 'v1/';
 const api = apiUrl + apiVersion;
 export default {
+    components:{
+        Link,
+    },
     props: ['technologies', 'data'],
     data() {
         return {
@@ -75,7 +79,8 @@ export default {
         <li v-for="developer in this.developers">
             {{ developer.user.name }} {{ developer.user.last }} <br>
             {{ developer.user.email }} <br>
-            <span v-for="tech in developer.technologies">{{ tech.name }}&nbsp;</span>
+            <span v-for="tech in developer.technologies">{{ tech.name }}&nbsp;</span> <br>
+            <Link :href="'/show' + developer.id">Visita la pagina</Link>
             <hr>
         </li>
     </ul>
