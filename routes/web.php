@@ -30,7 +30,7 @@ Route::get('/', function () {
 
 
 
-Route::middleware(['auth', 'verified'])->get('/dashboard', [Emacontroller::class, 'dashboard'])->name('dashboard');
+Route::middleware(['auth', 'verified'])->get('/dashboard', [Emacontroller::class, 'Dashboard'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

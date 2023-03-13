@@ -63,11 +63,14 @@ class Emacontroller extends Controller
         $rating = Rating::find($data['rating']);
         $rating->developers()->attach($developer);
     }
-    public function dashboard()
+    public function Dashboard()
     {
 
         // Get currently logged developer
-        $developer = Developer::with('user', 'ratings', 'reviews', 'technologies', 'messages', 'sponsors')->find(Auth::id());
+        // $developer = Developer::with('user', 'ratings', 'reviews', 'technologies', 'messages', 'sponsors')->find(Auth::id());
+
+        // DEBUG
+        $developer = Developer::with('user', 'ratings', 'reviews', 'technologies', 'messages', 'sponsors')->find(1);
 
 
         return Inertia::render('Dashboard', compact('developer'));
