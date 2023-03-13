@@ -103,7 +103,7 @@ const submit = () => {
                     required
                     :autocomplete="this.view ? 'off' : 'current-password'"
                 />
-                <button type="button" class="my_password_view text-light btn btn-primary" @click="setView()">view</button>
+                <button v-if="form.password.length >= 8" type="button" class="my_password_view text-light btn btn-primary" @click="setView()">view</button>
 
                 <InputError class="mt-2" :message="form.errors.password" />
                 <!-- Password Min -->
