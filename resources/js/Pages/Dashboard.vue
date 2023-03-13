@@ -11,7 +11,7 @@ const props = defineProps([
 
 
 
-const dati = {
+const data = {
     name: props.developer.user.name,
     last: props.developer.user.last,
     address: props.developer.address,
@@ -23,7 +23,7 @@ const dati = {
 <template>
     <h1>Your profile</h1>
     <div>
-        {{ dati.name }}
+        {{ data.name }}
     </div>
     <div class="container">
 
