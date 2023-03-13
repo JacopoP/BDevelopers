@@ -120,7 +120,6 @@ props.technologies.forEach((technology) => {
                         <input id="profile_path" class="form-control border-dark rounded-pill" type="file"
                             name="profile_path" @input="form.profile_path = $event.target.files[0]"
                         >
-                        <span class="text-light text-center">{{form.profile_path}}</span>
 
                         <!-- Profile FILE -->
                         <div class="mx-auto">

@@ -16,7 +16,11 @@
 
 // Alert 
 .my_danger_alert{
+    display: flex;
+    align-items: center;
     position: absolute;
+    width: 20px;
+    height: 20px;
     top: 15px;
     right: 10px;
 }
@@ -43,7 +47,11 @@
 
 // Alert Warning
 .my_warning_alert{
+    display: flex;
+    align-items: center;
     position: absolute;
+    width: 20px;
+    height: 20px;
     top: 15px;
     right: 10px;
 }
