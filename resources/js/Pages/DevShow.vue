@@ -46,8 +46,8 @@ function submit() {
 
     </div>
 
+    <!-- contatti -->
     <div class="container-fluid">
-        <!-- sotto -->
         <div class="d-flex justify-between _contact">
 
             <div class="d-flex">
@@ -73,6 +73,7 @@ function submit() {
                 <button class="_rosa">Leave a reviews or a star</button>
             </div>
         </div>
+        <div class="_line _blue mt-4 "></div>
 
         <div class="_contact">
             <div class="d-flex justify-content-between mt-4">
@@ -88,23 +89,23 @@ function submit() {
                 <h3>"My Performances"</h3>
             </div>
         </div>
-
     </div>
 
 
+
     <!-- reviews e ratings -->
-    <div>
-        <h3>Review</h3>
+    <div class="container-fluid d-flex justify-content-evenly _contact mt-5">
         <div class="text">
+            <h3>Review</h3>
             <ReviewForm :developer="developer" />
         </div>
-        <h3>Rating</h3>
         <div class="text">
+            <h3 class="pt-3">Rating</h3>
             <RatingForm :developer="developer" />
         </div>
     </div>
     <!-- Message -->
-    <div>
+    <div class="container-fluid d-flex flex-column align-items-center pt-3">
         <h3>Message</h3>
         <div class="text">
             <MessageForm :developer="developer" />
@@ -144,5 +145,11 @@ button {
     padding: 10px;
     border-radius: 20px;
     margin-top: 15px;
+}
+
+._line {
+    width: 80%;
+    margin: 0 auto;
+    height: 2px;
 }
 </style>

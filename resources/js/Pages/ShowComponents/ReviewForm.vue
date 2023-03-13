@@ -19,13 +19,32 @@ function submit() {
 
 <template>
     <form method="post" @submit.prevent="submit">
-        <label for="text">review</label>
+        <label for="text">Review</label>
         <br>
-        <textarea id="text" v-model="form.text"></textarea>
+        <textarea class="layout" id="text" v-model="form.text"></textarea>
         <br>
-        <label for="full_name">If u want to add your name</label>
+        <label for="full_name">Add your Name</label>
         <br>
-        <input type="text" v-model="form.full_name">
-        <input type="submit" value="Send a review">
+        <input class="layout" type="text" v-model="form.full_name">
+        <br>
+        <input class="_button _blue" type="submit" value="Send a Review">
     </form>
 </template>
+
+<style lang="scss" scoped>
+@use 'resources/sass/general.scss' as *;
+
+.layout {
+    width: 100%;
+    background-color: $background;
+    border-radius: 10px;
+}
+
+._button {
+    color: $titles;
+    padding: 10px;
+    border-radius: 20px;
+    margin-top: 15px;
+    width: 100%;
+}
+</style>
