@@ -3,6 +3,7 @@ import { useForm } from '@inertiajs/vue3';
 import ReviewForm from '@/Pages/ShowComponents/ReviewForm.vue'
 import MessageForm from '@/Pages/ShowComponents/MessageForm.vue'
 import RatingForm from '@/Pages/ShowComponents/RatingForm.vue'
+
 const props = defineProps([
     'developer',
 ]);
@@ -35,109 +36,113 @@ function submit() {
 </script>
     
 <template>
-    <div class="d-flex flex-column">
-        <!-- intestazione -->
-        <div class="DEBUG-green d-flex">
-            <div class="container-img">
-                <img :src="dati.profile_path">
-            </div>
-            <div class="DEBUG-blue nome-cognome">
-                <h1>{{ dati.last }} {{ dati.name }}</h1>
+    <!-- intestazione -->
+    <div class="d-flex justify-content-end _nav _rosa">
 
-            </div>
+        <div class="d-flex">
+            <h1 class="name pe-2">{{ dati.last }} {{ dati.name }}</h1>
+            <img class="profile me-2" :src="dati.profile_path">
         </div>
 
+    </div>
 
+    <div class="container-fluid">
         <!-- sotto -->
-        <div class="d-flex justify-between">
+        <div class="d-flex justify-between _contact">
+
+            <div class="d-flex">
+                <img class="img_profile" :src="dati.profile_path">
+                <div class="d-flex flex-column justify-content-end ps-2">
+                    <h3>Address:</h3>
+                    <div class="text">
+                        {{ dati.address }}
+                    </div>
+                    <h3> Phone Number:</h3>
+                    <div class="text">
+                        {{ dati.phone_number }}
+                    </div>
+                    <a :href="dati.portfolio_url" v-if="dati.portfolio_url">
+                        <h3>Portfolio</h3>
+                    </a>
+                </div>
+            </div>
 
             <div>
-                <b>About me</b>
-                <div>{{ dati.about_me }}</div>
-                <b>My Performances</b>
-                <div>{{ dati.performances }}</div>
+                <button class="_blue">Send a Message</button>
+                <br>
+                <button class="_rosa">Leave a reviews or a star</button>
             </div>
-            <div>
-                <b>details</b>
-                <div>{{ dati.address }}</div>
-                <div>{{ dati.phone_number }}</div>
-                <!-- se non c'è il portfolio non metto il link -->
-                <a :href="dati.portfolio_url" v-if="dati.portfolio_url">Portfolio</a>
-
-
-                <!-- cv_path? -->
-            </div>
-
         </div>
 
+        <div class="_contact">
+            <div class="d-flex justify-content-between mt-4">
+                <div class="text">{{ dati.about_me }}</div>
+                <h3>"About me"</h3>
+            </div>
+            <div class="d-flex justify-content-between mt-4">
+                <h3>"Curriculum"</h3>
+                <div class="text">{{ dati.cv_path }}</div>
+            </div>
+            <div class="d-flex justify-content-between mt-4">
+                <div class="text">{{ dati.performances }}</div>
+                <h3>"My Performances"</h3>
+            </div>
+        </div>
 
-        <!-- reviews e ratings -->
-        <h2>Review</h2>
-        <ReviewForm :developer="developer" />
-        <br>
-        <h2>Rating</h2>
-        <RatingForm :developer="developer" />
-        <br>
-        <h2>Message</h2>
-        <MessageForm :developer="developer" />
+    </div>
+
+
+    <!-- reviews e ratings -->
+    <div>
+        <h3>Review</h3>
+        <div class="text">
+            <ReviewForm :developer="developer" />
+        </div>
+        <h3>Rating</h3>
+        <div class="text">
+            <RatingForm :developer="developer" />
+        </div>
+    </div>
+    <!-- Message -->
+    <div>
+        <h3>Message</h3>
+        <div class="text">
+            <MessageForm :developer="developer" />
+        </div>
     </div>
 </template>
+
 
 <style lang="scss">
 @use 'resources/sass/general.scss' as *;
 
-$background: #26292d;
-$name: #ffffff;
-$titles: #ffee00;
-$w-container-img: 150px;
-
 body {
     background-color: $background;
-    color: $name;
-    padding: 20px;
 }
 
-
-.container-img {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: $w-container-img;
-
-    img {
-        width: $w-container-img * 0.7;
-        height: $w-container-img * 0.7;
-        object-fit: cover;
-        border-radius: 20px;
-    }
+// Menù nav
+img.profile {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 20px;
 }
 
-.nome-cognome {
-    width: calc(100% - $w-container-img);
+// Contacts part 
+div._contact {
+    width: 80%;
+    margin: 0 auto;
+    padding-top: 20px;
 }
 
-h2 {
+img.img_profile {
+    width: 400px;
+}
 
+button {
     color: $titles;
-}
-
-
-.my_input {
-    border-radius: 30px;
-    padding: 10px 20px;
-}
-
-
-// debug
-.DEBUG-green {
-    background-color: rgba(0, 128, 0, 0.087);
-}
-
-.DEBUG-blue {
-    background-color: rgba(0, 0, 255, 0.053);
-}
-
-.DEBUG-yellow {
-    background-color: rgba(238, 255, 0, 0.053);
+    padding: 10px;
+    border-radius: 20px;
+    margin-top: 15px;
 }
 </style>
