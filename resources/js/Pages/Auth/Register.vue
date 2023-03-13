@@ -25,6 +25,25 @@ const submit = () => {
 };
 </script>
 
+<!-- Show password -->
+<script>
+    export default{
+        data(){
+            return{
+                // Password view func
+                view: false,
+            }
+        },
+
+        methods:{
+            setView(){
+                this.view = !this.view;
+            }
+        }
+
+    }
+</script>
+
 <template>
     <GuestLayout class="container-fluid bg-dark overflow-hidden py-5">
         <Head title="Register" />
@@ -113,13 +132,15 @@ const submit = () => {
                 <InputLabel class="my_input_label bg-dark" for="password" value="Password" />
 
                 <TextInput 
-                    id="password" 
-                    type="password" 
+                    id = "password" 
+                    :type="this.view ? 'text' : 'password'" 
                     class="mt-1 w-100" 
                     v-model="form.password" 
                     required
-                    autocomplete="new-password" 
+                    :autocomplete="this.view ? 'off' : 'current-password'"
                 />
+
+                <button :class="((form.password.length >= 8) || (!form.password.length)) ? 'my_password_view' : 'my_password_preview' " type="button" class="text-light btn btn-primary" @click="setView()">V</button>
 
                 <InputError class="mt-2" :message="form.errors.password" />
                 <!-- Password Min -->
@@ -138,12 +159,14 @@ const submit = () => {
 
                 <TextInput 
                     id="password_confirmation" 
-                    type="password" 
+                    :type="this.view ? 'text' : 'password'" 
                     class="mt-1 w-100"
                     v-model="form.password_confirmation" 
                     required 
                     autocomplete="new-password" 
                 />
+
+                <button :class="((form.password.length >= 8) || (!form.password.length)) ? 'my_password_view' : 'my_password_preview' " type="button" class="text-light btn btn-primary" @click="setView()">V</button>
 
                 <InputError class="mt-2" :message="form.errors.password_confirmation" />
                 
