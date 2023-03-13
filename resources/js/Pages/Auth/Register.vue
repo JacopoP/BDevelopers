@@ -140,7 +140,7 @@ const submit = () => {
                     :autocomplete="this.view ? 'off' : 'current-password'"
                 />
 
-                <button :class="((form.password.length >= 8) || (!form.password.length)) ? 'my_password_view' : 'my_password_preview' " type="button" class="text-light btn btn-primary" @click="setView()">V</button>
+                <button type="button" class="my_password_view text-light btn btn-primary" @click="setView()">V</button>
 
                 <InputError class="mt-2" :message="form.errors.password" />
                 <!-- Password Min -->
@@ -163,10 +163,10 @@ const submit = () => {
                     class="mt-1 w-100"
                     v-model="form.password_confirmation" 
                     required 
-                    autocomplete="new-password" 
+                    :autocomplete="this.view ? 'off' : 'new-password'"
                 />
 
-                <button :class="((form.password.length >= 8) || (!form.password.length)) ? 'my_password_view' : 'my_password_preview' " type="button" class="text-light btn btn-primary" @click="setView()">V</button>
+                <button type="button" class="my_password_view text-light btn btn-primary" @click="setView()">V</button>
 
                 <InputError class="mt-2" :message="form.errors.password_confirmation" />
                 
