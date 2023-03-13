@@ -4,11 +4,11 @@ const apiUrl = 'http://localhost:8000/api/';
 const apiVersion = 'v1/';
 const api = apiUrl + apiVersion;
 export default {
-    props: ['technologies'],
+    props: ['technologies', 'data'],
     data() {
         return {
             developers: [],
-            nameFilter: '',
+            nameFilter: this.data.name != undefined ? this.data.name : '',
             post: {
                 nFilter: '',
                 lFilter: '',
@@ -34,11 +34,10 @@ export default {
         }
     },
     mounted() {
-        axios.get(api + 'index')
-            .then((res) => {
-                this.developers = res.data.response.developers
-            })
-            .catch((err) => console.log(err));
+        if(this.data.tech != undefined){
+            this.post.techFilter.push(this.data.tech)
+        }
+        this.goFilter();
     }
 }
 </script>

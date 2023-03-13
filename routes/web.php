@@ -38,7 +38,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/developer/delete', [DeveloperController::class, 'DevDelete'])->name('profile.dev.delete');
 });
 
-Route::get('/index', [IndexController::class, 'goToIndex'])->name('index');
+Route::match(['get', 'post'], '/index', [IndexController::class, 'goToIndex'])->name('index');
+
+Route::post('/index/form', [IndexController::class, 'getForIndex'])->name('index.form');
 
 // developer show per UI
 Route::get('/show{id}', [Emacontroller::class, 'DevShow'])->name('show');

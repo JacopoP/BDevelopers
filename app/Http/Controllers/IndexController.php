@@ -19,14 +19,15 @@ use App\Models\Sponsors;
 
 class IndexController extends Controller
 {
-    public function goToIndex(){
+    public function goToIndex(Request $request){
+        $data = $request->all();
         $technologies = Technology::all();
-        return Inertia::render('Index', compact('technologies'));
+        return Inertia::render('Index', compact('data', 'technologies'));
     }
 
     public function welcome(){
         $technologies = Technology::all();
-        $developers = Developer::with('user', 'ratings', 'reviews', 'sponsors')
+        $developers = Developer::with('user', 'ratings', 'reviews')
         ->join('developer_sponsor', 'developers.id', '=', 'developer_sponsor.developer_id')
         ->whereDate('date_start', '<=', date('2021-01-01'))
         ->whereDate('date_end', '>=', date('2021-01-01'))
