@@ -2,13 +2,16 @@
 import { Head } from '@inertiajs/vue3';
 import GuestNavbar from '@/Components/WelcomeHead/Navbar.vue';
 
-defineProps({
+const props =defineProps({
     canLogin: Boolean,
     canRegister: Boolean,
     laravelVersion: String,
     phpVersion: String,
+    technologies: Array,
+    developers: Object,
 });
 
+console.log(props);
 </script>
 
 <template>
