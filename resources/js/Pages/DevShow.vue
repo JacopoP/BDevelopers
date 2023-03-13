@@ -62,15 +62,13 @@ function submit() {
                         {{ dati.phone_number }}
                     </div>
                     <a :href="dati.portfolio_url" v-if="dati.portfolio_url">
-                        <h3>Portfolio</h3>
+                        <h3>URL Portfolio</h3>
                     </a>
                 </div>
             </div>
 
             <div>
-                <button class="_blue">Send a Message</button>
-                <br>
-                <button class="_rosa">Leave a reviews or a star</button>
+                <a href="#ancor" class="_blue">Send a Message, Leave a Reviews or a Star</a>
             </div>
         </div>
         <div class="_line _blue mt-4 "></div>
@@ -91,23 +89,18 @@ function submit() {
         </div>
     </div>
 
-
-
     <!-- reviews e ratings -->
     <div class="container-fluid d-flex justify-content-evenly _contact mt-5">
         <div class="text">
-            <h3>Review</h3>
+            <h3><a id="ancor"></a> Review</h3>
             <ReviewForm :developer="developer" />
         </div>
         <div class="text">
             <h3 class="pt-3">Rating</h3>
             <RatingForm :developer="developer" />
         </div>
-    </div>
-    <!-- Message -->
-    <div class="container-fluid d-flex flex-column align-items-center pt-3">
-        <h3>Message</h3>
         <div class="text">
+            <h3>Message</h3>
             <MessageForm :developer="developer" />
         </div>
     </div>
@@ -140,12 +133,15 @@ img.img_profile {
     width: 400px;
 }
 
-button {
+a {
     color: $titles;
     padding: 10px;
     border-radius: 20px;
     margin-top: 15px;
+    text-decoration: none;
 }
+
+
 
 ._line {
     width: 80%;
