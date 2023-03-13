@@ -67,7 +67,7 @@ function submit() {
                 </div>
             </div>
 
-            <div>
+            <div class="d-flex align-items-center">
                 <a href="#ancor" class="_blue">Send a Message, Leave a Reviews or a Star</a>
             </div>
         </div>
@@ -88,6 +88,9 @@ function submit() {
             </div>
         </div>
     </div>
+
+    <div>{{ dati.text }} </div>
+
 
     <!-- reviews e ratings -->
     <div class="container-fluid d-flex justify-content-evenly _contact mt-5">
@@ -137,10 +140,9 @@ a {
     color: $titles;
     padding: 10px;
     border-radius: 20px;
-    margin-top: 15px;
+    // margin-top: 15px;
     text-decoration: none;
 }
-
 
 
 ._line {
