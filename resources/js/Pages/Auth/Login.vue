@@ -6,6 +6,7 @@ import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
+import { def } from '@vue/shared';
 
 defineProps({
     canResetPassword: Boolean,
@@ -26,6 +27,27 @@ const submit = () => {
         });
     }
 };
+
+</script>
+
+
+<!-- Show password -->
+<script>
+    export default{
+        data(){
+            return{
+                // Password view func
+                view: false,
+            }
+        },
+
+        methods:{
+            setView(){
+                this.view = !this.view;
+            }
+        }
+
+    }
 </script>
 
 <template>
@@ -73,14 +95,15 @@ const submit = () => {
             <div class="my_text_input_label mt-4">
                 <InputLabel class="my_input_label bg-dark" for="password" value="Password" />
 
-                <TextInput 
-                    id="password" 
-                    type="password" 
+                <TextInput
+                    id = "password" 
+                    :type="this.view ? 'text' : 'password'" 
                     class="mt-1 w-100" 
                     v-model="form.password" 
                     required
-                    autocomplete="current-password" 
+                    :autocomplete="this.view ? 'off' : 'current-password'"
                 />
+                <button type="button" class="my_password_view text-light btn btn-primary" @click="setView()">view</button>
 
                 <InputError class="mt-2" :message="form.errors.password" />
                 <!-- Password Min -->
