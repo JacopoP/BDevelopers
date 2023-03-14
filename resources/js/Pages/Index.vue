@@ -1,19 +1,24 @@
 <script>
 import axios from 'axios';
+import { Link } from '@inertiajs/vue3';
 const apiUrl = 'http://localhost:8000/api/';
 const apiVersion = 'v1/';
 const api = apiUrl + apiVersion;
 export default {
-    props: ['technologies'],
+    components: {
+        Link,
+    },
+    props: ['technologies', 'data'],
     data() {
         return {
-            developers: Object,
-            nameFilter: '',
+            name: 'IndexPage',
+            developers: [],
+            nameFilter: this.data.name != undefined ? this.data.name : '',
             post: {
                 nFilter: '',
                 lFilter: '',
-                ratingFilter: null,
-                reviewFilter: null,
+                ratingFilter: 0,
+                reviewFilter: 0,
                 techFilter: [],
             }
         }
@@ -24,8 +29,9 @@ export default {
             this.post.nFilter = textArray[0];
             if (textArray.length >= 1) { textArray.shift() };
             this.post.lFilter = textArray.join(' ');
+            let params = this.post;
 
-            axios.post(api + 'search', this.post)
+            axios.get(api + 'search', { params })
                 .then((res) => {
                     this.developers = res.data.response.developers
                 })
@@ -33,55 +39,138 @@ export default {
         }
     },
     mounted() {
-        axios.get(api + 'index')
-            .then((res) => {
-                this.developers = res.data.response.developers
-            })
-            .catch((err) => console.log(err));
+        if (this.data.tech != undefined) {
+            this.post.techFilter.push(this.data.tech)
+        }
+        this.goFilter();
     }
 }
 </script>
 
 <template>
-    <form @submit.prevent="goFilter">
-        <h2>Filters</h2>
-        <label for="nameFilter">Name</label>
-        <input type="text" v-model="this.nameFilter" name="nameFilter" placeholder="name">
-        <label for="ratingFilter">Raitings avarage</label>
-        <select v-model="this.post.ratingFilter" id="raitingFilter">
-            <option value="0">Reset</option>
-            <option value="1">1+</option>
-            <option value="2">2+</option>
-            <option value="3">3+</option>
-            <option value="4">4+</option>
-        </select>
-        <label for="reviewFilter">Review number</label>
-        <select v-model="this.post.reviewFilter" id="raitingFilter">
-            <option value="0">Reset</option>
-            <option value="5">5+</option>
-            <option value="10">10+</option>
-            <option value="50">50+</option>
-            <option value="100">100+</option>
-        </select>
-        <h2>Technology filter</h2>
-        <div v-for="technology in this.technologies">
-            <input type="checkbox" v-model="this.post.techFilter" :value="technology.id">
-            <label for="techFilter[]">{{ technology.name }}</label>
-        </div>
-        <input type="submit" value="Filter">
-    </form>
+    <div class="results-page">
+
+        <!-- NavBar -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+            <div class="container">
+                <a class="navbar-brand" href="#">BDevelopers</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Login</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main -->
+        <main>
+
+            <!-- Filters -->
+            <div class="filters">
+                <form @submit.prevent="goFilter">
+
+                    <div class="container">
+                        <div class="row justify-content-between">
+
+                            <!-- filter by name -->
+                            <label for="nameFilter">Name</label>
+                            <input type="text" v-model="this.nameFilter" name="nameFilter" placeholder="name">
+
+                            <!-- filter by rating -->
+                            <div class="col-md-4 mb-3 mb-md-0">
+                                <div class="form-group">
+                                    <label for="min-rating">Minimum rating:</label>
+                                    <select class="form-control" v-model="this.post.ratingFilter" id="raitingFilter">
+                                        <option value="">Any</option>
+                                        <option v-for="n in 5" :value="n" :key="n">{{ n }} star{{ n !== 1 ? 's' : '' }}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- filter by review -->
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="min-reviews">Minimum reviews:</label>
+                                    <select class="form-control" v-model="this.post.reviewFilter" id="raitingFilter">
+                                        <option value="0">Any</option>
+                                        <option value="5">5+</option>
+                                        <option value="10">10+</option>
+                                        <option value="50">50+</option>
+                                        <option value="100">100+</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- filter by technology -->
+                    <h2>Technology filter</h2>
+                    <div class="d-flex gap-2">
+                            <div v-for="technology in this.technologies" class="d-flex gap-1 align-items-center">
+                                <input type="checkbox" v-model="this.post.techFilter" :value="technology.id">
+                                <label for="techFilter[]">{{ technology.name }}
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Submit -->
+                        <input type="submit" value="Filter" class="btn btn-primary">
+                    </div>
+
+                </form>
+            </div>
+
+            <!-- Results -->
+            <div class="results">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-4" v-for="developer in this.developers">
+                            <div class="card mb-4">
+                                <div class="card-header">{{ developer.user.name }} {{ developer.user.last }}</div>
+                                <div class="card-body">
+                                    <!-- <div class="mb-2"><strong>Skills:</strong> {{ developer.skills.join(', ') }}</div> -->
+                                    <div class="mb-2"><strong>Mail:</strong> {{ developer.user.email }}</div>
+                                    <span v-for="tech in developer.technologies">{{ tech.name }}&nbsp;</span>
+
+                                    <!-- <div class="mb-2"><strong>Rating:</strong> {{ developer.rating }} stars</div> -->
+                                    <!-- <div class="mb-2"><strong>Reviews:</strong> {{ developer.reviews }} reviews</div> -->
+
+                                    <!-- {{ developer.user.name }} {{ developer.user.last }} <br> -->
+                                    <!-- {{ developer.user.email }} <br> -->
+                                    <Link :href="'/show' + developer.id">Visita la pagina</Link>
+                                    <hr>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
     <br>
-    <ul>
-        <li v-for="developer in this.developers">
-            {{ developer.user.name }} {{ developer.user.last }} <br>
-            {{ developer.user.email }} <br>
-            <span v-for="tech in developer.technologies">{{ tech.name }}&nbsp;</span>
-            <hr>
-        </li>
-    </ul>
+    <!-- <ul>
+            <li v-for="developer in this.developers">
+                {{ developer.user.name }} {{ developer.user.last }} <br>
+                {{ developer.user.email }} <br>
+                <span v-for="tech in developer.technologies">{{ tech.name }}&nbsp;</span> <br>
+                <Link :href="'/show' + developer.id">Visita la pagina</Link>
+                <hr>
+            </li>
+        </ul> -->
 </template>
 
 <style lang="scss">
+main {
+    padding-top: 80px;
+    /* adjust this value to match the height of your navbar */
+}
+
 ul {
     list-style: none;
 }

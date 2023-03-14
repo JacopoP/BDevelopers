@@ -3,6 +3,7 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ApiController;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,4 +22,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('v1/index', [ApiController::class, 'index']);
 
-Route::post('v1/search', [ApiController::class, 'filter']);
+Route::get('v1/search', [ApiController::class, 'filter']);
