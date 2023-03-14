@@ -143,7 +143,8 @@ export default {
 
                                     <!-- {{ developer.user.name }} {{ developer.user.last }} <br> -->
                                     <!-- {{ developer.user.email }} <br> -->
-                                    <Link :href="'/show' + developer.id">Visita la pagina</Link>
+                                    <br>
+                                    <Link :href="'/show' + developer.id" class="btn btn-outline-secondary">Visita la pagina</Link>
                                     <hr>
                                 </div>
                             </div>
