@@ -73,7 +73,7 @@ console.log(data.text);
                     <div class="destra DEBUG">
                         <div class="my-img-container DEBUG">
         
-                            <img :src="data.profile_path">
+                            <img :src="'storage/' + data.profile_path">
         
         
                         </div>

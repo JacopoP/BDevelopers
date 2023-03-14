@@ -41,7 +41,7 @@ function submit() {
 
         <div class="d-flex">
             <h1 class="name pe-2">{{ dati.last }} {{ dati.name }}</h1>
-            <img class="profile me-2" :src="dati.profile_path">
+            <img class="profile me-2" :src="'storage/' + dati.profile_path">
         </div>
 
     </div>
@@ -51,7 +51,7 @@ function submit() {
         <div class="d-flex justify-between _contact">
 
             <div class="d-flex">
-                <img class="img_profile" :src="dati.profile_path">
+                <img class="img_profile" :src="'storage/' + dati.profile_path">
                 <div class="d-flex flex-column justify-content-end ps-2">
                     <h3>Address:</h3>
                     <div class="text">
