@@ -7,6 +7,7 @@ import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
 import { def } from '@vue/shared';
+import DeveloperSettings from '../Profile/DeveloperSettings.vue';
 
 defineProps({
     canResetPassword: Boolean,
@@ -34,20 +35,19 @@ const submit = () => {
 <!-- Show password -->
 <script>
     export default{
-        data(){
-            return{
-                // Password view func
-                view: false,
-            }
-        },
-
-        methods:{
-            setView(){
-                this.view = !this.view;
-            }
+    data() {
+        return {
+            // Password view func
+            view: false,
+        };
+    },
+    methods: {
+        setView() {
+            this.view = !this.view;
         }
-
-    }
+    },
+    components: { DeveloperSettings }
+}
 </script>
 
 <template>
@@ -103,8 +103,13 @@ const submit = () => {
                     required
                     :autocomplete="this.view ? 'off' : 'current-password'"
                 />
-                <button type="button" class="my_password_view text-light btn btn-primary" @click="setView()">V</button>
-
+                <button v-if="this.view == false" type="button" class="my_password_view text-light btn" @click="setView()">
+                    <i class="fa-solid fa-eye"></i>
+                </button>
+                <button v-if="this.view == true" type="button" class="my_password_view text-light btn" @click="setView()">
+                    <i class="fa-solid fa-eye-slash"></i>
+                </button>
+                
                 <InputError class="mt-2" :message="form.errors.password" />
                 <!-- Password Min -->
                 <div v-show="(form.password.length < 8) && form.password.length">
