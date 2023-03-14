@@ -43,6 +43,21 @@ console.log(data.text);
         <main class="d-flex justify-between DEBUG">
             <div class="sinistra  overflow-scroll DEBUG">
 
+                <div class="spazi DEBUG">
+                    <label>
+                        My reviews
+                    </label>
+                    <div class="testo">
+                        <ul>
+                            <li>review 1</li>
+                            <li>review 2</li>
+                            <li>review 3</li>
+                            <li>review 4</li>
+                            <li>review 5</li>
+                            <li>review 6</li>
+                        </ul>
+                    </div>
+                </div>
 
             </div>
             <div class="destra DEBUG">
@@ -92,7 +107,8 @@ console.log(data.text);
 
 <style lang="scss">
 $grigio-sfondo: #212529;
-$scritte: rgb(255, 255, 255);
+$color-scritte: rgb(255, 255, 255);
+$color-titoli: rgb(255, 251, 0);
 $h-header: 100px;
 $h-main: calc(98vh - $h-header);
 
@@ -106,9 +122,58 @@ $DEBUG: rgba(255, 255, 255, 0.244);
 //     background-color: $DEBUG;
 // }
 
+
+
+
+.dato {
+    margin: 25px 5px;
+    padding: 5px 15px 0px;
+    // max-width: 300px;
+    border-bottom: 1px solid white;
+
+    &:first-child {
+        border-radius: 0 0 0 10px;
+        border-bottom: 2px solid white;
+
+    }
+}
+
+.spazi {
+    border: 1px solid white;
+    border-radius: 0 0 10px 0;
+    padding: 10px;
+    position: relative;
+
+    label {
+        background-color: $grigio-sfondo;
+        padding: 0 8px;
+        position: absolute;
+        top: -13px;
+        left: -8px;
+        font-size: 12px;
+        color: $color-titoli;
+
+    }
+
+    .testo {
+        max-height: 300px;
+        overflow-y: scroll;
+
+        li {
+            margin-bottom: 20px;
+            padding: 0 20px;
+        }
+
+    }
+
+}
+
+
+
+
 body {
     background-color: $grigio-sfondo;
-    color: $scritte;
+    color: $color-scritte;
     position: relative;
 
     header {
@@ -127,6 +192,21 @@ body {
         .sinistra {
             margin: 10px;
             width: 100%;
+
+
+
+            .spazi {
+                margin: 50px 0;
+
+                label {
+
+                    top: -35px;
+                    font-size: 30px;
+                }
+
+
+            }
+
         }
 
 
@@ -155,47 +235,14 @@ body {
                     border-radius: 30%;
                 }
             }
+
+
+            .spazi {
+
+                margin: 70px 0;
+
+            }
         }
     }
-}
-
-
-.dato {
-    margin: 25px 5px;
-    padding: 5px 15px 0px;
-    // max-width: 300px;
-    border-bottom: 1px solid white;
-
-    &:first-child {
-        border-radius: 0 0 0 10px;
-        border-bottom: 2px solid white;
-
-    }
-}
-
-.spazi {
-    margin: 30px 0;
-    border: 1px solid white;
-    border-radius: 0 0 10px 0;
-    padding: 10px;
-    position: relative;
-
-    label {
-        background-color: $grigio-sfondo;
-        padding: 0 8px;
-        position: absolute;
-        top: -13px;
-        left: -8px;
-        font-size: 12px;
-        color: rgb(255, 251, 0);
-
-    }
-
-    .testo {
-        max-height: 300px;
-        overflow-y: scroll;
-
-    }
-
 }
 </style>
