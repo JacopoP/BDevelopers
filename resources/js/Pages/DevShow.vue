@@ -20,6 +20,8 @@ const dati = {
     portfolio_url: props.developer.portfolio_url,
     about_me: props.developer.about_me,
     performances: props.developer.performances,
+    reviews: props.developer.reviews,
+
 };
 
 const form = useForm({
@@ -71,8 +73,8 @@ function submit() {
                 <a href="#ancor" class="_blue">Send a Message, Leave a Reviews or a Star</a>
             </div>
         </div>
-        <div class="_line _blue mt-4 "></div>
 
+        <div class="_line _blue mt-4 "></div>
         <div class="_contact">
             <div class="d-flex justify-content-between mt-4">
                 <div class="text">{{ dati.about_me }}</div>
@@ -86,10 +88,23 @@ function submit() {
                 <div class="text">{{ dati.performances }}</div>
                 <h3>"My Performances"</h3>
             </div>
-        </div>
-    </div>
 
-    <div>{{ dati.text }} </div>
+        </div>
+
+        <div class="_line _blue mt-4 "></div>
+
+        <div class="text-center _contact">
+            <h3>My Reviews</h3>
+            <ul class="text">
+                <li v-for="review in dati.reviews">
+                    {{ review.text }}
+                </li>
+            </ul>
+        </div>
+
+        <div class="_line _blue mt-4 "></div>
+
+    </div>
 
 
     <!-- reviews e ratings -->
