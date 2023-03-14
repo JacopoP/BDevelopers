@@ -22,6 +22,7 @@ const data = {
     portfolio_url: props.developer.portfolio_url,
     about_me: props.developer.about_me,
     performances: props.developer.performances,
+    reviews: props.developer.reviews, 
 };
 console.log(data.text);
 </script>
@@ -49,12 +50,10 @@ console.log(data.text);
                     </label>
                     <div class="testo">
                         <ul>
-                            <li>review 1</li>
-                            <li>review 2</li>
-                            <li>review 3</li>
-                            <li>review 4</li>
-                            <li>review 5</li>
-                            <li>review 6</li>
+                            <li v-for="review in data.reviews">
+                                <span v-if="review.full_name != undefined">{{ review.full_name }} <br></span>
+                                {{ review.text }}
+                            </li>
                         </ul>
                     </div>
                 </div>
