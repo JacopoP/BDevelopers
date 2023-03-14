@@ -17,9 +17,13 @@ class SponsorController extends Controller
         $sponsor = Sponsor::find($data['id']);  
         $sponsorTime = $sponsor -> length;
 
-        $developer = Developer::find(Auth::id());
+        $developer = Developer::with('sponsors')->find(Auth::id());
 
         $start_date = DateTime::createFromFormat('Y-m-d H:i:s', date('Y-m-d H:i:s'));
+        
+        foreach($developer->sponsors as $sponsor){
+            if($start_date <= $sponsor->date_end) $start_date = $sponsor->date_end;
+        }
         
         $end_date = $developer -> addSponsorship($start_date, $sponsorTime);
 
