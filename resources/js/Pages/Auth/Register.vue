@@ -25,131 +25,181 @@ const submit = () => {
 };
 </script>
 
+<!-- Show password -->
+<script>
+    export default{
+        data(){
+            return{
+                // Password view func
+                view: false,
+            }
+        },
+
+        methods:{
+            setView(){
+                this.view = !this.view;
+            }
+        }
+
+    }
+</script>
+
 <template>
-    <GuestLayout>
+    <GuestLayout class="container-fluid bg-dark overflow-hidden py-5">
         <Head title="Register" />
 
-        <form @submit.prevent="submit">
-            <div>
-                <InputLabel for="name" value="Name" />
+        <!-- Create Account -->
+        <div class="mb-4 mt-4">
+            <h4 class="text-light fw-bold">Create an account</h4>
+            <span class="text-light">Let's get started!</span>
+        </div>
 
-                <TextInput
-                    id="name"
-                    type="text"
-                    class="mt-1 w-100"
-                    v-model="form.name"
-                    required
+        <form @submit.prevent="submit">
+            <div class="my_text_input_label mt-5">
+                <InputLabel class="my_input_label bg-dark" for="name" value="Name" />
+
+                <TextInput 
+                    id="name" 
+                    type="text" 
+                    class="mt-1 w-100" 
+                    v-model="form.name" 
+                    required 
                     autofocus
-                    autocomplete="name"
+                    autocomplete="name" 
                 />
 
                 <InputError class="mt-2" :message="form.errors.name" />
-            </div>
-            <!-- Last Verify -->
-            <div v-show="form.name.length > 64 || (form.name.length < 2 && form.name.length)" class="mt-2 shadow bg-warning rounded px-3 py-2">
-                <span class="text-dark fw-semibold">
-                    Must be between 2 and 64 characters
-                </span> 
+                <!-- Last Verify -->
+                <div v-show="form.name.length > 64 || (form.name.length < 2 && form.name.length)">
+                    <div class="my_warning_alert rounded-circle bg-warning px-2">
+                        <span class="text-dark">!</span>
+                        <span class="my_warning_alert_text mt-2 shadow bg-warning rounded text-dark px-3 py-2">
+                            Must be between 2 and 64 characters
+                        </span>
+                    </div>
+                </div>
             </div>
 
-            <div class="mt-4">
-                <InputLabel for="last" value="Last Name" />
+            <div class="my_text_input_label mt-4">
+                <InputLabel class="my_input_label bg-dark" for="last" value="Last Name" />
 
-                <TextInput
-                    id="last"
-                    type="text"
-                    class="mt-1 w-100"
-                    v-model="form.last"
-                    required
-                    autofocus
-                    autocomplete="last"
+                <TextInput 
+                    id="last" 
+                    type="text" 
+                    class="mt-1 w-100" 
+                    v-model="form.last" 
+                    required 
+                    autocomplete="last" 
                 />
 
                 <InputError class="mt-2" :message="form.errors.last" />
-            </div>
-            <!-- Last Verify -->
-            <div v-show="form.last.length > 64 || (form.last.length < 2 && form.last.length)" class="mt-2 shadow bg-warning rounded px-3 py-2">
-                <span class="text-dark fw-semibold">
-                    Must be between 2 and 64 characters
-                </span> 
+                <!-- Last Verify -->
+                <div v-show="form.last.length > 64 || (form.last.length < 2 && form.last.length)">
+                    <div class="my_warning_alert rounded-circle bg-warning px-2">
+                        <span class="text-dark">!</span>
+                        <span class="my_warning_alert_text mt-2 shadow bg-warning rounded text-dark px-3 py-2">
+                            Must be between 2 and 64 characters
+                        </span>
+                    </div>
+                </div>
             </div>
 
-            <div class="mt-4">
-                <InputLabel for="email" value="Email" />
+            <div class="my_text_input_label mt-4">
+                <InputLabel class="my_input_label bg-dark" for="email" value="Email" />
 
-                <TextInput
-                    id="email"
-                    type="email"
-                    class="mt-1 w-100"
-                    v-model="form.email"
+                <TextInput 
+                    id="email" 
+                    type="email" 
+                    class="mt-1 w-100" 
+                    v-model="form.email" 
                     required
-                    autocomplete="username"
+                    autocomplete="username" 
                 />
 
                 <InputError class="mt-2" :message="form.errors.email" />
-            </div>
-            <!-- Email Verify -->
-            <div v-show="!form.email.match(mailformat) && form.email.length" class="mt-2 shadow bg-secondary rounded px-3 py-2">
-                <span class="text-light fw-semibold">
-                    Email format not valid
-                </span> 
+                <!-- Email Verify -->
+                <div v-show="!form.email.match(mailformat) && form.email.length">
+                    <div class="my_danger_alert rounded-circle bg-danger px-2">
+                        <span class="text-light">!</span>
+                        <span class="my_danger_alert_text mt-2 shadow bg-danger rounded text-light px-3 py-2">
+                            Email format not valid
+                        </span>
+                    </div>
+                </div>
             </div>
 
-            <div class="mt-4">
-                <InputLabel for="password" value="Password" />
+            <div class="my_text_input_label mt-4">
+                <InputLabel class="my_input_label bg-dark" for="password" value="Password" />
 
-                <TextInput
-                    id="password"
-                    type="password"
-                    class="mt-1 w-100"
-                    v-model="form.password"
+                <TextInput 
+                    id = "password" 
+                    :type="this.view ? 'text' : 'password'" 
+                    class="mt-1 w-100" 
+                    v-model="form.password" 
                     required
-                    autocomplete="new-password"
+                    :autocomplete="this.view ? 'off' : 'current-password'"
                 />
+
+                <button type="button" class="my_password_view text-light btn btn-primary" @click="setView()">V</button>
 
                 <InputError class="mt-2" :message="form.errors.password" />
-            </div>
-            <!-- Password Min -->
-            <div v-show="(form.password.length < 8) && form.password.length" class="mt-2 shadow bg-danger rounded px-3 py-2">
-                <span class="text-light fw-semibold">
-                    The Password must have at least 8 characters
-                </span> 
+                <!-- Password Min -->
+                <div v-show="(form.password.length < 8) && form.password.length">
+                    <div class="my_danger_alert rounded-circle bg-danger px-2">
+                        <span class="text-light">!</span>
+                        <span class="my_danger_alert_text mt-2 shadow bg-danger rounded text-light px-3 py-2">
+                            The Password must have at least 8 characters
+                        </span>
+                    </div>
+                </div>
             </div>
 
-            <div class="mt-4">
-                <InputLabel for="password_confirmation" value="Confirm Password" />
+            <div class="my_text_input_label mt-4">
+                <InputLabel class="my_input_label bg-dark" for="password_confirmation" value="Confirm Password" />
 
-                <TextInput
-                    id="password_confirmation"
-                    type="password"
+                <TextInput 
+                    id="password_confirmation" 
+                    :type="this.view ? 'text' : 'password'" 
                     class="mt-1 w-100"
-                    v-model="form.password_confirmation"
-                    required
-                    autocomplete="new-password"
+                    v-model="form.password_confirmation" 
+                    required 
+                    :autocomplete="this.view ? 'off' : 'new-password'"
                 />
 
+                <button type="button" class="my_password_view text-light btn btn-primary" @click="setView()">V</button>
+
                 <InputError class="mt-2" :message="form.errors.password_confirmation" />
-            </div>
-            
-            <!-- Password Verify -->
-            <div v-show="form.password != form.password_confirmation" class="mt-2 shadow bg-danger rounded px-3 py-2">
-                <span class="text-light fw-semibold">
-                    Password not matching
-                </span> 
+                
+                <!-- Password Verify -->
+                <div v-show="form.password != form.password_confirmation">
+                    <div class="my_danger_alert rounded-circle bg-danger px-2">
+                        <span class="text-light">!</span>
+                        <span class="my_danger_alert_text mt-2 shadow bg-danger rounded text-light px-3 py-2">
+                            Password not matching
+                        </span>
+                    </div>
+                </div>
             </div>
 
-            <div class="d-flex align-items-center justify-content-end mt-4">
-                <Link
-                    :href="route('login')"
-                    class="text-decoration-underline fs-6 text-secondary"
-                >
-                    Already registered?
-                </Link>
 
-                <PrimaryButton class="ms-4" :class="{ 'text-opacity-50': form.processing }" :disabled="form.processing">
+            <div class="d-flex flex-column mt-4 gap-4">
+
+                <PrimaryButton class="my_login_button" :style="{ 'opacity: .5': form.processing }" :disabled="form.processing">
                     Register
                 </PrimaryButton>
+
+                <Link 
+                    :href="route('login')" 
+                    class="text-decoration-underline fs-6 text-secondary text-center"
+                >
+                Already registered?
+                </Link>
             </div>
         </form>
     </GuestLayout>
 </template>
+
+
+<style scoped lang="scss">
+@use '../../../sass/guest-layout-style.scss';
+</style>

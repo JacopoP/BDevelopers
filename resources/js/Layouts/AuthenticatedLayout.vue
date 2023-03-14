@@ -5,11 +5,11 @@ import Navbar from '@/Components/DashboardHead/Navbar.vue';
 
 <template>
     <div>
-        <div class="min-h-screen bg-gray-100">
+        <div class="pb-5 bg-dark">
             <Navbar/>
             <!-- SubNavbar -->
-            <header class="bg-white shadow" v-if="$slots.header">
-                <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+            <header class="bg-dark text-light shadow" v-if="$slots.header">
+                <div class="container py-6 px-4">
                     <slot name="header" />
                 </div>
             </header>

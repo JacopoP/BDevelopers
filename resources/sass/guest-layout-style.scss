@@ -1,0 +1,73 @@
+@import './variable.scss';
+@import './form-style.scss';
+
+// Square & Circle
+.my_circle {
+    position: absolute;
+    right: -300px;
+    bottom: -300px;
+    width: calc(500px + 15vw);
+    height: calc(500px + 15vw);
+    border-radius: 50%;
+    background-color: $brand_third;
+    filter: blur(3px);
+}
+
+.my_square {
+    position: absolute;
+    left: -20px;
+    bottom: 50px;
+    width: calc(200px + 8vw);
+    height: calc(200px + 8vw);
+    border-radius: 15px;
+    background-color: $brand_fourth;
+    rotate: 43deg;
+    filter: blur(3px);
+}
+
+@media screen and (max-width: 800px){
+    .my_circle {
+        position: absolute;
+        right: -300px;
+        bottom: -300px;
+        width: calc(500px + 15vw);
+        height: calc(500px + 15vw);
+        border-radius: 50%;
+        background-color: $brand_third;
+    }
+    
+    .my_square {
+        position: absolute;
+        left: -20px;
+        bottom: 50px;
+        width: calc(150px + 8vw);
+        height: calc(150px + 8vw);
+        border-radius: 15px;
+        background-color: $brand_fourth;
+        rotate: 43deg;
+    }
+}
+@media screen and (max-width: 500px){
+    .my_circle {
+        display: none;
+        position: absolute;
+        right: -300px;
+        bottom: -300px;
+        width: calc(320px + 15vw);
+        height: calc(320px + 15vw);
+        border-radius: 50%;
+        background-color: $brand_third;
+    }
+    
+    .my_square {
+        display: none;
+        position: absolute;
+        left: -20px;
+        bottom: 50px;
+        width: calc(100px + 8vw);
+        height: calc(100px + 8vw);
+        border-radius: 15px;
+        background-color: $brand_fourth;
+        rotate: 43deg;
+    }
+}

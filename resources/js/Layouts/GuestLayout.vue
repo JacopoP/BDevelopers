@@ -5,17 +5,32 @@ import { Link } from '@inertiajs/vue3';
 
 <!-- Login/Register Pages -->
 <template>
-    <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100">
+    <div class="d-flex flex-column justify-content-top align-items-center position-relative" id="my_container">
         <div>
             <Link href="/">
-                <ApplicationLogo class="w-20 h-20 fill-current text-gray-500" />
+                <ApplicationLogo />
             </Link>
         </div>
-
-        <div
-            class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg"
-        >
+        
+        <!-- z-index -->
+        <div style="z-index: 9;">
             <slot />
         </div>
+        <div class="my_square"></div>
+        <div class="my_circle"></div>
     </div>
 </template>
+
+<style scoped lang="scss">
+@use '../../sass/guest-layout-style.scss';
+
+#my_container {
+    min-height: 100vh;
+
+    svg {
+        width: 5rem;
+        height: 5rem;
+        fill: #fff;
+    }
+}
+</style>

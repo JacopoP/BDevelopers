@@ -6,6 +6,7 @@ import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
+import { def } from '@vue/shared';
 
 defineProps({
     canResetPassword: Boolean,
@@ -20,64 +21,100 @@ const form = useForm({
 // Regex
 const mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 const submit = () => {
-    if(!(!form.email.match(mailformat)) && !((form.password.length < 8))){
+    if(!(!form.email.match(mailformat)) && !((form.password.length < 8))) {
         form.post(route('login'), {
             onFinish: () => form.reset('password'),
         });
     }
 };
+
+</script>
+
+
+<!-- Show password -->
+<script>
+    export default{
+        data(){
+            return{
+                // Password view func
+                view: false,
+            }
+        },
+
+        methods:{
+            setView(){
+                this.view = !this.view;
+            }
+        }
+
+    }
 </script>
 
 <template>
-    <GuestLayout>
+    <GuestLayout class="container-fluid bg-dark overflow-hidden py-5">
         <Head title="Log in" />
 
         <div v-if="status" class="mb-4 text-success">
             {{ status }}
         </div>
 
-        <form @submit.prevent="submit">
-            <div>
-                <InputLabel for="email" value="Email" />
+        <!-- Create Account -->
+        <div class="mb-4 mt-4">
+            <h4 class="text-light fw-bold">Create an account</h4>
+            <span class="text-light">Let's get started!</span>
+        </div>
 
-                <TextInput
-                    id="email"
-                    type="email"
-                    class="mt-1 w-100"
-                    v-model="form.email"
-                    required
+        <form @submit.prevent="submit">
+
+
+            <div class="my_text_input_label">
+                <InputLabel class="my_input_label bg-dark" for="email" value="Email" />
+
+                <TextInput 
+                    id="email" 
+                    type="email" 
+                    class="mt-1 w-100" 
+                    v-model="form.email" 
+                    required 
                     autofocus
-                    autocomplete="username"
+                    autocomplete="username" 
                 />
 
                 <InputError class="mt-2" :message="form.errors.email" />
-            </div>
-            <!-- Email Verify -->
-            <div v-show="!form.email.match(mailformat) && form.email.length" class="mt-2 shadow bg-secondary rounded px-3 py-2">
-                <span class="text-light fw-semibold">
-                    Email format not valid
-                </span> 
+                <!-- Email Verify -->
+                <div v-show="!form.email.match(mailformat) && form.email.length">
+                    <div class="my_danger_alert rounded-circle bg-danger px-2">
+                        <span class="text-light">!</span>
+                        <span class="my_danger_alert_text mt-2 shadow bg-danger rounded text-light px-3 py-2">
+                            Email format not valid
+                        </span>
+                    </div>
+                </div>
             </div>
 
-            <div class="mt-4">
-                <InputLabel for="password" value="Password" />
+            <div class="my_text_input_label mt-4">
+                <InputLabel class="my_input_label bg-dark" for="password" value="Password" />
 
                 <TextInput
-                    id="password"
-                    type="password"
-                    class="mt-1 w-100"
-                    v-model="form.password"
+                    id = "password" 
+                    :type="this.view ? 'text' : 'password'" 
+                    class="mt-1 w-100" 
+                    v-model="form.password" 
                     required
-                    autocomplete="current-password"
+                    :autocomplete="this.view ? 'off' : 'current-password'"
                 />
+                <button type="button" class="my_password_view text-light btn btn-primary" @click="setView()">V</button>
 
                 <InputError class="mt-2" :message="form.errors.password" />
-            </div>
-            <!-- Password Min -->
-            <div v-show="(form.password.length < 8) && form.password.length" class="mt-2 shadow bg-danger rounded px-3 py-2">
-                <span class="text-light fw-semibold">
-                    The Password must have at least 8 characters
-                </span> 
+                <!-- Password Min -->
+                <div v-show="(form.password.length < 8) && form.password.length">
+                    <div class="my_danger_alert rounded-circle bg-danger px-2">
+                        <span class="text-light">!</span>
+                        <span class="my_danger_alert_text mt-2 shadow bg-danger rounded text-light px-3 py-2">
+                            The Password must have at least 8 characters
+                        </span>
+                    </div>
+                </div>
             </div>
 
             <div class="mt-4">
@@ -87,19 +124,25 @@ const submit = () => {
                 </label>
             </div>
 
-            <div class="d-flex align-items-center justify-content-end mt-4">
-                <Link
-                    v-if="canResetPassword"
-                    :href="route('password.request')"
-                    class="text-decoration-underline fs-6 text-secondary"
-                >
-                    Forgot your password?
-                </Link>
+            <div class="d-flex flex-column mt-4 gap-4">
 
-                <PrimaryButton class="ms-4" :class="{ 'text-opacity-50': form.processing }" :disabled="form.processing">
+
+                <PrimaryButton class="my_login_button mt-3" :class="{ 'text-opacity-50': form.processing }" :disabled="form.processing">
                     Log in
                 </PrimaryButton>
+
+                <Link 
+                    v-if="canResetPassword" 
+                    :href="route('password.request')"
+                    class="text-decoration-underline fs-6 text-secondary text-center"
+                >
+                Forgot your password?
+                </Link>
             </div>
         </form>
     </GuestLayout>
 </template>
+
+<style scoped lang="scss">
+@use '../../../sass/guest-layout-style.scss';
+</style>

@@ -1,0 +1,98 @@
+@import './variable.scss';
+
+// Register / Login / forgot-password / DeveloperSettings
+
+.my_text_input_label {
+    position: relative;
+}
+
+.my_input_label {
+    z-index: 1;
+    position: absolute;
+    top: -10px;
+    left: 15px;
+}
+
+
+// Alert 
+.my_danger_alert{
+    display: flex;
+    align-items: center;
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    top: 15px;
+    right: -25px;
+}
+.my_danger_alert_text{
+    z-index: 2;
+    display: none;
+    position: absolute;
+    top: 40px;
+    right: -5px;
+}
+.my_danger_alert_text::before {
+    content: "";
+    position: absolute;
+    top: 0px;
+    left: 70%;
+    transform: translateX(-50%);
+    border: 10px solid transparent;
+    border-bottom-color: #dc3545;
+    rotate: 130deg;
+}
+.my_danger_alert:hover .my_danger_alert_text{
+    display: flex;
+}
+
+// Alert Warning
+.my_warning_alert{
+    display: flex;
+    align-items: center;
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    top: 15px;
+    right: -25px;
+}
+.my_warning_alert_text{
+    z-index: 2;
+    display: none;
+    position: absolute;
+    top: 40px;
+    right: -5px;
+}
+.my_warning_alert_text::before {
+    content: "";
+    position: absolute;
+    top: 0px;
+    left: 70%;
+    transform: translateX(-50%);
+    border: 10px solid transparent;
+    border-bottom-color: #ffc107;
+    rotate: 130deg;
+}
+.my_warning_alert:hover .my_warning_alert_text{
+    display: flex;
+}
+
+// Password VIEW
+.my_password_view{
+    position: absolute;
+    top: 15%;
+    right: 1%;
+}
+
+
+
+.my_login_button {
+    background-color: $brand_third;
+}
+
+.my_register_button {
+    background-color: $brand_fourth;
+}
+
+.my_background_secondary {
+    background-color: $brand_secondary;
+}
