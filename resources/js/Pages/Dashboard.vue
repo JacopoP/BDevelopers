@@ -5,11 +5,10 @@ import { Head } from '@inertiajs/vue3';
 
 
 const props = defineProps([
-    'developer',
+    'developer'
 ]);
 
 
-console.log(props);
 
 const data = {
     name: props.developer.user.name,
@@ -24,7 +23,7 @@ const data = {
     about_me: props.developer.about_me,
     performances: props.developer.performances,
 };
-
+console.log(data.text);
 </script>
 
 <template>
@@ -43,11 +42,21 @@ const data = {
 
         <main class="d-flex justify-between DEBUG">
             <div class="sinistra  overflow-scroll DEBUG">
+
+
+            </div>
+            <div class="destra DEBUG">
+                <div class="my-img-container DEBUG">
+
+                    <img :src="data.profile_path">
+
+
+                </div>
+
+
                 <div class="DEBUG">
                     <div class="dato DEBUG">
                         {{ data.name }}
-                    </div>
-                    <div class="dato DEBUG">
                         {{ data.last }}
                     </div>
                     <div class="dato DEBUG">
@@ -56,99 +65,24 @@ const data = {
                     <div class="dato DEBUG">
                         {{ data.phone_number }}
                     </div>
-                    <div class="dato DEBUG">
-                        {{ data.phone_number }}
+                    <div class="spazi DEBUG" v-if="data.about_me">
+                        <label>
+                            About me
+                        </label>
+                        <div class="testo">
+                            {{ data.about_me }}
+                        </div>
                     </div>
-                    <div class="dato DEBUG">
-                        {{ data.phone_number }}
-                    </div>
-                    <div class="dato DEBUG">
-                        {{ data.phone_number }}
-                    </div>
-                    <div class="dato DEBUG">
-                        {{ data.phone_number }}
-                    </div>
-                    <div class="dato DEBUG">
-                        {{ data.phone_number }}
-                    </div>
-                    <div class="dato DEBUG">
-                        {{ data.phone_number }}
-                    </div>
-                    <div class="dato DEBUG">
-                        {{ data.phone_number }}
-                    </div>
-                    <div class="dato DEBUG">
-                        {{ data.phone_number }}
-                    </div>
-                    <div class="dato DEBUG">
-                        {{ data.phone_number }}
-                    </div>
-                    <div class="dato DEBUG">
-                        {{ data.phone_number }}
-                    </div>
-                    <div class="dato DEBUG">
-                        {{ data.phone_number }}
-                    </div>
-                    <div class="dato DEBUG">
-                        {{ data.phone_number }}
-                    </div>
-                    <div class="dato DEBUG">
-                        {{ data.phone_number }}
-                    </div>
-                    <div class="dato DEBUG">
-                        {{ data.phone_number }}
-                    </div>
-                    <div class="dato DEBUG">
-                        {{ data.phone_number }}
-                    </div>
-                    <div class="dato DEBUG">
-                        {{ data.phone_number }}
-                    </div>
-                    <div class="dato DEBUG">
-                        {{ data.phone_number }}
-                    </div>
-                    <div class="dato DEBUG">
-                        {{ data.phone_number }}
-                    </div>
-                    <div class="dato DEBUG">
-                        {{ data.phone_number }}
-                    </div>
-                    <div class="dato DEBUG">
-                        {{ data.phone_number }}
-                    </div>
-                    <div class="dato DEBUG">
-                        {{ data.phone_number }}
-                    </div>
-                    <div class="dato DEBUG">
-                        {{ data.phone_number }}
-                    </div>
-                    <div class="dato DEBUG">
-                        {{ data.phone_number }}
-                    </div>
-                    <div class="dato DEBUG">
-                        {{ data.phone_number }}
-                    </div>
-                    <div class="dato DEBUG">
-                        {{ data.phone_number }}
-                    </div>
-                    <div class="dato DEBUG">
-                        {{ data.phone_number }}
-                    </div>
-                    <div class="dato DEBUG">
-                        {{ data.phone_number }}
-                    </div>
-                    <div class="dato DEBUG">
-                        {{ data.phone_number }}
+                    <div class="spazi DEBUG" v-if="data.performances">
+                        <label>
+                            My performances
+                        </label>
+                        <div class="testo">
+                            {{ data.performances }}
+                        </div>
                     </div>
                     <!-- cv_path -->
                     <a :href="data.portfolio_url"></a>
-                </div>
-
-            </div>
-            <div class="destra DEBUG">
-                <div class="my-img-container DEBUG">
-
-                    <img :src="data.profile_path">
                 </div>
             </div>
         </main>
@@ -167,10 +101,10 @@ $h-main: calc(98vh - $h-header);
 // debug
 $DEBUG: rgba(255, 255, 255, 0.244);
 
-.DEBUG {
-    border: 1px solid green;
-    background-color: $DEBUG;
-}
+// .DEBUG {
+//     border: 1px solid green;
+//     background-color: $DEBUG;
+// }
 
 body {
     background-color: $grigio-sfondo;
@@ -186,7 +120,6 @@ body {
     }
 
     main {
-        position: static;
         height: $h-main;
 
 
@@ -201,17 +134,18 @@ body {
             padding: 0 10px;
             width: 40%;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
+            overflow-y: scroll;
+            overflow-x: hidden;
             margin: 10px;
 
 
             .my-img-container {
-                $w-img: 200px;
+                $w-img: 300px;
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                overflow: hidden;
-                width: calc($w-img + 150px);
+                width: 100%;
                 height: calc($w-img + 150px);
 
                 img {
@@ -228,9 +162,40 @@ body {
 
 .dato {
     margin: 25px 5px;
-    border-radius: 0 0 0 10px;
     padding: 5px 15px 0px;
-    max-width: 300px;
-    border-bottom: 2px solid white;
+    // max-width: 300px;
+    border-bottom: 1px solid white;
+
+    &:first-child {
+        border-radius: 0 0 0 10px;
+        border-bottom: 2px solid white;
+
+    }
+}
+
+.spazi {
+    margin: 30px 0;
+    border: 1px solid white;
+    border-radius: 0 0 10px 0;
+    padding: 10px;
+    position: relative;
+
+    label {
+        background-color: $grigio-sfondo;
+        padding: 0 8px;
+        position: absolute;
+        top: -13px;
+        left: -8px;
+        font-size: 12px;
+        color: rgb(255, 251, 0);
+
+    }
+
+    .testo {
+        max-height: 300px;
+        overflow-y: scroll;
+
+    }
+
 }
 </style>

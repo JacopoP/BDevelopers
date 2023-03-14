@@ -72,7 +72,6 @@ class Emacontroller extends Controller
         // DEBUG
         $developer = Developer::with('user', 'ratings', 'reviews', 'technologies', 'messages', 'sponsors')->find(1);
 
-
         return Inertia::render('Dashboard', compact('developer'));
     }
 }
