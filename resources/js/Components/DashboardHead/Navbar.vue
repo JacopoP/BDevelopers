@@ -11,114 +11,110 @@ const showingNavigationDropdown = ref(false);
 
 </script>
 
-
 <template>
+    <nav
+        class="d-flex justify-content-between navbar-expand-lg navbar-light bg-white border border-bottom border-secondary-subtle">
+        <!-- Primary Navigation Menu -->
+        <div class="container-fluid px-4">
+            <div class="d-flex justify-content-between" style="height: 60px;">
+                <div class="d-flex">
+                    <!-- Logo -->
+                    <div class="d-flex align-items-center">
+                        <a class="navbar-brand" :href="route('dashboard')">
+                            <ApplicationLogo class="d-block" style="height: 40px;" />
+                        </a>
+                    </div>
 
-<nav class="bg-white border border-buttom border-secondary-subtle">
-    <!-- Primary Navigation Menu -->
-    <div class="container px-4">
-        <div class="d-flex justify-content-between" style="height: 60px;">
-            <div class="flex">
-                <!-- Logo -->
-                <div class="d-flex align-items-center">
-                    <Link :href="route('dashboard')">
-                    <ApplicationLogo class="d-block" style="height: 40px;"/>
-                    </Link>
-                </div>
-
-                <!-- Navigation Links -->
-                <div class="d-flex align-items-center px-4">
-                    <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
-                        Dashboard
-                    </NavLink>
-                    <NavLink :href="route('index')" method="get">
+                    <!-- Navigation Links -->
+                    <div class="d-flex  align-items-center px-4 text-dark">
+                        <a v-if="!route().current('dashboard')" class="nav-link pe-4"
+                            :class="{ active: route().current('dashboard') }" :href="route('dashboard')">
+                            Dashboard
+                    </a>
+                    <a class="nav-link" :href="route('index')" method="get">
                         Index
-                    </NavLink>
+                    </a>
                 </div>
-            </div>
-
-            <div class="d-sm-flex align-items-sm-center">
-                <!-- Settings Dropdown -->
-                <div class="ml-3 relative">
-                    <Dropdown align="right" width="48">
-                        <template #trigger>
-                            <span class="inline-flex rounded-md">
-                                <button type="button"
-                                    class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
-                                    {{ $page.props.auth.user.name }}
-
-                                    <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg"
-                                        viewBox="0 0 20 20" fill="currentColor">
-                                        <path fill-rule="evenodd"
-                                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                            clip-rule="evenodd" />
-                                    </svg>
-                                </button>
-                            </span>
-                        </template>
-
-                        <template #content>
-                            <DropdownLink :href="route('profile.dev.create', $page.props.auth.user)">
-                                Developer Settings
-                            </DropdownLink>
-                            <DropdownLink :href="route('profile.edit')"> Profile </DropdownLink>
-                            <DropdownLink :href="route('logout')" method="post" as="button">
-                                Log Out
-                            </DropdownLink>
-                        </template>
-                    </Dropdown>
                 </div>
-            </div>
+                <div class="d-sm-flex align-items-sm-center">
+                    <!-- Settings Dropdown -->
+                    <div class="ml-3 dropdown">
+                        <a class="btn dropdown-toggle text-dark border-0" href="#" role="button" id="userDropdown"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            {{ $page.props.auth.user.name }}
+                            <!-- <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+                                                                                                                fill="currentColor">
+                                                                                                                <path fill-rule="evenodd"
+                                                                                                                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                                                                                                    clip-rule="evenodd" />
+                                                                                                            </svg> -->
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                            <li>
+                                <a class="dropdown-item" :href="route('profile.dev.create', $page.props.auth.user)">
+                                    Developer Settings
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" :href="route('profile.edit')">Profile</a>
+                            </li>
+                            <li>
+                                <form :action="route('logout')" method="POST">
+                                    <button class="dropdown-item" type="submit">Logout</button>
+                                </form>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
 
-            <!-- Hamburger -->
-            <div class="-mr-2 flex items-center sm:hidden">
-                <button @click="showingNavigationDropdown = !showingNavigationDropdown"
-                    class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out">
-                    <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-                        <path :class="{
-                            hidden: showingNavigationDropdown,
-                            'inline-flex': !showingNavigationDropdown,
-                        }" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M4 6h16M4 12h16M4 18h16" />
-                        <path :class="{
-                            hidden: !showingNavigationDropdown,
-                            'inline-flex': showingNavigationDropdown,
-                        }" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M6 18L18 6M6 6l12 12" />
-                    </svg>
+                <!-- Hamburger -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
                 </button>
             </div>
         </div>
-    </div>
 
-    <!-- Responsive Navigation Menu -->
-    <div :class="{ block: showingNavigationDropdown, hidden: !showingNavigationDropdown }" class="sm:hidden">
-        <div class="pt-2 pb-3 space-y-1">
-            <ResponsiveNavLink :href="route('dashboard')" :active="route().current('dashboard')">
-                Dashboard
-            </ResponsiveNavLink>
-        </div>
-
-        <!-- Responsive Settings Options -->
-        <div class="pt-4 pb-1 border-t border-gray-200">
-            <div class="px-4">
-                <div class="font-medium text-base text-gray-800">
-                    {{ $page.props.auth.user.name }}
+        <!-- Responsive Navigation Menu -->
+        <div :class="{ block: showingNavigationDropdown, hidden: !showingNavigationDropdown }"
+            class="navbar-expand-sm navbar-light bg-light d-block d-sm-none">
+            <div class="pt-2 pb-3">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <ResponsiveNavLink :href="route('dashboard')" :active="route().current('dashboard')"
+                            class="nav-link">
+                            Dashboard
+                        </ResponsiveNavLink>
+                    </li>
+                </ul>
+            </div>
+            <!-- Responsive Settings Options -->
+            <div class="pt-4 pb-1 border-top border-gray-200">
+                <div class="px-4">
+                    <div class="font-medium text-base text-gray-800">
+                        {{ $page.props.auth.user.name }}
+                    </div>
+                    <div class="font-medium text-sm text-gray-500">{{ $page.props.auth.user.email }}</div>
                 </div>
-                <div class="font-medium text-sm text-gray-500">{{ $page.props.auth.user.email }}</div>
-            </div>
 
-            <div class="mt-3 space-y-1">
-                <ResponsiveNavLink :href="route('profile.dev.create', $page.props.auth.user)">
-                    Developer Settings
-                </ResponsiveNavLink>
-                <ResponsiveNavLink :href="route('profile.edit')"> Profile </ResponsiveNavLink>
-                <ResponsiveNavLink :href="route('logout')" method="post" as="button">
-                    Log Out
-                </ResponsiveNavLink>
+                <ul class="navbar-nav mt-3">
+                    <li class="nav-item">
+                        <ResponsiveNavLink :href="route('profile.dev.create', $page.props.auth.user)" class="nav-link">
+                            Developer Settings
+                        </ResponsiveNavLink>
+                    </li>
+                    <li class="nav-item">
+                        <ResponsiveNavLink :href="route('profile.edit')" class="nav-link">
+                            Profile
+                        </ResponsiveNavLink>
+                    </li>
+                    <li class="nav-item">
+                        <ResponsiveNavLink :href="route('logout')" method="post" as="button" class="nav-link">
+                            Log Out
+                        </ResponsiveNavLink>
+                    </li>
+                </ul>
             </div>
         </div>
-    </div>
-</nav>
-
+    </nav>
 </template>
