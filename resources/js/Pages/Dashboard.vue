@@ -33,7 +33,6 @@ console.log(data.text);
         <template #header>
             <div class="d-flex justify-content-between">
                 <h2>Dashboard</h2>
-                <!-- <a :href="route('profile.dev.delete')" class="btn btn-danger text-light fw-bold d-flex align-items-center">Delete</a> -->
             </div>
         </template>
 
@@ -41,14 +40,6 @@ console.log(data.text);
 
             <header class="d-flex justify-between DEBUG">
                 <h1>Your profile</h1>
-                <!-- <div>
-                    <div>
-                        <a href="/profile">Profile</a>
-                    </div>
-                    <div>
-                        <a href="/index">index</a>
-                    </div>
-                </div> -->
             </header>
             <div class="container">
         
@@ -118,7 +109,7 @@ console.log(data.text);
 </template>
 
 
-<style lang="scss">
+<style lang="scss" scoped>
 $grigio-sfondo: #212529;
 $color-scritte: rgb(255, 255, 255);
 $color-titoli: rgb(255, 251, 0);
