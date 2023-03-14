@@ -40,6 +40,13 @@ function submit() {
     border-radius: 10px;
 }
 
+label {
+    position: relative;
+    top: 10px;
+    background: $background;
+    padding: 0 8px;
+}
+
 ._button {
     color: $titles;
     padding: 10px;

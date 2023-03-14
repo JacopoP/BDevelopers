@@ -40,6 +40,13 @@ function submit() {
 <style lang="scss" scoped>
 @use 'resources/sass/general.scss' as *;
 
+label {
+    position: relative;
+    top: 10px;
+    background: $background;
+    padding: 0 8px;
+}
+
 .layout {
     width: 100%;
     background-color: $background;
