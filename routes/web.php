@@ -19,14 +19,7 @@ use App\Http\Controllers\Emacontroller;
 |
 */
 
-Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
-});
+Route::get('/', [IndexController::class, 'welcome']);
 
 
 
@@ -46,7 +39,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/developer/delete', [DeveloperController::class, 'DevDelete'])->name('profile.dev.delete');
 });
 
-Route::get('/index', [IndexController::class, 'goToIndex'])->name('index');
+Route::match(['get', 'post'], '/index', [IndexController::class, 'goToIndex'])->name('index');
+
+Route::post('/index/form', [IndexController::class, 'getForIndex'])->name('index.form');
 
 // developer show per UI
 Route::get('/show{id}', [Emacontroller::class, 'DevShow'])->name('show');
