@@ -28,79 +28,93 @@ console.log(data.text);
 </script>
 
 <template>
-    <header class="d-flex justify-between DEBUG">
-        <h1>Your profile</h1>
-        <div>
-            <div>
-                <a href="/profile">Profile</a>
+    <AuthenticatedLayout>
+
+        <template #header>
+            <div class="d-flex justify-content-between">
+                <h2>Dashboard</h2>
+                <!-- <a :href="route('profile.dev.delete')" class="btn btn-danger text-light fw-bold d-flex align-items-center">Delete</a> -->
             </div>
-            <div>
-                <a href="/index">index</a>
-            </div>
-        </div>
-    </header>
-    <div class="container">
+        </template>
 
-        <main class="d-flex justify-between DEBUG">
-            <div class="sinistra  overflow-scroll DEBUG">
+        <template #main>
 
-                <div class="spazi DEBUG">
-                    <label>
-                        My reviews
-                    </label>
-                    <div class="testo">
-                        <ul>
-                            <li v-for="review in data.reviews">
-                                <span v-if="review.full_name != undefined">{{ review.full_name }} <br></span>
-                                {{ review.text }}
-                            </li>
-                        </ul>
+            <header class="d-flex justify-between DEBUG">
+                <h1>Your profile</h1>
+                <!-- <div>
+                    <div>
+                        <a href="/profile">Profile</a>
                     </div>
-                </div>
-
-            </div>
-            <div class="destra DEBUG">
-                <div class="my-img-container DEBUG">
-
-                    <img :src="data.profile_path">
-
-
-                </div>
-
-
-                <div class="DEBUG">
-                    <div class="dato DEBUG">
-                        {{ data.name }}
-                        {{ data.last }}
+                    <div>
+                        <a href="/index">index</a>
                     </div>
-                    <div class="dato DEBUG">
-                        {{ data.address }}
+                </div> -->
+            </header>
+            <div class="container">
+        
+                <main class="d-flex justify-between DEBUG">
+                    <div class="sinistra  overflow-scroll DEBUG">
+        
+                        <div class="spazi DEBUG">
+                            <label>
+                                My reviews
+                            </label>
+                            <div class="testo">
+                                <ul>
+                                    <li v-for="review in data.reviews">
+                                        <span v-if="review.full_name != undefined">{{ review.full_name }} <br></span>
+                                        {{ review.text }}
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+        
                     </div>
-                    <div class="dato DEBUG">
-                        {{ data.phone_number }}
-                    </div>
-                    <div class="spazi DEBUG" v-if="data.about_me">
-                        <label>
-                            About me
-                        </label>
-                        <div class="testo">
-                            {{ data.about_me }}
+                    <div class="destra DEBUG">
+                        <div class="my-img-container DEBUG">
+        
+                            <img :src="data.profile_path">
+        
+        
+                        </div>
+        
+        
+                        <div class="DEBUG">
+                            <div class="dato DEBUG">
+                                {{ data.name }}
+                                {{ data.last }}
+                            </div>
+                            <div class="dato DEBUG">
+                                {{ data.address }}
+                            </div>
+                            <div class="dato DEBUG">
+                                {{ data.phone_number }}
+                            </div>
+                            <div class="spazi DEBUG" v-if="data.about_me">
+                                <label>
+                                    About me
+                                </label>
+                                <div class="testo">
+                                    {{ data.about_me }}
+                                </div>
+                            </div>
+                            <div class="spazi DEBUG" v-if="data.performances">
+                                <label>
+                                    My performances
+                                </label>
+                                <div class="testo">
+                                    {{ data.performances }}
+                                </div>
+                            </div>
+                            <!-- cv_path -->
+                            <a :href="data.portfolio_url"></a>
                         </div>
                     </div>
-                    <div class="spazi DEBUG" v-if="data.performances">
-                        <label>
-                            My performances
-                        </label>
-                        <div class="testo">
-                            {{ data.performances }}
-                        </div>
-                    </div>
-                    <!-- cv_path -->
-                    <a :href="data.portfolio_url"></a>
-                </div>
+                </main>
             </div>
-        </main>
-    </div>
+        </template>
+
+    </AuthenticatedLayout>
 </template>
 
 
