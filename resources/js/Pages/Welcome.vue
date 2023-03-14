@@ -65,20 +65,22 @@ export default {
         <div class="hero-section">
             <div class="container">
                 <div class="row align-items-center justify-content-center" style="height: 100vh;">
-                    <div class="col-md-6">
-                        <h1 class="text-center mb-4">Start your research</h1>
+                    <div class="col-md-8">
+                        <h1 class="text-center mb-4">Start your research...</h1>
                         <form class="form-inline d-flex justify-content-center">
-                            <div class="form-group d-flex">
 
-                                <input type="text" class="form-control form-control-lg mr-3" placeholder="Search..."
+                            <div class="input-group">
+                                <input type="text" class="form-control form-control-lg" placeholder="🔍 Search by name"
                                     v-model="form.name">
-                                <select v-model="form.tech" class="text-dark">
-                                    <option class="text-dark" v-for="tech in technologies" :value="tech.id">{{ tech.name }}</option>
+                                <select v-model="form.tech" class="form-select col-1">
+                                    <option selected>any</option>
+                                    <option class="text-dark dropdown-item" v-for="tech in technologies" :value="tech.id">{{
+                                        tech.name }}</option>
                                 </select>
                                 <Link href="/index" method="post" :data="this.form" as="button"
                                     class="btn btn-lg btn-primary"> Go </Link>
-
                             </div>
+
                         </form>
                     </div>
                 </div>
