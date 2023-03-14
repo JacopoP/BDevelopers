@@ -8,6 +8,12 @@ import { createInertiaApp } from '@inertiajs/vue3';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { ZiggyVue } from '../../vendor/tightenco/ziggy/dist/vue.m';
 
+import {library} from '@fortawesome/fontawesome-svg-core';
+import {faEye} from '@fortawesome/free-solid-svg-icons';
+library.add(faEye);
+import { dom } from "@fortawesome/fontawesome-svg-core";
+dom.watch();
+
 const appName = window.document.getElementsByTagName('title')[0]?.innerText || 'Laravel';
 
 createInertiaApp({
