@@ -12,6 +12,7 @@
         "laravel/sanctum": "^3.2",
         "laravel/tinker": "^2.7",
         "laravel/ui": "^4.2",
+        "pacificdev/laravel_9_preset": "^1.1",
         "tightenco/ziggy": "^1.0"
     },
     "require-dev": {
