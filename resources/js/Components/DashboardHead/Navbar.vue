@@ -22,18 +22,19 @@ const showingNavigationDropdown = ref(false);
                         <a class="navbar-brand" :href="route('dashboard')">
                             <ApplicationLogo class="d-block" style="height: 40px;" />
                         </a>
+                        <a class="navbar-brand text-light fs-5" href="#">BDevelopers</a>
                     </div>
 
-                    <!-- Navigation Links -->
-                    <div class="d-flex  align-items-center px-4 text-light">
-                        <a v-if="!route().current('dashboard')" class="nav-link pe-4"
-                            :class="{ active: route().current('dashboard') }" :href="route('dashboard')">
-                            Dashboard
-                    </a>
-                    <a class="nav-link text-light" :href="route('index')" method="get">
-                        Index
-                    </a>
                 </div>
+                <!-- Navigation Links -->
+                <div class="d-flex  align-items-center px-4 text-light">
+                    <a v-if="!route().current('dashboard')" class="nav-link pe-4"
+                        :class="{ active: route().current('dashboard') }" :href="route('dashboard')">
+                    Dashboard
+                </a>
+                <a class="nav-link text-light" :href="route('index')" method="get">
+                    Index
+                </a>
                 </div>
                 <div class="d-sm-flex align-items-sm-center">
                     <!-- Settings Dropdown -->
@@ -42,11 +43,11 @@ const showingNavigationDropdown = ref(false);
                             data-bs-toggle="dropdown" aria-expanded="false">
                             {{ $page.props.auth.user.name }}
                             <!-- <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
-                                                                                                                                                fill="currentColor">
-                                                                                                                                                <path fill-rule="evenodd"
-                                                                                                                                                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                                                                                                                                    clip-rule="evenodd" />
-                                                                                                                                            </svg> -->
+                                                                                                                                                                                    fill="currentColor">
+                                                                                                                                                                                    <path fill-rule="evenodd"
+                                                                                                                                                                                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                                                                                                                                                                        clip-rule="evenodd" />
+                                                                                                                                                                                </svg> -->
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
                             <li>
