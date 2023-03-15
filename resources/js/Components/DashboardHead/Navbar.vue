@@ -59,9 +59,9 @@ const showingNavigationDropdown = ref(false);
                                 <a class="dropdown-item" :href="route('profile.edit')">Profile</a>
                             </li>
                             <li>
-                                <form :action="route('logout')" method="POST">
-                                    <button class="dropdown-item" type="submit">Logout</button>
-                                </form>
+                                <NavLink class="dropdown-item px-3" :href="route('logout')" method="post">
+                                    Logout
+                                </NavLink>
                             </li>
                         </ul>
                     </div>
