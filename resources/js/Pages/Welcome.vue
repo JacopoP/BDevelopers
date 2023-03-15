@@ -1,15 +1,18 @@
 <script>
+// Inertia
 import { Head } from '@inertiajs/vue3';
-import GuestNavbar from '@/Components/WelcomeHead/Navbar.vue';
 import { Link } from '@inertiajs/vue3';
+
+// BDevelopers
+import Navbar from '@/Components/Navbar.vue';
 
 export default {
     name: 'LandingPage',
 
     components: {
         Head,
-        GuestNavbar,
         Link,
+        Navbar,
     },
     props: {
         canLogin: Boolean,
@@ -40,47 +43,27 @@ export default {
     <Head title="Welcome" />
     <div class="landing-page">
 
-        <!-- NavBar -->
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-            <div class="container">
-
-                <!-- BDevelopers logo + title -->
-                <a class="navbar-brand" href="#">BDevelopers</a>
-
-                <!-- Nav -->
-                <div id="navbarNav">
-                    <ul class="navbar-nav ml-auto list-unstyled d-flex flex-row gap-2">
-                        <li class="nav-item">
-                            <a class="nav-link" href="/login">Login</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/register">Register</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
+        <!-- Navbar -->
+        <Navbar />
 
         <!-- HeroSection -->
         <div class="hero-section">
             <div class="container">
                 <div class="row align-items-center justify-content-center" style="height: 100vh;">
-                    <div class="col-md-8">
-                        <h1 class="text-center mb-4">Start your research...</h1>
+                    <div class="col-md-6">
+                        <h1 class="text-center mb-4">Start your research</h1>
                         <form class="form-inline d-flex justify-content-center">
+                            <div class="form-group d-flex">
 
-                            <div class="input-group">
-                                <input type="text" class="form-control form-control-lg" placeholder="🔍 Search by name"
+                                <input type="text" class="form-control form-control-lg mr-3" placeholder="Search..."
                                     v-model="form.name">
-                                <select v-model="form.tech" class="form-select col-1">
-                                    <option selected>any</option>
-                                    <option class="text-dark dropdown-item" v-for="tech in technologies" :value="tech.id">{{
-                                        tech.name }}</option>
+                                <select v-model="form.tech" class="text-dark">
+                                    <option class="text-dark" v-for="tech in technologies" :value="tech.id">{{ tech.name }}</option>
                                 </select>
                                 <Link href="/index" method="post" :data="this.form" as="button"
                                     class="btn btn-lg btn-primary"> Go </Link>
-                            </div>
 
+                            </div>
                         </form>
                     </div>
                 </div>
