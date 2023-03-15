@@ -55,21 +55,26 @@ export default {
     <div class="results-page">
 
         <!-- NavBar -->
-        <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+
+        <nav class="navbar navbar-expand-lg navbar-dark">
+
             <div class="container">
 
-                <!-- Logo  -->
-                <ApplicationLogo class="d-block" style="height: 40px;" />
+                <!-- BDevelopers logo + title -->
+                <div class="d-flex">
+                    <ApplicationLogo class="d-block" style="height: 40px;" />
 
-                <a class="navbar-brand" href="#">BDevelopers</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav ml-auto">
+                    <a class="navbar-brand" href="#">BDevelopers</a>
+                </div>
+
+                <!-- Nav -->
+                <div id="navbarNav">
+                    <ul class="navbar-nav ml-auto list-unstyled d-flex flex-row gap-2">
                         <li class="nav-item">
-                            <a class="text-light text-decoration-none" :href="route('login')">Login</a>
+                            <a class="nav-link" href="/login">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/register">Register</a>
                         </li>
                     </ul>
                 </div>
@@ -165,23 +170,18 @@ export default {
     </div>
     <br>
     <!-- <ul>
-                                                                                                            <li v-for="developer in this.developers">
-                                                                                                                {{ developer.user.name }} {{ developer.user.last }} <br>
-                                                                                                                {{ developer.user.email }} <br>
-                                                                                                                <span v-for="tech in developer.technologies">{{ tech.name }}&nbsp;</span> <br>
-                                                                                                                <Link :href="'/show' + developer.id">Visita la pagina</Link>
-                                                                                                                <hr>
-                                                                                                            </li>
-                                                                                                        </ul> -->
+                                                                                                                                                    <li v-for="developer in this.developers">
+                                                                                                                                                        {{ developer.user.name }} {{ developer.user.last }} <br>
+                                                                                                                                                        {{ developer.user.email }} <br>
+                                                                                                                                                        <span v-for="tech in developer.technologies">{{ tech.name }}&nbsp;</span> <br>
+                                                                                                                                                        <Link :href="'/show' + developer.id">Visita la pagina</Link>
+                                                                                                                                                        <hr>
+                                                                                                                                                    </li>
+                                                                                                                                                </ul> -->
 </template>
 
 <style lang="scss">
 @use 'resources/sass/variable.scss' as *;
-
-main {
-    padding-top: 80px;
-    /* adjust this value to match the height of your navbar */
-}
 
 nav {
     background-color: $brand_fourth;

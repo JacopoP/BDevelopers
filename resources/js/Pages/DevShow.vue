@@ -41,27 +41,35 @@ function submit() {
     
 <template>
     <!-- Navbar -->
-    <div class="d-flex justify-content-around align-items-center _nav _rosa">
-        <div class="d-flex">
-            <ApplicationLogo class="d-block" style="height: 40px;" />
-            <span class="text-light">BDevelopers</span>
-        </div>
+    <nav class="navbar navbar-expand-lg navbar-dark">
 
-        <div class="d-flex align-items-center">
-            <a class="text-light" :href="route('index')" method="get">
-                Index
-            </a>
-            <a class="text-light" :href="route('login')">
-                Log in
-            </a>
-        </div>
+        <div class="container">
 
-        <div class="d-flex">
-            <h1 class="name pe-2 text-light">{{ dati.last }} {{ dati.name }}</h1>
-            <img class="profile me-2" :src="'storage/' + dati.profile_path">
-        </div>
+            <!-- BDevelopers logo + title -->
+            <div class="d-flex">
+                <ApplicationLogo class="d-block" style="height: 40px;" />
 
-    </div>
+                <a class="navbar-brand" href="#">BDevelopers</a>
+            </div>
+
+            <!-- Nav -->
+            <div id="navbarNav">
+                <ul class="navbar-nav ml-auto list-unstyled d-flex flex-row gap-2">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/login">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/register">Register</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" :href="route('index')" method="get">
+                            Index
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
     <!-- contacts -->
     <div class="container-fluid">
@@ -148,6 +156,10 @@ function submit() {
 
 body {
     background-color: $brand_background;
+}
+
+nav {
+    background-color: $brand_fourth;
 }
 
 // Menù nav

@@ -3,6 +3,8 @@ import { Head } from '@inertiajs/vue3';
 import GuestNavbar from '@/Components/WelcomeHead/Navbar.vue';
 import { Link } from '@inertiajs/vue3';
 
+
+
 export default {
     name: 'LandingPage',
 
@@ -41,11 +43,19 @@ export default {
     <div class="landing-page">
 
         <!-- NavBar -->
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+
             <div class="container">
 
                 <!-- BDevelopers logo + title -->
-                <a class="navbar-brand" href="#">BDevelopers</a>
+                <div>
+                    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" style="height: 40px;">
+                        <rect x="0" y="0" width="100" height="100" fill="none" stroke="#fff" stroke-width="5" />
+                        <text x="50%" y="45" font-size="40" font-weight="bold" text-anchor="middle" color="#fff">WEB</text>
+                        <text x="50%" y="85" font-size="40" font-weight="bold" text-anchor="middle" color="#fff">DEV</text>
+                    </svg>
+                    <a class="navbar-brand" href="#">BDevelopers</a>
+                </div>
 
                 <!-- Nav -->
                 <div id="navbarNav">
@@ -73,7 +83,8 @@ export default {
                                 <input type="text" class="form-control form-control-lg mr-3" placeholder="Search..."
                                     v-model="form.name">
                                 <select v-model="form.tech" class="text-dark">
-                                    <option class="text-dark" v-for="tech in technologies" :value="tech.id">{{ tech.name }}</option>
+                                    <option class="text-dark" v-for="tech in technologies" :value="tech.id">{{ tech.name }}
+                                    </option>
                                 </select>
                                 <Link href="/index" method="post" :data="this.form" as="button"
                                     class="btn btn-lg btn-primary"> Go </Link>
@@ -95,10 +106,17 @@ export default {
 // Import Bootstrap SCSS
 //   @import '~bootstrap/scss/bootstrap';
 
+@use 'resources/sass/variable.scss' as *;
+
 // Define custom styles for the landing page
 .landing-page {
+
+    nav {
+        background-color: $brand_fourth;
+    }
+
     .hero-section {
-        background-color: #424242;
+        background-color: $brand_background;
         color: #fff;
 
         h1 {
