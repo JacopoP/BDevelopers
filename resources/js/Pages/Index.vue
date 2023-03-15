@@ -170,17 +170,17 @@ export default {
     </div>
     <br>
     <!-- <ul>
-                                                                                                                                                    <li v-for="developer in this.developers">
-                                                                                                                                                        {{ developer.user.name }} {{ developer.user.last }} <br>
-                                                                                                                                                        {{ developer.user.email }} <br>
-                                                                                                                                                        <span v-for="tech in developer.technologies">{{ tech.name }}&nbsp;</span> <br>
-                                                                                                                                                        <Link :href="'/show' + developer.id">Visita la pagina</Link>
-                                                                                                                                                        <hr>
-                                                                                                                                                    </li>
-                                                                                                                                                </ul> -->
+                                                                                                                                                        <li v-for="developer in this.developers">
+                                                                                                                                                            {{ developer.user.name }} {{ developer.user.last }} <br>
+                                                                                                                                                            {{ developer.user.email }} <br>
+                                                                                                                                                            <span v-for="tech in developer.technologies">{{ tech.name }}&nbsp;</span> <br>
+                                                                                                                                                            <Link :href="'/show' + developer.id">Visita la pagina</Link>
+                                                                                                                                                            <hr>
+                                                                                                                                                        </li>
+                                                                                                                                                    </ul> -->
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @use 'resources/sass/variable.scss' as *;
 
 nav {

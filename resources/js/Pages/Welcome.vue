@@ -102,7 +102,7 @@ export default {
     </div>
 </template>
   
-<style lang="scss">
+<style lang="scss" scoped>
 // Import Bootstrap SCSS
 //   @import '~bootstrap/scss/bootstrap';
 

@@ -67,11 +67,13 @@ props.technologies.forEach((technology) => {
     
 <template>
     <AuthenticatedLayout class="overflow-hidden">
+
         <Head title="Settings" />
         <template #header>
             <div class="d-flex justify-content-between">
                 <h2>Developer Settings</h2>
-                <a :href="route('profile.dev.delete')" class="btn btn-danger text-light fw-bold d-flex align-items-center">Delete</a>
+                <a :href="route('profile.dev.delete')"
+                    class="btn btn-danger text-light fw-bold d-flex align-items-center">Delete</a>
             </div>
         </template>
 
@@ -87,14 +89,8 @@ props.technologies.forEach((technology) => {
                         <div class="my_text_input_label">
                             <InputLabel class="my_input_label bg-dark" for="address" value="Address" />
 
-                            <TextInput
-                                placeholder="address"
-                                id="address"
-                                type="address"
-                                class="mt-1 w-100 p-2"
-                                v-model="form.address"
-                                autocomplete="username"
-                            />
+                            <TextInput placeholder="address" id="address" type="address" class="mt-1 w-100 p-2"
+                                v-model="form.address" autocomplete="username" />
                         </div>
 
 
@@ -102,46 +98,36 @@ props.technologies.forEach((technology) => {
                         <div class="my_text_input_label">
                             <InputLabel class="my_input_label bg-dark" for="phone_number" value="Phone Number" />
 
-                            <TextInput
-                                placeholder="phone_number"
-                                id="phone_number"
-                                type="phone_number"
-                                class="mt-1 w-100 p-2"
-                                v-model="form.phone_number"
-                                autocomplete="username"
-                            />
+                            <TextInput placeholder="phone_number" id="phone_number" type="phone_number"
+                                class="mt-1 w-100 p-2" v-model="form.phone_number" autocomplete="username" />
                         </div>
-                        
-                        
+
+
                         <!-- Profile IMG -->
                         <div class="mx-auto">
-                            <label for="profile_path" class="my_login_button px-3 py-1 rounded-pill text-light cursor-pointer">Upload Image</label>
+                            <label for="profile_path"
+                                class="my_login_button px-3 py-1 rounded-pill text-light cursor-pointer">Upload
+                                Image</label>
                         </div>
                         <input id="profile_path" class="form-control border-dark rounded-pill" type="file"
-                            name="profile_path" @input="form.profile_path = $event.target.files[0]"
-                        >
+                            name="profile_path" @input="form.profile_path = $event.target.files[0]">
 
                         <!-- Profile FILE -->
                         <div class="mx-auto">
-                            <label for="cv_path" class="my_login_button rounded-pill text-light px-3 py-1 cursor-pointer">Curriculum Vitae</label>
+                            <label for="cv_path"
+                                class="my_login_button rounded-pill text-light px-3 py-1 cursor-pointer">Curriculum
+                                Vitae</label>
                         </div>
                         <input id="cv_path" class="form-control border-dark rounded-pill" type="file" name="cv_path"
-                            @input="form.cv_path = $event.target.files[0]"
-                        >
-                        
+                            @input="form.cv_path = $event.target.files[0]">
+
 
                         <!-- URL -->
                         <div class="my_text_input_label">
                             <InputLabel class="my_input_label bg-dark" for="portfolio_url" value="Portfolio URL" />
 
-                            <TextInput
-                                placeholder="portfolio_url"
-                                id="portfolio_url"
-                                type="portfolio_url"
-                                class="mt-1 w-100 p-2"
-                                v-model="form.portfolio_url"
-                                autocomplete="username"
-                            />
+                            <TextInput placeholder="portfolio_url" id="portfolio_url" type="portfolio_url"
+                                class="mt-1 w-100 p-2" v-model="form.portfolio_url" autocomplete="username" />
                         </div>
 
 
@@ -149,9 +135,9 @@ props.technologies.forEach((technology) => {
                         <div class="my_text_input_label">
                             <InputLabel class="my_input_label bg-dark" for="about_me" value="About ME" />
 
-                            <textarea id="about_me" class="bg-dark text-light rounded px-4 w-100" name="about_me" cols="30" rows="3"
-                                placeholder="Write about you" v-model="form.about_me">
-                            </textarea>
+                            <textarea id="about_me" class="bg-dark text-light rounded px-4 w-100" name="about_me" cols="30"
+                                rows="3" placeholder="Write about you" v-model="form.about_me">
+                                </textarea>
                         </div>
 
 
@@ -159,9 +145,9 @@ props.technologies.forEach((technology) => {
                         <div class="my_text_input_label">
                             <InputLabel class="my_input_label bg-dark" for="performances" value="Performances" />
 
-                            <textarea id="performances" class="bg-dark text-light rounded px-4 w-100" name="performances" cols="30" rows="3"
-                                placeholder="About your Job" v-model="form.performances">
-                            </textarea>
+                            <textarea id="performances" class="bg-dark text-light rounded px-4 w-100" name="performances"
+                                cols="30" rows="3" placeholder="About your Job" v-model="form.performances">
+                                </textarea>
                         </div>
 
 
@@ -196,10 +182,12 @@ props.technologies.forEach((technology) => {
 
                             <!-- checkboxes (with GRID layout) -->
                             <div>
-                                <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 justify-content-evenly gap-y-5 mt-5 border border-secondary border-4 rounded py-4 overflow-auto">
+                                <div
+                                    class="row row-cols-2 row-cols-md-3 row-cols-lg-5 justify-content-evenly gap-y-5 mt-5 border border-secondary border-4 rounded py-4 overflow-auto">
 
                                     <!-- single tech icon -->
-                                    <div class="d-flex justify-content-center align-items-center" v-for="tech in technologies">
+                                    <div class="d-flex justify-content-center align-items-center"
+                                        v-for="tech in technologies">
 
                                         <!-- hidden (d-none) checkbox to make the checking system work -->
                                         <input class="form-check-input d-none" type="checkbox" :value="tech.id"
@@ -222,12 +210,15 @@ props.technologies.forEach((technology) => {
 
 
                         <!-- Submit -->
-                        <div class="d-flex justify-content-center" v-if="form.address == null && form.phone_number == null && form.portfolio_url == null && form.about_me == null && form.performances == null">
-                            <input class="my_login_button btn btn-secondary rounded-pill text-light border-0" type="submit" value="SEND">
+                        <div class="d-flex justify-content-center"
+                            v-if="form.address == null && form.phone_number == null && form.portfolio_url == null && form.about_me == null && form.performances == null">
+                            <input class="my_login_button btn btn-secondary rounded-pill text-light border-0" type="submit"
+                                value="SEND">
                         </div>
                         <!-- Update -->
                         <div class="d-flex justify-content-center" v-else>
-                            <input class="my_login_button btn btn-secondary rounded-pill text-light border-0" type="submit" value="UPDATE">
+                            <input class="my_login_button btn btn-secondary rounded-pill text-light border-0" type="submit"
+                                value="UPDATE">
                         </div>
 
                     </form>
@@ -238,11 +229,11 @@ props.technologies.forEach((technology) => {
 
 
         </template>
-        
+
     </AuthenticatedLayout>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @use 'resources/sass/variable.scss' as *;
 @use 'resources/sass/form-style.scss';
 
@@ -260,7 +251,7 @@ props.technologies.forEach((technology) => {
     }
 }
 
-.tech-icon{
+.tech-icon {
     transition: all .15s ease-in-out;
     cursor: pointer;
 
@@ -269,13 +260,14 @@ props.technologies.forEach((technology) => {
         transform: translateY(-5px);
     }
 }
+
 // To remove from display input file 
 input[type="file"] {
     display: none;
 }
 
 // TechIcon
-.my_tech_icon{
+.my_tech_icon {
     width: 80px;
     height: 80px;
     padding: 15px;
@@ -286,9 +278,9 @@ input[type="file"] {
     border-radius: 50%;
 
 }
+
 .my_tech_icon:hover .tech-icon {
     filter: grayscale(15%);
     transform: translateY(-5px);
 }
-
 </style>
