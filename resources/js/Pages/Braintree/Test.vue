@@ -3,6 +3,7 @@ import { useForm } from '@inertiajs/vue3';
 import { onMounted } from 'vue';
     const form = useForm({
         payment_method_nonce: undefined,
+        amount: 0,
     });
 let prova = function(){};
 const props = defineProps(['token']);
@@ -26,6 +27,15 @@ onMounted(()=>{
 <template>
     <form id="payment-form" method="post" @submit.prevent="prova">
         <div id="dropin-container"></div>
+        <input type="radio" value="2.99" v-model="form.amount" id="plan1">
+        <label for="plan1">Base</label>
+        <br>
+        <input type="radio" value="5.99" v-model="form.amount" id="plan2">
+        <label for="plan2">Intermediate</label>
+        <br>
+        <input type="radio" value="9.99" v-model="form.amount" id="plan3">
+        <label for="plan2">Advanced</label>
+        <br>
         <input type="submit" />
     </form>
 </template>

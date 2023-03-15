@@ -30,12 +30,13 @@ class BraintreeController extends Controller
             'privateKey' => env("BRAINTREE_PRIVATE_KEY")
         ]);
         $nonceFromTheClient = $request->payment_method_nonce;
+        $amount = $request->amount;
         $result = $gateway->transaction()->sale([
-            'amount' => '10.00',
+            'amount' => $amount,
             'paymentMethodNonce' => $nonceFromTheClient,
             'options' => [
               'submitForSettlement' => True
             ]
-          ]);
+        ]);
     }
 }
