@@ -42,15 +42,25 @@ class DeveloperSeeder extends Seeder
             // Technologies
             $technologies = Technology::inRandomOrder()->limit(rand(1, 5))->get();
             $new_developer->technologies()->attach($technologies);
-
+            
             // Sponsor
             $spon_number = rand(1, 5);
             for ($i = 0; $i < $spon_number; $i++) {
-                $new_developer->addSponsorship(
+                $sponsor = Sponsor::find(rand(1, 3));
+                $sponsorTime = $sponsor -> length;
+                
+                $start_date = DateTime::createFromFormat('Y-m-d H:i:s', (fake()->date('Y-m-d') . ' ' . fake()->time('H:i:s')));
+
+                $end_date = $new_developer -> addSponsorship(
                     // generate random DateTime
-                    DateTime::createFromFormat('Y-m-d H:i:s', (fake()->date('Y-m-d') . ' ' . fake()->time('H:i:s'))),
-                    rand(1, 3)
+                    $start_date,
+                    $sponsorTime,
                 );
+
+                $new_developer->sponsors()->attach($sponsor, [
+                    'date_start' => $start_date,
+                    'date_end' => $end_date
+                ]);
             }
         }
     }

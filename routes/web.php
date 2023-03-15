@@ -37,6 +37,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/developer', [DeveloperController::class, 'DevStore'])->name('profile.dev.store');
 
     Route::get('/developer/delete', [DeveloperController::class, 'DevDelete'])->name('profile.dev.delete');
+
+    // Sponsor
+    Route::post('/developer/sponsor', [SponsorController::class, 'SponsorCreate'])->name('sponsor.dev.create');
 });
 
 Route::match(['get', 'post'], '/index', [IndexController::class, 'goToIndex'])->name('index');
