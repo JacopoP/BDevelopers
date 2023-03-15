@@ -283,4 +283,8 @@ input[type="file"] {
     filter: grayscale(15%);
     transform: translateY(-5px);
 }
+
+img{
+    width: 100%;
+}
 </style>
