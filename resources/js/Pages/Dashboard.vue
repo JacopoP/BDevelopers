@@ -25,23 +25,7 @@ const data = {
     reviews: props.developer.reviews,
 
 };
-
-let dateTimeUTC = new Date("2021-01-01T12:00:00Z");
-
-console.log(dateTimeUTC);
-console.log('2023-03-10T09:50:51.000000Z');
-console.log(data.reviews[1].created_at);
-// const millisecondi = (data.reviews[0].created_at).getTime();
-// // const millisecondi = (new Date(data.reviews[0].created_at)).getTime();
-// console.log(millisecondi);
-// const millisecondiVeri = ((2023 - 1970) * (365.25 * 24 * 60 * 60 * 1000)) + (9 * (60 * 60 * 1000)) + (50 * (60 * 1000)) + (51 * (1000));
-// console.log("millisecondiVeri " + millisecondiVeri);
-// const errore = millisecondi - millisecondiVeri;
-// console.log("errore " + errore);
-// const erroreGiorni = errore / (24 * 60 * 60 * 1000);
-// console.log("erroreGiorni " + erroreGiorni);
-
-console.log("app's on");
+console.log(data.reviews);
 </script>
 
 <template>
@@ -55,10 +39,10 @@ console.log("app's on");
 
         <template #main>
 
-            <header class="d-flex justify-between DEBUG">
-                <h1>Your profile</h1>
-            </header>
             <div class="sfondo">
+                <header class="d-flex justify-between DEBUG">
+                    <h1>Your profile</h1>
+                </header>
                 <div class="container p-0">
 
                     <main class="d-flex justify-between DEBUG">
@@ -71,8 +55,7 @@ console.log("app's on");
                                 </div>
                                 <ul class="reviews">
                                     <!-- <div class="shadow-lg p-3 mb-5 bg-white rounded margin"> -->
-                                    <li v-for="review in data.reviews"
-                                        class="shadow-lg p-3 mb-5 bg-white rounded margin review">
+                                    <li v-for="review in data.reviews" class="shadow-lg mb-5 bg-white margin review">
                                         <!-- <li v-for="review in data.reviews" class="review"> -->
                                         <div v-if="review.full_name != undefined" class="reviewer">
                                             {{ review.full_name }}
@@ -85,7 +68,7 @@ console.log("app's on");
                                             {{ review.text }}
                                         </p>
                                         <div class="created-at">
-                                            {{ review.created_at }}
+                                            {{ review.created_at.substring(0, 10) }}
 
                                         </div>
 
@@ -155,8 +138,18 @@ console.log("app's on");
 $grigio-sfondo: #424242;
 // $grigio-sfondo: #212529;
 $color-scritte: white;
-$h-header: 100px;
-$h-main: calc(98vh - $h-header);
+$color-titles: yellow;
+$h-header: 50px;
+
+// $h-sfondo: 500px;
+$h-sfondo: calc(100vh - $h-primary_navigation_menu - $h-subnavbar);
+$w-sfondo: calc(100vw);
+
+// $h-main: 300px;
+$h-main: calc($h-sfondo - 50px);
+
+
+$h-review: calc($h-main - 50px);
 
 
 
@@ -168,8 +161,9 @@ $h-main: calc(98vh - $h-header);
 // }
 
 .reviews {
-    height: 70vh;
+    height: $h-review;
     overflow: scroll;
+    padding-right: 20px;
 
     &::-webkit-scrollbar {
         display: none;
@@ -178,8 +172,8 @@ $h-main: calc(98vh - $h-header);
     .review {
         // background-color: white;
         list-style: none;
-        // padding: 15px 25px 25px 25px;
-        // border-radius: 0 13px 13px 13px;
+        padding: 15px 25px;
+        border-radius: 0 13px 13px 13px;
         // margin: 10px;
 
         .reviewer {
@@ -207,6 +201,7 @@ $h-main: calc(98vh - $h-header);
     padding: 5px 15px 0px;
     // max-width: 300px;
     border-bottom: 1px solid white;
+    color: white;
 
     &:first-child {
         border-radius: 0 0 0 10px;
@@ -219,17 +214,18 @@ $h-main: calc(98vh - $h-header);
     border: 1px solid white;
     border-radius: 0 0 10px 0;
     padding: 10px;
-    position: relative;
+    display: flex;
     box-shadow: 20px black;
+    position: relative;
 
     .titolo {
         background-color: $grigio-sfondo;
         padding: 0 8px;
-        position: absolute;
         top: -13px;
         left: -8px;
         font-size: 12px;
         color: white;
+        position: absolute;
 
     }
 
@@ -251,40 +247,60 @@ $h-main: calc(98vh - $h-header);
 
 body {
 
+
     .sfondo {
+        height: $h-sfondo;
+        width: $w-sfondo;
         background-color: $grigio-sfondo;
+        position: fixed;
+
+
+
+        header {
+            height: $h-header;
+            // background-color: aqua;
+
+            h1 {
+                font-size: 2.5rem;
+                font-weight: bold;
+            }
+        }
 
         .container {
             width: 100vw;
 
-            header {
-                height: $h-header;
-
-                h1 {
-                    font-size: 2.5rem;
-                    font-weight: bold;
-                }
-            }
 
             main {
-                height: $h-main;
 
 
 
                 .sinistra {
+                    height: $h-main;
+                    overflow: scroll;
                     margin: 10px;
                     width: 100%;
 
+                    // no scrollbar Chrome, Safari and Opera
+                    &::-webkit-scrollbar {
+                        display: none;
+                    }
+
+                    /* IE and Edge */
+                    -ms-overflow-style: none;
+                    /* Firefox */
+                    scrollbar-width: none;
+                    // con firefox non sembra funzionare
 
 
                     .spazio {
                         margin: 50px 0;
-
+                        position: relative;
 
                         .titolo {
-
+                            position: absolute;
                             top: -35px;
                             font-size: 30px;
+                            color: $color-titles;
                         }
 
 
@@ -298,9 +314,21 @@ body {
                     width: 40%;
                     display: flex;
                     flex-direction: column;
-                    overflow-y: scroll;
+                    height: $h-main;
+                    overflow: scroll;
                     overflow-x: hidden;
                     margin: 10px;
+
+                    // no scrollbar Chrome, Safari and Opera
+                    &::-webkit-scrollbar {
+                        display: none;
+                    }
+
+                    /* IE and Edge */
+                    -ms-overflow-style: none;
+                    /* Firefox */
+                    scrollbar-width: none;
+                    // con firefox non sembra funzionare
 
 
                     .my-img-container {
@@ -356,7 +384,7 @@ body {
 
                         .spazio {
 
-                            titolo {}
+                            .titolo {}
 
 
                         }
@@ -378,7 +406,6 @@ body {
                         }
 
 
-                        .spazio {}
                     }
                 }
             }

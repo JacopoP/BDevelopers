@@ -27,6 +27,7 @@
         "@fortawesome/vue-fontawesome": "^3.0.3",
         "colorthief": "^2.4.0",
         "sass": "^1.58.3",
+        "swiper": "^9.1.0",
         "vue-color-thief": "^0.0.1"
     }
 }
