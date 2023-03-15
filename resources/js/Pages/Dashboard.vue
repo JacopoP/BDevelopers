@@ -49,11 +49,11 @@ console.log("app's on");
 
         <template #header>
             <div class="d-flex justify-content-between">
-            <h2>Dashboard</h2>
-        </div>
-    </template>
+                <h2>Dashboard</h2>
+            </div>
+        </template>
 
-    <template #main>
+        <template #main>
 
             <header class="d-flex justify-between DEBUG">
                 <h1>Your profile</h1>
@@ -64,12 +64,16 @@ console.log("app's on");
                     <main class="d-flex justify-between DEBUG">
                         <div class="sinistra  overflow-scroll DEBUG">
 
-                            <div class="spazio DEBUG">
+                            <!-- reviews -->
+                            <div class="spazio DEBUG ">
                                 <div class="titolo">
                                     My reviews
                                 </div>
                                 <ul class="reviews">
-                                    <li v-for="review in data.reviews" class="review">
+                                    <!-- <div class="shadow-lg p-3 mb-5 bg-white rounded margin"> -->
+                                    <li v-for="review in data.reviews"
+                                        class="shadow-lg p-3 mb-5 bg-white rounded margin review">
+                                        <!-- <li v-for="review in data.reviews" class="review"> -->
                                         <div v-if="review.full_name != undefined" class="reviewer">
                                             {{ review.full_name }}
 
@@ -94,13 +98,13 @@ console.log("app's on");
                         </div>
                         <!-- image and data user developer -->
                         <div class="destra DEBUG">
-                            <!-- <div class="my-img-container DEBUG"
-                                                                                                                                        :class="data.profile_path === default_profile_path ? 'no-pic' : null">
+                            <div class="my-img-container DEBUG">
+                                <!-- :class="data.profile_path === default_profile_path ? 'no-pic' : null" -->
 
-                                                                                                                                        <img :src="data.profile_path">
+                                <img :src="data.profile_path">
 
 
-                                                                                                                                    </div> -->
+                            </div>
 
 
                             <div class="DEBUG">
@@ -167,12 +171,16 @@ $h-main: calc(98vh - $h-header);
     height: 70vh;
     overflow: scroll;
 
+    &::-webkit-scrollbar {
+        display: none;
+    }
+
     .review {
-        background-color: white;
+        // background-color: white;
         list-style: none;
-        padding: 15px 25px 25px 25px;
-        border-radius: 0 13px 13px 13px;
-        margin: 10px;
+        // padding: 15px 25px 25px 25px;
+        // border-radius: 0 13px 13px 13px;
+        // margin: 10px;
 
         .reviewer {
             font-weight: bold;
@@ -361,6 +369,7 @@ body {
 
                         .my-img-container {
                             $w-img: 100px;
+                            height: $w-img;
 
                             img {
                                 width: $w-img;
