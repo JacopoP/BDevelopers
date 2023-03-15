@@ -21,44 +21,43 @@ function submit() {
 
 <template>
     <form method="post" @submit.prevent="submit">
-        <label for="full_name">Your Name</label>
+        <label class="text-light" for="full_name">Your Name</label>
         <br>
-        <TextInput class="layout" id="full_name" type="text" v-model="form.full_name" required autocomplete="name" />
+        <TextInput class="layout text-light" id="full_name" type="text" v-model="form.full_name" required
+            autocomplete="name" />
         <br>
-        <label for="email">Your email</label>
+        <label class="text-light" for="email">Your email</label>
         <br>
-        <TextInput class="layout" id="email" type="email" v-model="form.email" required autocomplete="name" />
+        <TextInput class="layout text-light" id="email" type="email" v-model="form.email" required autocomplete="name" />
         <br>
-        <label for="text">Message text</label>
+        <label class="text-light" for="text">Message text</label>
         <br>
-        <textarea class="layout" id="text" v-model="form.text"></textarea>
+        <textarea class="layout bg-dark" id="text" v-model="form.text"></textarea>
         <br>
-        <input class="_button _blue" type="submit" value="Send a Message">
+        <input class="_button _blue text-light border-0" type="submit" value="Send a Message">
     </form>
 </template>
 
 <style lang="scss" scoped>
-@use 'resources/sass/general.scss' as *;
+// @use 'resources/sass/variable.scss' as *;
+@use 'resources/sass/devShow-layout-style.scss' as *;
 
 label {
     position: relative;
     top: 10px;
-    background: $background;
+    background: $brand_background;
     padding: 0 8px;
 }
 
 .layout {
     width: 100%;
-    background-color: $background;
     border-radius: 10px;
 }
 
 ._button {
-    color: $titles;
     padding: 10px;
     border-radius: 20px;
     margin-top: 15px;
     width: 100%;
-
 }
 </style>

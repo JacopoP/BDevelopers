@@ -1,0 +1,22 @@
+@import './variable.scss';
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+
+
+// class color 
+._blue {
+    background-color: $brand_third;
+}
+
+._rosa {
+    background-color: $brand_fourth;
+}
+
+img {
+    max-width: 100%;
+}

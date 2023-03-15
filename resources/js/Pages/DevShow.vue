@@ -3,6 +3,8 @@ import { useForm } from '@inertiajs/vue3';
 import ReviewForm from '@/Pages/ShowComponents/ReviewForm.vue'
 import MessageForm from '@/Pages/ShowComponents/MessageForm.vue'
 import RatingForm from '@/Pages/ShowComponents/RatingForm.vue'
+import ApplicationLogo from '@/Components/ApplicationLogo.vue';
+
 
 const props = defineProps([
     'developer',
@@ -38,64 +40,79 @@ function submit() {
 </script>
     
 <template>
-    <!-- intestazione -->
-    <div class="d-flex justify-content-end _nav _rosa">
+    <!-- Navbar -->
+    <div class="d-flex justify-content-around align-items-center _nav _rosa">
+        <div class="d-flex">
+            <ApplicationLogo class="d-block" style="height: 40px;" />
+            <span class="text-light">BDevelopers</span>
+        </div>
+
+        <div class="d-flex align-items-center">
+            <a class="text-light" :href="route('index')" method="get">
+                Index
+            </a>
+            <a class="text-light" :href="route('login')">
+                Log in
+            </a>
+        </div>
 
         <div class="d-flex">
-            <h1 class="name pe-2">{{ dati.last }} {{ dati.name }}</h1>
+            <h1 class="name pe-2 text-light">{{ dati.last }} {{ dati.name }}</h1>
             <img class="profile me-2" :src="'storage/' + dati.profile_path">
         </div>
 
     </div>
 
-    <!-- contatti -->
+    <!-- contacts -->
     <div class="container-fluid">
         <div class="d-flex justify-between _contact">
 
             <div class="d-flex">
                 <img class="img_profile" :src="'storage/' + dati.profile_path">
                 <div class="d-flex flex-column justify-content-end ps-2">
-                    <h3>Address:</h3>
-                    <div class="text">
+                    <h3 class="text-light">Address:</h3>
+                    <div class="text-light">
                         {{ dati.address }}
                     </div>
-                    <h3> Phone Number:</h3>
-                    <div class="text">
+                    <h3 class="text-light"> Phone Number:</h3>
+                    <div class="text-light">
                         {{ dati.phone_number }}
                     </div>
                     <a :href="dati.portfolio_url" v-if="dati.portfolio_url">
-                        <h3>URL Portfolio</h3>
+                        <h3 class="text-light">Vai al mio Portfolio</h3>
                     </a>
                 </div>
             </div>
 
             <div class="d-flex align-items-center">
-                <a href="#ancor" class="_blue">Send a Message, Leave a Reviews or a Star</a>
+                <a href="#ancor" class="_blue text-light">Send a Message, Leave a Reviews or a Star</a>
             </div>
         </div>
 
+        <!-- Curriculum etc... -->
         <div class="_line _blue mt-4 "></div>
         <div class="_contact">
             <div class="d-flex justify-content-between mt-4">
-                <div class="text">{{ dati.about_me }}</div>
-                <h3>"About me"</h3>
+                <div class="text-light">{{ dati.about_me }}</div>
+                <h3 class="text-light">"About me"</h3>
             </div>
             <div class="d-flex justify-content-between mt-4">
-                <h3>"Curriculum"</h3>
-                <div class="text">{{ dati.cv_path }}</div>
+                <h3 class="text-light">"Curriculum"</h3>
+                <div class="text-light">{{ dati.cv_path }}</div>
             </div>
             <div class="d-flex justify-content-between mt-4">
-                <div class="text">{{ dati.performances }}</div>
-                <h3>"My Performances"</h3>
+                <div class="text-light">{{ dati.performances }}</div>
+                <h3 class="text-light">"My Performances"</h3>
             </div>
 
         </div>
 
         <div class="_line _blue mt-4 "></div>
 
+        <!-- Reviews -->
         <div class="text-center _contact">
-            <h3>My Reviews</h3>
-            <ul class="text">
+            <h3 class="text-light">My Reviews</h3>
+            <ul class="text text-light">
                 <li v-for="review in dati.reviews">
                     {{ review.text }}
                 </li>
@@ -107,18 +124,18 @@ function submit() {
     </div>
 
 
-    <!-- reviews e ratings -->
+    <!-- reviews, ratings e message send -->
     <div class="container-fluid d-flex justify-content-evenly _contact mt-5">
-        <div class="text">
-            <h3><a id="ancor"></a> Review</h3>
+        <div>
+            <h3 class="text-light"><a id="ancor"></a> Review</h3>
             <ReviewForm :developer="developer" />
         </div>
-        <div class="text">
-            <h3 class="pt-3">Rating</h3>
+        <div>
+            <h3 class="pt-3 text-light">Rating</h3>
             <RatingForm :developer="developer" />
         </div>
-        <div class="text">
-            <h3>Message</h3>
+        <div>
+            <h3 class="text-light">Message</h3>
             <MessageForm :developer="developer" />
         </div>
     </div>
@@ -126,10 +143,11 @@ function submit() {
 
 
 <style lang="scss">
-@use 'resources/sass/general.scss' as *;
+// @use 'resources/sass/variable.scss' as *;
+@use 'resources/sass/devShow-layout-style.scss' as *;
 
 body {
-    background-color: $background;
+    background-color: $brand_background;
 }
 
 // Menù nav
@@ -152,7 +170,7 @@ img.img_profile {
 }
 
 a {
-    color: $titles;
+    color: $brand_secondary;
     padding: 10px;
     border-radius: 20px;
     // margin-top: 15px;

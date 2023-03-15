@@ -12,8 +12,7 @@ const showingNavigationDropdown = ref(false);
 </script>
 
 <template>
-    <nav
-        class="d-flex justify-content-between navbar-expand-lg navbar-light bg-white border border-bottom border-secondary-subtle">
+    <nav class="d-flex justify-content-around navbar-expand-lg navbar-light">
         <!-- Primary Navigation Menu -->
         <div class="container-fluid px-4">
             <div class="d-flex justify-content-between" style="height: 60px;">
@@ -26,12 +25,12 @@ const showingNavigationDropdown = ref(false);
                     </div>
 
                     <!-- Navigation Links -->
-                    <div class="d-flex  align-items-center px-4 text-dark">
+                    <div class="d-flex  align-items-center px-4 text-light">
                         <a v-if="!route().current('dashboard')" class="nav-link pe-4"
                             :class="{ active: route().current('dashboard') }" :href="route('dashboard')">
                             Dashboard
                     </a>
-                    <a class="nav-link" :href="route('index')" method="get">
+                    <a class="nav-link text-light" :href="route('index')" method="get">
                         Index
                     </a>
                 </div>
@@ -39,15 +38,15 @@ const showingNavigationDropdown = ref(false);
                 <div class="d-sm-flex align-items-sm-center">
                     <!-- Settings Dropdown -->
                     <div class="ml-3 dropdown">
-                        <a class="btn dropdown-toggle text-dark border-0" href="#" role="button" id="userDropdown"
+                        <a class="btn dropdown-toggle text-light border-0" href="#" role="button" id="userDropdown"
                             data-bs-toggle="dropdown" aria-expanded="false">
                             {{ $page.props.auth.user.name }}
                             <!-- <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
-                                                                                                                fill="currentColor">
-                                                                                                                <path fill-rule="evenodd"
-                                                                                                                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                                                                                                    clip-rule="evenodd" />
-                                                                                                            </svg> -->
+                                                                                                                                                fill="currentColor">
+                                                                                                                                                <path fill-rule="evenodd"
+                                                                                                                                                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                                                                                                                                    clip-rule="evenodd" />
+                                                                                                                                            </svg> -->
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
                             <li>
@@ -118,3 +117,11 @@ const showingNavigationDropdown = ref(false);
         </div>
     </nav>
 </template>
+
+<style lang="scss" scoped>
+@use 'resources/sass/variable.scss' as *;
+
+nav {
+    background-color: $brand_fourth;
+}
+</style>
