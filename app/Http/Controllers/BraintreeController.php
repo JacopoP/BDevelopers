@@ -38,5 +38,6 @@ class BraintreeController extends Controller
               'submitForSettlement' => True
             ]
         ]);
+        return Inertia::render('Braintree/Result', ['result' => $result]);
     }
 }

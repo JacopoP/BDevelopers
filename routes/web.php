@@ -33,7 +33,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/braintree', [BraintreeController::class, 'token'])->name('braintree');
 
-    Route::post('/braintree/pay', [BraintreeController::class, 'pay'])->name('payment');
+    Route::post('/braintree/result', [BraintreeController::class, 'pay'])->name('payment');
 
     // DeveloperSettings
     Route::get('/developer', [DeveloperController::class, 'DevCreate'])->name('profile.dev.create');
