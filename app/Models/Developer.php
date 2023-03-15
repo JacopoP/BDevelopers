@@ -55,16 +55,14 @@ class Developer extends Model
     /**
      * Add a sponsorship to the logged developer
      */
-    public function addSponsorship(DateTime $start_date, $tier_id)
+    public function addSponsorship(DateTime $start_date, $length)
     {
         // Add date
         $end_date = clone($start_date);
-        $end_date->add(new DateInterval('PT' . Sponsor::find($tier_id)['length'] . 'H'));
+        $end_date->add(new DateInterval('PT' . $length . 'H'));
 
         // Add sposorship
-        $this->sponsors()->attach($tier_id, [
-            'date_start' => $start_date,
-            'date_end' => $end_date
-        ]);
+        return $end_date;
+        
     }
 }
