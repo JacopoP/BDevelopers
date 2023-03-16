@@ -150,7 +150,7 @@ export default {
                                         <!-- {{ developer.user.name }} {{ developer.user.last }} <br> -->
                                         <br>
                                         <Link :href="'/show' + developer.id" class="btn btn-outline-primary rounded-pill">
-                                            Profilo
+                                            Profile
                                         </Link>
                                         
                                     </div>
