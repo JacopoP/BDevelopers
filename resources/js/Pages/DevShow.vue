@@ -72,15 +72,14 @@ function submit() {
 
                         </div>
                     </div>
-        
-                    <div class="d-flex align-items-center">
+                    
+                    <div class="d-flex justify-content-center">
                         <a href="#ancor" class="btn btn-primary rounded-pill _blue text-light">Send a Message, Leave a Reviews or a Star</a>
                     </div>
-
                 </div>
         
                 <!-- Curriculum etc... -->
-                <div class="_line _blue my-5 rounded-pill" style="height: 3px;"></div>
+                <div class="_line _blue my-5 rounded-pill w-100" style="height: 3px;"></div>
 
                 <div class="d-flex flex-column gap-4">
                     <div class="d-flex flex-column flex-lg-row justify-content-between mt-4">
@@ -98,7 +97,7 @@ function submit() {
         
                 </div>
         
-                <div class="_line _blue mt-5 mb-3 rounded-pill" style="height: 3px;"></div>
+                <div class="_line _blue mt-5 mb-3 rounded-pill w-100" style="height: 3px;"></div>
         
                 <!-- Reviews -->
                 <div class="d-flex flex-column align-items-center gap-4">
@@ -117,28 +116,28 @@ function submit() {
                     </ul>
                 </div>
         
-                <div class="_line _blue my-5 rounded-pill" style="height: 3px;"></div>
+                <div class="_line _blue my-5 rounded-pill w-100" style="height: 3px;"></div>
         
+                <!-- reviews, ratings e message send -->
+                <div id="ancor" class="d-flex flex-column gap-5 flex-lg-row gap-lg-0 justify-content-between mt-5">
+    
+                    <div class="d-flex flex-column align-items-center gap-5">
+                        <h3 class="text-light">Review</h3>
+                        <ReviewForm :developer="developer" />
+                    </div>
+                    <div class="d-flex flex-column align-items-center gap-5">
+                        <h3 class="text-light">Rating</h3>
+                        <RatingForm :developer="developer" />
+                    </div>
+                    <div class="d-flex flex-column align-items-center gap-5">
+                        <h3 class="text-light">Message</h3>
+                        <MessageForm :developer="developer" />
+                    </div>
+                    
+                </div>
             </div>
         
         
-            <!-- reviews, ratings e message send -->
-            <div id="ancor" class="container-fluid d-flex flex-column gap-5 flex-lg-row gap-lg-0 justify-content-evenly mt-5">
-
-                <div class="d-flex flex-column align-items-center gap-5">
-                    <h3 class="text-light">Review</h3>
-                    <ReviewForm :developer="developer" />
-                </div>
-                <div class="d-flex flex-column align-items-center gap-5">
-                    <h3 class="text-light">Rating</h3>
-                    <RatingForm :developer="developer" />
-                </div>
-                <div class="d-flex flex-column align-items-center gap-5">
-                    <h3 class="text-light">Message</h3>
-                    <MessageForm :developer="developer" />
-                </div>
-                
-            </div>
             
         </template>
         
