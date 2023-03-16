@@ -11,8 +11,10 @@ const props = defineProps([
 const default_profile_path = 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png';
 
 const data = {
+    // user
     name: props.developer.user.name,
     last: props.developer.user.last,
+    // developer
     address: props.developer.address,
     phone_number: props.developer.phone_number,
     profile_path: props.developer.profile_path
@@ -22,10 +24,75 @@ const data = {
     portfolio_url: props.developer.portfolio_url,
     about_me: props.developer.about_me,
     performances: props.developer.performances,
+    // reviews
     reviews: props.developer.reviews,
+    // messages
+    messages: props.developer.messages,
 
 };
-console.log(data.reviews);
+
+
+function stringToObj(stringa) {
+    const time = {
+        'year': parseInt(stringa.substring(0, 4)),
+        'month': parseInt(stringa.substring(5, 7)),
+        'day': parseInt(stringa.substring(8, 10)),
+        'hour': parseInt(stringa.substring(11, 13)),
+        'min': parseInt(stringa.substring(14, 16)),
+        'sec': parseInt(stringa.substring(17, 19)),
+    };
+
+
+    return time;
+}
+
+function now() {
+    const now = new Date(Date.now());
+
+    const time = {
+        'year': now.getFullYear(),
+        // .getMonth() restituisce da 0 a 11
+        'month': (now.getMonth() + 1),
+        // .getDate() restituisce giorno del mese
+        'day': now.getDate(),
+        'hour': now.getHours(),
+        'min': now.getMinutes(),
+        'sec': now.getSeconds(),
+
+
+
+        // .getDay() restituisce giorno della settimana in numero
+    };
+
+    return time;
+
+
+}
+
+
+
+
+function compareDays(stringa) {
+
+    const obj1 = stringToObj(stringa);
+    const obj2 = now();
+
+    let result = false;
+
+    if (
+        obj1.year === obj2.year &&
+        obj1.month === obj2.month &&
+        obj1.day === obj2.day
+    ) {
+        result = true;
+    }
+
+    return result;
+}
+
+
+
+
 </script>
 
 <template>
@@ -68,9 +135,13 @@ console.log(data.reviews);
                                             {{ review.text }}
                                         </p>
                                         <div class="created-at">
-                                            {{ review.created_at.substring(0, 10) }}
+                                            {{ compareDays(review.created_at) }}
 
                                         </div>
+                                        <!-- <div class="created-at">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                {{ review.created_at.substring(0, 10) }}
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </div> -->
 
 
 
