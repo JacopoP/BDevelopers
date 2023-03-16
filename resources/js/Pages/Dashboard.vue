@@ -14,10 +14,12 @@ const data = {
     // user
     name: props.developer.user.name,
     last: props.developer.user.last,
+    email: props.developer.user.email,
     // developer
     address: props.developer.address,
     phone_number: props.developer.phone_number,
     profile_path: props.developer.profile_path
+        // ? props.developer.profile_path
         ? 'storage/' + props.developer.profile_path
         : default_profile_path,
     cv_path: props.developer.cv_path,
@@ -127,16 +129,16 @@ function myGetTime(stringa) {
         <template #main>
 
             <div class="sfondo">
-                <header class="d-flex justify-between DEBUG">
-                    <h1>Your profile</h1>
-                </header>
+                <!-- <header class="d-flex justify-between ">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <h1>Your profile</h1>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                </header> -->
                 <div class="container p-0">
 
-                    <main class="d-flex justify-between DEBUG">
-                        <div class="sinistra  overflow-scroll DEBUG">
+                    <main class="d-flex justify-between ">
+                        <div class="sinistra  overflow-scroll" v-if="(data.reviews).length || (data.messages).length">
 
                             <!-- reviews -->
-                            <div class="spazio DEBUG ">
+                            <div class="my-cornice" v-if="(data.reviews).length">
                                 <div class="titolo">
                                     My reviews
                                 </div>
@@ -164,7 +166,7 @@ function myGetTime(stringa) {
                                 </ul>
                             </div>
                             <!-- messages -->
-                            <div class="spazio DEBUG ">
+                            <div class="my-cornice" v-if="(data.messages).length">
                                 <div class="titolo">
                                     My messages
                                 </div>
@@ -198,45 +200,62 @@ function myGetTime(stringa) {
 
                         </div>
                         <!-- image and data user developer -->
-                        <div class="destra DEBUG">
-                            <div class="my-img-container DEBUG">
-                                <!-- :class="data.profile_path === default_profile_path ? 'no-pic' : null" -->
+                        <div class="destra">
 
-                                <img :src="data.profile_path">
+                            <div class="my-cornice">
+                                <div class="my-img-container ">
+                                    <!-- :class="data.profile_path === default_profile_path ? 'no-pic' : null" -->
+
+                                    <img :src="data.profile_path">
 
 
-                            </div>
-
-
-                            <div class="DEBUG">
-                                <div class="dato DEBUG">
-                                    {{ data.name }}
-                                    {{ data.last }}
                                 </div>
-                                <div class="dato DEBUG">
-                                    {{ data.address }}
-                                </div>
-                                <div class="dato DEBUG">
-                                    {{ data.phone_number }}
-                                </div>
-                                <div class="spazio DEBUG" v-if="data.about_me">
-                                    <div class="titolo">
-                                        About me
+
+
+                                <div class="">
+                                    <div class="dato">
+                                        {{ data.name }}
+                                        {{ data.last }}
+                                        <div class="titolo">
+                                            Full Name
+                                        </div>
                                     </div>
-                                    <div class="testo">
-                                        {{ data.about_me }}
+                                    <div class="dato" v-if="data.email">
+                                        {{ data.email }}
+                                        <div class="titolo">
+                                            E-mail
+                                        </div>
                                     </div>
+                                    <div class="dato" v-if="data.address">
+                                        {{ data.address }}
+                                        <div class="titolo">
+                                            Address
+                                        </div>
+                                    </div>
+                                    <div class="dato" v-if="data.phone_number">
+                                        {{ data.phone_number }}
+                                        <div class="titolo">Phone Number</div>
+                                    </div>
+                                    <div class="my-cornice" v-if="data.about_me">
+                                        <div class="titolo">
+                                            About me
+                                        </div>
+                                        <div class="principale">
+                                            {{ data.about_me }}
+                                        </div>
+                                    </div>
+                                    <div class="my-cornice" v-if="data.performances">
+
+                                        <div class="titolo">
+                                            My performances
+                                        </div>
+                                        <div class="principale">
+                                            {{ data.performances }}
+                                        </div>
+                                    </div>
+                                    <!-- cv_path -->
+                                    <a :href="data.portfolio_url"></a>
                                 </div>
-                                <div class="spazio DEBUG" v-if="data.performances">
-                                    <div class="titolo">
-                                        My performances
-                                    </div>
-                                    <div class="testo">
-                                        {{ data.performances }}
-                                    </div>
-                                </div>
-                                <!-- cv_path -->
-                                <a :href="data.portfolio_url"></a>
                             </div>
                         </div>
                     </main>
@@ -254,42 +273,33 @@ function myGetTime(stringa) {
 @use 'resources/sass/general.scss' as *;
 
 $grigio-sfondo: #424242;
-// $grigio-sfondo: #212529;
 $color-scritte: white;
 $color-titles: yellow;
 $h-header: 50px;
 
-// $h-sfondo: 500px;
+
 $h-sfondo: calc(100vh - $h-primary_navigation_menu - $h-subnavbar);
 $w-sfondo: calc(100vw);
 
-// $h-main: 300px;
+
 $h-main: calc($h-sfondo - 70px);
 
 
-$h-principale: calc($h-main - 150px);
+// $h-principale: calc($h-main - 150px);
 
 
 
 
 
-// .DEBUG {
-//     border: 1px solid green;
-//     background-color: rgba(255, 255, 255, 0.244);
-// }
 
 .principale {
-    height: $h-principale;
     overflow: scroll;
-    padding-right: 20px;
-    margin-bottom: 30px;
 
     &::-webkit-scrollbar {
         display: none;
     }
 
     .secondario {
-        // background-color: white;
         list-style: none;
         padding: 15px 25px;
         border-radius: 0 13px 13px 13px;
@@ -316,7 +326,6 @@ $h-principale: calc($h-main - 150px);
         }
 
         .created-at {
-            // margin-bottom: 10px;
             text-align: end;
             font-size: 12px;
         }
@@ -330,27 +339,34 @@ $h-principale: calc($h-main - 150px);
     // max-width: 300px;
     border-bottom: 1px solid white;
     color: white;
+    position: relative;
 
     &:first-child {
         border-radius: 0 0 0 10px;
         border-bottom: 2px solid white;
 
     }
+
+    .titolo {
+        right: -8px;
+        bottom: 0;
+    }
 }
 
-.spazio {
+.my-cornice {
     border: 1px solid white;
     border-radius: 0 0 10px 0;
     padding: 10px;
     display: flex;
+    flex-direction: column;
     box-shadow: 20px black;
     position: relative;
+    margin: 50px 0 100px;
+    overflow: scroll;
 
     .titolo {
         background-color: $grigio-sfondo;
         padding: 0 8px;
-        top: -13px;
-        left: -8px;
         font-size: 12px;
         color: white;
         position: absolute;
@@ -358,8 +374,6 @@ $h-principale: calc($h-main - 150px);
     }
 
     .testo {
-        max-height: 300px;
-        overflow-y: scroll;
 
         li {
             margin-bottom: 20px;
@@ -377,10 +391,7 @@ body {
 
 
     .sfondo {
-        height: $h-sfondo;
-        width: $w-sfondo;
         background-color: $grigio-sfondo;
-        position: fixed;
 
 
 
@@ -403,8 +414,6 @@ body {
 
 
                 .sinistra {
-                    height: $h-main;
-                    overflow: scroll;
                     margin: 10px;
                     width: 100%;
                     padding: 0 10px;
@@ -421,13 +430,17 @@ body {
                     // con firefox non sembra funzionare
 
 
-                    .spazio {
-                        margin: 50px 0;
+                    .my-cornice {
                         position: relative;
+                        height: $h-main;
+
+                        // overflow per il titolo
+                        overflow: visible;
 
                         .titolo {
                             position: absolute;
-                            top: -35px;
+                            top: -40px;
+                            left: -8px;
                             font-size: 30px;
                             color: $color-titles;
                         }
@@ -439,47 +452,53 @@ body {
 
 
                 .destra {
-                    padding: 0 10px;
+
                     width: 40%;
                     display: flex;
                     flex-direction: column;
-                    height: $h-main;
-                    overflow: scroll;
-                    overflow-x: hidden;
                     margin: 10px;
 
-                    // no scrollbar Chrome, Safari and Opera
-                    &::-webkit-scrollbar {
-                        display: none;
-                    }
-
-                    /* IE and Edge */
-                    -ms-overflow-style: none;
-                    /* Firefox */
-                    scrollbar-width: none;
-                    // con firefox non sembra funzionare
 
 
-                    .my-img-container {
-                        $w-img: 300px;
-                        display: flex;
-                        justify-content: center;
-                        align-items: center;
-                        width: 100%;
-                        height: calc($w-img + 150px);
 
-                        img {
-                            width: $w-img;
-                            height: $w-img;
-                            object-fit: cover;
-                            border-radius: 30%;
+
+                    .my-cornice {
+                        overflow: visible;
+                        color: white;
+                        border-radius: 0 20px 20px 0;
+
+                        .my-img-container {
+                            $w-img: 300px;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            width: 100%;
+                            height: calc($w-img + 150px);
+
+                            img {
+                                width: $w-img;
+                                height: $w-img;
+                                object-fit: cover;
+                                border-radius: 30%;
+                            }
                         }
-                    }
+
+                        .my-cornice {
+                            max-height: 300px;
+                            margin: 50px 0 0;
+                            padding-right: 20px;
+                            border-radius: 0 0 10px 0;
+
+                            .titolo {
+
+                                font-weight: bold;
+
+                                top: -20px;
+                                right: 0px;
+                            }
+                        }
 
 
-                    .spazio {
-
-                        margin: 70px 0;
 
                     }
                 }
@@ -511,7 +530,7 @@ body {
 
 
 
-                        .spazio {
+                        .my-cornice {
 
                             .titolo {}
 
