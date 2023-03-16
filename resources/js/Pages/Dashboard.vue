@@ -29,7 +29,10 @@ const data = {
     // messages
     messages: props.developer.messages,
 
+
 };
+
+
 
 
 function stringToObj(stringa) {
@@ -72,20 +75,37 @@ function now() {
 
 
 
-function compareDays(stringa) {
+function myGetTime(stringa) {
 
     const obj1 = stringToObj(stringa);
     const obj2 = now();
 
-    let result = false;
+
+    let result = {
+        'giorno': null,
+        'ora': (obj1.hour).toString() + ':' + (obj1.min).toString(),
+    }
 
     if (
         obj1.year === obj2.year &&
         obj1.month === obj2.month &&
         obj1.day === obj2.day
     ) {
-        result = true;
+        result.giorno = 'today';
+    } else if (
+        obj1.year === obj2.year &&
+        obj1.month === obj2.month &&
+        obj1.day === (obj2.day - 1)
+    ) {
+        result.giorno = 'yesterday';
+
+
+    } else {
+        result.giorno = (obj1.day).toString() + '-' + (obj1.month).toString() + '-' + (obj1.year).toString();
+
+
     }
+
 
     return result;
 }
@@ -120,10 +140,9 @@ function compareDays(stringa) {
                                 <div class="titolo">
                                     My reviews
                                 </div>
-                                <ul class="reviews">
-                                    <!-- <div class="shadow-lg p-3 mb-5 bg-white rounded margin"> -->
-                                    <li v-for="review in data.reviews" class="shadow-lg mb-5 bg-white margin review">
-                                        <!-- <li v-for="review in data.reviews" class="review"> -->
+                                <ul class="principale">
+
+                                    <li v-for="review in data.reviews" class="shadow-lg mb-5 bg-white margin secondario">
                                         <div v-if="review.full_name != undefined" class="reviewer">
                                             {{ review.full_name }}
 
@@ -135,14 +154,42 @@ function compareDays(stringa) {
                                             {{ review.text }}
                                         </p>
                                         <div class="created-at">
-                                            {{ compareDays(review.created_at) }}
+                                            {{ myGetTime(review.created_at).giorno }}
+                                            {{ myGetTime(review.created_at).ora }}
 
                                         </div>
-                                        <!-- <div class="created-at">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                {{ review.created_at.substring(0, 10) }}
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </div> -->
 
+                                    </li>
+                                </ul>
+                            </div>
+                            <!-- messages -->
+                            <div class="spazio DEBUG ">
+                                <div class="titolo">
+                                    My messages
+                                </div>
+                                <ul class="principale">
+
+                                    <li v-for="message in data.messages" class="shadow-lg mb-5 bg-white margin secondario">
+                                        <div v-if="message.full_name != undefined" class="reviewer">
+                                            {{ message.full_name }}
+
+                                        </div>
+                                        <div v-else class="anonymous">
+                                            anonymous
+                                        </div>
+                                        <div class="email">
+                                            {{ message.email }}
+
+                                        </div>
+                                        <p>
+                                            {{ message.text }}
+                                        </p>
+                                        <div class="created-at">
+                                            {{ myGetTime(message.created_at).giorno }}
+                                            {{ myGetTime(message.created_at).ora }}
+
+                                        </div>
 
 
                                     </li>
@@ -217,10 +264,10 @@ $h-sfondo: calc(100vh - $h-primary_navigation_menu - $h-subnavbar);
 $w-sfondo: calc(100vw);
 
 // $h-main: 300px;
-$h-main: calc($h-sfondo - 50px);
+$h-main: calc($h-sfondo - 70px);
 
 
-$h-review: calc($h-main - 50px);
+$h-principale: calc($h-main - 150px);
 
 
 
@@ -231,20 +278,22 @@ $h-review: calc($h-main - 50px);
 //     background-color: rgba(255, 255, 255, 0.244);
 // }
 
-.reviews {
-    height: $h-review;
+.principale {
+    height: $h-principale;
     overflow: scroll;
     padding-right: 20px;
+    margin-bottom: 30px;
 
     &::-webkit-scrollbar {
         display: none;
     }
 
-    .review {
+    .secondario {
         // background-color: white;
         list-style: none;
         padding: 15px 25px;
         border-radius: 0 13px 13px 13px;
+        margin-top: 30px;
         // margin: 10px;
 
         .reviewer {
@@ -252,10 +301,18 @@ $h-review: calc($h-main - 50px);
             color: $brand_fourth;
         }
 
+        .email {
+            color: rgb(0, 190, 190);
+        }
+
         .anonymous {
             font-style: italic;
             font-size: 12px;
             color: rgb(67, 67, 67);
+        }
+
+        p {
+            margin-top: 5px;
         }
 
         .created-at {
@@ -350,6 +407,7 @@ body {
                     overflow: scroll;
                     margin: 10px;
                     width: 100%;
+                    padding: 0 10px;
 
                     // no scrollbar Chrome, Safari and Opera
                     &::-webkit-scrollbar {

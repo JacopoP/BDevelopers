@@ -18,11 +18,11 @@ class ReviewSeeder extends Seeder
      */
     public function run()
     {
-        Review::factory(200)->make()->each(function($d){
-            $developer = Developer::inRandomOrder() -> first();
+        Review::factory(1500)->make()->each(function ($d) {
+            $developer = Developer::inRandomOrder()->first();
 
-            $d -> developer() -> associate($developer);
-            $d -> save(); 
+            $d->developer()->associate($developer);
+            $d->save();
         });
     }
 }
