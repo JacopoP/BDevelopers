@@ -19,7 +19,7 @@ export default {
         <nav class="right">
 
             <!-- BDevelopers logo + title -->
-            <a class="btn btn-dark" href="/">Login</a>
+            <a class="btn btn-dark" href="/login">Login</a>
         </nav>
 
     </div>
