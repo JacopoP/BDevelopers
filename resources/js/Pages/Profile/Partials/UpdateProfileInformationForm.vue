@@ -40,7 +40,6 @@ const form = useForm({
                     class="mt-1"
                     v-model="form.name"
                     required
-                    autofocus
                     autocomplete="name"
                 />
 
@@ -55,7 +54,6 @@ const form = useForm({
                     class="mt-1"
                     v-model="form.last"
                     required
-                    autofocus
                     autocomplete="last"
                 />
 
