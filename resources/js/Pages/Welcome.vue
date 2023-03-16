@@ -2,6 +2,7 @@
 import { Head } from '@inertiajs/vue3';
 import GuestNavbar from '@/Components/WelcomeHead/Navbar.vue';
 import { Link } from '@inertiajs/vue3';
+import ApplicationLogo from '@/Components/ApplicationLogo.vue';
 
 
 
@@ -12,6 +13,7 @@ export default {
         Head,
         GuestNavbar,
         Link,
+        ApplicationLogo
     },
     props: {
         canLogin: Boolean,
@@ -43,17 +45,14 @@ export default {
     <div class="landing-page">
 
         <!-- NavBar -->
-        <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <nav class="navbar navbar-expand-lg navbar-dark">
 
             <div class="container">
 
                 <!-- BDevelopers logo + title -->
-                <div>
-                    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" style="height: 40px;">
-                        <rect x="0" y="0" width="100" height="100" fill="none" stroke="#fff" stroke-width="5" />
-                        <text x="50%" y="45" font-size="40" font-weight="bold" text-anchor="middle" color="#fff">WEB</text>
-                        <text x="50%" y="85" font-size="40" font-weight="bold" text-anchor="middle" color="#fff">DEV</text>
-                    </svg>
+                <div class="d-flex">
+                    <ApplicationLogo class="d-block me-3" style="height: 40px;" />
+
                     <a class="navbar-brand" href="#">BDevelopers</a>
                 </div>
 
@@ -61,11 +60,14 @@ export default {
                 <div id="navbarNav">
                     <ul class="navbar-nav ml-auto list-unstyled d-flex flex-row gap-2">
                         <li class="nav-item">
-                            <a class="nav-link" href="/login">Login</a>
+                            <a class="nav-link text-light" href="/login">Login</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/register">Register</a>
+                            <a class="nav-link text-light" href="/register">Register</a>
                         </li>
+                        <!-- <li class="nav-item" v-if="$page.props.auth.developer">
+                                                            <a class="nav-link" href="/dashboard">Dashboard</a>
+                                                        </li> -->
                     </ul>
                 </div>
             </div>

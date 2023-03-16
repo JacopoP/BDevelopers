@@ -62,7 +62,7 @@ export default {
 
                 <!-- BDevelopers logo + title -->
                 <div class="d-flex">
-                    <ApplicationLogo class="d-block" style="height: 40px;" />
+                    <ApplicationLogo class="d-block me-3" style="height: 40px;" />
 
                     <a class="navbar-brand" href="#">BDevelopers</a>
                 </div>
@@ -71,11 +71,14 @@ export default {
                 <div id="navbarNav">
                     <ul class="navbar-nav ml-auto list-unstyled d-flex flex-row gap-2">
                         <li class="nav-item">
-                            <a class="nav-link" href="/login">Login</a>
+                            <a class="nav-link text-light" href="/login">Login</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/register">Register</a>
+                            <a class="nav-link text-light" href="/register">Register</a>
                         </li>
+                        <!-- <li class="nav-item" v-if="$page.props.auth.developer">
+                                            <a class="nav-link" href="/dashboard">Dashboard</a>
+                                        </li> -->
                     </ul>
                 </div>
             </div>
@@ -170,14 +173,14 @@ export default {
     </div>
     <br>
     <!-- <ul>
-                                                                                                                                                        <li v-for="developer in this.developers">
-                                                                                                                                                            {{ developer.user.name }} {{ developer.user.last }} <br>
-                                                                                                                                                            {{ developer.user.email }} <br>
-                                                                                                                                                            <span v-for="tech in developer.technologies">{{ tech.name }}&nbsp;</span> <br>
-                                                                                                                                                            <Link :href="'/show' + developer.id">Visita la pagina</Link>
-                                                                                                                                                            <hr>
-                                                                                                                                                        </li>
-                                                                                                                                                    </ul> -->
+                                                                                                                                                                                                    <li v-for="developer in this.developers">
+                                                                                                                                                                                                        {{ developer.user.name }} {{ developer.user.last }} <br>
+                                                                                                                                                                                                        {{ developer.user.email }} <br>
+                                                                                                                                                                                                        <span v-for="tech in developer.technologies">{{ tech.name }}&nbsp;</span> <br>
+                                                                                                                                                                                                        <Link :href="'/show' + developer.id">Visita la pagina</Link>
+                                                                                                                                                                                                        <hr>
+                                                                                                                                                                                                    </li>
+                                                                                                                                                                                                </ul> -->
 </template>
 
 <style lang="scss" scoped>

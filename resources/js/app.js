@@ -1,5 +1,5 @@
 import './bootstrap';
-// import '../css/app.css';
+import '../css/app.css';
 import '~resources/sass/general.scss';
 
 
@@ -8,8 +8,8 @@ import { createInertiaApp } from '@inertiajs/vue3';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { ZiggyVue } from '../../vendor/tightenco/ziggy/dist/vue.m';
 
-import {library} from '@fortawesome/fontawesome-svg-core';
-import {faEye, faEyeSlash} from '@fortawesome/free-solid-svg-icons';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 library.add(faEye, faEyeSlash);
 import { dom } from "@fortawesome/fontawesome-svg-core";
 dom.watch();

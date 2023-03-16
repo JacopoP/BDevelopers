@@ -20,26 +20,27 @@ const showingNavigationDropdown = ref(false);
                     <!-- Logo -->
                     <div class="d-flex align-items-center">
                         <Link :href="route('dashboard')">
-                        <ApplicationLogo class="d-block" style="height: 40px;" />
+                        <ApplicationLogo class="d-block me-3" style="height: 40px;" />
                         </Link>
                         <span class="navbar-brand text-light fs-5">BDevelopers</span>
                     </div>
 
                 </div>
-                <!-- Navigation Links -->
-                <div class="d-flex  align-items-center px-4 text-light">
-                    <NavLink v-if="!route().current('dashboard')" class="nav-link pe-4"
-                        :class="{ active: route().current('dashboard') }" :href="route('dashboard')">
-                        Dashboard
-                    </NavLink>
-                    <NavLink class="nav-link text-light" :href="route('index')" method="get">
-                        Index
-                    </NavLink>
-                </div>
 
-                <div class="d-sm-flex align-items-sm-center">
+
+                <div class="d-flex align-items-sm-center">
+                    <!-- Navigation Links -->
+                    <div class="d-flex align-items-center px-4 text-light">
+                        <a v-if="!route().current('dashboard')" class="nav-link pe-4"
+                            :class="{ active: route().current('dashboard') }" :href="route('dashboard')">
+                            Dashboard
+                        </a>
+                        <a class="nav-link" :href="route('index')" method="get">
+                            Index
+                        </a>
+                    </div>
                     <!-- Settings Dropdown -->
-                    <div class="ml-3 dropdown">
+                    <div class="ml-3 mt-1 dropdown">
                         <a class="btn dropdown-toggle text-light border-0" href="#" role="button" id="userDropdown"
                             data-bs-toggle="dropdown" aria-expanded="false">
                             {{ $page.props.auth.user.name }}
@@ -97,19 +98,19 @@ const showingNavigationDropdown = ref(false);
                     <li class="nav-item">
                         <ResponsiveNavLink :href="route('profile.dev.create', $page.props.auth.user)" class="nav-link">
                             Developer Settings
-                                    </ResponsiveNavLink>
-                                        </li>
-                                        <li class="nav-item">
-                                            <ResponsiveNavLink :href="route('profile.edit')" class="nav-link">
-                                                Profile
-                                            </ResponsiveNavLink>
-                                        </li>
-                                        <li class="nav-item">
-                                            <ResponsiveNavLink :href="route('logout')" method="post" as="button" class="nav-link">
-                                                Log Out
-                                            </ResponsiveNavLink>
-                                        </li>
-                                    </ul> -->
+                                                                                            </ResponsiveNavLink>
+                                                                                                </li>
+                                                                                                <li class="nav-item">
+                                                                                                    <ResponsiveNavLink :href="route('profile.edit')" class="nav-link">
+                                                                                                        Profile
+                                                                                                    </ResponsiveNavLink>
+                                                                                                </li>
+                                                                                                <li class="nav-item">
+                                                                                                    <ResponsiveNavLink :href="route('logout')" method="post" as="button" class="nav-link">
+                                                                                                        Log Out
+                                                                                                    </ResponsiveNavLink>
+                                                                                                </li>
+                                                                                            </ul> -->
             </div>
         </div>
     </nav>

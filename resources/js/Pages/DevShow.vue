@@ -4,6 +4,8 @@ import ReviewForm from '@/Pages/ShowComponents/ReviewForm.vue'
 import MessageForm from '@/Pages/ShowComponents/MessageForm.vue'
 import RatingForm from '@/Pages/ShowComponents/RatingForm.vue'
 import ApplicationLogo from '@/Components/ApplicationLogo.vue';
+import NavLink from '@/Components/NavLink.vue';
+import { Link, usePage } from '@inertiajs/vue3';
 
 
 const props = defineProps([
@@ -42,32 +44,44 @@ function submit() {
 <template>
     <div class="background">
         <!-- Navbar -->
-        <nav class="navbar navbar-expand-lg navbar-dark">
 
-            <div class="container">
 
-                <!-- BDevelopers logo + title -->
-                <div class="d-flex">
-                    <ApplicationLogo class="d-block" style="height: 40px;" />
+        <nav class="d-flex justify-content-around navbar-light">
+            <!-- Primary Navigation Menu -->
+            <div class="container-fluid px-4">
+                <div class="d-flex justify-content-between" style="height: 60px;">
+                    <div class="d-flex">
+                        <!-- Logo -->
+                        <div class="d-flex align-items-center">
+                            <Link :href="route('dashboard')">
+                            <ApplicationLogo class="d-block" style="height: 40px;" />
+                            </Link>
+                            <span class="navbar-brand text-light fs-5">BDevelopers</span>
+                        </div>
 
-                    <a class="navbar-brand" href="#">BDevelopers</a>
-                </div>
+                    </div>
 
-                <!-- Nav -->
-                <div id="navbarNav">
-                    <ul class="navbar-nav ml-auto list-unstyled d-flex flex-row gap-2">
-                        <li class="nav-item">
-                            <a class="nav-link" href="/login">Login</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/register">Register</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" :href="route('index')" method="get">
+
+                    <div class="d-flex align-items-sm-center">
+                        <!-- Navigation Links -->
+                        <div class="d-flex  align-items-center px-4 text-light">
+                            <a v-if="!route().current('dashboard')" class="nav-link text-light pe-4"
+                                :class="{ active: route().current('dashboard') }" :href="route('dashboard')">
+                                Dashboard
+                            </a>
+                            <a class="nav-link text-light pe-4" :href="route('index')" method="get">
                                 Index
                             </a>
-                        </li>
-                    </ul>
+                            <a class="nav-link text-light pe-4" href="/login">
+                                Login
+                            </a>
+                            <a class="nav-link text-light" href="/register">
+                                Register
+                            </a>
+
+                        </div>
+
+                    </div>
                 </div>
             </div>
         </nav>
