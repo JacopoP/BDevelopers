@@ -1,28 +1,38 @@
 <script>
-export default{
+export default {
     name: "Navbar",
 }
 </script>
 
 <template>
-    <!-- NavBar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-        <div class="container">
+    <div class="d-flex justify-content-between fixed-top m-3 ">
+
+        <!-- NavBar LEFT-->
+        <nav class="left">
 
             <!-- BDevelopers logo + title -->
-            <a class="navbar-brand" href="#">BDevelopers</a>
+            <a class="btn btn-dark" href="/">BDevelopers</a>
 
-            <!-- Nav -->
-            <div id="navbarNav">
-                <ul class="navbar-nav ml-auto list-unstyled d-flex flex-row gap-2">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/login">Login</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/register">Register</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+        </nav>
+
+        <!-- NavBar RIGHT-->
+        <nav class="right">
+
+            <!-- BDevelopers logo + title -->
+            <a class="btn btn-dark" href="/">Login</a>
+        </nav>
+
+    </div>
 </template>
+
+<!-- Nav -->
+<!-- <div id="navbarNav">
+    <ul class="navbar-nav ml-auto list-unstyled d-flex flex-row gap-2">
+        <li class="nav-item">
+            <a class="nav-link" href="/login">Login</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/register">Register</a>
+        </li>
+    </ul>
+</div> -->
