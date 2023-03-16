@@ -22,7 +22,7 @@ class BraintreeController extends Controller
         ]);
         $clientToken = $gateway->clientToken()->generate();
 
-        return Inertia::render('Braintree/Test', ['token' => $clientToken]);
+        return Inertia::render('Braintree/PaymentPage', ['token' => $clientToken]);
         
     }
 
