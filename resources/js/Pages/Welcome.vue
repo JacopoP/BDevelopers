@@ -44,9 +44,9 @@ export default {
     <div class="landing-page">
 
         <!-- Navbar -->
-        <Navbar />
+        <Navbar/>
 
-        <!-- HeroSection -->
+        <!-- Hero Section -->
         <div class="hero-section">
             <div class="container">
                 <div class="row align-items-center justify-content-center" style="height: 100vh;">
@@ -58,7 +58,8 @@ export default {
                                 <input type="text" class="form-control form-control-lg mr-3" placeholder="Search..."
                                     v-model="form.name">
                                 <select v-model="form.tech" class="text-dark">
-                                    <option class="text-dark" v-for="tech in technologies" :value="tech.id">{{ tech.name }}</option>
+                                    <option class="text-dark" v-for="tech in technologies" :value="tech.id">{{ tech.name }}
+                                    </option>
                                 </select>
                                 <Link href="/index" method="post" :data="this.form" as="button"
                                     class="btn btn-lg btn-primary"> Go </Link>
@@ -70,21 +71,38 @@ export default {
             </div>
         </div>
 
-        <!-- Sponsor -->
-        <!-- work in progress -->
+        <!-- Sponsor Section -->
+        <div class="sponsor-section">
+            <div class="container">
+                <div class="row">
+                    <div class="col d-flex justify-content-center flex-wrap gap-2">
+
+                        <div v-for="(developer, index) in developers" class="card text-white bg-dark" style="width: 18rem;">
+                            <img v-if="developer.profile_path" class="card-img-top" :src="developer.profile_path" alt="Card image cap">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ developer.user.name }} {{ developer.user.last }}</h5>
+                                <p class="card-text">Some quick example text to build on the card title and make up the bulk
+                                    of the card's content.</p>
+                                <a href="#" class="btn btn-primary">Go somewhere</a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
 
     </div>
 </template>
   
-<style lang="scss">
-// Import Bootstrap SCSS
-//   @import '~bootstrap/scss/bootstrap';
-
+<style lang="scss" scoped>
 // Define custom styles for the landing page
 .landing-page {
+
+    background-color: #121212;
+    color: snow;
+
     .hero-section {
-        background-color: #424242;
-        color: #fff;
 
         h1 {
             font-size: 3rem;
