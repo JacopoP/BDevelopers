@@ -15,15 +15,6 @@ use App\Models\Sponsors;
 
 class ApiController extends Controller
 {
-    public function index(){
-        $developers = Developer::with('user', 'technologies', 'ratings', 'reviews', 'sponsors')->limit(100)->get();
-        return response()->json([
-            'success' => true,
-            'response' => [
-                'developers' => $developers,
-            ]
-        ]);
-    }
 
     public function filter(Request $request){
         $data = $request->all();
