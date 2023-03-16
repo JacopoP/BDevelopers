@@ -16,6 +16,10 @@ use Inertia\Response;
 use App\Models\User;
 use App\Models\Developer;
 use App\Models\Technology;
+use App\Models\Message;
+use App\Models\Review;
+use App\Models\Rating;
+use App\Models\Sponsor;
 
 $active_user = 0;
 
@@ -58,10 +62,18 @@ class ProfileController extends Controller
         ]);
 
         $user = $request->user();
-
+        
+        $developer = Developer::find($user->id);
+        
         Auth::logout();
 
-        $user->developer()->delete();
+
+        $developer->technologies()->sync([]);
+        $developer->sponsors()->sync([]);
+        $developer->reviews()->delete();
+        $developer->ratings()->delete();
+        $developer->messages()->delete();
+        $developer->delete();
         $user->delete();
 
 

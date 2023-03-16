@@ -38,11 +38,11 @@ const closeModal = () => {
 </script>
 
 <template>
-    <section class="space-y-6">
+    <section>
         <header>
-            <h2 class="text-lg font-medium text-gray-900">Delete Account</h2>
+            <h2 class="text-secondary">Delete Account</h2>
 
-            <p class="mt-1 text-sm text-gray-600">
+            <p class="mt-1 fs-6 text-secondary">
                 Once your account is deleted, all of its resources and data will be permanently deleted. Before deleting
                 your account, please download any data or information that you wish to retain.
             </p>
@@ -51,43 +51,45 @@ const closeModal = () => {
         <DangerButton @click="confirmUserDeletion">Delete Account</DangerButton>
 
         <Modal :show="confirmingUserDeletion" @close="closeModal">
-            <div class="p-6">
-                <h2 class="text-lg font-medium text-gray-900">
+            <div class="container bg-dark text-light py-4">
+                <h2 class="text-danger fs-3 textsecondary">
                     Are you sure you want to delete your account?
                 </h2>
 
-                <p class="mt-1 text-sm text-gray-600">
-                    Once your account is deleted, all of its resources and data will be permanently deleted. Please
-                    enter your password to confirm you would like to permanently delete your account.
+                <p class="fs-6 text-secondary">
+                    Once your account is deleted, all of its resources and data will be <span class="text-danger">permanently deleted</span>. Please
+                    enter your password to confirm you would like to permanently <span class="text-danger">delete your account</span>.
                 </p>
 
-                <div class="mt-6">
-                    <InputLabel for="password" value="Password" class="sr-only" />
+                <div class="d-flex flex-column gap-3">
 
-                    <TextInput
-                        id="password"
-                        ref="passwordInput"
-                        v-model="form.password"
-                        type="password"
-                        class="mt-1 block w-3/4"
-                        placeholder="Password"
-                        @keyup.enter="deleteUser"
-                    />
+                    <div class="my_text_input_label">
+                        <InputLabel class="my_input_label bg-dark" for="password" value="Password"/>
 
-                    <InputError :message="form.errors.password" class="mt-2" />
-                </div>
+                        <TextInput
+                            id="password"
+                            ref="passwordInput"
+                            v-model="form.password"
+                            type="password"
+                            placeholder="Password"
+                            @keyup.enter="deleteUser"
+                        />
 
-                <div class="mt-6 flex justify-end">
-                    <SecondaryButton @click="closeModal"> Cancel </SecondaryButton>
+                        <InputError :message="form.errors.password" class="mt-2" />
+                    </div>
 
-                    <DangerButton
-                        class="ml-3"
-                        :class="{ 'opacity-25': form.processing }"
-                        :disabled="form.processing"
-                        @click="deleteUser"
-                    >
-                        Delete Account
-                    </DangerButton>
+                    <div class="d-flex justify-content-between">
+                        <SecondaryButton @click="closeModal"> Cancel </SecondaryButton>
+
+                        <DangerButton
+                            :class="{ 'shadow': form.processing }"
+                            :disabled="form.processing"
+                            @click="deleteUser"
+                        >
+                            Delete Account
+                        </DangerButton>
+                    </div>
+
                 </div>
             </div>
         </Modal>
