@@ -9,7 +9,7 @@ import Navbar from '@/Components/DashboardHead/Navbar.vue';
             <Navbar/>
             <!-- SubNavbar -->
             <header class="bg-dark text-light shadow" v-if="$slots.header">
-                <div class="container py-6 px-4">
+                <div class="container py-2">
                     <slot name="header" />
                 </div>
             </header>
