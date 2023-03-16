@@ -1,5 +1,7 @@
 <script setup>
 import { useForm } from '@inertiajs/vue3';
+
+import InputLabel from '@/Components/InputLabel.vue';
 import TextInput from '@/Components/TextInput.vue';
 const props = defineProps([
     'developer',
@@ -20,27 +22,62 @@ function submit() {
 </script>
 
 <template>
-    <form method="post" @submit.prevent="submit">
-        <label class="text-light" for="full_name">Your Name</label>
-        <br>
-        <TextInput class="layout text-light" id="full_name" type="text" v-model="form.full_name" required
-            autocomplete="name" />
-        <br>
-        <label class="text-light" for="email">Your email</label>
-        <br>
-        <TextInput class="layout text-light" id="email" type="email" v-model="form.email" required autocomplete="name" />
-        <br>
-        <label class="text-light" for="text">Message text</label>
-        <br>
-        <textarea class="layout bg-dark" id="text" v-model="form.text"></textarea>
-        <br>
-        <input class="_button _blue text-light border-0" type="submit" value="Send a Message">
+    <form class="d-flex flex-column gap-4" method="post" @submit.prevent="submit">
+
+        <!-- Username -->
+        <div class="my_text_input_label">
+
+            <InputLabel class="my_input_label bg-dark" for="full_name" value="Username" />
+
+            <TextInput
+                id="full_name"
+                type="text" 
+                class="border bg-dark text-light rounded mt-1 w-100" 
+                v-model="form.full_name"  
+                autocomplete="last"
+            />
+
+        </div>
+
+        <!-- Email -->
+        <div class="my_text_input_label">
+
+            <InputLabel class="my_input_label bg-dark" for="email" value="Your Email" />
+
+            <TextInput
+                id="email"
+                type="text" 
+                class="border bg-dark text-light rounded mt-1 w-100" 
+                v-model="form.email"  
+                autocomplete="last"
+            />
+
+        </div>
+
+        <!-- Message Text -->
+        <div class="my_text_input_label">
+
+            <InputLabel class="my_input_label bg-dark" for="message_text" value="Message Text" />
+
+            <textarea 
+                id="message_text"
+                type="text" 
+                class="border border-2 border-secondary bg-dark text-light rounded mt-1 px-3 py-2 w-100" 
+                v-model="form.text"  
+                autocomplete="last"
+                cols="30" rows="5" 
+            ></textarea>
+
+        </div>
+
+        <input class="btn _button btn-primary rounded-pill _blue text-light" type="submit" value="Send a Message">
     </form>
 </template>
 
 <style lang="scss" scoped>
 // @use 'resources/sass/variable.scss' as *;
-@use 'resources/sass/devShow-layout-style.scss' as *;
+@use '../../../../resources/sass/devShow-layout-style.scss' as *;
+@use '../../../../resources/sass/form-style.scss';
 
 label {
     position: relative;

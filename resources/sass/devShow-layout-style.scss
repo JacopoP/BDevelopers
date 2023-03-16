@@ -6,13 +6,24 @@
     box-sizing: border-box;
 }
 
+h1,h2,h3,h4,h5,h6{
+    padding: 0;
+    margin: 0;
+}
 
+ul{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
 
 // class color 
 ._blue {
     background-color: $brand_third;
 }
-
+._secondary{
+    background-color: $brand_secondary;
+}
 ._rosa {
     background-color: $brand_fourth;
 }
