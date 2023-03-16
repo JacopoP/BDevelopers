@@ -40,121 +40,123 @@ function submit() {
 </script>
     
 <template>
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="background">
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg navbar-dark">
 
-        <div class="container">
+            <div class="container">
 
-            <!-- BDevelopers logo + title -->
-            <div class="d-flex">
-                <ApplicationLogo class="d-block" style="height: 40px;" />
+                <!-- BDevelopers logo + title -->
+                <div class="d-flex">
+                    <ApplicationLogo class="d-block" style="height: 40px;" />
 
-                <a class="navbar-brand" href="#">BDevelopers</a>
+                    <a class="navbar-brand" href="#">BDevelopers</a>
+                </div>
+
+                <!-- Nav -->
+                <div id="navbarNav">
+                    <ul class="navbar-nav ml-auto list-unstyled d-flex flex-row gap-2">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/login">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/register">Register</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" :href="route('index')" method="get">
+                                Index
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             </div>
+        </nav>
 
-            <!-- Nav -->
-            <div id="navbarNav">
-                <ul class="navbar-nav ml-auto list-unstyled d-flex flex-row gap-2">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/login">Login</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/register">Register</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" :href="route('index')" method="get">
-                            Index
+        <!-- contacts -->
+        <div class="container-fluid">
+            <div class="d-flex justify-between _contact">
+
+                <div class="d-flex">
+                    <img class="img_profile" :src="'storage/' + dati.profile_path">
+                    <div class="d-flex flex-column justify-content-end ps-2">
+                        <h3 class="text-light">Address:</h3>
+                        <div class="text-light">
+                            {{ dati.address }}
+                        </div>
+                        <h3 class="text-light"> Phone Number:</h3>
+                        <div class="text-light">
+                            {{ dati.phone_number }}
+                        </div>
+                        <a :href="dati.portfolio_url" v-if="dati.portfolio_url">
+                            <h3 class="text-light">Vai al mio Portfolio</h3>
                         </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-
-    <!-- contacts -->
-    <div class="container-fluid">
-        <div class="d-flex justify-between _contact">
-
-            <div class="d-flex">
-                <img class="img_profile" :src="'storage/' + dati.profile_path">
-                <div class="d-flex flex-column justify-content-end ps-2">
-                    <h3 class="text-light">Address:</h3>
-                    <div class="text-light">
-                        {{ dati.address }}
                     </div>
-                    <h3 class="text-light"> Phone Number:</h3>
-                    <div class="text-light">
-                        {{ dati.phone_number }}
-                    </div>
-                    <a :href="dati.portfolio_url" v-if="dati.portfolio_url">
-                        <h3 class="text-light">Vai al mio Portfolio</h3>
-                    </a>
+                </div>
+
+                <div class="d-flex align-items-center">
+                    <a href="#ancor" class="_blue text-light">Send a Message, Leave a Reviews or a Star</a>
                 </div>
             </div>
 
-            <div class="d-flex align-items-center">
-                <a href="#ancor" class="_blue text-light">Send a Message, Leave a Reviews or a Star</a>
-            </div>
-        </div>
+            <!-- Curriculum etc... -->
+            <div class="_line _blue mt-4 "></div>
+            <div class="_contact">
+                <div class="d-flex justify-content-between mt-4">
+                    <div class="text-light">{{ dati.about_me }}</div>
+                    <h3 class="text-light">"About me"</h3>
+                </div>
+                <div class="d-flex justify-content-between mt-4">
+                    <h3 class="text-light">"Curriculum"</h3>
+                    <div class="text-light">{{ dati.cv_path }}</div>
+                </div>
+                <div class="d-flex justify-content-between mt-4">
+                    <div class="text-light">{{ dati.performances }}</div>
+                    <h3 class="text-light">"My Performances"</h3>
+                </div>
 
-        <!-- Curriculum etc... -->
-        <div class="_line _blue mt-4 "></div>
-        <div class="_contact">
-            <div class="d-flex justify-content-between mt-4">
-                <div class="text-light">{{ dati.about_me }}</div>
-                <h3 class="text-light">"About me"</h3>
-            </div>
-            <div class="d-flex justify-content-between mt-4">
-                <h3 class="text-light">"Curriculum"</h3>
-                <div class="text-light">{{ dati.cv_path }}</div>
-            </div>
-            <div class="d-flex justify-content-between mt-4">
-                <div class="text-light">{{ dati.performances }}</div>
-                <h3 class="text-light">"My Performances"</h3>
             </div>
 
+            <div class="_line _blue mt-4 "></div>
+
+            <!-- Reviews -->
+            <div class="text-center _contact">
+                <h3 class="text-light">My Reviews</h3>
+                <ul class="text text-light">
+                    <li v-for="review in dati.reviews">
+                        {{ review.text }}
+                    </li>
+                </ul>
+            </div>
+
+            <div class="_line _blue mt-4 "></div>
+
         </div>
 
-        <div class="_line _blue mt-4 "></div>
 
-        <!-- Reviews -->
-        <div class="text-center _contact">
-            <h3 class="text-light">My Reviews</h3>
-            <ul class="text text-light">
-                <li v-for="review in dati.reviews">
-                    {{ review.text }}
-                </li>
-            </ul>
-        </div>
-
-        <div class="_line _blue mt-4 "></div>
-
-    </div>
-
-
-    <!-- reviews, ratings e message send -->
-    <div class="container-fluid d-flex justify-content-evenly _contact mt-5">
-        <div>
-            <h3 class="text-light"><a id="ancor"></a> Review</h3>
-            <ReviewForm :developer="developer" />
-        </div>
-        <div>
-            <h3 class="pt-3 text-light">Rating</h3>
-            <RatingForm :developer="developer" />
-        </div>
-        <div>
-            <h3 class="text-light">Message</h3>
-            <MessageForm :developer="developer" />
+        <!-- reviews, ratings e message send -->
+        <div class="container-fluid d-flex justify-content-evenly _contact mt-5">
+            <div>
+                <h3 class="text-light"><a id="ancor"></a> Review</h3>
+                <ReviewForm :developer="developer" />
+            </div>
+            <div>
+                <h3 class="pt-3 text-light">Rating</h3>
+                <RatingForm :developer="developer" />
+            </div>
+            <div>
+                <h3 class="text-light">Message</h3>
+                <MessageForm :developer="developer" />
+            </div>
         </div>
     </div>
 </template>
 
 
-<style lang="scss">
+<style lang="scss" scoped>
 // @use 'resources/sass/variable.scss' as *;
 @use 'resources/sass/devShow-layout-style.scss' as *;
 
-body {
+.background {
     background-color: $brand_background;
 }
 
