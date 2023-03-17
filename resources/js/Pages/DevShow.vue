@@ -48,7 +48,7 @@ function submit() {
         <template #main>
 
             <!-- contacts -->
-            <div class="container mt-5">
+            <div class="container mt-5 pt-5">
 
                 <div class="d-flex justify-content-around align-items-center flex-column flex-lg-row gap-5">
         
