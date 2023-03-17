@@ -13,7 +13,7 @@ const showingNavigationDropdown = ref(false);
 
 <template>
     <nav
-        class="d-flex justify-content-between navbar-expand-lg navbar-light bg-white border border-bottom border-secondary-subtle fixed-top">
+        class="d-flex justify-content-between navbar-expand-lg navbar-light border-secondary-subtle fixed-top">
         <!-- Primary Navigation Menu -->
         <div class="container-fluid px-4">
             <div class="d-flex justify-content-between" style="height: 60px;">
