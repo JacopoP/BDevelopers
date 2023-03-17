@@ -113,6 +113,20 @@ function myGetTime(stringa) {
     return result;
 }
 
+function myRatingsAvg(array) {
+    let somma = null;
+    array.forEach(rating => {
+        // the elements of the data.ratings array are objects;
+        // we are interested in it's value.
+        somma += rating.value
+    });
+
+    console.log(somma);
+    let media = somma / array.length;
+    media = Math.floor(media);
+
+    return (media);
+}
 
 
 
@@ -131,8 +145,8 @@ function myGetTime(stringa) {
 
             <div class="sfondo">
                 <!-- <header class="d-flex justify-between ">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <h1>Your profile</h1>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                </header> -->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <h1>Your profile</h1>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </header> -->
                 <div class="container p-0">
 
                     <main class="d-flex justify-content-center">
@@ -184,9 +198,9 @@ function myGetTime(stringa) {
                                         </div>
                                         <a href="mailto:{{ message.email }}" class="email">{{ message.email }}</a>
                                         <!-- <div class="email">
-                                                                    {{ message.email }}
+                                                                                                                                                                {{ message.email }}
 
-                                                                </div> -->
+                                                                                                                                                            </div> -->
                                         <p>
                                             {{ message.text }}
                                         </p>
@@ -216,7 +230,7 @@ function myGetTime(stringa) {
 
 
 
-                                <div class="dato">
+                                <div class="dato name">
                                     {{ data.name }}
                                     {{ data.last }}
                                     <div class="titolo">
@@ -260,9 +274,15 @@ function myGetTime(stringa) {
                                 <a :href="data.portfolio_url"></a>
 
                             </div>
-
+                            <!-- ratings -->
                             <div class="my-cornice">
-                                <div v-for="rating in data.ratings">
+                                <div>
+                                    <b>
+                                        Average
+                                    </b>
+                                </div>
+                                <b>{{ myRatingsAvg(data.ratings) }}</b>
+                                <div v-for="rating in data.ratings" class="dato">
                                     {{ rating.value }}
                                 </div>
                             </div>
@@ -281,6 +301,7 @@ function myGetTime(stringa) {
 <style lang="scss" scoped>
 @use 'resources/sass/general.scss' as *;
 
+// $grigio-sfondo: #000000;
 $grigio-sfondo: #424242;
 $color-scritte: white;
 $color-titles: yellow;
@@ -342,6 +363,12 @@ $h-main: calc($h-sfondo - 70px);
     }
 }
 
+
+.name {
+    border-radius: 0 0 0 10px;
+    border-bottom: 2px solid white;
+}
+
 .dato {
     margin: 25px 5px;
     padding: 5px 15px 0px;
@@ -350,11 +377,8 @@ $h-main: calc($h-sfondo - 70px);
     color: white;
     position: relative;
 
-    &:first-child {
-        border-radius: 0 0 0 10px;
-        border-bottom: 2px solid white;
 
-    }
+
 
     .titolo {
         right: -8px;
