@@ -137,7 +137,7 @@ export default {
                     <div class="container">
                         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3">
                             <div class="col" v-for="developer in this.developers">
-                                <div class="card mb-4 position-relative">
+                                <div class="my_login_button_2 text-light card mb-4 position-relative">
                                     <div class="card-header">{{ developer.user.name }} {{ developer.user.last }}</div>
                                     <div class="card-body">
                                         <!-- <div class="mb-2"><strong>Skills:</strong> {{ developer.skills.join(', ') }}</div> -->
