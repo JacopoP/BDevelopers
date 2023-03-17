@@ -60,7 +60,7 @@ export default {
 
         <template #main>
             
-            <div class="results-page">
+            <div class="results-page pt-5">
         
                 <!-- Filters -->
                 <div class="filters">
