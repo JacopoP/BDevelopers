@@ -1,4 +1,5 @@
 <script setup>
+import StarRating from 'vue-star-rating';
 import { useForm } from '@inertiajs/vue3';
 const props = defineProps([
     'developer',
@@ -11,11 +12,22 @@ const form = useForm({
 
 <template>
     <form method="post" @submit.prevent="form.post(route('rating.store', developer.id))">
-    <div class="d-flex align-items-center gap-3">
-        <input type="range" min="1" max="5" v-model="form.rating" id="rating">
-        <span class="text-light">{{ form.rating }}</span>
-    </div>
-
+        <div class="d-flex align-items-center gap-3">
+            <!-- <input type="range" min="1" max="5" v-model="form.rating" id="rating"> -->
+            <!-- <span class="text-light">{{ form.rating }}</span> -->
+            <div style="display:inline-block;">
+                <star-rating class="text-light" 
+                v-model:rating="form.rating"
+                :animate="true" 
+                :active-color="['#410000', '#410000', '#f7a531']" 
+                :border-width="0" 
+                :star-points="[23,2, 14,17, 0,19, 10,34, 7,50, 23,43, 38,50, 36,34, 46,19, 31,17]" 
+                :active-on-click="true" 
+                :clearable="true" 
+                :padding="5"
+                ></star-rating>
+            </div>
+        </div>
         <input class="btn _button btn-primary rounded-pill _blue text-light" type="submit" value="Send Rating">
     </form>
 </template>
