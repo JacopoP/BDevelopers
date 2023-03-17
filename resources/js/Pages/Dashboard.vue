@@ -130,8 +130,8 @@ function myGetTime(stringa) {
 
             <div class="sfondo">
                 <!-- <header class="d-flex justify-between ">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <h1>Your profile</h1>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        </header> -->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <h1>Your profile</h1>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </header> -->
                 <div class="container p-0">
 
                     <main class="d-flex justify-content-center">
@@ -181,11 +181,11 @@ function myGetTime(stringa) {
                                         <div v-else class="anonymous">
                                             anonymous
                                         </div>
-                                        <a href="mailto:{{ message.email }}">{{ message.email }}</a>
-                                        <div class="email">
-                                            {{ message.email }}
+                                        <a href="mailto:{{ message.email }}" class="email">{{ message.email }}</a>
+                                        <!-- <div class="email">
+                                                {{ message.email }}
 
-                                        </div>
+                                            </div> -->
                                         <p>
                                             {{ message.text }}
                                         </p>
