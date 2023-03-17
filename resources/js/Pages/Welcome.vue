@@ -58,24 +58,34 @@ export default {
         <div class="hero-section fixed-top">
             <div class="container">
                 <div class="row justify-content-center" style="height: 100vh;">
-                    <div class="col-md-6 d-flex align-items-center">
+                    <div class="col-md-7 d-flex align-items-center">
 
                         <div class="main-div">
-                            <h1 class="text-center mb-4">Start your research</h1>
+                            <h1 class="text-center mb-4 text-light">Start your research</h1>
                             <form class="form-inline d-flex justify-content-center">
-                                <div class="form-group d-flex">
 
-                                    <input type="text" class="form-control form-control-lg mr-3" placeholder="Search..."
-                                        v-model="form.name">
-                                    <select v-model="form.tech" class="text-dark">
-                                        <option class="text-dark" v-for="tech in technologies" :value="tech.id">{{ tech.name
-                                        }}
-                                        </option>
-                                    </select>
-                                    <Link href="/index" method="post" :data="this.form" as="button"
-                                        class="btn btn-lg btn-primary"> Go </Link>
-
+                                <div class="input-group">
+                                    <div class="form-floating">
+                                        <input id="searchInput" type="text"
+                                            class="<!-- form-control form-control-lg --> mr-3" placeholder="Type a name"
+                                            v-model="form.name">
+                                        <label for="searchInput">Search by name</label>
+                                    </div>
+                                    <div class="form-floating">
+                                        <select id="techInput" v-model="form.tech" class="form-control form-select"
+                                            aria-label="Floating label select example">
+                                            <option :value="null" selected>Any</option>
+                                            <option v-for="tech in technologies" :value="tech.id">{{
+                                                tech.name
+                                            }}
+                                            </option>
+                                        </select>
+                                        <label for="techInput">Technology</label>
+                                    </div>
                                 </div>
+
+                                <Link href="/index" method="post" :data="this.form" as="button"
+                                    class="btn btn-lg btn-primary ml-2"> Go </Link>
                             </form>
                         </div>
 
@@ -119,7 +129,7 @@ export default {
     .hero-section {
 
         .main-div {
-            background-color: rgba(0, 0, 0, 0.313);
+            background-color: rgba(0, 0, 0, .5);
             border-radius: 20px;
             padding: 1rem;
 
