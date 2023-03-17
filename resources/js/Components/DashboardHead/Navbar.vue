@@ -51,7 +51,7 @@ const showingNavigationDropdown = ref(false);
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
                             <li>
-                                <a class="dropdown-item" :href="route('profile.dev.create', $page.props.auth.user)">
+                                <a class="dropdown-item" :href="route('profile.dev.create')">
                                     Developer Settings
                                 </a>
                             </li>
@@ -99,7 +99,7 @@ const showingNavigationDropdown = ref(false);
 
                 <ul class="navbar-nav mt-3">
                     <li class="nav-item">
-                        <ResponsiveNavLink :href="route('profile.dev.create', $page.props.auth.user)" class="nav-link">
+                        <ResponsiveNavLink :href="route('profile.dev.create')" class="nav-link">
                             Developer Settings
                         </ResponsiveNavLink>
                     </li>
