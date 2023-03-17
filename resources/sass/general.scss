@@ -5,3 +5,41 @@
 
 // Bootstrap
 @import 'bootstrap/scss/bootstrap';
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+
+$h-primary_navigation_menu: 60px;
+$h-subnavbar: 80px;
+
+
+
+// class color 
+._blue {
+    background-color: #263859;
+}
+
+._rosa {
+    background-color: #ff6768;
+}
+
+$background: #1d1d1d;
+$titles: #fefefe;
+
+h1,
+h2,
+h3 {
+    color: $titles;
+}
+
+.text {
+    color: $titles;
+}
+
+img {
+    max-width: 100%;
+}
