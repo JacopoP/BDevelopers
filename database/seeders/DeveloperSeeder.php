@@ -35,7 +35,17 @@ class DeveloperSeeder extends Seeder
             // $new_developer['id'] = $User['id'];
 
             // Image
-            $new_developer->profile_path = Storage::disk('public')->put('uploads/profile_photo/profile' . $User->id . '.png', file_get_contents('http://placeimg.com/400/400/people'));
+            $categories = [
+                'tech',
+                'people',
+                'nature'
+            ];
+            $new_developer->profile_path =
+                Storage::disk('public')
+                ->put(
+                    'uploads/profile_photo/profile' . $User->id . '.png',
+                    file_get_contents('http://placeimg.com/400/400/' . $categories[array_rand($categories)])
+                );
 
             $new_developer->save();
 
