@@ -170,7 +170,7 @@ export default {
     </div>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .ProfilesBackground {
     background-color: #121212;
     background-image: url(../../img/background.svg);
@@ -188,9 +188,10 @@ export default {
         object-fit: cover;
         border-radius: 50%;
         // box-shadow: 3px 5px black;
-        // border: .5px solid snow;
-        filter: drop-shadow(0 0 0.75rem #cf815b);
-
+        // border: .5px solid #cf815b;
+        // filter: drop-shadow(0 0 0.75rem #cf815b);
+        outline: solid .5px #cf815b;
+        outline-offset: 2px;
     }
 }
 </style>

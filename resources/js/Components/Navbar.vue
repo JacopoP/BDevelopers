@@ -36,3 +36,10 @@ export default {
         </li>
     </ul>
 </div> -->
+
+<style lang="scss" scoped>
+a {
+    outline: solid 1px #cf815b;
+    outline-offset: 2px;
+}
+</style>
