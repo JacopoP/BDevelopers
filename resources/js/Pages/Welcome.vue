@@ -59,7 +59,7 @@ export default {
 
                         <div class="main-div">
                             <h1 class="text-center mb-4 text-light">Start your research</h1>
-                            <form class="form-inline d-flex justify-content-center">
+                            <form class="form-inline d-flex justify-content-center gap-2">
 
                                 <div class="input-group">
                                     <div class="form-floating">
@@ -82,7 +82,7 @@ export default {
                                 </div>
 
                                 <Link href="/index" method="post" :data="this.form" as="button"
-                                    class="btn btn-lg btn-primary ml-2"> Go </Link>
+                                    class="btn btn-lg btn-primary"> Go </Link>
                             </form>
                         </div>
 
