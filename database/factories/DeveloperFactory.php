@@ -19,7 +19,7 @@ class DeveloperFactory extends Factory
         return [
             'address' => fake() -> boolean() ? fake() -> address() : NULL,
             'phone_number' => fake() -> boolean() ? fake() -> phoneNumber() : NULL,
-            'profile_path' => fake() -> boolean() ? fake() -> imageUrl(640, 480, 'animals', true) : NULL,
+            // 'profile_path' => fake() -> boolean() ? fake() -> imageUrl(640, 480, 'animals', true) : NULL,
             'cv_path' => fake() -> boolean() ? fake() -> url() : NULL,
             'portfolio_url' => fake() -> boolean() ? fake() -> url() : NULL,
             'about_me' => fake() -> boolean() ? fake() -> sentence() : NULL,
