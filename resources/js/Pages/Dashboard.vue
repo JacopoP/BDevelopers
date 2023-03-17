@@ -130,11 +130,12 @@ function myGetTime(stringa) {
 
             <div class="sfondo">
                 <!-- <header class="d-flex justify-between ">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <h1>Your profile</h1>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                </header> -->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <h1>Your profile</h1>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </header> -->
                 <div class="container p-0">
 
-                    <main class="d-flex justify-between ">
+                    <main class="d-flex justify-content-center">
+                        <!-- <main class="d-flex justify-between"> -->
                         <div class="sinistra  overflow-scroll" v-if="(data.reviews).length || (data.messages).length">
 
                             <!-- reviews -->
@@ -465,7 +466,7 @@ body {
                     .my-cornice {
                         overflow: visible;
                         color: white;
-                        border-radius: 0 20px 20px 0;
+                        border-radius: 0 0 20px 0;
 
                         .my-img-container {
                             $w-img: 300px;
