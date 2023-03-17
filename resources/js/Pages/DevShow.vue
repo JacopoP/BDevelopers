@@ -84,7 +84,7 @@ function submit() {
                 <div class="d-flex flex-column gap-4">
                     <div class="d-flex flex-column flex-lg-row justify-content-between mt-4">
                         <div class="order-2 order-lg-1 text-light">{{ dati.about_me }}</div>
-                        <h3 class="order-1 order-lg-2 col-3 text-light text-start text-lg-end">"About me"</h3>
+                        <h3 class="order-1 order-lg-2 col-lg-3 text-light text-start text-lg-end">"About me"</h3>
                     </div>
                     <div class="d-flex justify-content-between mt-4">
                         <h3 class="col-3 text-light">"Curriculum"</h3>
@@ -92,7 +92,7 @@ function submit() {
                     </div>
                     <div class="d-flex flex-column flex-lg-row justify-content-between mt-4">
                         <div class="order-2 order-lg-1 text-light">{{ dati.performances }}</div>
-                        <h3 class="order-1 order-lg-2 col-3 text-light text-start text-lg-end">"My Performances"</h3>
+                        <h3 class="order-1 order-lg-2 col-lg-3 text-light text-start text-lg-end">"My Performances"</h3>
                     </div>
         
                 </div>
@@ -103,13 +103,13 @@ function submit() {
                 <div class="d-flex flex-column align-items-center gap-4">
                     <h3 class="text-light">My Reviews</h3>
                     <ul class="text-light d-inline-flex gap-4 overflow-auto" style="max-width: 100%; min-height: 100px;">
-                        <li v-for="review in dati.reviews" class="text-start card rounded-pill text-light _secondary py-3 px-5 shadow" style="min-width: 350px; max-width: 350px;">
+                        <li v-for="review in dati.reviews" class="text-start card rounded _secondary py-3 px-5 shadow" style="min-width: 350px; max-width: 350px;">
 
                             <div class="d-flex justify-content-start">
-                                <span class="fw-bold">{{ review.full_name }}</span>
+                                <span class="fw-bold text-light">{{ review.full_name }}</span>
                             </div>
                             <div class="overflow-auto rounded" style="height: 100px;">
-                                <span>{{ review.text }}</span>
+                                <span class="text-dark">{{ review.text }}</span>
                             </div>
 
                         </li>
