@@ -96,43 +96,21 @@ export default {
 
     </div>
 </template>
-
-<!-- Sponsor Section -->
-        <!-- <div class="sponsor-section">
-                <div class="container">
-                    <div class="row">
-                        <div class="col d-flex justify-content-center flex-wrap gap-2">
-
-                            <div v-for="(developer, index) in developers" class="card text-white bg-dark" style="width: 18rem;">
-                                <img v-if="developer.profile_path" class="card-img-top" :src="developer.profile_path"
-                                    alt="Card image cap">
-                                <div class="card-body">
-                                    <h5 class="card-title">{{ developer.user.name }} {{ developer.user.last }}</h5>
-                                    <p class="card-text">Some quick example text to build on the card title and make up the bulk
-                                        of the card's content.</p>
-                                    <a href="#" class="btn btn-primary">Go somewhere</a>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </div> -->
   
 <style lang="scss" scoped>
 // Define custom styles for the landing page
 .landing-page {
 
-    background-color: #1d1d1d;
-    color: snow;
+    background-color: #121212;
 
     .hero-section {
 
         // background-color: #1d1d1d16;
-        backdrop-filter: blur(2px);
+        // backdrop-filter: blur(.6px);
 
         .main-div {
             background-color: rgba(0, 0, 0, .5);
+            backdrop-filter: blur(2px);
             border-radius: 20px;
             padding: 1rem;
 

@@ -75,15 +75,20 @@ export default {
         positionBubbles() {
 
             // Bubble size
-            let bRadius = 35; /* about */
-            let bMargin = bRadius * .55;
+            let bRadius = 60; /* about */
+            let bMargin = 50;
             let bDistance = (bRadius + bMargin) * 2;
-            let bLocalOffsetAllowance = bMargin * .85;
+            let bLocalOffsetAllowance = bMargin * .95;
+            let maxPop = -.02;
+            let minPop = -.001;
 
             // Screen sizes
-            let mapOverflowMargin = bDistance;
-            let mapWidth = window.innerWidth + (mapOverflowMargin * 2);
-            let mapHeight = window.innerHeight + (mapOverflowMargin * 2);
+            let mapOverflowXMargin = 25;
+            let mapOverflowYMargin = 100;
+            let mapWidth = window.innerWidth - (mapOverflowXMargin * 2);
+            let mapHeight = window.innerHeight - (mapOverflowYMargin * 2);
+            let maxWidth = 3000;
+            let minWidth = 1;
 
             // So...
             let bPerWidth = Math.floor(mapWidth / bDistance);
@@ -92,12 +97,21 @@ export default {
             this.bubbles.forEach((bubble, index) => {
 
                 // Check for bubble visibility
-                let visible = Boolean(Math.ceil(hiddenNoise.get(index % bPerWidth, index / bPerWidth)));
+                let visible = Boolean(Math.ceil(
+                    (
+                        hiddenNoise.get(index % bPerWidth, index / bPerWidth)
+                        // + .01
+                        + (mapWidth - minWidth) * (maxPop - minPop) / (maxWidth - minWidth) + minPop
+                    )
+                ));
                 /* if(!visible){
                     return;
                 } */
                 console.log(visible);
                 bubble.style.display = visible ? 'block' : 'none';
+
+                // TMP
+                bubble.style.zIndex = 500;
 
                 // Set bubble radiu
                 bubble.style.width = (bRadius * 2) + 'px';
@@ -106,18 +120,16 @@ export default {
                 // X Axis
                 bubble.style.left =
                     (
-                        - mapOverflowMargin /* off-screen start */
-                        + (index % bPerWidth) /* offset */
-                        * bDistance /* distance */
-                        + localOffsetNoise.get(index % bPerWidth, index / bPerWidth) * bLocalOffsetAllowance /* local offset */
+                        (mapOverflowXMargin * .2) /* off-screen start */
+                        + ((index % bPerWidth) * bDistance) /* global offset */
+                        + (localOffsetNoise.get(index % bPerWidth, index / bPerWidth) * bLocalOffsetAllowance) /* local offset */
                     ) + "px";
 
                 // Y Axis
                 bubble.style.top =
                     (
-                        - mapOverflowMargin /* off-screen start */
-                        + parseInt(index / bPerWidth) /* offset */
-                        * bDistance /* distance */
+                        (mapOverflowYMargin) /* off-screen start */
+                        + (parseInt(index / bPerWidth) * bDistance) /* global offset */
                         + localOffsetNoise.get(index % bPerWidth, index / bPerWidth) * bLocalOffsetAllowance /* local offset */
                     ) + "px";;
 
@@ -160,7 +172,9 @@ export default {
 
 <style lang="scss">
 .ProfilesBackground {
-    background-color: #1d1d1d;
+    background-color: #121212;
+    background-image: url(../../img/background.svg);
+    background-position: center;
     height: 100vh;
     width: 100vw;
 
@@ -173,6 +187,9 @@ export default {
         // Sizing and style
         object-fit: cover;
         border-radius: 50%;
+        // box-shadow: 3px 5px black;
+        // border: .5px solid snow;
+        filter: drop-shadow(0 0 0.75rem #cf815b);
 
     }
 }
