@@ -1,17 +1,20 @@
 <script>
+// Inertia
 import { Head } from '@inertiajs/vue3';
-import GuestNavbar from '@/Components/WelcomeHead/Navbar.vue';
 import { Link } from '@inertiajs/vue3';
 
-
+// BDevelopers
+import ProfilesBackground from '@/Components/ProfilesBackground.vue';
+import Navbar from '@/Components/Navbar.vue';
 
 export default {
     name: 'LandingPage',
 
     components: {
         Head,
-        GuestNavbar,
         Link,
+        Navbar,
+        ProfilesBackground
     },
     props: {
         canLogin: Boolean,
@@ -34,6 +37,9 @@ export default {
             axios.get('http://localhost:8000/index', this.form)
                 .then((res) => console.log(res));
         }
+    },
+    mounted() {
+
     }
 }
 </script>
@@ -42,96 +48,86 @@ export default {
     <Head title="Welcome" />
     <div class="landing-page">
 
-        <!-- NavBar -->
-        <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <!-- ProfilesBackground -->
+        <ProfilesBackground :developers="developers" />
 
+        <!-- Hero Section -->
+        <div class="hero-section fixed-top">
             <div class="container">
+                <div class="row justify-content-center" style="height: 100vh;">
+                    <div class="col-md-7 d-flex align-items-center">
 
-                <!-- BDevelopers logo + title -->
-                <div>
-                    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" style="height: 40px;">
-                        <rect x="0" y="0" width="100" height="100" fill="none" stroke="#fff" stroke-width="5" />
-                        <text x="50%" y="45" font-size="40" font-weight="bold" text-anchor="middle" color="#fff">WEB</text>
-                        <text x="50%" y="85" font-size="40" font-weight="bold" text-anchor="middle" color="#fff">DEV</text>
-                    </svg>
-                    <a class="navbar-brand" href="#">BDevelopers</a>
-                </div>
+                        <div class="main-div">
+                            <h1 class="text-center mb-4 text-light">Start your research</h1>
+                            <form class="form-inline d-flex justify-content-center">
 
-                <!-- Nav -->
-                <div id="navbarNav">
-                    <ul class="navbar-nav ml-auto list-unstyled d-flex flex-row gap-2">
-                        <li class="nav-item">
-                            <a class="nav-link" href="/login">Login</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/register">Register</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
+                                <div class="input-group">
+                                    <div class="form-floating">
+                                        <input id="searchInput" type="text"
+                                            class="<!-- form-control form-control-lg --> mr-3" placeholder="Type a name"
+                                            v-model="form.name">
+                                        <label for="searchInput">Search by name</label>
+                                    </div>
+                                    <div class="form-floating">
+                                        <select id="techInput" v-model="form.tech" class="form-control form-select"
+                                            aria-label="Floating label select example">
+                                            <option :value="null" selected>Any</option>
+                                            <option v-for="tech in technologies" :value="tech.id">{{
+                                                tech.name
+                                            }}
+                                            </option>
+                                        </select>
+                                        <label for="techInput">Technology</label>
+                                    </div>
+                                </div>
 
-        <!-- HeroSection -->
-        <div class="hero-section">
-            <div class="container">
-                <div class="row align-items-center justify-content-center" style="height: 100vh;">
-                    <div class="col-md-6">
-                        <h1 class="text-center mb-4">Start your research</h1>
-                        <form class="form-inline d-flex justify-content-center">
-                            <div class="form-group d-flex">
-
-                                <input type="text" class="form-control form-control-lg mr-3" placeholder="Search..."
-                                    v-model="form.name">
-                                <select v-model="form.tech" class="text-dark">
-                                    <option class="text-dark" v-for="tech in technologies" :value="tech.id">{{ tech.name }}
-                                    </option>
-                                </select>
                                 <Link href="/index" method="post" :data="this.form" as="button"
-                                    class="btn btn-lg btn-primary"> Go </Link>
+                                    class="btn btn-lg btn-primary ml-2"> Go </Link>
+                            </form>
+                        </div>
 
-                            </div>
-                        </form>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Sponsor -->
-        <!-- work in progress -->
+        <!-- Navbar -->
+        <Navbar />
 
     </div>
 </template>
   
 <style lang="scss" scoped>
-// Import Bootstrap SCSS
-//   @import '~bootstrap/scss/bootstrap';
-
-@use 'resources/sass/variable.scss' as *;
-
 // Define custom styles for the landing page
 .landing-page {
 
-    nav {
-        background-color: $brand_fourth;
-    }
+    background-color: #121212;
 
     .hero-section {
-        background-color: $brand_background;
-        color: #fff;
 
-        h1 {
-            font-size: 3rem;
-            font-weight: bold;
-        }
+        // background-color: #1d1d1d16;
+        // backdrop-filter: blur(.6px);
 
-        form {
-            button {
-                background-color: #ff6769;
-                border-color: #ff6769;
+        .main-div {
+            background-color: rgba(0, 0, 0, .5);
+            backdrop-filter: blur(2px);
+            border-radius: 20px;
+            padding: 1rem;
 
-                &:hover {
-                    background-color: darken(#ff6769, 10%);
-                    border-color: darken(#ff6769, 10%);
+            h1 {
+                font-size: 3rem;
+                font-weight: bold;
+            }
+
+            form {
+                button {
+                    background-color: #ff6769;
+                    border-color: #ff6769;
+
+                    &:hover {
+                        background-color: darken(#ff6769, 10%);
+                        border-color: darken(#ff6769, 10%);
+                    }
                 }
             }
         }

@@ -12,6 +12,7 @@ use App\Models\Rating;
 use App\Models\Technology;
 use App\Models\Sponsor;
 use DateTime;
+use Illuminate\Support\Facades\Storage;
 
 class DeveloperSeeder extends Seeder
 {
@@ -32,6 +33,19 @@ class DeveloperSeeder extends Seeder
 
             $new_developer->user()->associate($User);
             // $new_developer['id'] = $User['id'];
+
+            // Image
+            $categories = [
+                'tech',
+                'people',
+                'nature'
+            ];
+            $new_developer->profile_path =
+                Storage::disk('public')
+                ->put(
+                    'uploads/profile_photo/profile' . $User->id . '.png',
+                    file_get_contents('http://placeimg.com/400/400/' . $categories[array_rand($categories)])
+                );
 
             $new_developer->save();
 

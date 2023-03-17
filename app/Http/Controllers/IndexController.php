@@ -29,8 +29,9 @@ class IndexController extends Controller
         $technologies = Technology::all();
         $developers = Developer::with('user', 'ratings', 'reviews')
         ->join('developer_sponsor', 'developers.id', '=', 'developer_sponsor.developer_id')
-        ->whereDate('date_start', '<=', date('2021-01-01'))
-        ->whereDate('date_end', '>=', date('2021-01-01'))
+        // ->whereDate('date_start', '<=', date('2021-01-01'))
+        // ->whereDate('date_end', '>=', date('2021-01-01'))
+        ->limit(1000)
         ->get();
 
         return Inertia::render('Welcome', [
