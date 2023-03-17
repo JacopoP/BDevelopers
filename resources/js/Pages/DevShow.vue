@@ -31,6 +31,7 @@ const dati = {
 const form = useForm({
     text: null,
     full_name: null,
+    profile_path: null,
 });
 
 function submit() {
@@ -54,14 +55,40 @@ function myFunction() {
             <!-- contacts -->
             <div class="container mt-5 pt-5">
 
-                <div class="d-flex justify-content-around align-items-center flex-column flex-lg-row gap-5">
+                <div class="position-relative d-flex justify-content-around align-items-center flex-column flex-lg-row gap-5">
 
                     <div class="d-flex flex-lg-row flex-column">
                         <div class="d-flex flex-column justify-content-end align-items-center ps-2 gap-3 popup"
                             @click="myFunction()">
                             <img class="img_profile rounded-circle shadow " :src="'storage/' + dati.profile_path">
+                            
+                            <!-- Pop -->
+                            <div class="my_popuptext text-dark" id="myPopup">
+                                
+                                <img class="img_profile rounded-circle shadow" :src="'storage/' + dati.profile_path">
+                                <form class="d-flex justify-content-between" method="post" enctype="multipart/form-data"
+                                    @submit.prevent="form.post(route('profile.dev.store'))">
 
-                            <span class="popuptext text-dark" id="myPopup">Questo è il testo del Popup</span>
+                                    <div>
+                                        <!-- Profile IMG -->
+                                        <div class="mx-auto">
+                                            <label for="profile_path"
+                                                class="my_login_button px-3 py-1 rounded-pill text-light cursor-pointer">Upload
+                                                Image</label>
+                                        </div>
+                                        <input id="profile_path" class="form-control border-dark rounded-pill" type="file"
+                                            name="profile_path" @input="form.profile_path = $event.target.files[0]">
+                                        </div>
+                                        
+                                        <!-- Submit -->
+                                        <div class="d-flex justify-content-center"
+                                            v-if="form.address == null && form.phone_number == null && form.portfolio_url == null && form.about_me == null && form.performances == null">
+                                            <input class="my_login_button btn btn-secondary rounded-pill text-light border-0" type="submit"
+                                                value="SEND">
+                                        </div>
+                                </form>
+
+                            </div>
 
                             <div class="d-flex flex-column align-items-start gap-3">
                                 <h4 class="text-light">Address:
@@ -161,6 +188,7 @@ function myFunction() {
 <style lang="scss">
 // @use 'resources/sass/variable.scss' as *;
 @use '../../../resources/sass/devShow-layout-style.scss' as *;
+@use 'resources/sass/form-style.scss';
 
 body {
     background-color: $brand_background;
@@ -200,9 +228,9 @@ a {
 
 
 /*popup */
-.popuptext {
+.my_popuptext {
     display: none;
-    width: 160px;
+    max-width: 460px;
     background-color: white;
     text-align: center;
     border-radius: 6px;
@@ -211,10 +239,16 @@ a {
     position: absolute;
     top: 50%;
     left: 55%;
+    transform: translate(-50%, -50%);
 }
 
 /* Toggle this class when clicking on the popup container (hide and show the popup) */
 .popup .show {
-    display: inline-block;
+    display: block;
+}
+
+// To remove from display input file 
+input[type="file"] {
+    display: none;
 }
 </style>
