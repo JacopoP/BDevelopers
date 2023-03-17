@@ -20,7 +20,7 @@ use App\Http\Controllers\Emacontroller;
 |
 */
 
-Route::get('/', [IndexController::class, 'welcome']);
+Route::get('/', [IndexController::class, 'welcome'])->name('home');
 
 
 
