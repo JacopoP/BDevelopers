@@ -130,8 +130,8 @@ function myGetTime(stringa) {
 
             <div class="sfondo">
                 <!-- <header class="d-flex justify-between ">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <h1>Your profile</h1>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </header> -->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <h1>Your profile</h1>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        </header> -->
                 <div class="container p-0">
 
                     <main class="d-flex justify-content-center">
@@ -181,6 +181,7 @@ function myGetTime(stringa) {
                                         <div v-else class="anonymous">
                                             anonymous
                                         </div>
+                                        <a href="mailto:{{ message.email }}">{{ message.email }}</a>
                                         <div class="email">
                                             {{ message.email }}
 
@@ -279,7 +280,7 @@ $color-titles: yellow;
 $h-header: 50px;
 
 
-$h-sfondo: calc(100vh - $h-primary_navigation_menu - $h-subnavbar);
+$h-sfondo: calc(100vh - 100px);
 $w-sfondo: calc(100vw);
 
 
@@ -313,7 +314,7 @@ $h-main: calc($h-sfondo - 70px);
         }
 
         .email {
-            color: rgb(0, 190, 190);
+            color: rgb(2, 91, 91);
         }
 
         .anonymous {
@@ -433,7 +434,7 @@ body {
 
                     .my-cornice {
                         position: relative;
-                        height: $h-main;
+                        max-height: $h-main;
 
                         // overflow per il titolo
                         overflow: visible;
