@@ -26,8 +26,10 @@ export default {
 
             <div class="card text-white bg-dark overflow-hidden">
                 <div class="card-header d-flex justify-content-between p-0">
-                    <div class="card-info m-3 volatile">
-                        Username
+                    <div class="card-info volatile">
+                        <div class="m-3">
+                            Username
+                        </div>
                     </div>
                     <img class="card-profile" src="http://placeimg.com/400/400/people" alt="Card image cap">
                 </div>
@@ -55,13 +57,16 @@ export default {
 }
 
 .right .card {
-    // display: none;
     outline: solid 1px #cf815b;
     outline-offset: 2px;
 
+    width: 100%;
+    height: 100%;
+    transition: all 5s ease;
+
     &:not(:hover) .volatile {
-        display: none;
-        opacity: 0;
+        width: 0;
+        height: 0;
     }
 
     a {
