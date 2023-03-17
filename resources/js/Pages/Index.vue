@@ -58,6 +58,11 @@ export default {
 <template>
     <AuthenticatedLayout>
 
+        <template #header>
+            <h2>
+                Index
+            </h2>
+        </template>
         <template #main>
             
             <div class="results-page pt-5">
