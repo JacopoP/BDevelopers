@@ -19,7 +19,6 @@ const data = {
     address: props.developer.address,
     phone_number: props.developer.phone_number,
     profile_path: props.developer.profile_path
-        // ? props.developer.profile_path
         ? 'storage/' + props.developer.profile_path
         : default_profile_path,
     cv_path: props.developer.cv_path,
@@ -30,6 +29,8 @@ const data = {
     reviews: props.developer.reviews,
     // messages
     messages: props.developer.messages,
+    // ratings
+    ratings: props.developer.ratings,
 
 
 };
@@ -130,8 +131,8 @@ function myGetTime(stringa) {
 
             <div class="sfondo">
                 <!-- <header class="d-flex justify-between ">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <h1>Your profile</h1>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </header> -->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <h1>Your profile</h1>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                </header> -->
                 <div class="container p-0">
 
                     <main class="d-flex justify-content-center">
@@ -183,9 +184,9 @@ function myGetTime(stringa) {
                                         </div>
                                         <a href="mailto:{{ message.email }}" class="email">{{ message.email }}</a>
                                         <!-- <div class="email">
-                                                {{ message.email }}
+                                                                    {{ message.email }}
 
-                                            </div> -->
+                                                                </div> -->
                                         <p>
                                             {{ message.text }}
                                         </p>
@@ -214,49 +215,55 @@ function myGetTime(stringa) {
                                 </div>
 
 
-                                <div class="">
-                                    <div class="dato">
-                                        {{ data.name }}
-                                        {{ data.last }}
-                                        <div class="titolo">
-                                            Full Name
-                                        </div>
-                                    </div>
-                                    <div class="dato" v-if="data.email">
-                                        {{ data.email }}
-                                        <div class="titolo">
-                                            E-mail
-                                        </div>
-                                    </div>
-                                    <div class="dato" v-if="data.address">
-                                        {{ data.address }}
-                                        <div class="titolo">
-                                            Address
-                                        </div>
-                                    </div>
-                                    <div class="dato" v-if="data.phone_number">
-                                        {{ data.phone_number }}
-                                        <div class="titolo">Phone Number</div>
-                                    </div>
-                                    <div class="my-cornice" v-if="data.about_me">
-                                        <div class="titolo">
-                                            About me
-                                        </div>
-                                        <div class="principale">
-                                            {{ data.about_me }}
-                                        </div>
-                                    </div>
-                                    <div class="my-cornice" v-if="data.performances">
 
-                                        <div class="titolo">
-                                            My performances
-                                        </div>
-                                        <div class="principale">
-                                            {{ data.performances }}
-                                        </div>
+                                <div class="dato">
+                                    {{ data.name }}
+                                    {{ data.last }}
+                                    <div class="titolo">
+                                        Full Name
                                     </div>
-                                    <!-- cv_path -->
-                                    <a :href="data.portfolio_url"></a>
+                                </div>
+                                <div class="dato" v-if="data.email">
+                                    {{ data.email }}
+                                    <div class="titolo">
+                                        E-mail
+                                    </div>
+                                </div>
+                                <div class="dato" v-if="data.address">
+                                    {{ data.address }}
+                                    <div class="titolo">
+                                        Address
+                                    </div>
+                                </div>
+                                <div class="dato" v-if="data.phone_number">
+                                    {{ data.phone_number }}
+                                    <div class="titolo">Phone Number</div>
+                                </div>
+                                <div class="my-cornice" v-if="data.about_me">
+                                    <div class="titolo">
+                                        About me
+                                    </div>
+                                    <div class="principale">
+                                        {{ data.about_me }}
+                                    </div>
+                                </div>
+                                <div class="my-cornice" v-if="data.performances">
+
+                                    <div class="titolo">
+                                        My performances
+                                    </div>
+                                    <div class="principale">
+                                        {{ data.performances }}
+                                    </div>
+                                </div>
+                                <!-- cv_path -->
+                                <a :href="data.portfolio_url"></a>
+
+                            </div>
+
+                            <div class="my-cornice">
+                                <div v-for="rating in data.ratings">
+                                    {{ rating.value }}
                                 </div>
                             </div>
                         </div>
