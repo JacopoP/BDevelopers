@@ -51,9 +51,6 @@ export default {
         <!-- ProfilesBackground -->
         <ProfilesBackground :developers="developers" />
 
-        <!-- Navbar -->
-        <Navbar />
-
         <!-- Hero Section -->
         <div class="hero-section fixed-top">
             <div class="container">
@@ -94,6 +91,9 @@ export default {
             </div>
         </div>
 
+        <!-- Navbar -->
+        <Navbar />
+
     </div>
 </template>
 
@@ -123,10 +123,13 @@ export default {
 // Define custom styles for the landing page
 .landing-page {
 
-    background-color: snow;
-    color: black;
+    background-color: #1d1d1d;
+    color: snow;
 
     .hero-section {
+
+        // background-color: #1d1d1d16;
+        backdrop-filter: blur(2px);
 
         .main-div {
             background-color: rgba(0, 0, 0, .5);
