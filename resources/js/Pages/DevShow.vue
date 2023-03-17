@@ -37,12 +37,16 @@ function submit() {
     if (form.text !== null) {
         form.post(route('review.store', props.developer.id))
     }
+};
+
+function myFunction() {
+    var popup = document.getElementById("myPopup");
+    popup.classList.toggle("show");
 }
 
 </script>
     
 <template>
-
     <AuthenticatedLayout>
 
         <template #main>
@@ -51,33 +55,38 @@ function submit() {
             <div class="container mt-5 pt-5">
 
                 <div class="d-flex justify-content-around align-items-center flex-column flex-lg-row gap-5">
-        
+
                     <div class="d-flex flex-lg-row flex-column">
-                        <div class="d-flex flex-column justify-content-end align-items-center ps-2 gap-3">
-                            <img class="img_profile rounded-circle shadow" :src="'storage/' + dati.profile_path">
+                        <div class="d-flex flex-column justify-content-end align-items-center ps-2 gap-3 popup"
+                            @click="myFunction()">
+                            <img class="img_profile rounded-circle shadow " :src="'storage/' + dati.profile_path">
+
+                            <span class="popuptext text-dark" id="myPopup">Questo è il testo del Popup</span>
 
                             <div class="d-flex flex-column align-items-start gap-3">
-                                <h4 class="text-light">Address: 
+                                <h4 class="text-light">Address:
                                     <span class="fs-6 text-secondary">{{ dati.address }}</span>
                                 </h4>
-                                
+
                                 <h4 class="text-light"> Phone Number:
                                     <span class="fs-6 text-secondary">{{ dati.phone_number }}</span>
                                 </h4>
                                 <a class="p-0" :href="dati.portfolio_url" v-if="dati.portfolio_url">
-                                    <h3 class="btn btn-danger border-0 _rosa rounded-pill text-light">Vai al mio Portfolio</h3>
+                                    <h3 class="btn btn-danger border-0 _rosa rounded-pill text-light">Vai al mio Portfolio
+                                    </h3>
                                 </a>
                             </div>
 
 
                         </div>
                     </div>
-                    
+
                     <div class="d-flex justify-content-center">
-                        <a href="#ancor" class="btn btn-primary rounded-pill _blue text-light">Send a Message, Leave a Reviews or a Star</a>
+                        <a href="#ancor" class="btn btn-primary rounded-pill _blue text-light">Send a Message, Leave a
+                            Reviews or a Star</a>
                     </div>
                 </div>
-        
+
                 <!-- Curriculum etc... -->
                 <div class="_line _blue my-5 rounded-pill w-100" style="height: 3px;"></div>
 
@@ -88,22 +97,24 @@ function submit() {
                     </div>
                     <div class="d-flex justify-content-between mt-4">
                         <h3 class="col-3 text-light">"Curriculum"</h3>
-                        <a class="btn btn-outline-secondary rounded-pill d-flex align-items-center" :href="'storage/' + dati.cv_path" download>Download CV</a>
+                        <a class="btn btn-outline-secondary rounded-pill d-flex align-items-center"
+                            :href="'storage/' + dati.cv_path" download>Download CV</a>
                     </div>
                     <div class="d-flex flex-column flex-lg-row justify-content-between mt-4">
                         <div class="order-2 order-lg-1 text-light">{{ dati.performances }}</div>
                         <h3 class="order-1 order-lg-2 col-lg-3 text-light text-start text-lg-end">"My Performances"</h3>
                     </div>
-        
+
                 </div>
-        
+
                 <div class="_line _blue mt-5 mb-3 rounded-pill w-100" style="height: 3px;"></div>
-        
+
                 <!-- Reviews -->
                 <div class="d-flex flex-column align-items-center gap-4">
                     <h3 class="text-light">My Reviews</h3>
                     <ul class="text-light d-inline-flex gap-4 overflow-auto" style="max-width: 100%; min-height: 100px;">
-                        <li v-for="review in dati.reviews" class="text-start card rounded _secondary py-3 px-5 shadow" style="min-width: 350px; max-width: 350px;">
+                        <li v-for="review in dati.reviews" class="text-start card rounded _secondary py-3 px-5 shadow"
+                            style="min-width: 350px; max-width: 350px;">
 
                             <div class="d-flex justify-content-start">
                                 <span class="fw-bold text-light">{{ review.full_name }}</span>
@@ -115,12 +126,12 @@ function submit() {
                         </li>
                     </ul>
                 </div>
-        
+
                 <div class="_line _blue my-5 rounded-pill w-100" style="height: 3px;"></div>
-        
+
                 <!-- reviews, ratings e message send -->
                 <div id="ancor" class="d-flex flex-column gap-5 flex-lg-row gap-lg-0 justify-content-between mt-5">
-    
+
                     <div class="d-flex flex-column align-items-center gap-5">
                         <h3 class="text-light">Review</h3>
                         <ReviewForm :developer="developer" />
@@ -133,15 +144,15 @@ function submit() {
                         <h3 class="text-light">Message</h3>
                         <MessageForm :developer="developer" />
                     </div>
-                    
+
                 </div>
             </div>
-        
-        
-            
+
+
+
         </template>
-        
-    
+
+
 
     </AuthenticatedLayout>
 </template>
@@ -184,5 +195,26 @@ a {
     width: 80%;
     margin: 0 auto;
     height: 2px;
+}
+
+
+
+/*popup */
+.popuptext {
+    display: none;
+    width: 160px;
+    background-color: white;
+    text-align: center;
+    border-radius: 6px;
+    padding: 8px 0;
+    margin-left: -80px;
+    position: absolute;
+    top: 50%;
+    left: 55%;
+}
+
+/* Toggle this class when clicking on the popup container (hide and show the popup) */
+.popup .show {
+    display: inline-block;
 }
 </style>
