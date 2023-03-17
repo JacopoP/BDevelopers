@@ -47,7 +47,7 @@ const showingNavigationDropdown = ref(false);
                         Index
                     </a>
                 </div>
-                <div class="d-sm-flex align-items-sm-center">
+                <div class="d-sm-flex align-items-sm-center" v-if="$page.props.auth.user != undefined">
                     <!-- Settings Dropdown -->
                     <div class="ml-3 dropdown">
                         <a class="btn dropdown-toggle text-light border-0" href="#" role="button" id="userDropdown"
@@ -70,6 +70,10 @@ const showingNavigationDropdown = ref(false);
                             </li>
                         </ul>
                     </div>
+                </div>
+                <div class="d-sm-flex align-items-sm-center gap-3" v-else>
+                    <Link class="text-light text-decoration-none" :href="route('login')">Login</Link>
+                    <Link class="text-light text-decoration-none" :href="route('register')">Register</Link>
                 </div>
 
                 <!-- Hamburger -->
@@ -94,7 +98,7 @@ const showingNavigationDropdown = ref(false);
                 </ul>
             </div>
             <!-- Responsive Settings Options -->
-            <div class="pt-4 pb-1 border-top border-gray-200">
+            <div class="pt-4 pb-1 border-top border-gray-200" v-if="$page.props.auth.user != undefined">
                 <div class="px-4">
                     <div class="font-medium text-base text-gray-800">
                         {{ $page.props.auth.user.name }}
