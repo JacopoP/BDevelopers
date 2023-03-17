@@ -107,7 +107,7 @@ export default {
                 /* if(!visible){
                     return;
                 } */
-                console.log(visible);
+                // console.log(visible);
                 bubble.style.display = visible ? 'block' : 'none';
 
                 // TMP

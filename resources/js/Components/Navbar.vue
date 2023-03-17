@@ -28,21 +28,37 @@ export default {
                 <div class="card-header d-flex justify-content-between p-0">
                     <div class="card-info volatile">
                         <div class="m-3">
-                            Username
+                            <template v-if="auth_user">
+                                {{ auth_user.name }}
+                            </template>
+                            <template v-else>
+                                Welcome!
+                            </template>
                         </div>
                     </div>
-                    <img class="card-profile" src="http://placeimg.com/400/400/people" alt="Card image cap">
+                    <img v-if="auth_user" class="card-profile" src="http://placeimg.com/400/400/people" alt="Card image cap">
+                    <img v-else class="card-profile" src="../../img/unknown_profile.jpg" alt="">
                 </div>
                 <ul class="list-group list-group-flush volatile">
-                    <a class="list-group-item px-3 bg-dark text-white" href="">
-                        Profile Info
-                    </a>
-                    <a class="list-group-item px-3 bg-dark text-white" href="">
-                        Account Settings
-                    </a>
-                    <a class="list-group-item px-3 bg-dark text-white" href="">
-                        Logout
-                    </a>
+                    <template v-if="auth_user">
+                        <a class="list-group-item px-3 bg-dark text-white" href="">
+                            Profile Info
+                        </a>
+                        <a class="list-group-item px-3 bg-dark text-white" href="">
+                            Account Settings
+                        </a>
+                        <a class="list-group-item px-3 bg-dark text-white" href="">
+                            Logout
+                        </a>
+                    </template>
+                    <template v-else>
+                        <a class="list-group-item px-3 bg-dark text-white" href="">
+                            Login
+                        </a>
+                        <a class="list-group-item px-3 bg-dark text-white" href="">
+                            Register
+                        </a>
+                    </template>
                 </ul>
             </div>
         </nav>
@@ -67,6 +83,7 @@ export default {
     &:not(:hover) .volatile {
         width: 0;
         height: 0;
+        opacity: 0;
     }
 
     a {
@@ -84,6 +101,7 @@ export default {
     }
 
     .card-profile {
+        object-fit: cover;
         width: 4rem;
         height: 4rem;
     }
