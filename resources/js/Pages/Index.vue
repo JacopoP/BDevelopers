@@ -4,6 +4,7 @@ import ApplicationLogo from '../Components/ApplicationLogo.vue';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import axios from 'axios';
 import { Link } from '@inertiajs/vue3';
+import { faLessThanEqual } from '@fortawesome/free-solid-svg-icons';
 const apiUrl = 'http://localhost:8000/api/';
 const apiVersion = 'v1/';
 const api = apiUrl + apiVersion;
@@ -25,6 +26,7 @@ export default {
             ratingFilter: 0,
             reviewFilter: 0,
             techFilter: [],
+            isLoading: false,
             post: {
                 nFilter: '',
                 lFilter: '',
@@ -37,6 +39,7 @@ export default {
     },
     methods: {
         goFilter: function () {
+            this.isLoading=true;
             let textArray = this.nameFilter.split(' ');
             this.post.nFilter = textArray[0];
             if (textArray.length >= 1) { textArray.shift() };
@@ -56,12 +59,14 @@ export default {
                     this.pageN = res.data.response.developers.last_page;
                     console.log(res.data);
                     this.pageShow=1;
+                    this.isLoading=false;
                 })
                 .catch((err) => console.log(err));
         },
 
         nextPage: function(){
             this.pageShow++;
+            this.isLoading=true;
 
             const params = {
                 post: this.post,
@@ -72,6 +77,7 @@ export default {
                 .then((res) => {
                     this.developers = this.developers.concat(res.data.response.developers.data);
                     console.log(res.data);
+                    this.isLoading=false;
                 })
                 .catch((err) => console.log(err));
         }
@@ -164,7 +170,7 @@ export default {
                 </div>
         
                 <!-- Results -->
-                <div class="results">
+                <div class="results pb-5">
                     <div class="container">
                         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3">
                             <div class="col" v-for="developer in this.developers">
@@ -192,9 +198,9 @@ export default {
                                     </div>
                                 </div>
                             </div>
-                            <button v-if="this.pageShow < this.pageN" @click="this.nextPage()">Next Page</button>
                         </div>
                     </div>
+                    <button class="d-block btn next_page_btn my_login_button_2 mt-2 mx-auto text-light px-3 py-1 border border-light" v-if="this.pageShow < this.pageN && !this.isLoading" @click="this.nextPage()">Next Page</button>
                 </div>
         
             </div>
@@ -231,5 +237,14 @@ img{
     position: absolute;
     top: -20px;
     right: 20px;
+}
+
+.next_page_btn{
+    width: fit-content;
+    border-radius: 50px;
+    opacity: .7;
+    &:hover{
+        opacity: 1;
+    }
 }
 </style>
