@@ -200,7 +200,7 @@ export default {
                             </div>
                         </div>
                     </div>
-                    <button class="d-block btn next_page_btn my_login_button_2 mt-2 mx-auto text-light px-3 py-1 border border-light" v-if="this.pageShow < this.pageN && !this.isLoading" @click="this.nextPage()">Next Page</button>
+                    <button class="d-block btn next_page_btn my_login_button_2 mt-2 mx-auto text-light px-3 py-1 border border-light" v-if="this.pageShow < this.pageN && !this.isLoading" @click="this.nextPage()">More results</button>
                 </div>
         
             </div>
