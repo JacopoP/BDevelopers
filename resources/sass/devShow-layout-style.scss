@@ -16,16 +16,10 @@ ul{
     padding: 0;
     margin: 0;
 }
-
-// class color 
-._blue {
-    background-color: $brand_third;
-}
-._secondary{
-    background-color: $brand_secondary;
-}
-._rosa {
-    background-color: $brand_fourth;
+a {
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
 }
 
 img {

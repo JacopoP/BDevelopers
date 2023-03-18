@@ -25,6 +25,7 @@ export default{
     data(){
         return{
             show: false,
+            borderColor: true,
         }
     },
     methods:{
@@ -33,15 +34,15 @@ export default{
             setTimeout(() => {
                 this.show = false;
             }, 2000)
-        }
+        },
     }
 }
 </script>
 
 <template>
-    <form class="d-flex flex-column gap-4" method="post" @submit.prevent="submit">
+    <form class="d-flex flex-column align-items-center gap-4" method="post" @submit.prevent="showMessage(); submit();">
         
-        <div class="my_text_input_label">
+        <div class="my_text_input_label w-100">
 
             <InputLabel class="my_input_label bg-dark" for="full_name" value="Username" />
 
@@ -53,55 +54,41 @@ export default{
                 autocomplete="last"
             />
 
-            </div>
+        </div>
 
-        <div class="my_text_input_label">
+        <div class="my_text_input_label w-100">
 
             <InputLabel class="my_input_label bg-dark" for="text" value="Text" />
 
             <textarea 
                 id="text"
                 type="text" 
+                :class="borderColor ? 'border-secondary' : 'border-danger'"
                 class="border border-2 border-secondary bg-dark text-light rounded mt-1 px-3 py-2 w-100" 
                 v-model="form.text"  
                 autocomplete="last"
                 cols="30" rows="5" 
             ></textarea>
-
+            
         </div>
 
-
-        <input @click="showMessage()" class="btn _button btn-primary rounded-pill my_login_button text-light" type="submit" value="Send a Review">
+        <!-- Button SUBMIT -->
+        <div>
+            <input class="my_login_button btn btn-primary rounded-pill text-light px-3 py-2" type="submit" value="Send a Review">
+        </div>
 
     </form>
-    <div v-if="show && form.text !== null" class="fw-bold text-center text-secondary" style="--bs-text-opacity: .4;">
-        <p>
+
+    <div v-if="show" class="fw-bold text-center text-secondary" style="--bs-text-opacity: .4;">
+        <p v-if="show && form.text !== null">
             Thank you for your review!!
+        </p>
+        <p v-if="form.text == null" class="fw-bold text-danger">
+            Add Text
         </p>
     </div>
 </template>
 
 <style lang="scss" scoped>
-// @use 'resources/sass/variable.scss' as *;
-@use '../../../../resources/sass/devShow-layout-style.scss' as *;
-@use '../../../../resources/sass/form-style.scss';
-
-.layout {
-    width: 100%;
-    border-radius: 10px;
-}
-
-label {
-    position: relative;
-    top: 10px;
-    background: $brand_background;
-    padding: 0 8px;
-}
-
-._button {
-    padding: 10px;
-    border-radius: 20px;
-    margin-top: 15px;
-    width: 100%;
-}
+@use 'resources/sass/form-style.scss';
 </style>

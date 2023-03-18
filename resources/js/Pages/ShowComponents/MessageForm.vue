@@ -40,10 +40,10 @@ export default{
 </script>
 
 <template>
-    <form class="d-flex flex-column gap-4" method="post" @submit.prevent="submit">
+    <form class="d-flex flex-column align-items-center gap-4" method="post" @submit.prevent="showMessage(); submit();">
 
         <!-- Username -->
-        <div class="my_text_input_label">
+        <div class="my_text_input_label w-100">
 
             <InputLabel class="my_input_label bg-dark" for="full_name" value="Username" />
 
@@ -58,7 +58,7 @@ export default{
         </div>
 
         <!-- Email -->
-        <div class="my_text_input_label">
+        <div class="my_text_input_label w-100">
 
             <InputLabel class="my_input_label bg-dark" for="email" value="Your Email" />
 
@@ -77,7 +77,8 @@ export default{
 
             <InputLabel class="my_input_label bg-dark" for="message_text" value="Message Text" />
 
-            <textarea 
+            <textarea
+
                 id="message_text"
                 type="text" 
                 class="border border-2 border-secondary bg-dark text-light rounded mt-1 px-3 py-2 w-100" 
@@ -87,37 +88,29 @@ export default{
             ></textarea>
 
         </div>
-
-        <input @click="showMessage()" class="btn _button btn-primary rounded-pill _blue text-light" type="submit" value="Send a Message">
+        <!-- Button SUBMIT -->
+        <div>
+            <input class="my_login_button btn btn-primary rounded-pill text-light px-3 py-2" type="submit" value="Send a Message">
+        </div>
+        <div v-if="show" class="fw-bold text-center text-secondary" style="--bs-text-opacity: .4;">
+            <p v-if="show && form.full_name !== null && form.email !== null && form.text !== null">
+                Thank you for your message!!
+            </p>
+            <p v-if="form.full_name == null" class="text-danger">
+                Add Name
+            </p>
+            <p v-if="form.email == null" class="text-danger">
+                Add Email
+            </p>
+            <p v-if="form.text == null" class="text-danger">
+                Add Message Text
+            </p>
+        </div>
     </form>
-    <div v-if="show && form.full_name !== null && form.email !== null && form.text !== null" class="fw-bold text-center text-secondary" style="--bs-text-opacity: .4;">
-        <p>
-            Thank you for your message!!
-        </p>
-    </div>
 </template>
 
 <style lang="scss" scoped>
-// @use 'resources/sass/variable.scss' as *;
-@use '../../../../resources/sass/devShow-layout-style.scss' as *;
-@use '../../../../resources/sass/form-style.scss';
+@use 'resources/sass/form-style.scss' as *;
 
-label {
-    position: relative;
-    top: 10px;
-    background: $brand_background;
-    padding: 0 8px;
-}
 
-.layout {
-    width: 100%;
-    border-radius: 10px;
-}
-
-._button {
-    padding: 10px;
-    border-radius: 20px;
-    margin-top: 15px;
-    width: 100%;
-}
 </style>

@@ -40,12 +40,6 @@ function submit() {
     }
 };
 
-// PoP UP
-// function myFunction() {
-//     var popup = document.getElementById("myPopup");
-//     popup.classList.toggle("show");
-// }
-
 </script>
     
 <script>
@@ -67,44 +61,11 @@ export default {
             <!-- contacts -->
             <div class="container mt-5 py-5">
 
-                <div class="position-relative d-flex justify-content-around align-items-center flex-column flex-lg-row gap-5">
+                <div class="d-flex justify-content-around align-items-center flex-column flex-lg-row gap-5">
 
                     <div class="d-flex flex-lg-row align-items-lg-center gap-lg-3 flex-column">
-                        <div class="popup"
-                            @click="myFunction()">
+                        <div>
                             <img class="img_profile rounded-circle shadow " :src="'storage/' + dati.profile_path">
-                            
-                            <!-- PoP Up -->
-
-                            <!-- <div class="my_popuptext my_login_button text-dark p-4 shadow" id="myPopup">
-                                
-                                <img class="img_profile rounded-circle shadow" :src="'storage/' + dati.profile_path">
-                                <form class="d-flex justify-content-between" method="post" enctype="multipart/form-data"
-                                    @submit.prevent="form.post(route('profile.dev.store'))">
-
-                                    <div>
-                                        Profile IMG
-                                        <div class="mx-auto">
-                                            <label for="profile_path"
-                                                class="my_login_button_2 px-3 py-1 rounded-pill text-light btn btn-secondary border-0">Upload
-                                                Image</label>
-                                        </div>
-                                        <input id="profile_path" class="form-control border-dark rounded-pill" type="file"
-                                            name="profile_path" @input="form.profile_path = $event.target.files[0]">
-                                        </div>
-                                        
-                                        Submit
-                                        <div class="d-flex justify-content-center"
-                                            v-if="form.address == null && form.phone_number == null && form.portfolio_url == null && form.about_me == null && form.performances == null">
-                                            <input class="my_login_button_2 btn btn-secondary rounded-pill text-light border-0" type="submit"
-                                                value="SEND">
-                                        </div>
-                                </form>
-
-                            </div> -->
-
-                            
-                            
                         </div>
                         <!-- INFO -->
                         <div v-if="dati.address !== null || dati.phone_number !== null || dati.portfolio_url !==null" class="d-flex flex-column align-items-start gap-5">
@@ -176,7 +137,7 @@ export default {
                 <div class="d-flex flex-column align-items-center gap-4">
                     <h3 class="text-light">My Reviews</h3>
                     <ul class="text-light d-inline-flex gap-4 overflow-auto" style="max-width: 100%; min-height: 100px;">
-                        <li v-for="review in dati.reviews" class="text-start card rounded _secondary py-3 px-5 shadow"
+                        <li v-for="review in dati.reviews" class="my_background_secondary text-start card rounded py-3 px-5 shadow"
                             style="min-width: 350px; max-width: 350px;">
 
                             <div class="d-flex justify-content-start">
@@ -223,7 +184,7 @@ export default {
 
 <style lang="scss">
 // @use 'resources/sass/variable.scss' as *;
-@use '../../../resources/sass/devShow-layout-style.scss' as *;
+@use 'resources/sass/devShow-layout-style.scss' as *;
 @use 'resources/sass/form-style.scss';
 
 body {
@@ -246,38 +207,4 @@ img.img_profile {
     width: 400px;
 }
 
-a {
-    color: $brand_secondary;
-    padding: 10px;
-    border-radius: 20px;
-    // margin-top: 15px;
-    text-decoration: none;
-}
-
-
-
-
-/*PoP Up */
-// .my_popuptext {
-//     display: none;
-//     max-width: 460px;
-//     text-align: center;
-//     border-radius: 6px;
-//     padding: 8px 0;
-//     margin-left: -80px;
-//     position: absolute;
-//     top: 50%;
-//     left: 55%;
-//     transform: translate(-50%, -50%);
-// }
-
-// /* Toggle this class when clicking on the popup container (hide and show the popup) */
-// .popup .show {
-//     display: block;
-// }
-
-// // To remove from display input file 
-// input[type="file"] {
-//     display: none;
-// }
 </style>
