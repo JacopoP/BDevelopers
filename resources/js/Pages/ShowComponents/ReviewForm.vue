@@ -8,16 +8,16 @@ const props = defineProps([
 ]);
 
 const form = useForm({
-    text: null,
-    full_name: null,
+    text: '',
+    full_name: '',
 });
 
 function submit() {
-    if (form.text !== null) {
+    if (form.text !== '') {
         form.post(route('review.store', props.developer.id));
         // Clear Form
-        form.full_name = null;
-        form.text = null;
+        form.full_name = '';
+        form.text = '';
     }
 }
 
@@ -34,7 +34,7 @@ export default{
     },
     methods:{
         showMessage(e){
-            if(e == null){
+            if(e == ''){
                 this.show = true;
                 this.send_success = false;
                 this.borderColor = false;
@@ -43,7 +43,7 @@ export default{
                     this.borderColor = true;
                 }, 10000)
             }
-            if(e !== null){
+            if(e !== ''){
                 this.show = true;
                 this.send_success = true;
                 this.borderColor = true;
