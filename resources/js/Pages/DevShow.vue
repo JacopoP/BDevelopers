@@ -40,10 +40,11 @@ function submit() {
     }
 };
 
-function myFunction() {
-    var popup = document.getElementById("myPopup");
-    popup.classList.toggle("show");
-}
+// PoP UP
+// function myFunction() {
+//     var popup = document.getElementById("myPopup");
+//     popup.classList.toggle("show");
+// }
 
 </script>
     
@@ -62,33 +63,34 @@ function myFunction() {
                             @click="myFunction()">
                             <img class="img_profile rounded-circle shadow " :src="'storage/' + dati.profile_path">
                             
-                            <!-- Pop -->
-                            <div class="my_popuptext text-dark" id="myPopup">
+                            <!-- PoP Up -->
+
+                            <!-- <div class="my_popuptext my_login_button text-dark p-4 shadow" id="myPopup">
                                 
                                 <img class="img_profile rounded-circle shadow" :src="'storage/' + dati.profile_path">
                                 <form class="d-flex justify-content-between" method="post" enctype="multipart/form-data"
                                     @submit.prevent="form.post(route('profile.dev.store'))">
 
                                     <div>
-                                        <!-- Profile IMG -->
+                                        Profile IMG
                                         <div class="mx-auto">
                                             <label for="profile_path"
-                                                class="my_login_button px-3 py-1 rounded-pill text-light cursor-pointer">Upload
+                                                class="my_login_button_2 px-3 py-1 rounded-pill text-light btn btn-secondary border-0">Upload
                                                 Image</label>
                                         </div>
                                         <input id="profile_path" class="form-control border-dark rounded-pill" type="file"
                                             name="profile_path" @input="form.profile_path = $event.target.files[0]">
                                         </div>
                                         
-                                        <!-- Submit -->
+                                        Submit
                                         <div class="d-flex justify-content-center"
                                             v-if="form.address == null && form.phone_number == null && form.portfolio_url == null && form.about_me == null && form.performances == null">
-                                            <input class="my_login_button btn btn-secondary rounded-pill text-light border-0" type="submit"
+                                            <input class="my_login_button_2 btn btn-secondary rounded-pill text-light border-0" type="submit"
                                                 value="SEND">
                                         </div>
                                 </form>
 
-                            </div>
+                            </div> -->
 
                             <div class="d-flex flex-column align-items-start gap-3">
                                 <h4 class="text-light">Address:
@@ -227,28 +229,27 @@ a {
 
 
 
-/*popup */
-.my_popuptext {
-    display: none;
-    max-width: 460px;
-    background-color: white;
-    text-align: center;
-    border-radius: 6px;
-    padding: 8px 0;
-    margin-left: -80px;
-    position: absolute;
-    top: 50%;
-    left: 55%;
-    transform: translate(-50%, -50%);
-}
+/*PoP Up */
+// .my_popuptext {
+//     display: none;
+//     max-width: 460px;
+//     text-align: center;
+//     border-radius: 6px;
+//     padding: 8px 0;
+//     margin-left: -80px;
+//     position: absolute;
+//     top: 50%;
+//     left: 55%;
+//     transform: translate(-50%, -50%);
+// }
 
-/* Toggle this class when clicking on the popup container (hide and show the popup) */
-.popup .show {
-    display: block;
-}
+// /* Toggle this class when clicking on the popup container (hide and show the popup) */
+// .popup .show {
+//     display: block;
+// }
 
-// To remove from display input file 
-input[type="file"] {
-    display: none;
-}
+// // To remove from display input file 
+// input[type="file"] {
+//     display: none;
+// }
 </style>
