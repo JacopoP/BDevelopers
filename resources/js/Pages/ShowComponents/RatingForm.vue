@@ -42,7 +42,8 @@ export default{
                 :star-points="[23,2, 14,17, 0,19, 10,34, 7,50, 23,43, 38,50, 36,34, 46,19, 31,17]" 
                 :active-on-click="true" 
                 :clearable="true" 
-                :padding="5"
+                :show-rating="false"
+                :star-size="25"
                 ></star-rating>
             </div>
         </div>
