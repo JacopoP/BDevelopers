@@ -57,7 +57,6 @@ export default {
                 .then((res) => {
                     this.developers = res.data.response.developers.data;
                     this.pageN = res.data.response.developers.last_page;
-                    console.log(res.data);
                     this.pageShow=1;
                     this.isLoading=false;
                 })
@@ -76,7 +75,6 @@ export default {
             axios.get(api + 'search', { params })
                 .then((res) => {
                     this.developers = this.developers.concat(res.data.response.developers.data);
-                    console.log(res.data);
                     this.isLoading=false;
                 })
                 .catch((err) => console.log(err));
