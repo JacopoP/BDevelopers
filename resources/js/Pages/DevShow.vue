@@ -131,9 +131,14 @@ export default {
                                 </div>
                             </div>
 
-                            <div>
-                                <a class="btn btn-danger my_register_button border-0 rounded-pill text-light px-3 py-2" :href="dati.portfolio_url" v-if="dati.portfolio_url">
+                            <div class="d-flex justify-content-between w-100">
+                                <a class="btn btn-danger my_register_button border-0 rounded-pill text-light px-3 py-2" :href="dati.portfolio_url" v-if="dati.portfolio_url !== null">
                                     Show my portfolio
+                                </a>
+
+                                <!-- CV -->
+                                <a class="btn btn-outline-secondary rounded-pill d-flex align-items-center"
+                                    :href="'storage/' + dati.cv_path" download>Download CV
                                 </a>
                             </div>
                         </div>
@@ -148,26 +153,24 @@ export default {
                 </div>
 
                 <!-- Curriculum etc... -->
-                <div class="_line my_login_button my-5 rounded-pill w-100" style="height: 3px;"></div>
+                <div class="_line my_login_button_2 my-5 rounded-pill w-100 shadow" style="height: 3px;"></div>
 
                 <div class="d-flex flex-column gap-4">
-                    <div class="d-flex flex-column flex-lg-row justify-content-between mt-4">
-                        <div class="order-2 order-lg-1 text-light">{{ dati.about_me }}</div>
-                        <h3 class="order-1 order-lg-2 col-lg-3 text-light text-start text-lg-end">"About me"</h3>
+                    <!-- About -->
+                    <div class="d-flex flex-column gap-3 flex-lg-row gap-lg-0 justify-content-between my_login_button p-3 rounded mt-4">
+                        <div class="order-2 order-lg-2 text-light">{{ dati.about_me }}</div>
+                        <h3 class="order-1 order-lg-1 col-lg-3 text-light">"About me"</h3>
                     </div>
-                    <div class="d-flex justify-content-between mt-4">
-                        <h3 class="col-3 text-light">"Curriculum"</h3>
-                        <a class="btn btn-outline-secondary rounded-pill d-flex align-items-center"
-                            :href="'storage/' + dati.cv_path" download>Download CV</a>
-                    </div>
-                    <div class="d-flex flex-column flex-lg-row justify-content-between mt-4">
+                    
+                    <!-- My Performance -->
+                    <div class="d-flex flex-column gap-3 flex-lg-row gap-lg-0 justify-content-between my_login_button p-3 rounded mt-4">
                         <div class="order-2 order-lg-1 text-light">{{ dati.performances }}</div>
                         <h3 class="order-1 order-lg-2 col-lg-3 text-light text-start text-lg-end">"My Performances"</h3>
                     </div>
 
                 </div>
 
-                <div class="_line my_login_button mt-5 mb-3 rounded-pill w-100" style="height: 3px;"></div>
+                <div class="_line my_login_button_2 mt-5 mb-3 rounded-pill w-100 shadow" style="height: 3px;"></div>
 
                 <!-- Reviews -->
                 <div class="d-flex flex-column align-items-center gap-4">
@@ -187,7 +190,7 @@ export default {
                     </ul>
                 </div>
 
-                <div class="_line my_login_button my-5 rounded-pill w-100" style="height: 3px;"></div>
+                <div class="_line my_login_button_2 my-5 rounded-pill w-100 shadow" style="height: 3px;"></div>
 
                 <!-- reviews, ratings e message send -->
                 <div id="ancor" class="d-flex flex-column gap-5 flex-lg-row gap-lg-0 justify-content-between mt-5">
@@ -251,12 +254,6 @@ a {
     text-decoration: none;
 }
 
-
-._line {
-    width: 80%;
-    margin: 0 auto;
-    height: 2px;
-}
 
 
 
