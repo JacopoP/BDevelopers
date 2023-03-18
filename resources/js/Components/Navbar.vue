@@ -98,12 +98,12 @@ export default {
         white-space: nowrap;
         text-overflow: clip;
         opacity: 0;
-        transition: all .2s ease;
+        transition: all .3s ease;
     }
 
     &:hover .volatile {
-        width: 4rem;
-        height: 4.7rem;
+        width: 100%;
+        height: 100%;
         opacity: 1;
     }
 
