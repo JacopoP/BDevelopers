@@ -40,7 +40,7 @@ export default {
 
             axios.get(api + 'search', { params })
                 .then((res) => {
-                    this.developers = res.data.response.developers
+                    this.developers = res.data.response.developers.data;
                 })
                 .catch((err) => console.log(err));
         },
