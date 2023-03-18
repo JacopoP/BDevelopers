@@ -26,14 +26,37 @@ export default{
     data(){
         return{
             show: false,
+            borderColorName: true,
+            borderColorEmail: true,
+            borderColorText: true,
         }
     },
     methods:{
-        showMessage(){
-            this.show = true;
-            setTimeout(() => {
-                this.show = false;
-            }, 2000)
+        showMessage(name, email, text){
+            if(name == null){
+                this.show = true;
+                this.borderColorName = false;
+                setTimeout(() => {
+                    this.show = false;
+                    this.borderColorName = true;
+                }, 2000)
+            }
+            else if(name !== null){
+                this.show = true;
+
+                setTimeout(() => {
+                    this.show = false;
+
+                }, 2000)
+            }
+            if(email == null){
+                this.show = true;
+                this.borderColorEmail = false;
+                setTimeout(() => {
+                    this.show = false;
+                    this.borderColorEmail = true;
+                }, 2000)
+            }
         }
     }
 }
@@ -51,6 +74,7 @@ export default{
                 id="full_name"
                 type="text" 
                 class="border bg-dark text-light rounded mt-1 w-100" 
+                :class="borderColorName ? 'border-secondary' : 'border-danger'"
                 v-model="form.full_name"  
                 autocomplete="last"
             />
@@ -66,6 +90,7 @@ export default{
                 id="email"
                 type="text" 
                 class="border bg-dark text-light rounded mt-1 w-100" 
+                :class="borderColorEmail ? 'border-secondary' : 'border-danger'"
                 v-model="form.email"  
                 autocomplete="last"
             />
@@ -82,6 +107,7 @@ export default{
                 id="message_text"
                 type="text" 
                 class="border border-2 border-secondary bg-dark text-light rounded mt-1 px-3 py-2 w-100" 
+                :class="borderColorText ? 'border-secondary' : 'border-danger'"
                 v-model="form.text"  
                 autocomplete="last"
                 cols="30" rows="5" 
