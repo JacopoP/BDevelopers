@@ -19,7 +19,8 @@ export default {
         return {
             name: 'IndexPage',
             developers: [],
-            nextPageLink: '',
+            pageShow: 1,
+            pageN: 0,
             nameFilter: this.data.name != undefined ? this.data.name : '',
             ratingFilter: 0,
             reviewFilter: 0,
@@ -44,16 +45,36 @@ export default {
             this.post.reviewFilter = this.reviewFilter;
             this.post.techFilter = this.techFilter;
 
-            let params = this.post;
+            const params = {
+                post: this.post,
+                page: 1,
+            }
 
             axios.get(api + 'search', { params })
                 .then((res) => {
                     this.developers = res.data.response.developers.data;
-                    this.nextPageLink = res.data.response.developers.next_page_url;
+                    this.pageN = res.data.response.developers.last_page;
                     console.log(res.data);
+                    this.pageShow=1;
                 })
                 .catch((err) => console.log(err));
         },
+
+        nextPage: function(){
+            this.pageShow++;
+
+            const params = {
+                post: this.post,
+                page: this.pageShow,
+            }
+
+            axios.get(api + 'search', { params })
+                .then((res) => {
+                    this.developers = this.developers.concat(res.data.response.developers.data);
+                    console.log(res.data);
+                })
+                .catch((err) => console.log(err));
+        }
 
     },
     mounted() {
@@ -171,7 +192,7 @@ export default {
                                     </div>
                                 </div>
                             </div>
-                            <a :href="this.nextPageLink">Next Page</a>
+                            <button v-if="this.pageShow < this.pageN" @click="this.nextPage()">Next Page</button>
                         </div>
                     </div>
                 </div>

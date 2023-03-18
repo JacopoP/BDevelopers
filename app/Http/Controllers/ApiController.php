@@ -16,7 +16,7 @@ class ApiController extends Controller
 {
 
     public function filter(Request $request){
-        $data = $request->all();
+        $data = $request->post;
         $techN=0;
         $techList=[];
 
