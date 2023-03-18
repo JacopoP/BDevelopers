@@ -14,7 +14,10 @@ const form = useForm({
 
 function submit() {
     if (form.text !== null) {
-        form.post(route('review.store', props.developer.id))
+        form.post(route('review.store', props.developer.id));
+        // Clear Form
+        form.full_name = '';
+        form.text = '';
     }
 }
 
@@ -29,22 +32,33 @@ export default{
         }
     },
     methods:{
-        showMessage(){
-            this.show = true;
-            setTimeout(() => {
-                this.show = false;
-            }, 2000)
+        showMessage(e){
+            if(e == null){
+                this.show = true;
+                this.borderColor = false;
+                setTimeout(() => {
+                    this.show = false;
+                    this.borderColor = true;
+                }, 2000)
+            }
+            if(e !== null){
+                this.show = true;
+                setTimeout(() => {
+                    this.show = false;
+                }, 2000)
+            }
         },
+
     }
 }
 </script>
 
 <template>
-    <form class="d-flex flex-column align-items-center gap-4" method="post" @submit.prevent="showMessage(); submit();">
+    <form class="d-flex flex-column align-items-center gap-4" method="post" @submit.prevent="showMessage(form.text); submit();">
         
         <div class="my_text_input_label w-100">
 
-            <InputLabel class="my_input_label bg-dark" for="full_name" value="Username" />
+            <InputLabel class="my_input_label bg-dark" for="full_name" value="Name" />
 
             <TextInput
                 id="full_name"
