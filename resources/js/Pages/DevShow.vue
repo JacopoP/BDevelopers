@@ -48,13 +48,24 @@ function submit() {
 
 </script>
     
+<script>
+export default {
+  methods: {
+    copyText(id) {
+      const testoDaCopiare = document.querySelector(`#${id}`)
+      navigator.clipboard.writeText(testoDaCopiare.innerText)
+    }
+  }
+}
+</script>
+
 <template>
     <AuthenticatedLayout>
 
         <template #main>
 
             <!-- contacts -->
-            <div class="container mt-5 pt-5">
+            <div class="container mt-5 py-5">
 
                 <div class="position-relative d-flex justify-content-around align-items-center flex-column flex-lg-row gap-5">
 
@@ -101,12 +112,22 @@ function submit() {
                             <div class="d-flex flex-column align-items-start gap-3">
                                 <div v-if="dati.address !== null" class="my_login_button d-flex align-items-center rounded px-3 py-2 gap-3" style="max-width: 350px;">
                                     <h5 class="text-light fs-6 w-50">Address:</h5>
-                                    <p class="fs-6 text-secondary m-0 text-truncate">{{dati.address}}</p>
+                                    <p id="copyAddress" class="fs-6 text-secondary m-0 text-truncate">{{dati.address}}</p>
+
+                                    <!-- Copy -->
+                                    <button class="my_login_button btn btn-secondary text-light border-0" @click="copyText('copyAddress')">
+                                        <i class="fa-regular fa-copy"></i>
+                                    </button>
                                 </div>
     
                                 <div v-if="dati.phone_number !== null" class="my_login_button d-flex align-items-center rounded px-3 py-2 gap-3" style="max-width: 350px;">
                                     <h5 class="text-light fs-6 w-50"> Phone number:</h5>
-                                    <p class="fs-6 text-secondary m-0 text-truncate">{{dati.phone_number}}</p>
+                                    <p id="copyPhoneNumber" class="fs-6 text-secondary m-0 text-truncate">{{dati.phone_number}}</p>
+
+                                    <!-- Copy -->
+                                    <button class="my_login_button btn btn-secondary text-light border-0" @click="copyText('copyPhoneNumber')">
+                                        <i class="fa-regular fa-copy"></i>
+                                    </button>
                                 </div>
                             </div>
 

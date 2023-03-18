@@ -10,7 +10,8 @@ import { ZiggyVue } from '../../vendor/tightenco/ziggy/dist/vue.m';
 
 import {library} from '@fortawesome/fontawesome-svg-core';
 import {faEye, faEyeSlash} from '@fortawesome/free-solid-svg-icons';
-library.add(faEye, faEyeSlash);
+import {faCopy} from '@fortawesome/free-regular-svg-icons';
+library.add(faEye, faEyeSlash, faCopy);
 import { dom } from "@fortawesome/fontawesome-svg-core";
 dom.watch();
 
