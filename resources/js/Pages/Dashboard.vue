@@ -113,7 +113,7 @@ function myGetTime(stringa) {
     return result;
 }
 
-function myRatingsAvg(array) {
+function myRatingsAv(array) {
     let somma = null;
     array.forEach(rating => {
         // the elements of the data.ratings array are objects;
@@ -123,9 +123,23 @@ function myRatingsAvg(array) {
 
     console.log(somma);
     let media = somma / array.length;
-    media = Math.floor(media);
 
-    return (media);
+
+    let scarto = media - Math.floor(media);
+
+    if (scarto <= 0.25) {
+        scarto = 0;
+
+    } else if (scarto > 0.25 && scarto <= 0.75) {
+        scarto = 0.5;
+
+    } else {
+        scarto = 1;
+
+    };
+
+
+    return (Math.floor(media) + scarto);
 }
 
 
@@ -145,13 +159,16 @@ function myRatingsAvg(array) {
 
             <div class="sfondo">
                 <!-- <header class="d-flex justify-between ">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <h1>Your profile</h1>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </header> -->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <h1>Your profile</h1>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </header> -->
                 <div class="container p-0">
 
                     <main class="d-flex justify-content-center">
                         <!-- <main class="d-flex justify-between"> -->
                         <div class="sinistra  overflow-scroll" v-if="(data.reviews).length || (data.messages).length">
+
+
+
 
                             <!-- reviews -->
                             <div class="my-cornice" v-if="(data.reviews).length">
@@ -197,10 +214,6 @@ function myRatingsAvg(array) {
                                             anonymous
                                         </div>
                                         <a href="mailto:{{ message.email }}" class="email">{{ message.email }}</a>
-                                        <!-- <div class="email">
-                                                                                                                                                                {{ message.email }}
-
-                                                                                                                                                            </div> -->
                                         <p>
                                             {{ message.text }}
                                         </p>
@@ -276,15 +289,19 @@ function myRatingsAvg(array) {
                             </div>
                             <!-- ratings -->
                             <div class="my-cornice">
-                                <div>
+                                <div>You've got
                                     <b>
-                                        Average
+                                        {{ data.ratings.length }}
                                     </b>
+                                    ratings!
                                 </div>
-                                <b>{{ myRatingsAvg(data.ratings) }}</b>
-                                <div v-for="rating in data.ratings" class="dato">
-                                    {{ rating.value }}
+                                <div>
+                                    Average:
                                 </div>
+                                <div class="d-flex align-text-bottom">
+                                    <h2>{{ myRatingsAv(data.ratings) }}</h2>/5
+                                </div>
+
                             </div>
                         </div>
                     </main>
