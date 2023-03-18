@@ -16,8 +16,8 @@ function submit() {
     if (form.text !== null) {
         form.post(route('review.store', props.developer.id));
         // Clear Form
-        form.full_name = '';
-        form.text = '';
+        form.full_name = null;
+        form.text = null;
     }
 }
 
@@ -29,23 +29,27 @@ export default{
         return{
             show: false,
             borderColor: true,
+            send_success: false
         }
     },
     methods:{
         showMessage(e){
             if(e == null){
                 this.show = true;
+                this.send_success = false;
                 this.borderColor = false;
                 setTimeout(() => {
                     this.show = false;
                     this.borderColor = true;
-                }, 2000)
+                }, 10000)
             }
             if(e !== null){
                 this.show = true;
+                this.send_success = true;
+                this.borderColor = true;
                 setTimeout(() => {
                     this.show = false;
-                }, 2000)
+                }, 10000)
             }
         },
 
@@ -78,7 +82,7 @@ export default{
                 id="text"
                 type="text" 
                 :class="borderColor ? 'border-secondary' : 'border-danger'"
-                class="border border-2 border-secondary bg-dark text-light rounded mt-1 px-3 py-2 w-100" 
+                class="border border-2 bg-dark text-light rounded mt-1 px-3 py-2 w-100" 
                 v-model="form.text"  
                 autocomplete="last"
                 cols="30" rows="5" 
@@ -94,10 +98,10 @@ export default{
     </form>
 
     <div v-if="show" class="fw-bold text-center text-secondary" style="--bs-text-opacity: .4;">
-        <p v-if="form.text !== null">
+        <p v-if="send_success">
             Thank you for your review!!
         </p>
-        <p v-if="form.text == null" class="fw-bold text-danger">
+        <p v-else class="fw-bold text-danger">
             Add Text
         </p>
     </div>
