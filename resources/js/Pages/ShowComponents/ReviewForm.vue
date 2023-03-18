@@ -94,7 +94,7 @@ export default{
     </form>
 
     <div v-if="show" class="fw-bold text-center text-secondary" style="--bs-text-opacity: .4;">
-        <p v-if="show && form.text !== null">
+        <p v-if="form.text !== null">
             Thank you for your review!!
         </p>
         <p v-if="form.text == null" class="fw-bold text-danger">
