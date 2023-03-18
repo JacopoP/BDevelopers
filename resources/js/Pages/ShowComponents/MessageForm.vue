@@ -21,6 +21,24 @@ function submit() {
 
 </script>
 
+<script>
+export default{
+    data(){
+        return{
+            show: false,
+        }
+    },
+    methods:{
+        showMessage(){
+            this.show = true;
+            setTimeout(() => {
+                this.show = false;
+            }, 2000)
+        }
+    }
+}
+</script>
+
 <template>
     <form class="d-flex flex-column gap-4" method="post" @submit.prevent="submit">
 
@@ -70,8 +88,13 @@ function submit() {
 
         </div>
 
-        <input class="btn _button btn-primary rounded-pill _blue text-light" type="submit" value="Send a Message">
+        <input @click="showMessage()" class="btn _button btn-primary rounded-pill _blue text-light" type="submit" value="Send a Message">
     </form>
+    <div v-if="show && form.full_name !== null && form.email !== null && form.text !== null" class="fw-bold text-center text-secondary" style="--bs-text-opacity: .4;">
+        <p>
+            Thank you for your message!!
+        </p>
+    </div>
 </template>
 
 <style lang="scss" scoped>

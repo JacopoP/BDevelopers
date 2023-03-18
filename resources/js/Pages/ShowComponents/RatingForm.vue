@@ -10,6 +10,24 @@ const form = useForm({
 });
 </script>
 
+<script>
+export default{
+    data(){
+        return{
+            show: false,
+        }
+    },
+    methods:{
+        showMessage(){
+            this.show = true;
+            setTimeout(() => {
+                this.show = false;
+            }, 2000)
+        }
+    }
+}
+</script>
+
 <template>
     <form method="post" @submit.prevent="form.post(route('rating.store', developer.id))">
         <div class="d-flex align-items-center gap-3">
@@ -28,8 +46,13 @@ const form = useForm({
                 ></star-rating>
             </div>
         </div>
-        <input class="btn _button btn-primary rounded-pill _blue text-light" type="submit" value="Send Rating">
+        <input @click="showMessage()" class="btn _button btn-primary rounded-pill _blue text-light" type="submit" value="Send Rating">
     </form>
+    <div v-if="show" class="fw-bold text-center text-secondary" style="--bs-text-opacity: .4;">
+        <p>
+            Saved
+        </p>
+    </div>
 </template>
 
 

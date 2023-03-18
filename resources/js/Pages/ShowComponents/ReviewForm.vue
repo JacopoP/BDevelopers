@@ -20,9 +20,41 @@ function submit() {
 
 </script>
 
+<script>
+export default{
+    data(){
+        return{
+            show: false,
+        }
+    },
+    methods:{
+        showMessage(){
+            this.show = true;
+            setTimeout(() => {
+                this.show = false;
+            }, 2000)
+        }
+    }
+}
+</script>
+
 <template>
     <form class="d-flex flex-column gap-4" method="post" @submit.prevent="submit">
         
+        <div class="my_text_input_label">
+
+            <InputLabel class="my_input_label bg-dark" for="full_name" value="Username" />
+
+            <TextInput
+                id="full_name"
+                type="text" 
+                class="border bg-dark text-light rounded mt-1 w-100" 
+                v-model="form.full_name"  
+                autocomplete="last"
+            />
+
+            </div>
+
         <div class="my_text_input_label">
 
             <InputLabel class="my_input_label bg-dark" for="text" value="Text" />
@@ -38,22 +70,15 @@ function submit() {
 
         </div>
 
-        <div class="my_text_input_label">
 
-            <InputLabel class="my_input_label bg-dark" for="full_name" value="Username" />
+        <input @click="showMessage()" class="btn _button btn-primary rounded-pill my_login_button text-light" type="submit" value="Send a Review">
 
-            <TextInput
-                id="full_name"
-                type="text" 
-                class="border bg-dark text-light rounded mt-1 w-100" 
-                v-model="form.full_name"  
-                autocomplete="last"
-            />
-
-        </div>
-
-        <input class="btn _button btn-primary rounded-pill _blue text-light" type="submit" value="Send a Review">
     </form>
+    <div v-if="show && form.text !== null" class="fw-bold text-center text-secondary" style="--bs-text-opacity: .4;">
+        <p>
+            Thank you for your review!!
+        </p>
+    </div>
 </template>
 
 <style lang="scss" scoped>
