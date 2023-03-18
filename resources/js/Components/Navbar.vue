@@ -1,6 +1,11 @@
 <script>
 export default {
     name: "Navbar",
+    props: {
+        // If user is logged, 
+        // an Auth::user will be passaed to the prop below
+        auth_user: Object,
+    }
 }
 </script>
 
@@ -18,14 +23,12 @@ export default {
         <!-- NavBar RIGHT-->
         <nav class="right">
 
-            <!-- BDevelopers logo + title -->
-            <!-- <a class="btn btn-dark shadow-sm shadow-lg mx-3" href="/login">Login</a> -->
-
-            <!-- BDevelopers logo + title -->
-            <!-- <a class="btn btn-dark shadow-sm shadow-lg" href="/register">Register</a> -->
-
             <div class="card text-white bg-dark overflow-hidden">
+
+                <!-- Card Header (profile pic + name) -->
                 <div class="card-header d-flex justify-content-between p-0">
+
+                    <!-- Name/welcome -->
                     <div class="card-info volatile">
                         <div class="m-3">
                             <template v-if="auth_user">
@@ -36,10 +39,18 @@ export default {
                             </template>
                         </div>
                     </div>
-                    <img v-if="auth_user" class="card-profile" src="http://placeimg.com/400/400/people" alt="Card image cap">
+
+                    <!-- Profile pic -->
+                    <img v-if="auth_user" class="card-profile" src="http://placeimg.com/400/400/people"
+                        alt="Card image cap">
                     <img v-else class="card-profile" src="../../img/unknown_profile.jpg" alt="">
+
                 </div>
-                <ul class="list-group list-group-flush volatile">
+
+                <!-- Card 'body' (navigation links) -->
+                <ul class="list-group list-group-flush volatile overflow-hidden">
+
+                    <!-- authenticated user links -->
                     <template v-if="auth_user">
                         <a class="list-group-item px-3 bg-dark text-white" href="">
                             Profile Info
@@ -51,6 +62,8 @@ export default {
                             Logout
                         </a>
                     </template>
+
+                    <!-- guest links -->
                     <template v-else>
                         <a class="list-group-item px-3 bg-dark text-white" href="">
                             Login
@@ -59,6 +72,7 @@ export default {
                             Register
                         </a>
                     </template>
+
                 </ul>
             </div>
         </nav>
@@ -67,25 +81,48 @@ export default {
 </template>
 
 <style lang="scss" scoped>
-.left a {
+// Accent outline for main navbar elements
+.left>*,
+.right>* {
     outline: solid 1px #cf815b;
     outline-offset: 2px;
 }
 
+// Right card style
 .right .card {
-    outline: solid 1px #cf815b;
-    outline-offset: 2px;
 
-    width: 100%;
-    height: 100%;
-    transition: all 5s ease;
+    .volatile {
+        width: 0;
+        height: 0;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: clip;
+        opacity: 0;
+        transition: all .2s ease;
+    }
 
-    &:not(:hover) .volatile {
+    &:hover .volatile {
+        width: 4rem;
+        height: 4.7rem;
+        opacity: 1;
+    }
+
+    /* &:not(:hover) .volatile {
         width: 0;
         height: 0;
         opacity: 0;
+    } */
+
+    // Card profile picture
+    .card-profile {
+        position: relative;
+        object-fit: cover;
+        width: 4rem;
+        height: 4rem;
     }
 
+    // Card links
+    // used !important to override Bootstrap
     a {
         &:hover {
             background-color: #cf815b !important;
@@ -98,16 +135,6 @@ export default {
         &:last-child {
             color: #cf815b !important;
         }
-    }
-
-    .card-profile {
-        object-fit: cover;
-        width: 4rem;
-        height: 4rem;
-    }
-
-    &:hover {
-        display: block;
     }
 }
 </style>
