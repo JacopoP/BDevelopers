@@ -4,7 +4,6 @@ import ApplicationLogo from '../Components/ApplicationLogo.vue';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import axios from 'axios';
 import { Link } from '@inertiajs/vue3';
-import { faLessThanEqual } from '@fortawesome/free-solid-svg-icons';
 const apiUrl = 'http://localhost:8000/api/';
 const apiVersion = 'v1/';
 const api = apiUrl + apiVersion;
@@ -83,7 +82,7 @@ export default {
     },
     mounted() {
         if (this.data.tech != undefined) {
-            this.post.techFilter.push(this.data.tech)
+            this.techFilter.push(this.data.tech)
         }
         this.goFilter();
     }
