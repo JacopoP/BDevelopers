@@ -19,7 +19,11 @@ export default {
         return {
             name: 'IndexPage',
             developers: [],
+            nextPageLink: '',
             nameFilter: this.data.name != undefined ? this.data.name : '',
+            ratingFilter: 0,
+            reviewFilter: 0,
+            techFilter: [],
             post: {
                 nFilter: '',
                 lFilter: '',
@@ -36,11 +40,17 @@ export default {
             this.post.nFilter = textArray[0];
             if (textArray.length >= 1) { textArray.shift() };
             this.post.lFilter = textArray.join(' ');
+            this.post.ratingFilter = this.ratingFilter;
+            this.post.reviewFilter = this.reviewFilter;
+            this.post.techFilter = this.techFilter;
+
             let params = this.post;
 
             axios.get(api + 'search', { params })
                 .then((res) => {
                     this.developers = res.data.response.developers.data;
+                    this.nextPageLink = res.data.response.developers.next_page_url;
+                    console.log(res.data);
                 })
                 .catch((err) => console.log(err));
         },
@@ -88,7 +98,7 @@ export default {
                                         <div class="d-inline">
                                             <label for="min-rating" class="my_register_button text-light rounded-pill px-2 py-0">Minimum rating:</label>
                                         </div>
-                                        <select class="form-control border border-0 rounded-pill" v-model="this.post.ratingFilter" id="raitingFilter">
+                                        <select class="form-control border border-0 rounded-pill" v-model="this.ratingFilter" id="raitingFilter">
                                             <option value="0">Any</option>
                                             <option v-for="n in 5" :value="n" :key="n">{{ n }} star{{ n !== 1 ? 's' : '' }}
                                             </option>
@@ -102,7 +112,7 @@ export default {
                                         <div class="d-inline">
                                             <label for="min-reviews" class="my_register_button text-light rounded-pill px-2 py-0" >Minimum reviews:</label>
                                         </div>
-                                        <select class="form-control border border-0 rounded-pill" v-model="this.post.reviewFilter" id="raitingFilter">
+                                        <select class="form-control border border-0 rounded-pill" v-model="this.reviewFilter" id="raitingFilter">
                                             <option value="0">Any</option>
                                             <option value="5">5+</option>
                                             <option value="10">10+</option>
@@ -118,9 +128,9 @@ export default {
                             <div class="d-flex gap-2 text-light">
                                 <div v-for="(technology, index) in this.technologies" :key="index" class="d-flex gap-1 align-items-center">
 
-                                    <input class="d-none" :id="'techFilter[]' + index" type="checkbox" v-model="this.post.techFilter" :value="technology.id">
+                                    <input class="d-none" :id="'techFilter[]' + index" type="checkbox" v-model="this.techFilter" :value="technology.id">
 
-                                    <label class="my_register_button btn rounded-pill" :class="{'text-light': this.post.techFilter.includes(technology.id)}" :for="'techFilter[]' + index ">{{ technology.name }}
+                                    <label class="my_register_button btn rounded-pill" :class="{'text-light': this.techFilter.includes(technology.id)}" :for="'techFilter[]' + index ">{{ technology.name }}
                                     </label>
                                 </div>
                             </div>
@@ -161,6 +171,7 @@ export default {
                                     </div>
                                 </div>
                             </div>
+                            <a :href="this.nextPageLink">Next Page</a>
                         </div>
                     </div>
                 </div>
