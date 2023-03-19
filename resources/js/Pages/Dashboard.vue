@@ -1,3 +1,8 @@
+    
+
+
+
+
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head } from '@inertiajs/vue3';
@@ -33,6 +38,8 @@ const data = {
     messages: props.developer.messages,
     // ratings
     ratings: props.developer.ratings,
+    // technologies
+    technologies: props.developer.technologies,
 
 
 };
@@ -126,22 +133,25 @@ function myRatingsAv(array) {
     console.log(somma);
     let media = somma / array.length;
 
+    let result = {
+        'integer': Math.floor(media),
+        'half': false,
+    }
 
-    let scarto = media - Math.floor(media);
 
-    if (scarto <= 0.25) {
-        scarto = 0;
+    let scarto = media - (result.integer);
 
-    } else if (scarto > 0.25 && scarto <= 0.75) {
-        scarto = 0.5;
+    if (scarto > 0.25 && scarto <= 0.75) {
+        result.half = true;
 
-    } else {
-        scarto = 1;
+    } else if (scarto > 0.75) {
 
+        (result.integer)++;
     };
 
-
-    return (Math.floor(media) + scarto);
+    console.log(result.integer);
+    console.log(result.half);
+    return (result);
 }
 
 
@@ -170,9 +180,9 @@ function myFunction() {
             </div>
         </template>
 
-        <template #main>
+    <template #main>
 
-            <div class="sfondo b-dark">
+            <div class="my-background b-dark">
 
                 <div class="container p-0">
 
@@ -342,6 +352,16 @@ function myFunction() {
                                 </div>
                                 <!-- cv_path -->
                                 <a :href="data.portfolio_url"></a>
+                                <!-- <div class="title">
+                                        My technologies
+                                    </div> -->
+                                <div class="my-technologies">
+                                    <div v-for="technology in data.technologies" class="my-technology">
+                                        <img :src="technology.logo_path" alt="">
+                                        {{ technology.name }}
+
+                                    </div>
+                                </div>
 
                             </div>
                             <!-- ratings -->
@@ -357,7 +377,17 @@ function myFunction() {
                                     Average:
                                 </div>
                                 <div class="d-flex align-text-bottom">
-                                    <h2>{{ myRatingsAv(data.ratings) }}</h2>/5
+                                    <h2>{{ (myRatingsAv(data.ratings)).integer }}<span
+                                            v-if="(myRatingsAv(data.ratings)).half">,5</span>
+                                    </h2>/5
+                                </div>
+                                <div class="d-flex">
+                                    <div v-for="any in (myRatingsAv(data.ratings)).integer">
+                                        A
+                                    </div>
+                                    <div v-if="(myRatingsAv(data.ratings)).half">
+                                        b
+                                    </div>
                                 </div>
 
                             </div>
@@ -378,7 +408,7 @@ function myFunction() {
 
 
 
-$grigio-sfondo: #424242;
+$grigio-my-background: #424242;
 $color-scritte: white;
 $color-titles: yellow;
 $color-shadow: yellow;
@@ -386,11 +416,11 @@ $color-shadow: yellow;
 
 
 
-$h-sfondo: calc(100vh - 100px);
-$w-sfondo: calc(100vw);
+$h-my-background: calc(100vh - 100px);
+$w-my-background: calc(100vw);
 
 
-$h-main: calc($h-sfondo - 70px);
+$h-main: calc($h-my-background - 70px);
 
 
 // $h-principale: calc($h-main - 150px);
@@ -484,7 +514,7 @@ $h-main: calc($h-sfondo - 70px);
     }
 
     .title {
-        // background-color: $grigio-sfondo;
+        // background-color: $grigio-my-background;
         padding: 0 8px;
         font-size: 12px;
         color: white;
@@ -492,14 +522,7 @@ $h-main: calc($h-sfondo - 70px);
 
     }
 
-    .testo {
 
-        li {
-            margin-bottom: 20px;
-            padding: 0 20px;
-        }
-
-    }
 
 }
 
@@ -509,8 +532,8 @@ $h-main: calc($h-sfondo - 70px);
 body {
 
 
-    .sfondo {
-        // background-color: $grigio-sfondo;
+    .my-background {
+        // background-color: $grigio-my-background;
 
 
 
@@ -575,7 +598,7 @@ body {
                     .my-border {
                         overflow: visible;
                         color: white;
-                        margin: 50px 0 100px;
+                        margin-top: 50px;
                         border-radius: 0 0 20px 0;
 
                         &:hover {
@@ -705,9 +728,11 @@ body {
                         .my-border {
                             position: relative;
                             max-height: 300px;
-                            margin: 50px 0 0;
+                            margin: 10px 0 0;
                             padding-right: 20px;
                             border-radius: 0 0 10px 0;
+                            margin-top: 30px;
+
 
 
                             &:hover {
@@ -719,6 +744,30 @@ body {
 
 
 
+                        }
+
+                        .my-technologies {
+                            margin: 50px 0;
+                            display: flex;
+                            flex-wrap: wrap;
+
+                            .my-technology {
+                                width: 30%;
+                                // height: 50px;
+                                margin: 5px;
+                                display: flex;
+                                flex-direction: column;
+                                align-items: center;
+                                justify-content: center;
+
+
+                                img {
+                                    width: 50px;
+                                    height: 50px;
+                                    object-fit: contain;
+                                    padding: 5px;
+                                }
+                            }
                         }
 
 
@@ -738,7 +787,7 @@ body {
 
 
     body {
-        .sfondo {
+        .my-background {
             .container {
                 header {
 
