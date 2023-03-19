@@ -1,6 +1,8 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head } from '@inertiajs/vue3';
+import { useForm } from '@inertiajs/vue3';
+
 
 
 
@@ -143,6 +145,19 @@ function myRatingsAv(array) {
 }
 
 
+const form = useForm({
+    text: null,
+    full_name: null,
+    profile_path: null,
+});
+
+
+// PoP UP
+function myFunction() {
+    var popup = document.getElementById("myPopup");
+    popup.classList.toggle("show");
+}
+
 
 </script>
 
@@ -157,22 +172,19 @@ function myRatingsAv(array) {
 
         <template #main>
 
-            <div class="sfondo">
-                <!-- <header class="d-flex justify-between ">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <h1>Your profile</h1>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </header> -->
+            <div class="sfondo b-dark">
+
                 <div class="container p-0">
 
-                    <main class="d-flex justify-content-center">
-                        <!-- <main class="d-flex justify-between"> -->
-                        <div class="sinistra  overflow-scroll" v-if="(data.reviews).length || (data.messages).length">
+                    <main class="d-flex justify-content-center position-relative">
+                        <div class="left  overflow-scroll" v-if="(data.reviews).length || (data.messages).length">
 
 
 
 
                             <!-- reviews -->
-                            <div class="my-cornice" v-if="(data.reviews).length">
-                                <div class="titolo">
+                            <div class="my-border" v-if="(data.reviews).length">
+                                <div class="title">
                                     My reviews
                                 </div>
                                 <ul class="principale">
@@ -199,8 +211,8 @@ function myRatingsAv(array) {
                                 </ul>
                             </div>
                             <!-- messages -->
-                            <div class="my-cornice" v-if="(data.messages).length">
-                                <div class="titolo">
+                            <div class="my-border" v-if="(data.messages).length">
+                                <div class="title">
                                     My messages
                                 </div>
                                 <ul class="principale">
@@ -230,53 +242,98 @@ function myRatingsAv(array) {
 
                         </div>
                         <!-- image and data user developer -->
-                        <div class="destra">
+                        <div class="right">
 
-                            <div class="my-cornice">
-                                <div class="my-img-container ">
-                                    <!-- :class="data.profile_path === default_profile_path ? 'no-pic' : null" -->
+                            <div class="my-border my-shadow">
+
+                                <div class="d-flex justify-content-center">
+                                    <a href="/developer" class="my-edit">
+                                        Developer Settings
+                                    </a>
+                                </div>
+
+                                <div class="my-img-container" @click="myFunction()">
 
                                     <img :src="data.profile_path">
 
+                                    <!-- PoP Up -->
+                                    <div class="popup">
 
+                                        <div class="my_popuptext my_login_button text-dark p-4 shadow" id="myPopup">
+                                            <form class="d-flex justify-content-between" method="post"
+                                                enctype="multipart/form-data"
+                                                @submit.prevent="form.post(route('profile.dev.store'))">
+
+                                                <div>
+                                                    <!-- Profile IMG -->
+                                                    <div class="mx-auto">
+                                                        <label for="profile_path"
+                                                            class="my_login_button_2 px-3 py-1 rounded-pill text-light btn btn-secondary border-0">Upload
+                                                            Image</label>
+                                                    </div>
+                                                    <input id="profile_path" class="form-control border-dark rounded-pill"
+                                                        type="file" name="profile_path"
+                                                        @input="form.profile_path = $event.target.files[0]">
+                                                </div>
+
+                                                <!-- Submit -->
+                                                <div class="d-flex justify-content-center">
+
+                                                    <input
+                                                        class="my_login_button_2 btn btn-secondary rounded-pill text-light border-0"
+                                                        type="submit" value="SEND">
+                                                </div>
+                                            </form>
+
+                                        </div>
+
+
+
+                                    </div>
                                 </div>
 
 
 
-                                <div class="dato name">
+
+
+
+
+
+
+                                <div class="info name">
                                     {{ data.name }}
                                     {{ data.last }}
-                                    <div class="titolo">
+                                    <div class="title">
                                         Full Name
                                     </div>
                                 </div>
-                                <div class="dato" v-if="data.email">
+                                <div class="info" v-if="data.email">
                                     {{ data.email }}
-                                    <div class="titolo">
+                                    <div class="title">
                                         E-mail
                                     </div>
                                 </div>
-                                <div class="dato" v-if="data.address">
+                                <div class="info" v-if="data.address">
                                     {{ data.address }}
-                                    <div class="titolo">
+                                    <div class="title">
                                         Address
                                     </div>
                                 </div>
-                                <div class="dato" v-if="data.phone_number">
+                                <div class="info" v-if="data.phone_number">
                                     {{ data.phone_number }}
-                                    <div class="titolo">Phone Number</div>
+                                    <div class="title">Phone Number</div>
                                 </div>
-                                <div class="my-cornice" v-if="data.about_me">
-                                    <div class="titolo">
+                                <div class="my-border" v-if="data.about_me">
+                                    <div class="title">
                                         About me
                                     </div>
                                     <div class="principale">
                                         {{ data.about_me }}
                                     </div>
                                 </div>
-                                <div class="my-cornice" v-if="data.performances">
+                                <div class="my-border" v-if="data.performances">
 
-                                    <div class="titolo">
+                                    <div class="title">
                                         My performances
                                     </div>
                                     <div class="principale">
@@ -288,7 +345,8 @@ function myRatingsAv(array) {
 
                             </div>
                             <!-- ratings -->
-                            <div class="my-cornice">
+                            <!-- only if there are more than 0 ratings  -->
+                            <div class="my-border" v-if="data.ratings.length">
                                 <div>You've got
                                     <b>
                                         {{ data.ratings.length }}
@@ -318,11 +376,14 @@ function myRatingsAv(array) {
 <style lang="scss" scoped>
 @use 'resources/sass/general.scss' as *;
 
-// $grigio-sfondo: #000000;
+
+
 $grigio-sfondo: #424242;
 $color-scritte: white;
 $color-titles: yellow;
-$h-header: 50px;
+$color-shadow: yellow;
+
+
 
 
 $h-sfondo: calc(100vh - 100px);
@@ -333,18 +394,29 @@ $h-main: calc($h-sfondo - 70px);
 
 
 // $h-principale: calc($h-main - 150px);
-
-
+// DEBUG
+.DEBUG {
+    background-color: red;
+}
 
 
 
 
 .principale {
+    padding-right: 20px;
+
     overflow: scroll;
 
+    // no scrollbar Chrome, Safari and Opera
     &::-webkit-scrollbar {
         display: none;
     }
+
+    /* IE and Edge */
+    -ms-overflow-style: none;
+    /* Firefox */
+    scrollbar-width: none;
+
 
     .secondario {
         list-style: none;
@@ -381,29 +453,12 @@ $h-main: calc($h-sfondo - 70px);
 }
 
 
-.name {
-    border-radius: 0 0 0 10px;
-    border-bottom: 2px solid white;
-}
-
-.dato {
-    margin: 25px 5px;
-    padding: 5px 15px 0px;
-    // max-width: 300px;
-    border-bottom: 1px solid white;
-    color: white;
-    position: relative;
 
 
 
 
-    .titolo {
-        right: -8px;
-        bottom: 0;
-    }
-}
 
-.my-cornice {
+.my-border {
     border: 1px solid white;
     border-radius: 0 0 10px 0;
     padding: 10px;
@@ -411,11 +466,25 @@ $h-main: calc($h-sfondo - 70px);
     flex-direction: column;
     box-shadow: 20px black;
     position: relative;
-    margin: 50px 0 100px;
     overflow: scroll;
 
-    .titolo {
-        background-color: $grigio-sfondo;
+    // no scrollbar Chrome, Safari and Opera
+    &::-webkit-scrollbar {
+        display: none;
+    }
+
+    /* IE and Edge */
+    -ms-overflow-style: none;
+    /* Firefox */
+    scrollbar-width: none;
+
+
+    &:hover {
+        box-shadow: 2px 2px 2px 2px $color-shadow;
+    }
+
+    .title {
+        // background-color: $grigio-sfondo;
         padding: 0 8px;
         font-size: 12px;
         color: white;
@@ -441,19 +510,10 @@ body {
 
 
     .sfondo {
-        background-color: $grigio-sfondo;
+        // background-color: $grigio-sfondo;
 
 
 
-        header {
-            height: $h-header;
-            // background-color: aqua;
-
-            h1 {
-                font-size: 2.5rem;
-                font-weight: bold;
-            }
-        }
 
         .container {
             width: 100vw;
@@ -463,31 +523,24 @@ body {
 
 
 
-                .sinistra {
+                .left {
                     margin: 10px;
                     width: 100%;
                     padding: 0 10px;
 
-                    // no scrollbar Chrome, Safari and Opera
-                    &::-webkit-scrollbar {
-                        display: none;
-                    }
-
-                    /* IE and Edge */
-                    -ms-overflow-style: none;
-                    /* Firefox */
-                    scrollbar-width: none;
-                    // con firefox non sembra funzionare
 
 
-                    .my-cornice {
+                    .my-border {
                         position: relative;
+                        margin: 50px 0 100px;
                         max-height: $h-main;
 
-                        // overflow per il titolo
+                        // overflow per il title
                         overflow: visible;
 
-                        .titolo {
+                        .title {
+
+                            background-color: #212529;
                             position: absolute;
                             top: -40px;
                             left: -8px;
@@ -501,7 +554,7 @@ body {
                 }
 
 
-                .destra {
+                .right {
 
                     width: 40%;
                     display: flex;
@@ -510,18 +563,63 @@ body {
 
 
 
+                    .title {
+
+                        font-weight: bold;
+
+                        top: -20px;
+                        right: 0px;
+                    }
 
 
-                    .my-cornice {
+                    .my-border {
                         overflow: visible;
                         color: white;
+                        margin: 50px 0 100px;
                         border-radius: 0 0 20px 0;
+
+                        &:hover {
+                            .my-edit {
+                                display: flex;
+                            }
+                        }
+
+                        .my-edit {
+
+                            // no anchor decorarion
+                            text-decoration: inherit;
+                            color: inherit;
+
+
+
+                            background-color: rgba(255, 255, 255, 0.17);
+                            color: white;
+                            height: 40px;
+                            width: 90%;
+                            display: none;
+                            justify-content: center;
+                            align-items: center;
+                            position: absolute;
+
+                            // z-index necessary to stop propagation click
+                            z-index: 100;
+
+
+                            // transition doesn't seems to work.
+                            transition: all 1s linear 1s;
+
+
+
+
+
+                        }
 
                         .my-img-container {
                             $w-img: 300px;
                             display: flex;
                             justify-content: center;
                             align-items: center;
+                            position: relative;
                             width: 100%;
                             height: calc($w-img + 150px);
 
@@ -530,22 +628,97 @@ body {
                                 height: $w-img;
                                 object-fit: cover;
                                 border-radius: 30%;
+                                transition: all 0.7s linear 0s;
+
+
+                                &:hover {
+
+                                    $w-img: 320px;
+                                    width: $w-img;
+                                    height: $w-img;
+
+                                }
                             }
+
+
+
+
+
+
+                            /*PoP Up */
+                            .my_popuptext {
+                                display: none;
+                                min-width: 160px;
+                                max-width: 460px;
+                                text-align: center;
+                                border-radius: 6px;
+                                padding: 8px 0;
+
+                                position: absolute;
+                                bottom: 0px;
+                                left: 0px;
+
+                            }
+
+                            /* Toggle this class when clicking on the popup container (hide and show the popup) */
+                            .popup .show {
+                                display: block;
+                            }
+
+                            // To remove from display input file 
+                            input[type="file"] {
+                                display: none;
+                            }
+
+
                         }
 
-                        .my-cornice {
+
+                        .info {
+                            margin-top: 30px;
+                            border-radius: 20px;
+                            padding: 10px;
+                            color: white;
+                            position: relative;
+                            transition: all 0.4s linear 0s;
+
+
+                            &.name {
+                                border-radius: 0 0 10px 10px;
+                                padding: 30px 10px;
+
+
+
+                            }
+
+                            &:hover {
+                                position: relative;
+                                padding-left: 20px;
+                            }
+
+
+
+
+
+                        }
+
+                        .my-border {
+                            position: relative;
                             max-height: 300px;
                             margin: 50px 0 0;
                             padding-right: 20px;
                             border-radius: 0 0 10px 0;
 
-                            .titolo {
 
-                                font-weight: bold;
+                            &:hover {
+                                .title {
+                                    color: $color-shadow;
+                                }
 
-                                top: -20px;
-                                right: 0px;
                             }
+
+
+
                         }
 
 
@@ -576,13 +749,13 @@ body {
 
 
 
-                    .sinistra {
+                    .left {
 
 
 
-                        .my-cornice {
+                        .my-border {
 
-                            .titolo {}
+                            .title {}
 
 
                         }
@@ -590,7 +763,7 @@ body {
                     }
 
 
-                    .destra {
+                    .right {
 
 
                         .my-img-container {
