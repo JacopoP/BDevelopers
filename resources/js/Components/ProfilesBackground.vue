@@ -1,13 +1,10 @@
 <script>
 
-
-// 
 let localOffsetNoise = generatePNoise();
 localOffsetNoise.seed();
 
-// DEBUG: not needed anymore?
-/* let hiddenNoise = generatePNoise();
-hiddenNoise.seed(); */
+let hiddenNoise = generatePNoise();
+hiddenNoise.seed();
 
 export default {
     name: 'ProfilesBackground',
@@ -36,11 +33,6 @@ export default {
 
             // ALL MEASURES ARE IN PIXELS
 
-            // Screen sizes
-            /*
-           let mapHeight = window.innerHeight - (mapOverflowYMargin * 2);
-           */
-
             // Map coords
             let mapTopRightY = 150;
             let mapTopLeftY = 600;
@@ -53,9 +45,6 @@ export default {
 
             // Column size
             let cMaxHeight = 100;
-            /* DEBUG: keep? */
-            /* let bLocalOffsetAllowance = bMargin * .95;
-            let bLocalYOffsetAllowance = mapHeight / 2; */
 
             // Spawn logic
             let bPerWidth = Math.floor((mapWidth - bDistance) / bDistance);
@@ -68,7 +57,23 @@ export default {
                 if (index > bPerWidth) {
                     bubble.style.display = "none";
                     return;
+
                 } else {
+
+                    // Check if bubble is skipped
+                    let skipped = Math.floor(
+                        hiddenNoise.get(
+                            (index + 2) * Math.cos(index + Math.PI),
+                            (index + 2) * Math.sin(index + Math.PI)
+                        )
+                        + 1
+                    );
+
+                    if (skipped) {
+                        bubble.style.display = "none";
+                        return;
+                    }
+
                     bubble.style.display = "block";
                 }
 
@@ -81,7 +86,13 @@ export default {
                     (
                         bMargin /* start offset */
                         + (index * bDistance) /* global offset */
-                        // + (localOffsetNoise.get(index % bPerWidth, index / bPerWidth) * bLocalOffsetAllowance) /* local offset */
+                        + (
+                            localOffsetNoise.get(
+                                (index + 2) * Math.cos(index + Math.PI),
+                                (index + 2) * Math.sin(index + Math.PI)
+                            )
+                            * (bMargin * .9)
+                        ) /* local offset */
                     ) + "px";
 
                 // Y Axis
