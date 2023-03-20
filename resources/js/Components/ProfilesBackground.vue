@@ -95,8 +95,7 @@ export default {
             let minWidth = 1;
 
             // So...
-            let bPerWidth = Math.floor(mapWidth / bDistance) - 1;
-            let bPerHeight = Math.floor(mapHeight / bDistance);
+            let bPerWidth = Math.floor((mapWidth - (bDistance / 2)) / bDistance);
 
             this.bubbles.forEach((bubble, index) => {
 
