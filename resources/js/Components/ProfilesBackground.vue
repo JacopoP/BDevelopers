@@ -64,6 +64,8 @@ export default {
         };
     },
     methods: {
+
+        // Dynamic image retrieval
         getBubbleImage(index) {
             let n = index + 1;
             return new URL(
@@ -72,6 +74,7 @@ export default {
                 .href;
         },
 
+        // Set bubbles position on screen
         positionBubbles() {
 
             // Bubble size
@@ -91,37 +94,38 @@ export default {
             let minWidth = 1;
 
             // So...
-            let bPerWidth = Math.floor(mapWidth / bDistance);
+            let bPerWidth = Math.floor(mapWidth / bDistance) - 1;
             let bPerHeight = Math.floor(mapHeight / bDistance);
 
             this.bubbles.forEach((bubble, index) => {
 
+                // Check if bubble is inside view
+                if (index > bPerWidth) {
+                    bubble.style.display = "none";
+                    return;
+                } else {
+                    bubble.style.display = "block";
+                }
+
                 // Check for bubble visibility
-                let visible = Boolean(Math.ceil(
+                /* let visible = Boolean(Math.ceil(
                     (
                         hiddenNoise.get(index % bPerWidth, index / bPerWidth)
                         // + .01
                         + (mapWidth - minWidth) * (maxPop - minPop) / (maxWidth - minWidth) + minPop
                     )
                 ));
-                /* if(!visible){
-                    return;
-                } */
-                // console.log(visible);
-                bubble.style.display = visible ? 'block' : 'none';
-
-                // TMP
-                bubble.style.zIndex = 500;
+                bubble.style.display = visible ? 'block' : 'none'; */
 
                 // Set bubble radiu
                 bubble.style.width = (bRadius * 2) + 'px';
                 bubble.style.height = (bRadius * 2) + 'px';
 
                 // X Axis
-                bubble.style.left =
+                bubble.style.right =
                     (
-                        (mapOverflowXMargin * .2) /* off-screen start */
-                        + ((index % bPerWidth) * bDistance) /* global offset */
+                        mapOverflowXMargin /* off-screen start */
+                        + (index * bDistance) /* global offset */
                         + (localOffsetNoise.get(index % bPerWidth, index / bPerWidth) * bLocalOffsetAllowance) /* local offset */
                     ) + "px";
 
@@ -137,6 +141,10 @@ export default {
         },
     },
     mounted() {
+
+        // Slice profile in excess
+        // TODO: limit controller at source
+        this.profiledDevelopers = this.profiledDevelopers.slice(0, 15);
 
         // Refer bubbles
         this.profiledDevelopers.forEach((dev, index) => {
@@ -198,12 +206,11 @@ export default {
         outline: solid 4px #cf815b;
         outline-offset: 2px;
 
-        &:hover{
+        &:hover {
             opacity: .5;
         }
 
-        .volatile{
-        }
+        .volatile {}
 
         img {
             object-fit: cover;
