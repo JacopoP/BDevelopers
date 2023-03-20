@@ -30,12 +30,13 @@
     position: absolute;
     top: 40px;
     right: -5px;
+    width: 200px;
 }
 .my_danger_alert_text::before {
     content: "";
     position: absolute;
     top: 0px;
-    left: 70%;
+    left: 80%;
     transform: translateX(-50%);
     border: 10px solid transparent;
     border-bottom-color: #dc3545;
@@ -61,12 +62,13 @@
     position: absolute;
     top: 40px;
     right: -5px;
+    width: 200px;
 }
 .my_warning_alert_text::before {
     content: "";
     position: absolute;
     top: 0px;
-    left: 70%;
+    left: 80%;
     transform: translateX(-50%);
     border: 10px solid transparent;
     border-bottom-color: #ffc107;
