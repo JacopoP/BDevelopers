@@ -20,7 +20,7 @@ defineProps({
         </template>
 
         <template #main>
-            <div class="py-12">
+            <div class="py-5">
                 <div class="d-flex flex-column gap-5">
                     <div class="container bg-dark text-light">
                         <UpdateProfileInformationForm
