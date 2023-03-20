@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 // Models
 use App\Models\User;
@@ -12,6 +11,7 @@ use App\Models\Technology;
 use App\Models\Rating;
 use App\Models\Review;
 use App\Models\Sponsors;
+
 class ApiController extends Controller
 {
 
@@ -52,5 +52,17 @@ class ApiController extends Controller
                 'developers' => $developers,
             ]
         ]);
+    }
+    
+    public function getImgProfile($id){
+        $developer = Developer::find($id);
+        
+        return response()->json([
+            'success' => true,
+            'response' => [
+                'path' => $developer->profile_path,
+            ]
+        ]);
+
     }
 }

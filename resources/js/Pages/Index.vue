@@ -149,7 +149,7 @@ export default {
         
                             <!-- filter by technology -->
                             <h2>Technology filter</h2>
-                            <div class="d-flex gap-2 text-light">
+                            <div class="d-flex gap-2 text-light flex-wrap">
                                 <div v-for="(technology, index) in this.technologies" :key="index" class="d-flex gap-1 align-items-center">
 
                                     <input class="d-none" :id="'techFilter[]' + index" type="checkbox" v-model="this.techFilter" :value="technology.id">
