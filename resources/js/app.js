@@ -8,9 +8,10 @@ import { createInertiaApp } from '@inertiajs/vue3';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { ZiggyVue } from '../../vendor/tightenco/ziggy/dist/vue.m';
 
-import {library} from '@fortawesome/fontawesome-svg-core';
-import {faEye, faEyeSlash} from '@fortawesome/free-solid-svg-icons';
-library.add(faEye, faEyeSlash);
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faEye, faEyeSlash, faStar, faStarHalfStroke } from '@fortawesome/free-solid-svg-icons';
+import { faStar as starEmpty } from '@fortawesome/free-regular-svg-icons';
+library.add(faEye, faEyeSlash, faStar, starEmpty, faStarHalfStroke);
 import { dom } from "@fortawesome/fontawesome-svg-core";
 dom.watch();
 

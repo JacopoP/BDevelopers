@@ -68,7 +68,7 @@ function now() {
         'year': now.getFullYear(),
         // .getMonth() restituisce da 0 a 11
         'month': (now.getMonth() + 1),
-        // .getDate() restituisce giorno del mese
+        // .getDate() restituisce day del mese
         'day': now.getDate(),
         'hour': now.getHours(),
         'min': now.getMinutes(),
@@ -76,7 +76,7 @@ function now() {
 
 
 
-        // .getDay() restituisce giorno della settimana in numero
+        // .getDay() restituisce day della settimana in numero
     };
 
     return time;
@@ -93,8 +93,9 @@ function myGetTime(stringa) {
     const obj2 = now();
 
 
+
     let result = {
-        'giorno': null,
+        'day': null,
         'ora': (obj1.hour).toString() + ':' + (obj1.min).toString(),
     }
 
@@ -103,13 +104,13 @@ function myGetTime(stringa) {
         obj1.month === obj2.month &&
         obj1.day === obj2.day
     ) {
-        result.giorno = 'today';
+        result.day = 'today';
     } else if (
         obj1.year === obj2.year &&
         obj1.month === obj2.month &&
         obj1.day === (obj2.day - 1)
     ) {
-        result.giorno = 'yesterday';
+        result.day = 'yesterday';
 
 
     } else {
@@ -154,7 +155,21 @@ function myGetTime(stringa) {
             month_word = 'wrong date';
         };
 
-        result.giorno = month_word + ' ' + (obj1.day).toString() + 'th ' + (obj1.year).toString();
+        let suffix = 'th';
+
+        if (obj1.day === 1 || obj1.day === 21 || obj1.day === 31) {
+            suffix = 'st';
+
+        } else if (obj1.day === 2 || obj1.day === 22) {
+            suffix = 'nd';
+
+        } else if (obj1.day === 3 || obj1.day === 23) {
+            suffix = 'rd';
+
+        };
+
+
+        result.day = month_word + ' ' + (obj1.day).toString() + suffix + ' ' + (obj1.year).toString();
 
 
     }
@@ -253,7 +268,7 @@ function myFunction() {
                                                 {{ review.text }}
                                             </p>
                                             <div class="created-at">
-                                                {{ myGetTime(review.created_at).giorno }}
+                                                {{ myGetTime(review.created_at).day }}
                                                 {{ myGetTime(review.created_at).ora }}
 
                                             </div>
@@ -285,7 +300,7 @@ function myFunction() {
                                                 {{ message.text }}
                                             </p>
                                             <div class="created-at">
-                                                {{ myGetTime(message.created_at).giorno }}
+                                                {{ myGetTime(message.created_at).day }}
                                                 {{ myGetTime(message.created_at).ora }}
 
                                             </div>
@@ -305,6 +320,7 @@ function myFunction() {
                                 <div class="d-flex justify-content-center">
                                     <a href="/developer" class="my-edit">
                                         Developer Settings
+                                        <i class="fa-solid fa-pencil"></i>
                                     </a>
                                 </div>
 
@@ -429,11 +445,15 @@ function myFunction() {
                                 </div>
                                 <div class="d-flex">
                                     <div v-for="any in (myRatingsAv(data.ratings)).integer">
-                                        A
+                                        <i class="fa-solid fa-star"></i>
                                     </div>
                                     <div v-if="(myRatingsAv(data.ratings)).half">
-                                        b
+                                        <i class="fa-solid fa-star-half-stroke"></i>
                                     </div>
+                                    <div v-for="any in (5 - (myRatingsAv(data.ratings))).integer">
+                                        <i class="fa-solid fa-star"></i>
+                                    </div>
+
                                 </div>
 
                             </div>
@@ -718,16 +738,18 @@ body {
                                 transition: all 0.7s linear 0s;
 
 
-                                &:hover {
 
-                                    $w-img: 320px;
-                                    width: $w-img;
-                                    height: $w-img;
+                            }
+
+                            &:hover {
+                                z-index: 50;
+                                background-color: #757575;
+
+                                img {
+                                    z-index: 40;
 
                                 }
                             }
-
-
 
 
 
