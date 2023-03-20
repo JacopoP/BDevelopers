@@ -141,7 +141,7 @@ export default {
         // Refer bubbles
         this.profiledDevelopers.forEach((dev, index) => {
             // Refer to DOM element
-            let bubble = document.getElementById('img' + index);
+            let bubble = document.getElementById('bubble' + index);
 
             // Add to bubbles array
             this.bubbles.push(
@@ -162,10 +162,12 @@ export default {
     <div class="ProfilesBackground fixed-top overflow-hidden">
 
         <!-- Populate with bubbles -->
-        <template v-for="(developer, index) in profiledDevelopers">
-            <!-- <img :id="'img' + index" :src="developer.profile_path" class="bubble"> -->
-            <img :id="'img' + index" :src="getBubbleImage(index)" class="bubble">
-        </template>
+        <div :id="'bubble' + index" v-for="(developer, index) in profiledDevelopers" class="bubble rounded">
+            <img :src="getBubbleImage(index)" class="rounded">
+            <div class="volatile">
+                Ciao
+            </div>
+        </div>
 
     </div>
 </template>
@@ -185,13 +187,32 @@ export default {
         position: absolute;
 
         // Sizing and style
-        object-fit: cover;
-        border-radius: 50%;
         // box-shadow: 3px 5px black;
-        // border: .5px solid #cf815b;
         // filter: drop-shadow(0 0 0.75rem #cf815b);
-        outline: solid .5px #cf815b;
+        outline: solid 4px #cf815b;
         outline-offset: 2px;
+
+        &:hover{
+            opacity: .5;
+        }
+
+        .volatile{
+        }
+
+        img {
+            object-fit: cover;
+        }
+
+        &::after {
+            content: '';
+            position: absolute;
+            bottom: -1000px;
+            left: 3rem;
+            display: block;
+            width: 2px;
+            height: 998px;
+            background-color: #cf815b;
+        }
     }
 }
 </style>

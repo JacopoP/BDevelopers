@@ -57,7 +57,7 @@ export default {
                 <div class="row justify-content-center" style="height: 100vh;">
                     <div class="col-md-7 d-flex align-items-center">
 
-                        <div class="main-div">
+                        <div class="main-div rounded">
                             <h1 class="text-center mb-4 text-light">Start your research</h1>
                             <form class="form-inline d-flex justify-content-center gap-2">
 
@@ -104,14 +104,16 @@ export default {
     background-color: #121212;
 
     .hero-section {
+        pointer-events: none;
 
         // background-color: #1d1d1d16;
         // backdrop-filter: blur(.6px);
 
         .main-div {
+            pointer-events: auto;
             background-color: rgba(0, 0, 0, .5);
             backdrop-filter: blur(2px);
-            border-radius: 20px;
+            // border-radius: 20px;
             padding: 1rem;
 
             h1 {
