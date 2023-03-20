@@ -12,44 +12,39 @@ const showingNavigationDropdown = ref(false);
 </script>
 
 <template>
+    
     <nav
-        class="d-flex justify-content-between navbar-expand-lg navbar-light border-secondary-subtle fixed-top">
+        class="container-fluid my_register_button d-flex justify-content-between navbar-expand-lg navbar-light border-secondary-subtle fixed-top">
+
         <!-- Primary Navigation Menu -->
-        <div class="container-fluid px-4">
+        <div class="container">
             <div class="d-flex justify-content-between" style="height: 60px;">
                 <div class="d-flex">
                     <!-- Logo -->
                     <div class="d-flex align-items-center">
-                        <a class="navbar-brand" :href="route('dashboard')">
+                        <a :href="route('home')">
                             <ApplicationLogo class="d-block" style="height: 40px;" />
                         </a>
-                        <a class="navbar-brand text-light fs-5" href="#">BDevelopers</a>
+                        <a class="d-none d-lg-flex text-light fs-5" :href="route('home')">BDevelopers</a>
                     </div>
 
                 </div>
-                <!-- Navigation Links -->
-                <!-- <div class="d-flex  align-items-center px-4 text-light">
-                    <a class="nav-link pe-4" :href="route('dashboard')">
-                    Dashboard
-                    </a>
-                    <a class="nav-link text-light" :href="route('index')" method="get">
-                        Index
-                    </a>
-                </div> -->
-                <!-- Navigation Links -->
-                <div class="d-flex  align-items-center px-4 text-light">
-                    <a v-if="!route().current('dashboard')" class="nav-link pe-4"
+
+                <!-- Dashboard & Index -->
+                <div class="d-flex align-items-center gap-3 text-light">
+                    <a v-if="!route().current('dashboard')" class="nav-link"
                         :class="{ active: route().current('dashboard') }" :href="route('dashboard')">
-                    Dashboard
+                        Dashboard
                     </a>
                     <a v-if="!route().current('index')" class="nav-link text-light"
                         :class="{ active: route().current('index') }" :href="route('index')" method="get">
                         Index
                     </a>
                 </div>
-                <div class="d-sm-flex align-items-sm-center" v-if="$page.props.auth.user != undefined">
+
+                <div class="d-flex align-items-center" v-if="$page.props.auth.user != undefined">
                     <!-- Settings Dropdown -->
-                    <div class="ml-3 dropdown">
+                    <div class="dropdown">
                         <a class="btn dropdown-toggle text-light border-0" href="#" role="button" id="userDropdown"
                             data-bs-toggle="dropdown" aria-expanded="false">
                             {{ $page.props.auth.user.name }}
@@ -76,62 +71,13 @@ const showingNavigationDropdown = ref(false);
                     <Link class="text-light text-decoration-none" :href="route('register')">Register</Link>
                 </div>
 
-                <!-- Hamburger -->
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
             </div>
         </div>
 
-        <!-- Responsive Navigation Menu -->
-        <div :class="{ block: showingNavigationDropdown, hidden: !showingNavigationDropdown }"
-            class="navbar-expand-sm navbar-light bg-light d-block d-sm-none">
-            <div class="pt-2 pb-3">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <ResponsiveNavLink :href="route('dashboard')" :active="route().current('dashboard')"
-                            class="nav-link">
-                            Dashboard
-                        </ResponsiveNavLink>
-                    </li>
-                </ul>
-            </div>
-            <!-- Responsive Settings Options -->
-            <div class="pt-4 pb-1 border-top border-gray-200" v-if="$page.props.auth.user != undefined">
-                <div class="px-4">
-                    <div class="font-medium text-base text-gray-800">
-                        {{ $page.props.auth.user.name }}
-                    </div>
-                    <div class="font-medium text-sm text-gray-500">{{ $page.props.auth.user.email }}</div>
-                </div>
-
-                <ul class="navbar-nav mt-3">
-                    <li class="nav-item">
-                        <ResponsiveNavLink :href="route('profile.dev.create')" class="nav-link">
-                            Developer Settings
-                        </ResponsiveNavLink>
-                    </li>
-                    <li class="nav-item">
-                        <ResponsiveNavLink :href="route('profile.edit')" class="nav-link">
-                            Profile
-                        </ResponsiveNavLink>
-                    </li>
-                    <li class="nav-item">
-                        <ResponsiveNavLink :href="route('logout')" method="post" as="button" class="nav-link">
-                            Log Out
-                        </ResponsiveNavLink>
-                    </li>
-                </ul>
-            </div>
-        </div>
     </nav>
+
 </template>
 
 <style lang="scss" scoped>
-@use 'resources/sass/variable.scss' as *;
-
-nav {
-    background-color: $brand_fourth;
-}
+@use 'resources/sass/form-style.scss' as *;
 </style>
