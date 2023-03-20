@@ -58,7 +58,7 @@ export default {
                     <div class="col col-md-7">
 
                         <div class="main-div rounded">
-                            <h1 class="text-center mb-4 text-light">Start your research</h1>
+                            <h1 class="text-center mb-4 text-light">Start here!</h1>
                             <form class="form-inline d-flex justify-content-center gap-2">
 
                                 <div class="input-group">

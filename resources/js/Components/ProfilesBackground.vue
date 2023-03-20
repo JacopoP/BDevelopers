@@ -61,13 +61,15 @@ export default {
                 } else {
 
                     // Check if bubble is skipped
-                    let skipped = Math.floor(
-                        hiddenNoise.get(
-                            (index + 2) * Math.cos(index + Math.PI),
-                            (index + 2) * Math.sin(index + Math.PI)
-                        )
-                        + 1
-                    );
+                    let skipped =
+                        index > 1 /* first and second bubbles are granted */
+                        && Math.floor( /* remaining are decided by noise */
+                            (index <= 3 ? 1.3 : 1) /* 3rd and 4th are slightly weighted for displaying purposes */
+                            + hiddenNoise.get(
+                                (index + 2) * Math.cos(index + Math.PI),
+                                (index + 2) * Math.sin(index + Math.PI)
+                            )
+                        );
 
                     if (skipped) {
                         bubble.style.display = "none";
