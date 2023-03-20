@@ -43,7 +43,7 @@ export default{
                     this.borderColor = true;
                 }, 10000)
             }
-            if(e !== ''){
+            else if(e !== ''){
                 this.show = true;
                 this.send_success = true;
                 this.borderColor = true;
