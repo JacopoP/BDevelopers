@@ -82,6 +82,7 @@ export default {
             let bMargin = 50;
             let bDistance = (bRadius + bMargin) * 2;
             let bLocalOffsetAllowance = bMargin * .95;
+            let bLocalYOffsetAllowance = window.innerHeight / 2;
             let maxPop = -.02;
             let minPop = -.001;
 
@@ -126,15 +127,15 @@ export default {
                     (
                         mapOverflowXMargin /* off-screen start */
                         + (index * bDistance) /* global offset */
-                        + (localOffsetNoise.get(index % bPerWidth, index / bPerWidth) * bLocalOffsetAllowance) /* local offset */
+                        // + (localOffsetNoise.get(index % bPerWidth, index / bPerWidth) * bLocalOffsetAllowance) /* local offset */
                     ) + "px";
 
                 // Y Axis
                 bubble.style.top =
                     (
-                        (mapOverflowYMargin) /* off-screen start */
-                        + (parseInt(index / bPerWidth) * bDistance) /* global offset */
-                        + localOffsetNoise.get(index % bPerWidth, index / bPerWidth) * bLocalOffsetAllowance /* local offset */
+                        (mapOverflowYMargin + (mapHeight / 2)) /* off-screen start */
+                        // + (parseInt(index / bPerWidth) * bDistance) /* global offset */
+                        + localOffsetNoise.get(index, Math.PI) * bLocalYOffsetAllowance /* local offset */
                     ) + "px";;
 
             });
@@ -173,7 +174,7 @@ export default {
         <div :id="'bubble' + index" v-for="(developer, index) in profiledDevelopers" class="bubble rounded">
             <img :src="getBubbleImage(index)" class="rounded">
             <div class="volatile">
-                Ciao
+                <!-- Ciao -->
             </div>
         </div>
 
@@ -186,9 +187,9 @@ export default {
     // Background
     background-color: #121212;
     background-image: url('../../img/background_earth.jpg');
-    background-position: center right;
+    background-position: bottom right;
     background-repeat: no-repeat;
-    // background-size: cover;
+    background-size: cover;
 
     // Size
     height: 100vh;
@@ -219,11 +220,11 @@ export default {
         &::after {
             content: '';
             position: absolute;
-            bottom: -1000px;
+            bottom: -250px;
             left: 3rem;
             display: block;
             width: 2px;
-            height: 998px;
+            height: 248px;
             background-color: #cf815b;
         }
     }
