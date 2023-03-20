@@ -40,9 +40,14 @@ const data = {
     ratings: props.developer.ratings,
     // technologies
     technologies: props.developer.technologies,
+    // sponsors
+    sponsors: props.developer.sponsors,
 
 
 };
+
+
+console.log(data.sponsors);
 
 
 
@@ -83,9 +88,6 @@ function now() {
 
 
 }
-
-
-
 
 function myGetTime(stringa) {
 
@@ -203,9 +205,8 @@ const form = useForm({
 });
 
 
-console.log(props.developer)
 
-function sendImg(){
+function sendImg() {
     form.post(route('profile.dev.store'));
 }
 
@@ -213,16 +214,16 @@ function sendImg(){
 </script>
 
 <script>
-export default{
-    data(){
+export default {
+    data() {
         return {
             new_profile_path: undefined,
         }
     },
-    methods:{
-        updateImg(){
+    methods: {
+        updateImg() {
             axios.get('http://localhost:8000/api/v1/profile_path' + usePage().props.auth.user.id)
-                .then((res) => {this.new_profile_path = 'storage/' + res.data.response.path})
+                .then((res) => { this.new_profile_path = 'storage/' + res.data.response.path })
                 .catch((error) => console.log(error))
         }
     }
@@ -328,7 +329,8 @@ export default{
 
                                 <div class="my-img-container mx-auto my-3">
 
-                                    <img :src="(this.new_profile_path == undefined ? data.profile_path : this.new_profile_path)">
+                                    <img
+                                        :src="(this.new_profile_path == undefined ? data.profile_path : this.new_profile_path)">
                                     <form class="d-flex justify-content-center align-items-center" method="post"
                                         enctype="multipart/form-data">
                                         <label for="profile_path" class="my-layover"> <i class="fa-solid fa-pencil"></i>
@@ -431,6 +433,24 @@ export default{
                                     </div>
 
                                 </div>
+
+                            </div>
+                            <!-- sponsors -->
+                            <!-- only if there are more than 0 sponsors  -->
+                            <div class="my-border sponsor" v-if="data.sponsors.length">
+                                <div>You've got
+                                    <b>
+                                        {{ data.sponsors.length }}
+                                    </b>
+                                    sponsors!
+                                </div>
+                                <div v-for="sponsor in data.sponsors">
+                                    {{ sponsor.pivot.date_end }}
+                                </div>
+
+
+                                <a href="/braintree" class="my-border">Get sponsored!</a>
+
 
                             </div>
                         </div>
@@ -703,16 +723,16 @@ body {
                             align-items: center;
                             border-radius: 30%;
                             overflow: hidden;
-                            
-                            
+
+
                             img {
                                 position: absolute;
                                 width: 330px;
                                 height: 330px;
                                 object-fit: cover;
-                                
+
                             }
-                            
+
                             .my-layover {
                                 cursor: pointer;
                                 background-color: rgba(48, 48, 48, 0.675);
@@ -728,20 +748,7 @@ body {
 
                             }
 
-                            .my-layover-input {
-                                // background-color: rgba(48, 48, 48, 0.675);
-                                // width: 300px;
-                                // height: 300px;
-                                // justify-content: center;
-                                // align-items: center;
-                                position: absolute;
-                                // display: none;
-                                // display: flex;
-                                // font-size: 40px;
 
-
-
-                            }
 
                             &:hover {
 
@@ -833,6 +840,19 @@ body {
 
 
 
+                        }
+
+                        a.my-border {
+                            width: 70%;
+                            margin-bottom: 10px;
+                            text-decoration: none;
+                            border-radius: 0 0 20px 0;
+
+                            &:hover {
+                                background-color: white;
+                                color: #212529;
+                                box-shadow: none;
+                            }
                         }
 
                         .my-technologies {
