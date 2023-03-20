@@ -1,11 +1,21 @@
 <script setup>
 import { ref } from 'vue';
 import ApplicationLogo from '@/Components/ApplicationLogo.vue';
-import Dropdown from '@/Components/Dropdown.vue';
-import DropdownLink from '@/Components/DropdownLink.vue';
 import NavLink from '@/Components/NavLink.vue';
-import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
-import { Link, usePage } from '@inertiajs/vue3';
+import { Link, useForm } from '@inertiajs/vue3';
+import axios from 'axios';
+import { onMounted } from 'vue';
+
+const link = 'http://localhost:8000/api/v1/';
+const imgPath = '';
+onMounted(() => {
+    // if($page.props.auth.user != undefined){
+    // }
+    axios.get(link + 'profile_path')
+        .then((res) => imgPath = res.data.response.path)
+        .catch((error) => console.log(error))
+        
+})
 
 const showingNavigationDropdown = ref(false);
 
@@ -49,6 +59,7 @@ const showingNavigationDropdown = ref(false);
                             data-bs-toggle="dropdown" aria-expanded="false">
                             {{ $page.props.auth.user.name }}
                         </a>
+                        <img :src="'storage/' + imgPath">
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
                             <li>
                                 <a class="dropdown-item" :href="route('profile.dev.create')">
