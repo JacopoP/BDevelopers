@@ -449,7 +449,7 @@ export default {
                                 </div>
 
 
-                                <a href="/braintree" class="my-border">Get sponsored!</a>
+                                <a :href="route('braintree')" class="my-border">Get sponsored!</a>
 
 
                             </div>
@@ -847,6 +847,8 @@ body {
                             margin-bottom: 10px;
                             text-decoration: none;
                             border-radius: 0 0 20px 0;
+                            font-weight: bold;
+                            font-size: 20px;
 
                             &:hover {
                                 background-color: white;
