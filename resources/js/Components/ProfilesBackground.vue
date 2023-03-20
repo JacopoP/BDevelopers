@@ -1,4 +1,134 @@
 <script>
+
+
+// 
+let localOffsetNoise = generatePNoise();
+localOffsetNoise.seed();
+
+// DEBUG: not needed anymore?
+/* let hiddenNoise = generatePNoise();
+hiddenNoise.seed(); */
+
+export default {
+    name: 'ProfilesBackground',
+    props: {
+        developers: Array
+    },
+    data() {
+        return {
+            profiledDevelopers: this.developers.filter(dev => dev.profile_path),
+            bubbles: [],
+        };
+    },
+    methods: {
+
+        // Dynamic image retrieval
+        getBubbleImage(index) {
+            let n = index + 1;
+            return new URL(
+                '../../../../public/storage/uploads/profile_photo/profile' + n + '.png',
+                import.meta.url)
+                .href;
+        },
+
+        // Set bubbles position on screen
+        positionBubbles() {
+
+            // ALL MEASURES ARE IN PIXELS
+
+            // Screen sizes
+            /*
+           let mapHeight = window.innerHeight - (mapOverflowYMargin * 2);
+           */
+
+            // Map coords
+            let mapTopRightY = 150;
+            let mapTopLeftY = 600;
+            let mapWidth = window.innerWidth;
+
+            // Bubble size
+            let bRadius = 60; /* about */
+            let bMargin = 50;
+            let bDistance = (bRadius + bMargin) * 2;
+
+            // Column size
+            let cMaxHeight = 100;
+            /* DEBUG: keep? */
+            /* let bLocalOffsetAllowance = bMargin * .95;
+            let bLocalYOffsetAllowance = mapHeight / 2; */
+
+            // Spawn logic
+            let bPerWidth = Math.floor((mapWidth - bDistance) / bDistance);
+
+
+            // POSITIONING
+            this.bubbles.forEach((bubble, index) => {
+
+                // Check if bubble is inside view
+                if (index > bPerWidth) {
+                    bubble.style.display = "none";
+                    return;
+                } else {
+                    bubble.style.display = "block";
+                }
+
+                // Set bubble radius
+                bubble.style.width = (bRadius * 2) + 'px';
+                bubble.style.height = (bRadius * 2) + 'px';
+
+                // X Axis
+                bubble.style.right =
+                    (
+                        bMargin /* start offset */
+                        + (index * bDistance) /* global offset */
+                        // + (localOffsetNoise.get(index % bPerWidth, index / bPerWidth) * bLocalOffsetAllowance) /* local offset */
+                    ) + "px";
+
+                // Y Axis
+                bubble.style.bottom =
+                    (
+                        (10 + cMaxHeight) /* start offset */
+                        + (
+                            rangeMap(
+                                localOffsetNoise.get(
+                                    (index + 2) * Math.sin(index + Math.PI),
+                                    (index + 2) * Math.cos(index + Math.PI)
+                                ),
+                                -1, 1, 0, 1)
+                            * rangeMap(index, 0, 13, mapTopRightY, mapTopLeftY)
+                        )
+                    ) + "px";;
+
+            });
+        },
+    },
+    created() {
+        // Slice profile in excess
+        // TODO: limit controller at source
+        this.profiledDevelopers = this.profiledDevelopers.slice(0, 20);
+    },
+    mounted() {
+
+        // Refer bubbles
+        this.profiledDevelopers.forEach((dev, index) => {
+            // Refer to DOM element
+            let bubble = document.getElementById('bubble' + index);
+
+            // Add to bubbles array
+            this.bubbles.push(
+                bubble
+            );
+        });
+
+        // Give a first position to bubbles
+        this.positionBubbles();
+
+        // Listen for window resizes
+        window.addEventListener('resize', this.positionBubbles);
+    },
+}
+
+// "LIBRARIES"
 // Perlin noise generator
 function generatePNoise() {
     return {
@@ -46,124 +176,9 @@ function generatePNoise() {
     };
 }
 
-let localOffsetNoise = generatePNoise();
-localOffsetNoise.seed();
-
-let hiddenNoise = generatePNoise();
-hiddenNoise.seed();
-
-export default {
-    name: 'ProfilesBackground',
-    props: {
-        developers: Array
-    },
-    data() {
-        return {
-            profiledDevelopers: this.developers.filter(dev => dev.profile_path),
-            bubbles: [],
-        };
-    },
-    methods: {
-
-        // Dynamic image retrieval
-        getBubbleImage(index) {
-            let n = index + 1;
-            return new URL(
-                '../../../../public/storage/uploads/profile_photo/profile' + n + '.png',
-                import.meta.url)
-                .href;
-        },
-
-        // Set bubbles position on screen
-        positionBubbles() {
-
-            // Bubble size
-            let bRadius = 60; /* about */
-            let bMargin = 50;
-            let bDistance = (bRadius + bMargin) * 2;
-            let bLocalOffsetAllowance = bMargin * .95;
-            let bLocalYOffsetAllowance = window.innerHeight / 2;
-            let maxPop = -.02;
-            let minPop = -.001;
-
-            // Screen sizes
-            let mapOverflowXMargin = bRadius;
-            let mapOverflowYMargin = 100;
-            let mapWidth = window.innerWidth - (mapOverflowXMargin * 2);
-            let mapHeight = window.innerHeight - (mapOverflowYMargin * 2);
-            let maxWidth = 3000;
-            let minWidth = 1;
-
-            // So...
-            let bPerWidth = Math.floor((mapWidth - (bDistance / 2)) / bDistance);
-
-            this.bubbles.forEach((bubble, index) => {
-
-                // Check if bubble is inside view
-                if (index > bPerWidth) {
-                    bubble.style.display = "none";
-                    return;
-                } else {
-                    bubble.style.display = "block";
-                }
-
-                // Check for bubble visibility
-                /* let visible = Boolean(Math.ceil(
-                    (
-                        hiddenNoise.get(index % bPerWidth, index / bPerWidth)
-                        // + .01
-                        + (mapWidth - minWidth) * (maxPop - minPop) / (maxWidth - minWidth) + minPop
-                    )
-                ));
-                bubble.style.display = visible ? 'block' : 'none'; */
-
-                // Set bubble radiu
-                bubble.style.width = (bRadius * 2) + 'px';
-                bubble.style.height = (bRadius * 2) + 'px';
-
-                // X Axis
-                bubble.style.right =
-                    (
-                        mapOverflowXMargin /* off-screen start */
-                        + (index * bDistance) /* global offset */
-                        // + (localOffsetNoise.get(index % bPerWidth, index / bPerWidth) * bLocalOffsetAllowance) /* local offset */
-                    ) + "px";
-
-                // Y Axis
-                bubble.style.top =
-                    (
-                        (mapOverflowYMargin + (mapHeight / 2)) /* off-screen start */
-                        // + (parseInt(index / bPerWidth) * bDistance) /* global offset */
-                        + localOffsetNoise.get(index, Math.PI) * bLocalYOffsetAllowance /* local offset */
-                    ) + "px";;
-
-            });
-        },
-    },
-    created() {
-        // Slice profile in excess
-        // TODO: limit controller at source
-        this.profiledDevelopers = this.profiledDevelopers.slice(0, 15);
-    },
-    mounted() {
-
-        // Refer bubbles
-        this.profiledDevelopers.forEach((dev, index) => {
-            // Refer to DOM element
-            let bubble = document.getElementById('bubble' + index);
-
-            // Add to bubbles array
-            this.bubbles.push(
-                bubble
-            );
-        });
-
-        // Give a first position to bubbles
-        this.positionBubbles();
-
-        // Listen for window resizes
-        window.addEventListener('resize', this.positionBubbles);
-    },
+// Range mapper
+function rangeMap(number, inMin, inMax, outMin, outMax) {
+    return (number - inMin) * (outMax - outMin) / (inMax - inMin) + outMin;
 }
 </script>
 
@@ -189,7 +204,7 @@ export default {
     background-image: url('../../img/background_earth.jpg');
     background-position: bottom right;
     background-repeat: no-repeat;
-    background-size: cover;
+    // background-size: cover;
 
     // Size
     height: 100vh;
@@ -211,8 +226,6 @@ export default {
             opacity: .5;
         }
 
-        .volatile {}
-
         img {
             object-fit: cover;
         }
@@ -220,11 +233,11 @@ export default {
         &::after {
             content: '';
             position: absolute;
-            bottom: -250px;
+            bottom: -100px;
             left: 3rem;
             display: block;
             width: 2px;
-            height: 248px;
+            height: 98px;
             background-color: #cf815b;
         }
     }
