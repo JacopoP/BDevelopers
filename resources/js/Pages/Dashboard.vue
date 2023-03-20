@@ -518,7 +518,6 @@ export default {
                 </div>
             </div>
         </template>
-
     </AuthenticatedLayout>
 </template>
 

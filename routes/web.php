@@ -31,9 +31,9 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::get('/braintree', [BraintreeController::class, 'token'])->name('braintree');
+    Route::get('/get-sponsored', [BraintreeController::class, 'token'])->name('braintree');
 
-    Route::post('/braintree/result', [BraintreeController::class, 'pay'])->name('payment');
+    Route::post('/transaction-result', [BraintreeController::class, 'pay'])->name('payment');
 
     // DeveloperSettings
     Route::get('/developer', [DeveloperController::class, 'DevCreate'])->name('profile.dev.create');
