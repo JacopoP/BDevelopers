@@ -12,9 +12,10 @@ const form = useForm({
     email: '',
     full_name: '',
 });
-
+// Regex
+const mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 function submit() {
-    if (form.text !== '') {
+    if ( (form.text !== '') && !(form.email.match(mailformat)) ) {
         form.post(route('message.store', props.developer.id));
         form.text = '';
         form.email = '';
@@ -48,9 +49,7 @@ export default{
                     this.borderColorEmail = false;
                 }
 
-                // if formato sbagliato
-
-                if(email == ''){
+                if(text == ''){
                     this.borderColorText = false;
                 }
 
@@ -98,7 +97,15 @@ export default{
                 v-model="form.email"  
                 autocomplete="last"
             />
-
+            <!-- Check email format -->
+            <div v-show="!form.email.match(mailformat) && form.email.length">
+                <div class="my_danger_alert rounded-circle bg-danger px-2">
+                    <span class="text-light">!</span>
+                    <span class="my_danger_alert_text mt-2 shadow bg-danger rounded text-light px-3 py-2">
+                        Email format not valid
+                    </span>
+                </div>
+            </div>
         </div>
 
         <!-- Message Text -->
