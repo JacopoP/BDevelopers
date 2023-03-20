@@ -10,7 +10,6 @@ import { useForm } from '@inertiajs/vue3';
 
 
 
-
 const props = defineProps([
     'developer'
 ]);
@@ -178,24 +177,14 @@ function myGetTime(stringa) {
     return result;
 }
 
-function myRatingsAv(array) {
-    let somma = null;
-    array.forEach(rating => {
-        // the elements of the data.ratings array are objects;
-        // we are interested in it's value.
-        somma += rating.value
-    });
-
-    console.log(somma);
-    let media = somma / array.length;
-
+function myRatingsAv() {
     let result = {
-        'integer': Math.floor(media),
+        'integer': Math.floor(props.developer.ratings_avg_value),
         'half': false,
     }
 
 
-    let scarto = media - (result.integer);
+    let scarto = props.developer.ratings_avg_value - (result.integer);
 
     if (scarto > 0.25 && scarto <= 0.75) {
         result.half = true;
@@ -204,9 +193,6 @@ function myRatingsAv(array) {
 
         (result.integer)++;
     };
-
-    console.log(result.integer);
-    console.log(result.half);
     return (result);
 }
 
@@ -223,6 +209,8 @@ function myFunction() {
     var popup = document.getElementById("myPopup");
     popup.classList.toggle("show");
 }
+
+console.log(props.developer)
 
 
 </script>
@@ -439,9 +427,7 @@ function myFunction() {
                                     Average:
                                 </div>
                                 <div class="d-flex align-text-bottom">
-                                    <h2>{{ (myRatingsAv(data.ratings)).integer }}<span
-                                            v-if="(myRatingsAv(data.ratings)).half">,5</span>
-                                    </h2>/5
+                                    {{Math.round(developer.ratings_avg_value * 100) / 100 }}
                                 </div>
                                 <div class="d-flex">
                                     <div v-for="any in (myRatingsAv(data.ratings)).integer">
@@ -450,8 +436,8 @@ function myFunction() {
                                     <div v-if="(myRatingsAv(data.ratings)).half">
                                         <i class="fa-solid fa-star-half-stroke"></i>
                                     </div>
-                                    <div v-for="any in (5 - (myRatingsAv(data.ratings))).integer">
-                                        <i class="fa-solid fa-star"></i>
+                                    <div v-for="index in (5 - ((myRatingsAv(data.ratings))).integer - (((myRatingsAv(data.ratings)).half) ? 1 : 0))">
+                                        <i class="fa-regular fa-star"></i>
                                     </div>
 
                                 </div>
