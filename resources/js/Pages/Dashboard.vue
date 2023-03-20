@@ -229,12 +229,16 @@ function lastSponsor() {
 
         // se la data è successiva a oggi
         if (
-            dataSponsor.year > 1998 ||
-            dataSponsor.year === 1998 && dataSponsor.month > 3 ||
-            dataSponsor.year === 1998 && dataSponsor.month === 3 && dataSponsor.day > 20
-            // dataSponsor.year > now().year ||
-            // dataSponsor.year === now().year && dataSponsor.month > now().month ||
-            // dataSponsor.year === now().year && dataSponsor.month === now().month && dataSponsor.day > now().day
+            dataSponsor.year > now().year ||
+            dataSponsor.year === now().year && dataSponsor.month > now().month ||
+            dataSponsor.year === now().year && dataSponsor.month === now().month && dataSponsor.day > now().day
+
+
+
+            // debug
+            // dataSponsor.year > 1998 ||
+            // dataSponsor.year === 1998 && dataSponsor.month > 3 ||
+            // dataSponsor.year === 1998 && dataSponsor.month === 3 && dataSponsor.day > 20
         ) {
 
             // se dataFine è anchour vuoto lo riempo
@@ -258,7 +262,11 @@ function lastSponsor() {
 
     }
     )
-    return (formalDate(dataFine));
+    if (dataFine === null) {
+        return false;
+    } else {
+        return (formalDate(dataFine));
+    }
 }
 </script>
 
@@ -490,7 +498,7 @@ export default {
                             </div>
                             <!-- sponsors -->
                             <!-- only if there are more than 0 sponsors  -->
-                            <div class="my-border sponsor" v-if="data.sponsors.length">
+                            <div class="my-border sponsor" v-if="lastSponsor()">
                                 <div>You've got
                                     <b>
                                         {{ data.sponsors.length }}
