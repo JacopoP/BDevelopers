@@ -33,7 +33,7 @@ export default{
 
         <!-- Primary Navigation Menu -->
         <div class="container">
-            <div class="d-flex justify-content-between" style="height: 70px;">
+            <div class="d-flex justify-content-between" style="height: 60px;">
                 <div class="d-flex">
                     <!-- Logo -->
                     <div class="d-flex align-items-center">
@@ -66,11 +66,11 @@ export default{
                             <div style="width: 50px;">
                                 <img class="rounded-circle" :src="'storage/' + imgPath">
                             </div>
-                            <a class="dropdown-toggle text-light nav-link" style="font-size: 10px;">
+                            <!-- <a class="dropdown-toggle text-light nav-link" style="font-size: 10px;">
                                 <span>
                                     {{ $page.props.auth.user.name }}
                                 </span>
-                            </a>
+                            </a> -->
                         </a>
 
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
