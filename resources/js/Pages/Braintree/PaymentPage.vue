@@ -6,7 +6,6 @@ const form = useForm({
     payment_method_nonce: undefined,
     amount: 0,
 });
-let paying = false;
 let doPayment = function(){};
 function paymentCheck(){
     if(form.amount){
@@ -21,7 +20,6 @@ onMounted(()=>{
     }, (err, dropinInstance) => {
         if (err) console.error(err);
         doPayment = function(){
-            paying=true;
             dropinInstance.requestPaymentMethod((error, payload) => {
                     if (error) console.error(error);
                     form.payment_method_nonce = payload.nonce;
@@ -36,7 +34,6 @@ onMounted(()=>{
 export default{
     data(){
         return{
-            isProcessing: false,
             clicked: false,
             amountSelected: false,
             checkout: false,
@@ -49,7 +46,7 @@ export default{
 <template>
     <GuestLayout class="bg-dark text-light overflow-hidden">
         <div>
-            <form id="payment-form" method="post" @submit.prevent="()=>{paymentCheck(); if (paying) isProcessing=true}">
+            <form id="payment-form" method="post" @submit.prevent="()=>{paymentCheck()}">
                 <div class="d-flex justify-content-between gap-3 mt-4">
                     <div :class="'card bg-dark border-light text-center' + [form.amount == sponsor.price ? '' : ' opacity-50']" v-for="sponsor in sponsors" @click="()=>{form.amount = sponsor.price; this.amountSelected=true}">
                         <div class="card-body">
@@ -63,7 +60,7 @@ export default{
                 </div>
                 <button v-if="this.amountSelected && this.checkoutToClick" class="btn btn-light mt-4 mx-auto d-block" @click="this.checkout=true; this.amountSelected=false; this.checkoutToClick=false">Checkout</button>
                 <div v-show="this.checkout" id="dropin-container"></div>
-                <input v-if="this.checkout" class="btn btn-light mt-4 mx-auto d-block" type="submit" value="Pay and get sponsored" @click="this.clicked=true" :disabled="isProcessing"/>
+                <input v-if="this.checkout" class="btn btn-light mt-4 mx-auto d-block" type="submit" value="Pay and get sponsored" @click="this.clicked=true"/>
                 <p v-show="form.amount == 0 && this.clicked" class="text-center text-danger mt-3">Please, select a plan before checking out</p>
             </form>
         </div>
