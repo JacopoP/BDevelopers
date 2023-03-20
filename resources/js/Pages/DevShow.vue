@@ -68,7 +68,7 @@ export default {
                             <img class="img_profile rounded-circle shadow " :src="'storage/' + dati.profile_path">
                         </div>
                         <!-- INFO -->
-                        <div v-if="dati.address !== null || dati.phone_number !== null || dati.portfolio_url !==null" class="d-flex flex-column align-items-start gap-5">
+                        <div v-if="dati.address !== null || dati.phone_number !== null || dati.portfolio_url !==null || dati.cv_path !== null" class="d-flex flex-column align-items-start gap-5">
 
                             <div class="d-flex flex-column align-items-start gap-3">
                                 <div v-if="dati.address !== null" class="my_login_button d-flex align-items-center rounded px-3 py-2 gap-3" style="max-width: 350px;">
@@ -98,7 +98,7 @@ export default {
                                 </a>
 
                                 <!-- CV -->
-                                <a class="btn btn-outline-secondary rounded-pill d-flex align-items-center"
+                                <a v-if="dati.cv_path !== null" class="btn btn-outline-secondary rounded-pill d-flex align-items-center"
                                     :href="'storage/' + dati.cv_path" download>Download CV
                                 </a>
                             </div>
