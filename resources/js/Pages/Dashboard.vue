@@ -466,50 +466,53 @@ export default {
                                 </div>
 
                             </div>
-                            <!-- ratings -->
-                            <!-- only if there are more than 0 ratings  -->
-                            <div class="my-border" v-if="data.ratings.length">
-                                <div>You've got
-                                    <b>
-                                        {{ data.ratings.length }}
-                                    </b>
-                                    ratings!
-                                </div>
-                                <div>
-                                    Average:
-                                </div>
-                                <div class="d-flex align-text-bottom">
-                                    {{ Math.round(developer.ratings_avg_value * 100) / 100 }}
-                                </div>
-                                <div class="d-flex">
-                                    <div v-for="any in (myRatingsAv(data.ratings)).integer">
-                                        <i class="fa-solid fa-star"></i>
+
+                            <div class="rat-spon-cont">
+                                <!-- ratings -->
+                                <!-- only if there are more than 0 ratings  -->
+                                <div class="my-border" v-if="data.ratings.length">
+                                    <div>You've got
+                                        <b>
+                                            {{ data.ratings.length }}
+                                        </b>
+                                        ratings!
                                     </div>
-                                    <div v-if="(myRatingsAv(data.ratings)).half">
-                                        <i class="fa-solid fa-star-half-stroke"></i>
+                                    <div>
+                                        Average:
                                     </div>
-                                    <div
-                                        v-for="index in (5 - ((myRatingsAv(data.ratings))).integer - (((myRatingsAv(data.ratings)).half) ? 1 : 0))">
-                                        <i class="fa-regular fa-star"></i>
+                                    <div class="d-flex align-text-bottom">
+                                        {{ Math.round(developer.ratings_avg_value * 100) / 100 }}
+                                    </div>
+                                    <div class="d-flex">
+                                        <div v-for="any in (myRatingsAv(data.ratings)).integer">
+                                            <i class="fa-solid fa-star"></i>
+                                        </div>
+                                        <div v-if="(myRatingsAv(data.ratings)).half">
+                                            <i class="fa-solid fa-star-half-stroke"></i>
+                                        </div>
+                                        <div
+                                            v-for="index in (5 - ((myRatingsAv(data.ratings))).integer - (((myRatingsAv(data.ratings)).half) ? 1 : 0))">
+                                            <i class="fa-regular fa-star"></i>
+                                        </div>
+
                                     </div>
 
                                 </div>
+                                <!-- sponsors -->
+                                <!-- only if there are more than 0 sponsors  -->
+                                <div class="my-border sponsor">
+                                    <template v-if="lastSponsor()">
+                                        <div>You are sponsored!</div>
 
-                            </div>
-                            <!-- sponsors -->
-                            <!-- only if there are more than 0 sponsors  -->
-                            <div class="my-border sponsor">
-                                <template v-if="lastSponsor()">
-                                    <div>You are sponsored!</div>
-    
-                                    <div>Sponsor expires: {{ lastSponsor() }}</div>
-                                </template>
+                                        <div>Sponsor expires: {{ lastSponsor() }}</div>
+                                    </template>
 
-                                <div v-else>You aren't sponsored!</div>
+                                    <div v-else>You aren't sponsored!</div>
 
-                                <a :href="route('braintree')" class="my-border">Get sponsored!</a>
+                                    <a :href="route('braintree')" class="my-border">Get sponsored!</a>
 
 
+                                </div>
                             </div>
                         </div>
                     </main>
@@ -535,14 +538,11 @@ $color-shadow: yellow;
 
 
 
-$h-my-background: calc(100vh - 100px);
-$w-my-background: calc(100vw);
+
+$h-main: calc(100vh - 170px);
 
 
-$h-main: calc($h-my-background - 70px);
 
-
-// $h-principale: calc($h-main - 150px);
 // DEBUG
 .DEBUG {
     background-color: red;
@@ -743,7 +743,7 @@ body {
                         .my-edit {
 
                             // no anchor dechourrion
-                            text-dechourtion: inherit;
+                            text-decoration: inherit;
                             color: inherit;
 
 
@@ -820,31 +820,6 @@ body {
 
 
 
-                            /*PoP Up */
-                            .my_popuptext {
-                                display: none;
-                                min-width: 160px;
-                                max-width: 460px;
-                                text-align: center;
-                                border-radius: 6px;
-                                padding: 8px 0;
-
-                                position: absolute;
-                                bottom: 0px;
-                                left: 0px;
-
-                            }
-
-                            /* Toggle this class when clicking on the popup container (hide and show the popup) */
-                            .popup .show {
-                                display: block;
-                            }
-
-                            // To remove from display input file 
-                            input[type="file"] {
-                                display: none;
-                            }
-
 
                         }
 
@@ -902,7 +877,7 @@ body {
                         a.my-border {
                             width: 70%;
                             margin-bottom: 10px;
-                            text-dechourtion: none;
+                            text-decoration: none;
                             border-radius: 0 0 20px 0;
                             font-weight: bold;
                             font-size: 20px;
@@ -977,16 +952,58 @@ body {
 
 
 
-@media screen and (max-width: 1200px) {
+@media screen and (max-width: 992px) {
+    .principale {
+        padding: 0 10px;
 
+
+
+        li {
+
+            .message {
+
+                max-width: 100%;
+
+
+
+                .reviewer {}
+
+                .email {}
+
+                .anonymous {}
+
+                p {}
+
+                .created-at {}
+
+            }
+
+            &:hover {
+                .message {}
+            }
+        }
+    }
+
+    .my-border {
+
+
+        &:hover {}
+
+        .title {}
+
+
+
+    }
 
     body {
-        .my-background {
-            .container {
-                header {
 
-                    h1 {}
-                }
+
+        .my-background {
+
+
+            .container {
+
+
 
                 main {
 
@@ -996,7 +1013,9 @@ body {
 
 
 
+
                         .my-border {
+
 
                             .title {}
 
@@ -1009,23 +1028,481 @@ body {
                     .right {
 
 
-                        .my-img-container {
-                            $w-img: 100px;
-                            height: $w-img;
 
-                            img {
-                                width: $w-img;
-                                height: $w-img;
+                        .title {}
+
+
+                        .my-border {
+
+
+
+
+
+                            .my-edit {}
+
+                            .my-img-container {
+
+                                width: 200px;
+                                height: 200px;
+
+
+
+
+                                .my-layover {
+
+                                    font-size: 20px;
+
+
+
+                                }
+
+
+
+
+
+
+
+
+
                             }
+
+
+                            .info {
+
+
+
+                                &.name {}
+
+                                &:hover {}
+
+
+
+
+
+                            }
+
+                            .my-border {
+
+
+
+
+                                &:hover {
+                                    .title {}
+
+                                }
+
+
+
+                            }
+
+                            a.my-border {
+
+
+                                &:hover {}
+                            }
+
+                            .my-technologies {
+
+
+                                .my-technology {
+
+
+
+                                    img {}
+
+                                    .titolo {}
+
+
+                                    &:hover {
+
+
+                                        .titolo {}
+                                    }
+                                }
+                            }
+
+
+
                         }
-
-
                     }
                 }
             }
         }
     }
+}
 
 
+
+@media screen and (max-width: 768px) {
+    .principale {
+
+
+
+
+        li {
+
+            .message {
+
+
+
+
+
+                .reviewer {}
+
+                .email {}
+
+                .anonymous {}
+
+                p {}
+
+                .created-at {}
+
+            }
+
+            &:hover {
+                .message {}
+            }
+        }
+    }
+
+    .my-border {
+
+
+        &:hover {}
+
+        .title {}
+
+
+
+    }
+
+    body {
+
+
+        .my-background {
+
+
+            .container {
+
+
+
+                main {
+                    flex-direction: column-reverse;
+
+
+
+                    .left {
+
+                        margin-bottom: 0;
+
+
+
+                        .my-border {
+
+
+                            .title {}
+
+
+                        }
+
+                    }
+
+
+                    .right {
+
+                        margin: 0;
+                        display: flex;
+                        justify-content: space-between;
+                        flex-direction: row;
+                        width: 100%;
+
+
+                        .title {}
+
+
+                        .my-border {
+                            width: 45%;
+
+
+
+
+
+                            .my-edit {}
+
+                            .my-img-container {
+
+
+
+
+
+
+                                .my-layover {}
+
+
+
+
+
+
+
+
+
+                            }
+
+
+                            .info {
+
+
+
+                                &.name {}
+
+                                &:hover {}
+
+
+
+
+
+                            }
+
+                            .my-border {
+
+
+
+
+                                &:hover {
+                                    .title {}
+
+                                }
+
+
+
+                            }
+
+                            a.my-border {
+
+
+                                &:hover {}
+                            }
+
+                            .my-technologies {
+
+
+                                .my-technology {
+
+
+
+                                    img {}
+
+                                    .titolo {}
+
+
+                                    &:hover {
+
+
+                                        .titolo {}
+                                    }
+                                }
+                            }
+
+
+
+                        }
+
+                        .rat-spon-cont {
+                            width: 45%;
+
+                            .my-border {
+                                width: 100%;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+@media screen and (max-width: 490px) {
+    .principale {
+
+
+
+
+        li {
+
+            .message {
+
+
+
+
+
+                .reviewer {}
+
+                .email {}
+
+                .anonymous {}
+
+                p {}
+
+                .created-at {}
+
+            }
+
+            &:hover {
+                .message {}
+            }
+        }
+    }
+
+    .my-border {
+
+
+        &:hover {}
+
+        .title {}
+
+
+
+    }
+
+    body {
+
+
+        .my-background {
+
+
+            .container {
+
+
+
+                main {
+
+
+
+
+                    .left {
+                        padding: 0;
+                        margin: 0;
+
+
+
+
+                        .my-border {
+                            margin-left: 0;
+
+
+                            .title {}
+
+
+                        }
+
+                    }
+
+
+                    .right {
+                        display: flex;
+
+                        flex-direction: column;
+
+
+                        .title {}
+
+
+                        .my-border {
+                            width: 100%;
+
+
+
+
+
+                            .my-edit {}
+
+                            .my-img-container {
+
+
+
+
+
+                                .my-layover {}
+
+
+
+
+
+
+
+
+
+                            }
+
+
+                            .info {
+
+
+
+                                &.name {}
+
+                                &:hover {}
+
+
+
+
+
+                            }
+
+                            .my-border {
+
+
+
+
+                                &:hover {
+                                    .title {}
+
+                                }
+
+
+
+                            }
+
+                            a.my-border {
+
+
+                                &:hover {}
+                            }
+
+                            .my-technologies {
+
+
+                                .my-technology {
+
+
+
+                                    img {}
+
+                                    .titolo {}
+
+
+                                    &:hover {
+
+
+                                        .titolo {}
+                                    }
+                                }
+                            }
+
+
+
+                        }
+
+                        .rat-spon-cont {
+                            width: 100%;
+
+                            .my-border {}
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
 </style>
