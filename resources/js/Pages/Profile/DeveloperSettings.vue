@@ -60,8 +60,8 @@ props.technologies.forEach((technology) => {
         document.addEventListener('DOMContentLoaded', setShade(color));
     });
 });
-/* for (let technology of props.technologies) {
-} */
+
+// File Input
 
 </script>
     
@@ -103,23 +103,31 @@ props.technologies.forEach((technology) => {
                         </div>
 
 
-                        <!-- Profile IMG -->
-                        <div class="mx-auto">
-                            <label for="profile_path"
-                                class="my_login_button px-3 py-1 rounded-pill text-light cursor-pointer">Upload
-                                Image</label>
+                        <div class="d-flex flex-column gap-4 py-4">
+                            <!-- Profile IMG -->
+                            <div class="d-flex flex-column align-items-center gap-4">
+                                <div class="mx-auto">
+                                    <label for="profile_path"
+                                        class="my_login_button px-3 py-1 rounded-pill text-light cursor-pointer">Upload
+                                        Image</label>
+                                </div>
+                                <input id="profile_path" class="form-control border-dark px-4 py-3" type="file"
+                                    name="profile_path" @input="form.profile_path = $event.target.files[0]"
+                                >
+                            </div>
+    
+                            <!-- Profile FILE -->
+                            <div class="d-flex flex-column align-items-center gap-4">
+                                <div class="mx-auto">
+                                    <label for="cv_path"
+                                        class="my_login_button rounded-pill text-light px-3 py-1 cursor-pointer">Curriculum
+                                        Vitae</label>
+                                </div>
+                                <input id="cv_path" class="form-control border-dark px-4 py-3" type="file" name="cv_path"
+                                    @input="form.cv_path = $event.target.files[0]"
+                                >
+                            </div>
                         </div>
-                        <input id="profile_path" class="form-control border-dark rounded-pill" type="file"
-                            name="profile_path" @input="form.profile_path = $event.target.files[0]">
-
-                        <!-- Profile FILE -->
-                        <div class="mx-auto">
-                            <label for="cv_path"
-                                class="my_login_button rounded-pill text-light px-3 py-1 cursor-pointer">Curriculum
-                                Vitae</label>
-                        </div>
-                        <input id="cv_path" class="form-control border-dark rounded-pill" type="file" name="cv_path"
-                            @input="form.cv_path = $event.target.files[0]">
 
 
                         <!-- URL -->
@@ -135,9 +143,9 @@ props.technologies.forEach((technology) => {
                         <div class="my_text_input_label">
                             <InputLabel class="my_input_label bg-dark" for="about_me" value="About ME" />
 
-                            <textarea id="about_me" class="bg-dark text-light rounded px-4 w-100" name="about_me" cols="30"
+                            <textarea id="about_me" class="bg-dark text-light rounded px-4 w-100 border-secondary py-3" style="padding-left: 1rem !important;" name="about_me" cols="30"
                                 rows="3" placeholder="Write about you" v-model="form.about_me">
-                                </textarea>
+                            </textarea>
                         </div>
 
 
@@ -145,9 +153,9 @@ props.technologies.forEach((technology) => {
                         <div class="my_text_input_label">
                             <InputLabel class="my_input_label bg-dark" for="performances" value="Performances" />
 
-                            <textarea id="performances" class="bg-dark text-light rounded px-4 w-100" name="performances"
+                            <textarea id="performances" class="bg-dark text-light rounded px-4 w-100 border-secondary py-3" style="padding-left: 1rem !important;" name="performances"
                                 cols="30" rows="3" placeholder="About your Job" v-model="form.performances">
-                                </textarea>
+                            </textarea>
                         </div>
 
 
@@ -262,9 +270,35 @@ props.technologies.forEach((technology) => {
 }
 
 // To remove from display input file 
-input[type="file"] {
-    display: none;
+// input[type="file"] {
+//     display: none;
+// }
+input[type=file]{
+    border-radius: 10px;
+    background: $brand_primary;
+    color: #fff;
+    font-weight: 500;
 }
+input[type=file]:hover {
+    transition: .4s ease-in-out;
+    color: $brand_primary;
+    background: $brand_secondary;
+}
+input[type=file]::file-selector-button {
+    margin-right: 20px;
+    border: none;
+    background: $brand_fourth;
+    padding: 10px 20px;
+    border-radius: 15px;
+    color: #fff;
+    cursor: pointer;
+}
+input[type=file]:hover::file-selector-button {
+    transition: .4s ease-in-out;
+    color: $brand_fourth;
+}
+
+
 
 // TechIcon
 .my_tech_icon {
