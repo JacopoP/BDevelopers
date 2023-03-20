@@ -64,4 +64,16 @@ class ApiController extends Controller
             ]
         ]);
     }
+
+    public function getImgProfile($id){
+        $developer = Developer::find($id);
+        
+        return response()->json([
+            'success' => true,
+            'response' => [
+                'path' => $developer->profile_path,
+            ]
+        ]);
+
+    }
 }

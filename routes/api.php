@@ -23,3 +23,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::get('v1/index', [ApiController::class, 'index']);
 
 Route::get('v1/search', [ApiController::class, 'filter']);
+
+Route::get('v1/profile_path{id}', [ApiController::class, 'getImgProfile']);

@@ -6,7 +6,8 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head } from '@inertiajs/vue3';
-import { useForm } from '@inertiajs/vue3';
+import { useForm, usePage } from '@inertiajs/vue3';
+import axios from 'axios';
 
 
 
@@ -198,21 +199,34 @@ function myRatingsAv() {
 
 
 const form = useForm({
-    text: null,
-    full_name: null,
     profile_path: null,
 });
 
 
-// PoP UP
-function myFunction() {
-    var popup = document.getElementById("myPopup");
-    popup.classList.toggle("show");
-}
-
 console.log(props.developer)
 
+function sendImg(){
+    form.post(route('profile.dev.store'));
+}
 
+
+</script>
+
+<script>
+export default{
+    data(){
+        return {
+            new_profile_path: undefined,
+        }
+    },
+    methods:{
+        updateImg(){
+            axios.get('http://localhost:8000/api/v1/profile_path' + usePage().props.auth.user.id)
+                .then((res) => {this.new_profile_path = 'storage/' + res.data.response.path})
+                .catch((error) => console.log(error))
+        }
+    }
+}
 </script>
 
 <template>
@@ -312,55 +326,19 @@ console.log(props.developer)
                                     </a>
                                 </div>
 
-                                <div class="my-img-container mx-auto my-3" @click="myFunction()">
+                                <div class="my-img-container mx-auto my-3">
 
-                                    <img :src="data.profile_path">
+                                    <img :src="(this.new_profile_path == undefined ? data.profile_path : this.new_profile_path)">
                                     <form class="d-flex justify-content-center align-items-center" method="post"
-                                        enctype="multipart/form-data"
-                                        @submit.prevent="form.post(route('profile.dev.store'))">
+                                        enctype="multipart/form-data">
                                         <label for="profile_path" class="my-layover"> <i class="fa-solid fa-pencil"></i>
                                         </label>
 
                                         <input id="profile_path" type="file" name="profile_path"
-                                            @input="form.profile_path = $event.target.files[0]">
+                                            @input="form.profile_path = $event.target.files[0]; sendImg(); updateImg();">
 
                                     </form>
 
-
-                                    <!-- PoP Up -->
-                                    <div class="popup">
-
-                                        <div class="my_popuptext my_login_button text-dark p-4 shadow" id="myPopup">
-                                            <form class="d-flex justify-content-between" method="post"
-                                                enctype="multipart/form-data"
-                                                @submit.prevent="form.post(route('profile.dev.store'))">
-
-                                                <div>
-                                                    <!-- Profile IMG -->
-                                                    <div class="mx-auto">
-                                                        <label for="profile_path"
-                                                            class="my_login_button_2 px-3 py-1 rounded-pill text-light btn btn-secondary border-0">Upload
-                                                            Image</label>
-                                                    </div>
-                                                    <input id="profile_path" class="form-control border-dark rounded-pill"
-                                                        type="file" name="profile_path"
-                                                        @input="form.profile_path = $event.target.files[0]">
-                                                </div>
-
-                                                <!-- Submit -->
-                                                <div class="d-flex justify-content-center">
-
-                                                    <input
-                                                        class="my_login_button_2 btn btn-secondary rounded-pill text-light border-0"
-                                                        type="submit" value="SEND">
-                                                </div>
-                                            </form>
-
-                                        </div>
-
-
-
-                                    </div>
                                 </div>
 
 
@@ -725,17 +703,18 @@ body {
                             align-items: center;
                             border-radius: 30%;
                             overflow: hidden;
-
-
+                            
+                            
                             img {
                                 position: absolute;
                                 width: 330px;
                                 height: 330px;
                                 object-fit: cover;
-
+                                
                             }
-
+                            
                             .my-layover {
+                                cursor: pointer;
                                 background-color: rgba(48, 48, 48, 0.675);
                                 width: 300px;
                                 height: 300px;
