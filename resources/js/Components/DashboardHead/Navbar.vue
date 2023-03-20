@@ -60,11 +60,19 @@ export default{
                 <div class="d-flex align-items-center" v-if="$page.props.auth.user != undefined">
                     <!-- Settings Dropdown -->
                     <div class="dropdown">
-                        <a class="btn dropdown-toggle text-light border-0" href="#" role="button" id="userDropdown"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            {{ $page.props.auth.user.name }}
+                        
+                        <a class="d-flex align-items-center gap-3 btn text-light border-0" href="#" role="button" id="userDropdown"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                            <a class="dropdown-toggle text-light nav-link">
+                                <span>
+                                    {{ $page.props.auth.user.name }}
+                                </span>
+                            </a>
+                            <div style="width: 50px;">
+                                <img class="rounded-circle" :src="'storage/' + imgPath">
+                            </div>
                         </a>
-                        <img :src="'storage/' + imgPath">
+
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
                             <li>
                                 <a class="dropdown-item" :href="route('profile.dev.create')">
