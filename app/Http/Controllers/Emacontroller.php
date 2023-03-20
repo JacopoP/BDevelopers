@@ -72,8 +72,8 @@ class Emacontroller extends Controller
         // $developer = Developer::with('user', 'ratings', 'reviews', 'technologies', 'messages', 'sponsors')->find(Auth::id());
 
         // DEBUG
-        // $developer = Developer::with('user', 'ratings', 'reviews', 'technologies', 'messages', 'sponsors')->find(1);
-        $developer = Developer::with('user', 'ratings', 'reviews', 'technologies', 'messages', 'sponsors')->find(rand(1, 300));
+        $developer = Developer::with('user', 'ratings', 'reviews', 'technologies', 'messages', 'sponsors')->find(1);
+        // $developer = Developer::with('user', 'ratings', 'reviews', 'technologies', 'messages', 'sponsors')->find(rand(1, 300));
 
         return Inertia::render('Dashboard', compact('developer'));
     }

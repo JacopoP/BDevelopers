@@ -113,7 +113,48 @@ function myGetTime(stringa) {
 
 
     } else {
-        result.giorno = (obj1.day).toString() + '-' + (obj1.month).toString() + '-' + (obj1.year).toString();
+        let month_word = null;
+        if (obj1.month === 1) {
+            month_word = 'Jan';
+
+        } else if (obj1.month === 2) {
+            month_word = 'Feb';
+
+        } else if (obj1.month === 3) {
+            month_word = 'Mar';
+
+        } else if (obj1.month === 4) {
+            month_word = 'Apr';
+
+        } else if (obj1.month === 5) {
+            month_word = 'May';
+
+        } else if (obj1.month === 6) {
+            month_word = 'Jun';
+
+        } else if (obj1.month === 7) {
+            month_word = 'Jul';
+
+        } else if (obj1.month === 8) {
+            month_word = 'Aug';
+
+        } else if (obj1.month === 9) {
+            month_word = 'Sep';
+
+        } else if (obj1.month === 10) {
+            month_word = 'Oct';
+
+        } else if (obj1.month === 11) {
+            month_word = 'Nov';
+
+        } else if (obj1.month === 12) {
+            month_word = 'Dec';
+
+        } else {
+            month_word = 'wrong date';
+        };
+
+        result.giorno = month_word + ' ' + (obj1.day).toString() + 'th ' + (obj1.year).toString();
 
 
     }
@@ -180,7 +221,7 @@ function myFunction() {
             </div>
         </template>
 
-    <template #main>
+        <template #main>
 
             <div class="my-background b-dark">
 
@@ -199,21 +240,23 @@ function myFunction() {
                                 </div>
                                 <ul class="principale">
 
-                                    <li v-for="review in data.reviews" class="shadow-lg mb-5 bg-white margin secondario">
-                                        <div v-if="review.full_name != undefined" class="reviewer">
-                                            {{ review.full_name }}
+                                    <li v-for="review in data.reviews">
+                                        <div class=" mb-5 margin message">
+                                            <div v-if="review.full_name != undefined" class="reviewer">
+                                                {{ review.full_name }}
 
-                                        </div>
-                                        <div v-else class="anonymous">
-                                            anonymous
-                                        </div>
-                                        <p>
-                                            {{ review.text }}
-                                        </p>
-                                        <div class="created-at">
-                                            {{ myGetTime(review.created_at).giorno }}
-                                            {{ myGetTime(review.created_at).ora }}
+                                            </div>
+                                            <div v-else class="anonymous">
+                                                anonymous
+                                            </div>
+                                            <p>
+                                                {{ review.text }}
+                                            </p>
+                                            <div class="created-at">
+                                                {{ myGetTime(review.created_at).giorno }}
+                                                {{ myGetTime(review.created_at).ora }}
 
+                                            </div>
                                         </div>
 
 
@@ -226,23 +269,26 @@ function myFunction() {
                                     My messages
                                 </div>
                                 <ul class="principale">
+                                    <li v-for="message in data.messages">
+                                        <div class=" mb-5 margin message">
 
-                                    <li v-for="message in data.messages" class="shadow-lg mb-5 bg-white margin secondario">
-                                        <div v-if="message.full_name != undefined" class="reviewer">
-                                            {{ message.full_name }}
 
-                                        </div>
-                                        <div v-else class="anonymous">
-                                            anonymous
-                                        </div>
-                                        <a href="mailto:{{ message.email }}" class="email">{{ message.email }}</a>
-                                        <p>
-                                            {{ message.text }}
-                                        </p>
-                                        <div class="created-at">
-                                            {{ myGetTime(message.created_at).giorno }}
-                                            {{ myGetTime(message.created_at).ora }}
+                                            <div v-if="message.full_name != undefined" class="reviewer">
+                                                {{ message.full_name }}
 
+                                            </div>
+                                            <div v-else class="anonymous">
+                                                anonymous
+                                            </div>
+                                            <a href="mailto:{{ message.email }}" class="email">{{ message.email }}</a>
+                                            <p>
+                                                {{ message.text }}
+                                            </p>
+                                            <div class="created-at">
+                                                {{ myGetTime(message.created_at).giorno }}
+                                                {{ myGetTime(message.created_at).ora }}
+
+                                            </div>
                                         </div>
 
 
@@ -352,13 +398,13 @@ function myFunction() {
                                 </div>
                                 <!-- cv_path -->
                                 <a :href="data.portfolio_url"></a>
-                                <!-- <div class="title">
-                                        My technologies
-                                    </div> -->
+
                                 <div class="my-technologies">
                                     <div v-for="technology in data.technologies" class="my-technology">
                                         <img :src="technology.logo_path" alt="">
-                                        {{ technology.name }}
+                                        <div class="titolo">
+                                            {{ technology.name }}
+                                        </div>
 
                                     </div>
                                 </div>
@@ -435,6 +481,9 @@ $h-main: calc($h-my-background - 70px);
 .principale {
     padding-right: 20px;
 
+
+
+
     overflow: scroll;
 
     // no scrollbar Chrome, Safari and Opera
@@ -447,38 +496,52 @@ $h-main: calc($h-my-background - 70px);
     /* Firefox */
     scrollbar-width: none;
 
+    li {
 
-    .secondario {
-        list-style: none;
-        padding: 15px 25px;
-        border-radius: 0 13px 13px 13px;
-        margin-top: 30px;
-        // margin: 10px;
+        .message {
+            list-style: none;
+            padding: 15px 25px;
+            border-radius: 0 13px 13px 13px;
+            margin-top: 30px;
+            max-width: 70%;
+            background-color: #757575;
+            // margin: 10px;
+            transition: all 0.7s linear 0s;
 
-        .reviewer {
-            font-weight: bold;
-            color: $brand_fourth;
+
+
+            .reviewer {
+                font-weight: bold;
+                color: $brand_fourth;
+            }
+
+            .email {
+                color: rgb(2, 91, 91);
+            }
+
+            .anonymous {
+                font-style: italic;
+                font-size: 12px;
+                color: rgb(67, 67, 67);
+            }
+
+            p {
+                margin-top: 5px;
+            }
+
+            .created-at {
+                text-align: end;
+                font-size: 12px;
+            }
+
         }
 
-        .email {
-            color: rgb(2, 91, 91);
+        &:hover {
+            .message {
+                background-color: white;
+                box-shadow: 20px white;
+            }
         }
-
-        .anonymous {
-            font-style: italic;
-            font-size: 12px;
-            color: rgb(67, 67, 67);
-        }
-
-        p {
-            margin-top: 5px;
-        }
-
-        .created-at {
-            text-align: end;
-            font-size: 12px;
-        }
-
     }
 }
 
@@ -494,7 +557,7 @@ $h-main: calc($h-my-background - 70px);
     padding: 10px;
     display: flex;
     flex-direction: column;
-    box-shadow: 20px black;
+
     position: relative;
     overflow: scroll;
 
@@ -601,6 +664,7 @@ body {
                         margin-top: 50px;
                         border-radius: 0 0 20px 0;
 
+
                         &:hover {
                             .my-edit {
                                 display: flex;
@@ -703,7 +767,7 @@ body {
                             padding: 10px;
                             color: white;
                             position: relative;
-                            transition: all 0.4s linear 0s;
+                            transition: all 0.1s linear 0s;
 
 
                             &.name {
@@ -749,12 +813,15 @@ body {
                         .my-technologies {
                             margin: 50px 0;
                             display: flex;
+                            justify-content: center;
                             flex-wrap: wrap;
 
                             .my-technology {
-                                width: 30%;
-                                // height: 50px;
+                                width: 100px;
+                                height: 100px;
                                 margin: 5px;
+                                border-radius: 5px;
+                                position: relative;
                                 display: flex;
                                 flex-direction: column;
                                 align-items: center;
@@ -766,6 +833,29 @@ body {
                                     height: 50px;
                                     object-fit: contain;
                                     padding: 5px;
+
+
+
+
+
+                                }
+
+                                .titolo {
+                                    display: none;
+                                    transition: all 0.1s linear 0s;
+
+
+                                }
+
+
+                                &:hover {
+                                    background-color: rgba(255, 255, 255, 0.326);
+
+                                    .titolo {
+                                        display: block;
+
+
+                                    }
                                 }
                             }
                         }
