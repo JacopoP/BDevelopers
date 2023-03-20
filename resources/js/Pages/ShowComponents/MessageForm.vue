@@ -15,7 +15,7 @@ const form = useForm({
 // Regex
 const mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 function submit() {
-    if ( (form.text !== '') && !(!form.email.match(mailformat)) ) {
+    if ( (form.name !== '') && (form.text !== '') && !(!form.email.match(mailformat)) ) {
         form.post(route('message.store', props.developer.id));
         form.text = '';
         form.email = '';
@@ -33,6 +33,10 @@ export default{
             borderColorName: true,
             borderColorEmail: true,
             borderColorText: true,
+            
+            thereIsEmail: false,
+
+            send_success: false,
         }
     },
     methods:{
@@ -43,25 +47,54 @@ export default{
             
                 if(name == ''){
                     this.borderColorName = false;
+                    this.nameSend = false;
+                }else{
+                    this.borderColorName = true;
                 }
 
                 if(email == '' || !format){
                     this.borderColorEmail = false;
+                    
+                    if(email == ''){
+                        this.thereIsEmail = false;
+                    }else{
+                        this.thereIsEmail = true;
+                    }
+                }else{
+                    this.borderColorEmail = true;
                 }
-                // if(!format){
-                //     this.borderColorEmail = false;
-                // }
+                
 
                 if(text == ''){
                     this.borderColorText = false;
+                    this.textSend = false;
+                }else{
+                    this.borderColorText = true;
                 }
+
+                this.send_success = false;
 
                 setTimeout(() => {
                     this.show = false;
                     this.borderColorEmail = true;
                     this.borderColorName = true;
                     this.borderColorText = true;
-                }, 2000);
+
+                    this.thereIsEmail = true;
+                    
+                }, 10000);
+            }else{
+                this.show = true;
+                this.send_success = true;
+                this.borderColorEmail = true;
+                this.borderColorName = true;
+                this.borderColorText = true;
+
+                this.thereIsEmail = true;
+                setTimeout(() => {
+                    this.show = false;
+                    this.send_success = false;
+                }, 10000);
             }
         }
     }
@@ -84,7 +117,7 @@ export default{
                 v-model="form.full_name"  
                 autocomplete="last"
             />
-            <p v-if="show && form.full_name == ''" class="text-danger">
+            <p v-if="show && !borderColorName" class="text-danger">
                 Add Name
             </p>
         </div>
@@ -111,8 +144,11 @@ export default{
                     </span>
                 </div>
             </div>
-            <p v-if="( show && (form.email == '' || !form.email.match(mailformat)) )" class="text-danger">
-                Add Email
+            <p v-if="show && !thereIsEmail && !borderColorEmail" class="text-danger">
+                Email required
+            </p>
+            <p v-else-if="( show && !borderColorEmail )" class="text-danger">
+                Email format not valid
             </p>
         </div>
 
@@ -131,7 +167,7 @@ export default{
                 autocomplete="last"
                 cols="30" rows="5" 
             ></textarea>
-            <p v-if="show && form.text == ''" class="text-danger">
+            <p v-if="show && !borderColorText" class="text-danger">
                 Add Message Text
             </p>
         </div>
@@ -140,7 +176,7 @@ export default{
             <input class="my_login_button btn btn-primary rounded-pill text-light px-3 py-2" type="submit" value="Send a Message">
         </div>
         <div v-if="show" class="fw-bold text-center text-secondary" style="--bs-text-opacity: .4;">
-            <p v-if="form.full_name !== '' && form.email !== '' && form.text !== ''">
+            <p v-if="send_success">
                 Thank you for your message!!
             </p>
         </div>
