@@ -15,7 +15,7 @@ const form = useForm({
 // Regex
 const mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 function submit() {
-    if ( (form.text !== '') && !(form.email.match(mailformat)) ) {
+    if ( (form.text !== '') && !(!form.email.match(mailformat)) ) {
         form.post(route('message.store', props.developer.id));
         form.text = '';
         form.email = '';
@@ -36,18 +36,21 @@ export default{
         }
     },
     methods:{
-        showMessage(name, email, text){
+        showMessage(name, email, format, text){
             // formato email è valido?
-            if(name == '' || email == '' || text == ''){
+            if(name == '' || email == '' || !format || text == ''){
                 this.show = true;
             
                 if(name == ''){
                     this.borderColorName = false;
                 }
 
-                if(email == ''){
+                if(email == '' || !format){
                     this.borderColorEmail = false;
                 }
+                // if(!format){
+                //     this.borderColorEmail = false;
+                // }
 
                 if(text == ''){
                     this.borderColorText = false;
@@ -58,7 +61,7 @@ export default{
                     this.borderColorEmail = true;
                     this.borderColorName = true;
                     this.borderColorText = true;
-                }, 10000);
+                }, 2000);
             }
         }
     }
@@ -66,12 +69,12 @@ export default{
 </script>
 
 <template>
-    <form class="d-flex flex-column align-items-center gap-4" method="post" @submit.prevent="showMessage(form.full_name, form.email, form.text); submit();">
+    <form class="d-flex flex-column align-items-center gap-4" method="post" @submit.prevent="showMessage(form.full_name, form.email, form.email.match(mailformat), form.text); submit();">
 
         <!-- Username -->
         <div class="my_text_input_label w-100">
 
-            <InputLabel class="my_input_label bg-dark" for="full_name" value="Username" />
+            <InputLabel class="my_input_label bg-dark" for="full_name" value="Name" />
 
             <TextInput
                 id="full_name"
@@ -81,7 +84,9 @@ export default{
                 v-model="form.full_name"  
                 autocomplete="last"
             />
-
+            <p v-if="show && form.full_name == ''" class="text-danger">
+                Add Name
+            </p>
         </div>
 
         <!-- Email -->
@@ -106,6 +111,9 @@ export default{
                     </span>
                 </div>
             </div>
+            <p v-if="( show && (form.email == '' || !form.email.match(mailformat)) )" class="text-danger">
+                Add Email
+            </p>
         </div>
 
         <!-- Message Text -->
@@ -123,24 +131,17 @@ export default{
                 autocomplete="last"
                 cols="30" rows="5" 
             ></textarea>
-
+            <p v-if="show && form.text == ''" class="text-danger">
+                Add Message Text
+            </p>
         </div>
         <!-- Button SUBMIT -->
         <div>
             <input class="my_login_button btn btn-primary rounded-pill text-light px-3 py-2" type="submit" value="Send a Message">
         </div>
         <div v-if="show" class="fw-bold text-center text-secondary" style="--bs-text-opacity: .4;">
-            <p v-if="show && form.full_name !== '' && form.email !== '' && form.text !== ''">
+            <p v-if="form.full_name !== '' && form.email !== '' && form.text !== ''">
                 Thank you for your message!!
-            </p>
-            <p v-if="form.full_name == ''" class="text-danger">
-                Add Name
-            </p>
-            <p v-if="form.email == ''" class="text-danger">
-                Add Email
-            </p>
-            <p v-if="form.text == ''" class="text-danger">
-                Add Message Text
             </p>
         </div>
     </form>
