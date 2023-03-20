@@ -498,16 +498,14 @@ export default {
                             </div>
                             <!-- sponsors -->
                             <!-- only if there are more than 0 sponsors  -->
-                            <div class="my-border sponsor" v-if="lastSponsor()">
-                                <div>You've got
-                                    <b>
-                                        {{ data.sponsors.length }}
-                                    </b>
-                                    sponsors!
-                                </div>
+                            <div class="my-border sponsor">
+                                <template v-if="lastSponsor()">
+                                    <div>You are sponsored!</div>
+    
+                                    <div>Sponsor expires: {{ lastSponsor() }}</div>
+                                </template>
 
-                                <div>{{ lastSponsor() }}</div>
-
+                                <div v-else>You aren't sponsored!</div>
 
                                 <a :href="route('braintree')" class="my-border">Get sponsored!</a>
 
