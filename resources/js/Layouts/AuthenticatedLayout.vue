@@ -1,7 +1,9 @@
 <script setup>
 import { ref } from 'vue';
 import Navbar from '@/Components/DashboardHead/Navbar.vue';
+import Footer from '@/Components/Footer/Footer.vue';
 </script>
+
 
 <template>
     <div class="bg-dark" style="min-height: 100vh;">
@@ -20,5 +22,7 @@ import Navbar from '@/Components/DashboardHead/Navbar.vue';
         <main>
             <slot name="main" />
         </main>
+        <Footer />
+
     </div>
 </template>
