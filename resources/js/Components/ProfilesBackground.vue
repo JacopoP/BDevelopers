@@ -174,12 +174,15 @@ export default {
 
 <style lang="scss" scoped>
 .ProfilesBackground {
+
+    // Background
     background-color: #121212;
     background-image: url('../../img/background_earth.jpg');
-    background-position: center center;
+    background-position: center right;
     background-repeat: no-repeat;
-    background-size: cover;
+    // background-size: cover;
 
+    // Size
     height: 100vh;
     width: 100vw;
 
