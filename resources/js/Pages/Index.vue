@@ -188,7 +188,7 @@ export default {
                                         </div>
                                         <!-- {{ developer.user.name }} {{ developer.user.last }} <br> -->
                                         <br>
-                                        <Link :href="'/show' + developer.id" class="btn btn-outline-primary rounded-pill">
+                                        <Link :href="($page.props.auth.user != null && $page.props.auth.user.id == developer.id ? route('dashboard') : '/show' + developer.id)" class="btn btn-outline-primary rounded-pill">
                                             Profile
                                         </Link>
                                         
