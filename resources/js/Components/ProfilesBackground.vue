@@ -87,7 +87,7 @@ export default {
             let minPop = -.001;
 
             // Screen sizes
-            let mapOverflowXMargin = 25;
+            let mapOverflowXMargin = bRadius;
             let mapOverflowYMargin = 100;
             let mapWidth = window.innerWidth - (mapOverflowXMargin * 2);
             let mapHeight = window.innerHeight - (mapOverflowYMargin * 2);
@@ -141,11 +141,12 @@ export default {
             });
         },
     },
-    mounted() {
-
+    created() {
         // Slice profile in excess
         // TODO: limit controller at source
         this.profiledDevelopers = this.profiledDevelopers.slice(0, 15);
+    },
+    mounted() {
 
         // Refer bubbles
         this.profiledDevelopers.forEach((dev, index) => {
