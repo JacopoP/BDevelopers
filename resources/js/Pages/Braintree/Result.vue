@@ -1,9 +1,7 @@
 <script setup>
 import GuestLayout from '@/Layouts/GuestLayout.vue';
 import { Link } from '@inertiajs/vue3';
-const props = defineProps(['result', 'developer']);
-console.log(props.result);
-console.log(props.developer);
+const props = defineProps(['result']);
 </script>
 
 <template>

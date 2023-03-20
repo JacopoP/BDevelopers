@@ -70,6 +70,6 @@ class BraintreeController extends Controller
                 'date_end' => $end_date
             ]);
         }
-        return Inertia::render('Braintree/Result', ['result' => $result, 'developer' => $developer]);
+        return Inertia::render('Braintree/Result', ['result' => $result]);
     }
 }
