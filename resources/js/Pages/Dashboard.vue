@@ -47,9 +47,6 @@ const data = {
 };
 
 
-console.log(data.sponsors);
-
-
 
 
 function stringToObj(stringa) {
@@ -64,6 +61,73 @@ function stringToObj(stringa) {
 
 
     return time;
+}
+
+function nameMonth(integer) {
+
+    let month_word = null;
+
+    if (integer === 1) {
+        month_word = 'Jan';
+
+    } else if (integer === 2) {
+        month_word = 'Feb';
+
+    } else if (integer === 3) {
+        month_word = 'Mar';
+
+    } else if (integer === 4) {
+        month_word = 'Apr';
+
+    } else if (integer === 5) {
+        month_word = 'May';
+
+    } else if (integer === 6) {
+        month_word = 'Jun';
+
+    } else if (integer === 7) {
+        month_word = 'Jul';
+
+    } else if (integer === 8) {
+        month_word = 'Aug';
+
+    } else if (integer === 9) {
+        month_word = 'Sep';
+
+    } else if (integer === 10) {
+        month_word = 'Oct';
+
+    } else if (integer === 11) {
+        month_word = 'Nov';
+
+    } else if (integer === 12) {
+        month_word = 'Dec';
+
+    } else {
+        month_word = 'wrong month';
+    };
+
+    return month_word;
+}
+
+function daySuffix(integer) {
+
+
+    let suffix = 'th';
+
+    if (integer === 1 || integer === 21 || integer === 31) {
+        suffix = 'st';
+
+    } else if (integer === 2 || integer === 22) {
+        suffix = 'nd';
+
+    } else if (integer === 3 || integer === 23) {
+        suffix = 'rd';
+
+    };
+
+    return suffix;
+
 }
 
 function now() {
@@ -89,6 +153,11 @@ function now() {
 
 }
 
+function formalDate(obj) {
+    return nameMonth(obj.month) + ' ' + (obj.day).toString() + daySuffix(obj.day) + ' ' + (obj.year).toString();
+
+}
+
 function myGetTime(stringa) {
 
     const obj1 = stringToObj(stringa);
@@ -98,7 +167,7 @@ function myGetTime(stringa) {
 
     let result = {
         'day': null,
-        'ora': (obj1.hour).toString() + ':' + (obj1.min).toString(),
+        'hour': (obj1.hour).toString() + ':' + (obj1.min).toString(),
     }
 
     if (
@@ -116,64 +185,8 @@ function myGetTime(stringa) {
 
 
     } else {
-        let month_word = null;
-        if (obj1.month === 1) {
-            month_word = 'Jan';
 
-        } else if (obj1.month === 2) {
-            month_word = 'Feb';
-
-        } else if (obj1.month === 3) {
-            month_word = 'Mar';
-
-        } else if (obj1.month === 4) {
-            month_word = 'Apr';
-
-        } else if (obj1.month === 5) {
-            month_word = 'May';
-
-        } else if (obj1.month === 6) {
-            month_word = 'Jun';
-
-        } else if (obj1.month === 7) {
-            month_word = 'Jul';
-
-        } else if (obj1.month === 8) {
-            month_word = 'Aug';
-
-        } else if (obj1.month === 9) {
-            month_word = 'Sep';
-
-        } else if (obj1.month === 10) {
-            month_word = 'Oct';
-
-        } else if (obj1.month === 11) {
-            month_word = 'Nov';
-
-        } else if (obj1.month === 12) {
-            month_word = 'Dec';
-
-        } else {
-            month_word = 'wrong date';
-        };
-
-        let suffix = 'th';
-
-        if (obj1.day === 1 || obj1.day === 21 || obj1.day === 31) {
-            suffix = 'st';
-
-        } else if (obj1.day === 2 || obj1.day === 22) {
-            suffix = 'nd';
-
-        } else if (obj1.day === 3 || obj1.day === 23) {
-            suffix = 'rd';
-
-        };
-
-
-        result.day = month_word + ' ' + (obj1.day).toString() + suffix + ' ' + (obj1.year).toString();
-
-
+        result.day = formalDate(obj1);
     }
 
 
@@ -198,20 +211,60 @@ function myRatingsAv() {
     };
     return (result);
 }
-
-
 const form = useForm({
     profile_path: null,
 });
-
-
-
 function sendImg() {
     form.post(route('profile.dev.store'));
 }
 
 
+function lastSponsor() {
+    let dataFine = null;
+    // ottengo la data più recende delle sponsors.date_end
+    data.sponsors.forEach(element => {
+        const dataSponsor = stringToObj(element.pivot.date_end);
+
+
+
+        // se la data è successiva a oggi
+        if (
+            dataSponsor.year > 1998 ||
+            dataSponsor.year === 1998 && dataSponsor.month > 3 ||
+            dataSponsor.year === 1998 && dataSponsor.month === 3 && dataSponsor.day > 20
+            // dataSponsor.year > now().year ||
+            // dataSponsor.year === now().year && dataSponsor.month > now().month ||
+            // dataSponsor.year === now().year && dataSponsor.month === now().month && dataSponsor.day > now().day
+        ) {
+
+            // se dataFine è anchour vuoto lo riempo
+            if (dataFine === null) {
+                dataFine = dataSponsor;
+
+                // altrimenti se la dataSponsor è maggiore della dataFine (già salvata)
+            } else if (
+                dataSponsor.year > dataFine.year ||
+                dataSponsor.year === dataFine.year && dataSponsor.month > dataFine.month ||
+                dataSponsor.year === dataFine.year && dataSponsor.month === dataFine.month && dataSponsor.day > dataFine.day
+            ) {
+                dataFine = dataSponsor;
+
+            }
+
+
+        }
+
+
+
+    }
+    )
+    return (formalDate(dataFine));
+}
 </script>
+
+
+
+
 
 <script>
 export default {
@@ -223,7 +276,7 @@ export default {
     methods: {
         updateImg() {
             axios.get('http://localhost:8000/api/v1/profile_path' + usePage().props.auth.user.id)
-                .then((res) => { this.new_profile_path = 'storage/' + res.data.response.path })
+                .then((res) => { this.new_profile_path = 'sthourge/' + res.data.response.path })
                 .catch((error) => console.log(error))
         }
     }
@@ -272,7 +325,7 @@ export default {
                                             </p>
                                             <div class="created-at">
                                                 {{ myGetTime(review.created_at).day }}
-                                                {{ myGetTime(review.created_at).ora }}
+                                                {{ myGetTime(review.created_at).hour }}
 
                                             </div>
                                         </div>
@@ -304,7 +357,7 @@ export default {
                                             </p>
                                             <div class="created-at">
                                                 {{ myGetTime(message.created_at).day }}
-                                                {{ myGetTime(message.created_at).ora }}
+                                                {{ myGetTime(message.created_at).hour }}
 
                                             </div>
                                         </div>
@@ -444,9 +497,8 @@ export default {
                                     </b>
                                     sponsors!
                                 </div>
-                                <div v-for="sponsor in data.sponsors">
-                                    {{ sponsor.pivot.date_end }}
-                                </div>
+
+                                <div>{{ lastSponsor() }}</div>
 
 
                                 <a :href="route('braintree')" class="my-border">Get sponsored!</a>
@@ -685,8 +737,8 @@ body {
 
                         .my-edit {
 
-                            // no anchor decorarion
-                            text-decoration: inherit;
+                            // no anchor dechourrion
+                            text-dechourtion: inherit;
                             color: inherit;
 
 
@@ -845,7 +897,7 @@ body {
                         a.my-border {
                             width: 70%;
                             margin-bottom: 10px;
-                            text-decoration: none;
+                            text-dechourtion: none;
                             border-radius: 0 0 20px 0;
                             font-weight: bold;
                             font-size: 20px;
