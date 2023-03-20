@@ -12,11 +12,11 @@
                 <div class="d-flex flex-column pb-3 align-items-center _width _breakpoints">
                     <h3 class="text-light pb-2">Authors</h3>
                     <div class="d-flex flex-column">
-                        <a class="text-light" href=""><i class="fa-brands fa-github pe-1"></i>Vincenzo</a>
-                        <a class="text-light" href=""><i class="fa-brands fa-github pe-1"></i>Francesco</a>
-                        <a class="text-light" href=""><i class="fa-brands fa-github pe-1"></i>Emanuele</a>
-                        <a class="text-light" href=""><i class="fa-brands fa-github pe-1"></i>Jacopo</a>
-                        <a class="text-light" href=""><i class="fa-brands fa-github pe-1"></i>Emanuela</a>
+                        <a class="text-light" href="https://github.com/VolxDarkTV"><i class="fa-brands fa-github pe-1"></i>Vincenzo</a>
+                        <a class="text-light" href="https://github.com/FrancescoLimpias"><i class="fa-brands fa-github pe-1"></i>Francesco</a>
+                        <a class="text-light" href="https://github.com/edaless"><i class="fa-brands fa-github pe-1"></i>Emanuele</a>
+                        <a class="text-light" href="https://github.com/JacopoP"><i class="fa-brands fa-github pe-1"></i>Jacopo</a>
+                        <a class="text-light" href="https://github.com/Emanuela91"><i class="fa-brands fa-github pe-1"></i>Emanuela</a>
                     </div>
                 </div>
 
@@ -39,6 +39,9 @@
 <style lang="scss" scoped>
 @use 'resources/sass/variable.scss' as *;
 
+a{
+    text-decoration: none;
+}
 ._myClass {
     background-color: $brand_fourth;
 }
