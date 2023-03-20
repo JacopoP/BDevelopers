@@ -308,13 +308,24 @@ console.log(props.developer)
                                 <div class="d-flex justify-content-center">
                                     <a href="/developer" class="my-edit">
                                         Developer Settings
-                                        <i class="fa-solid fa-pencil"></i>
+
                                     </a>
                                 </div>
 
-                                <div class="my-img-container" @click="myFunction()">
+                                <div class="my-img-container mx-auto my-3" @click="myFunction()">
 
                                     <img :src="data.profile_path">
+                                    <form class="d-flex justify-content-center align-items-center" method="post"
+                                        enctype="multipart/form-data"
+                                        @submit.prevent="form.post(route('profile.dev.store'))">
+                                        <label for="profile_path" class="my-layover"> <i class="fa-solid fa-pencil"></i>
+                                        </label>
+
+                                        <input id="profile_path" type="file" name="profile_path"
+                                            @input="form.profile_path = $event.target.files[0]">
+
+                                    </form>
+
 
                                     <!-- PoP Up -->
                                     <div class="popup">
@@ -427,7 +438,7 @@ console.log(props.developer)
                                     Average:
                                 </div>
                                 <div class="d-flex align-text-bottom">
-                                    {{Math.round(developer.ratings_avg_value * 100) / 100 }}
+                                    {{ Math.round(developer.ratings_avg_value * 100) / 100 }}
                                 </div>
                                 <div class="d-flex">
                                     <div v-for="any in (myRatingsAv(data.ratings)).integer">
@@ -436,7 +447,8 @@ console.log(props.developer)
                                     <div v-if="(myRatingsAv(data.ratings)).half">
                                         <i class="fa-solid fa-star-half-stroke"></i>
                                     </div>
-                                    <div v-for="index in (5 - ((myRatingsAv(data.ratings))).integer - (((myRatingsAv(data.ratings)).half) ? 1 : 0))">
+                                    <div
+                                        v-for="index in (5 - ((myRatingsAv(data.ratings))).integer - (((myRatingsAv(data.ratings)).half) ? 1 : 0))">
                                         <i class="fa-regular fa-star"></i>
                                     </div>
 
@@ -671,11 +683,7 @@ body {
                         border-radius: 0 0 20px 0;
 
 
-                        &:hover {
-                            .my-edit {
-                                display: flex;
-                            }
-                        }
+
 
                         .my-edit {
 
@@ -689,10 +697,10 @@ body {
                             color: white;
                             height: 40px;
                             width: 90%;
-                            display: none;
+                            display: flex;
                             justify-content: center;
                             align-items: center;
-                            position: absolute;
+                            // position: absolute;
 
                             // z-index necessary to stop propagation click
                             z-index: 100;
@@ -708,33 +716,62 @@ body {
                         }
 
                         .my-img-container {
-                            $w-img: 300px;
+
+                            width: 300px;
+                            height: 300px;
+                            position: relative;
                             display: flex;
                             justify-content: center;
                             align-items: center;
-                            position: relative;
-                            width: 100%;
-                            height: calc($w-img + 150px);
+                            border-radius: 30%;
+                            overflow: hidden;
+
 
                             img {
-                                width: $w-img;
-                                height: $w-img;
+                                position: absolute;
+                                width: 330px;
+                                height: 330px;
                                 object-fit: cover;
-                                border-radius: 30%;
-                                transition: all 0.7s linear 0s;
+
+                            }
+
+                            .my-layover {
+                                background-color: rgba(48, 48, 48, 0.675);
+                                width: 300px;
+                                height: 300px;
+                                justify-content: center;
+                                align-items: center;
+                                position: absolute;
+                                display: none;
+                                font-size: 40px;
+
+
+
+                            }
+
+                            .my-layover-input {
+                                // background-color: rgba(48, 48, 48, 0.675);
+                                // width: 300px;
+                                // height: 300px;
+                                // justify-content: center;
+                                // align-items: center;
+                                position: absolute;
+                                // display: none;
+                                // display: flex;
+                                // font-size: 40px;
 
 
 
                             }
 
                             &:hover {
-                                z-index: 50;
-                                background-color: #757575;
 
-                                img {
-                                    z-index: 40;
+                                .my-layover {
+                                    display: flex;
+
 
                                 }
+
                             }
 
 
@@ -781,7 +818,8 @@ body {
                             &.name {
                                 border-radius: 0 0 10px 10px;
                                 padding: 30px 10px;
-
+                                font-size: 25px;
+                                font-weight: bold;
 
 
                             }
@@ -857,7 +895,7 @@ body {
 
 
                                 &:hover {
-                                    background-color: rgba(255, 255, 255, 0.326);
+                                    background-color: rgba(255, 255, 255, 0.151);
 
                                     .titolo {
                                         display: block;
