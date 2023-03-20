@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 // Models
 use App\Models\User;
@@ -55,13 +54,13 @@ class ApiController extends Controller
         ]);
     }
     
-    public function getImgProfile(){
-        $developer = Developer::find(Auth::id());
+    public function getImgProfile($id){
+        $developer = Developer::find($id);
         
         return response()->json([
             'success' => true,
             'response' => [
-                'path' => $developer -> profile_path,
+                'path' => $developer->profile_path,
             ]
         ]);
 

@@ -25,4 +25,4 @@ Route::get('v1/index', [ApiController::class, 'index']);
 
 Route::get('v1/search', [ApiController::class, 'filter']);
 
-Route::get('v1/profile_path', [ApiController::class, 'getImgProfile']);
+Route::get('v1/profile_path{user}', [ApiController::class, 'getImgProfile']);

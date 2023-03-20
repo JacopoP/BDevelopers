@@ -2,23 +2,28 @@
 import { ref } from 'vue';
 import ApplicationLogo from '@/Components/ApplicationLogo.vue';
 import NavLink from '@/Components/NavLink.vue';
-import { Link, useForm } from '@inertiajs/vue3';
+import { Link, usePage } from '@inertiajs/vue3';
 import axios from 'axios';
 import { onMounted } from 'vue';
 
-const link = 'http://localhost:8000/api/v1/';
-const imgPath = '';
-onMounted(() => {
-    // if($page.props.auth.user != undefined){
-    // }
-    axios.get(link + 'profile_path')
-        .then((res) => imgPath = res.data.response.path)
-        .catch((error) => console.log(error))
-        
-})
-
 const showingNavigationDropdown = ref(false);
 
+</script>
+
+<script>
+    const link = 'http://localhost:8000/api/v1/';
+export default{
+    data(){
+        return{
+            imgPath: '',
+        }
+    },
+    mounted(){
+        axios.get(link + 'profile_path' + usePage().props.auth.user.id)
+        .then((res) => {this.imgPath = res.data.response.path})
+        .catch((error) => console.log(error))
+    }
+}
 </script>
 
 <template>
