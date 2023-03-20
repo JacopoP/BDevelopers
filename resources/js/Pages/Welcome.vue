@@ -55,7 +55,7 @@ export default {
         <div class="hero-section fixed-top">
             <div class="container">
                 <div class="row justify-content-center" style="height: 100vh;">
-                    <div class="col-md-7 d-flex align-items-center">
+                    <div class="col col-md-7">
 
                         <div class="main-div rounded">
                             <h1 class="text-center mb-4 text-light">Start your research</h1>
@@ -104,6 +104,7 @@ export default {
     background-color: #121212;
 
     .hero-section {
+        padding-top: 10rem;
         pointer-events: none;
 
         // background-color: #1d1d1d16;
