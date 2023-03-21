@@ -148,17 +148,25 @@ export default {
             vueInstance.bubbles.forEach(b => b.classList.remove("show"));
 
             // check which bubbles are available
-            let availableBubbles = vueInstance.bubbles.filter(b => b.style.display != "none");
+            let availableBubbles;
+            do {
+                availableBubbles = vueInstance.bubbles.filter(b => b.style.display != "none" && !shownBubbles.includes(b))
+                if (!availableBubbles.length) {
+                    shownBubbles = shownBubbles.slice(-1);
+                }
+            } while (!availableBubbles.length)
 
+            let showBubble = availableBubbles[Math.floor(Math.random() * availableBubbles.length)];
+            shownBubbles.push(showBubble);
+
+            // queue show toggle
             setTimeout(() => {
-                availableBubbles[Math.floor(Math.random() * availableBubbles.length)].classList.toggle("show");
+                showBubble.classList.add("show");
             }, 700);
         }
 
         // Start Carousel mechanism
-        setTimeout(() => {
-            carouselBubble();
-        }, 400);
+        carouselBubble();
         setInterval(() => {
             carouselBubble();
         }, 6000, 400);
@@ -224,11 +232,11 @@ function rangeMap(number, inMin, inMax, outMin, outMax) {
 
         <!-- Populate with bubbles -->
         <!-- <div :id="'bubble' + index" v-for="(developer, index) in profiledDevelopers" class="bubble rounded">
-                                                                <img :src="getBubbleImage(index)" class="rounded">
-                                                                <div class="volatile">
-                                                                    Ciao
-                                                                </div>
-                                                            </div> -->
+                                                                            <img :src="getBubbleImage(index)" class="rounded">
+                                                                            <div class="volatile">
+                                                                                Ciao
+                                                                            </div>
+                                                                        </div> -->
 
         <div :id="'bubble' + index" v-for="(developer, index) in profiledDevelopers"
             class="bubble card text-white bg-dark rounded">
@@ -251,8 +259,8 @@ function rangeMap(number, inMin, inMax, outMin, outMax) {
             <!-- Card 'body' (navigation links) -->
             <ul class="list-group list-group-flush volatile overflow-hidden">
                 <!-- <a class="list-group-item px-3 bg-dark text-white" href="">
-                                            Connect
-                                        </a> -->
+                                                        Connect
+                                                    </a> -->
                 <a class="list-group-item px-3 bg-dark text-white" href="">
                     Connect
                 </a>
