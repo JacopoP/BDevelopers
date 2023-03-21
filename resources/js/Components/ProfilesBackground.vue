@@ -156,7 +156,7 @@ export default {
                 availableBubbles = vueInstance.bubbles.filter(b => b.style.display != "none" && !shownBubbles.includes(b))
                 if (!availableBubbles.length) {
                     shownBubbles = shownBubbles.length <= 1 ? [] : shownBubbles.slice(-1);
-                    
+
                 }
             } while (!availableBubbles.length)
 
@@ -241,9 +241,19 @@ function rangeMap(number, inMin, inMax, outMin, outMax) {
             <div class="card-header d-flex justify-content-between p-0">
 
                 <!-- Name/welcome -->
-                <div class="card-info volatile">
-                    <div class="m-3">
-                        {{ developer.user.name + " " + developer.user.last }}
+                <div class="card-info volatile overflow-hidden">
+                    <div class="p-3">
+                        <div class="d-flex gap-1">
+                            <b>
+                                {{ developer.user.last }}
+                            </b>
+                            <span>
+                                {{ developer.user.name }}
+                            </span>
+                        </div>
+                        <small>
+                            Sponsored
+                        </small>
                     </div>
                 </div>
 

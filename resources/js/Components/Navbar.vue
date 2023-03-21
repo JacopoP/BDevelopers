@@ -53,23 +53,23 @@ export default {
 
                     <!-- authenticated user links -->
                     <template v-if="auth_user">
-                        <a class="list-group-item px-3 bg-dark text-white" href="">
+                        <a class="list-group-item px-3 text-white" href="">
                             Profile Info
                         </a>
-                        <a class="list-group-item px-3 bg-dark text-white" href="">
+                        <a class="list-group-item px-3 text-white" href="">
                             Account Settings
                         </a>
-                        <a class="list-group-item px-3 bg-dark text-white" href="">
+                        <a class="list-group-item px-3 text-white" href="">
                             Logout
                         </a>
                     </template>
 
                     <!-- guest links -->
                     <template v-else>
-                        <a class="list-group-item px-3 bg-dark text-white" href="">
+                        <a class="list-group-item px-3 text-white" href="">
                             Login
                         </a>
-                        <a class="list-group-item px-3 bg-dark text-white" href="">
+                        <a class="list-group-item px-3 text-white" href="">
                             Register
                         </a>
                     </template>
@@ -130,7 +130,7 @@ img {
     // Card links
     // used !important to override Bootstrap
     a {
-        background-color: #2024287f !important;
+        background-color: #00000000 !important;
 
         &:hover {
             background-color: #E8763D !important;
