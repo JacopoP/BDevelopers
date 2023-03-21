@@ -531,7 +531,9 @@ export default {
 @use 'resources/sass/variable.scss';
 @use 'resources/sass/form-style.scss';
 
-
+input[type=file]{
+   display: none;
+}
 
 $grigio-my-background: #424242;
 $color-scritte: white;
