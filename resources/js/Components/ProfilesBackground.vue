@@ -79,9 +79,10 @@ export default {
                     bubble.style.display = "block";
                 }
 
-                // Set bubble radius
-                bubble.style.width = (bRadius * 2) + 'px';
-                bubble.style.height = (bRadius * 2) + 'px';
+                // Set bubble profile radius
+                let profile = bubble.querySelector(".card-profile");
+                profile.style.width = (bRadius * 2) + 'px';
+                profile.style.height = (bRadius * 2) + 'px';
 
                 // X Axis
                 bubble.style.right =
@@ -199,11 +200,40 @@ function rangeMap(number, inMin, inMax, outMin, outMax) {
     <div class="ProfilesBackground fixed-top overflow-hidden">
 
         <!-- Populate with bubbles -->
-        <div :id="'bubble' + index" v-for="(developer, index) in profiledDevelopers" class="bubble rounded">
-            <img :src="getBubbleImage(index)" class="rounded">
-            <div class="volatile">
-                <!-- Ciao -->
+        <!-- <div :id="'bubble' + index" v-for="(developer, index) in profiledDevelopers" class="bubble rounded">
+                                            <img :src="getBubbleImage(index)" class="rounded">
+                                            <div class="volatile">
+                                                Ciao
+                                            </div>
+                                        </div> -->
+
+        <div :id="'bubble' + index" v-for="(developer, index) in profiledDevelopers"
+            class="bubble card text-white bg-dark rounded">
+
+            <!-- Card Header (profile pic + name) -->
+            <div class="card-header d-flex justify-content-between p-0">
+
+                <!-- Name/welcome -->
+                <div class="card-info volatile">
+                    <div class="m-3">
+                        {{ developer.user.name + " " + developer.user.last }}
+                    </div>
+                </div>
+
+                <!-- Profile pic -->
+                <img :src="getBubbleImage(index)" class="card-profile rounded">
+
             </div>
+
+            <!-- Card 'body' (navigation links) -->
+            <ul class="list-group list-group-flush volatile overflow-hidden">
+                <!-- <a class="list-group-item px-3 bg-dark text-white" href="">
+                        Connect
+                    </a> -->
+                <a class="list-group-item px-3 bg-dark text-white" href="">
+                    Connect
+                </a>
+            </ul>
         </div>
 
     </div>
@@ -230,28 +260,71 @@ function rangeMap(number, inMin, inMax, outMin, outMax) {
         position: absolute;
 
         // Sizing and style
-        // box-shadow: 3px 5px black;
-        // filter: drop-shadow(0 0 0.75rem #cf815b);
         outline: solid 4px #cf815b;
         outline-offset: 2px;
 
-        &:hover {
-            opacity: .5;
+        // Card profile picture
+        .card-profile {
+            position: relative;
+            object-fit: cover;
+            /* width: 4rem;
+            height: 4rem; */
         }
 
-        img {
-            object-fit: cover;
+        .volatile {
+            position: relative;
+            z-index: 50;
+            display: none;
+            width: 0;
+            height: 0;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: clip;
+            opacity: 0;
+            transition: all .3s ease;
+        }
+
+        &:hover {
+
+            z-index: 40;
+            width: auto !important;
+
+            .volatile {
+                display: block;
+                width: 100%;
+                height: 100%;
+                opacity: 1;
+            }
         }
 
         &::after {
             content: '';
             position: absolute;
+            z-index: 0;
             bottom: -100px;
-            left: 3rem;
+            right: 3rem;
             display: block;
             width: 2px;
-            height: 98px;
+            height: 97px;
             background-color: #cf815b;
+        }
+
+        // Card links
+        // used !important to override Bootstrap
+        a {
+            &:hover {
+                background-color: #cf815b !important;
+
+                &:last-child {
+                    background-color: #d68c67 !important;
+                    // color: #cf815b !important;
+                }
+            }
+
+            &:last-child {
+                background-color: #cf815b !important;
+                // color: #cf815b !important;
+            }
         }
     }
 }
