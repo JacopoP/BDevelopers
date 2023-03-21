@@ -32,6 +32,8 @@ export default {
                 performances: this.developer.performances,
                 reviews: this.developer.reviews,
             },
+
+            voidMessage: 'This field has not been filled yet',
         }
     },
     methods: {
@@ -122,14 +124,26 @@ export default {
                 <div class="d-flex flex-column gap-4">
                     <!-- About -->
                     <div class="d-flex flex-column gap-3 flex-lg-row gap-lg-0 justify-content-between my_login_button p-3 rounded mt-4">
-                        <div class="order-2 order-lg-2 text-light">{{ this.dati.about_me }}</div>
-                        <h3 class="order-1 order-lg-1 col-lg-3 text-light">"About me"</h3>
+                        <div v-if="this.dati.about_me !== null" class="order-2 order-lg-2 text-light">
+                            {{ this.dati.about_me }}
+                        </div>
+                        <!-- Empty Messsage -->
+                        <div v-else class="order-2 order-lg-2 text-primary d-flex align-items-center justify-content-center border-primary border-2 border rounded px-3 py-2"> 
+                            <h6>{{this.voidMessage}}</h6>   
+                        </div>
+                        <h3 class="order-1 order-lg-1 col-lg-3 text-light">About me</h3>
                     </div>
                     
                     <!-- My Performance -->
                     <div class="d-flex flex-column gap-3 flex-lg-row gap-lg-0 justify-content-between my_login_button p-3 rounded mt-4">
-                        <div class="order-2 order-lg-1 text-light">{{ this.dati.performances }}</div>
-                        <h3 class="order-1 order-lg-2 col-lg-3 text-light text-start text-lg-end">"My Performances"</h3>
+                        <div v-if="this.dati.performances !== null" class="order-2 order-lg-1 text-light">
+                            {{ this.dati.performances }}
+                        </div>
+                        <!-- Empty Messsage -->
+                        <div v-else class="order-2 order-lg-1 text-primary d-flex align-items-center justify-content-center border-primary border-2 border rounded px-3 py-2">
+                            <h6>{{this.voidMessage}}</h6> 
+                        </div>
+                        <h3 class="order-1 order-lg-2 col-lg-3 text-light text-start text-lg-end">My Performances</h3>
                     </div>
 
                 </div>
