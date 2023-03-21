@@ -66,10 +66,10 @@ export default {
 
                     <!-- guest links -->
                     <template v-else>
-                        <a class="list-group-item px-3 text-white" href="">
+                        <a class="list-group-item px-3 text-white" href="/login">
                             Login
                         </a>
-                        <a class="list-group-item px-3 text-white" href="">
+                        <a class="list-group-item px-3 text-white" href="/register">
                             Register
                         </a>
                     </template>

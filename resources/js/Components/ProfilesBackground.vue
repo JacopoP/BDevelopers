@@ -258,13 +258,13 @@ function rangeMap(number, inMin, inMax, outMin, outMax) {
                 </div>
 
                 <!-- Profile pic -->
-                <img :src="getBubbleImage(index)" class="card-profile rounded">
+                <img :src="getBubbleImage(index)" class="card-profile rounded-top">
 
             </div>
 
             <!-- Card 'body' (navigation links) -->
             <ul class="list-group list-group-flush volatile overflow-hidden">
-                <a class="list-group-item px-3 bg-dark text-white" href="">
+                <a class="list-group-item px-3 bg-dark text-white" :href="'/show' + developer.id">
                     Connect
                 </a>
             </ul>
