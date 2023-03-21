@@ -67,4 +67,16 @@ class ApiController extends Controller
         ]);
 
     }
+
+    public function getReviews($id){
+        $developer = Developer::find($id);
+        
+        return response()->json([
+            'success' => true,
+            'response' => [
+                'reviews' => $developer->reviews,
+            ]
+        ]);
+
+    }
 }
