@@ -304,9 +304,9 @@ export default {
 
             <div class="my-background b-dark container">
 
-                <div class="container">
+                <div class="container pb-5">
 
-                    <main class="d-flex flex-column-reverse flex-lg-row align-items-center align-items-lg-start position-relative">
+                    <main class="d-flex flex-column-reverse flex-lg-row align-items-center align-items-lg-start justify-content-center position-relative">
 
                         <div class="left overflow-scroll" v-if="(data.reviews).length || (data.messages).length">
 
