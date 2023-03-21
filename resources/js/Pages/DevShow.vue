@@ -56,14 +56,23 @@ export default {
             <!-- contacts -->
             <div class="container mt-5 py-5">
 
-                <div class="d-flex justify-content-around align-items-center flex-column flex-lg-row gap-5">
+                <div class="d-flex justify-content-around align-items-center flex-column flex-xl-row gap-5">
 
-                    <div class="d-flex flex-lg-row align-items-lg-center gap-lg-3 flex-column">
+                    <div class="d-flex flex-lg-row align-items-lg-center gap-lg-3 flex-column align-items-center">
                         <div>
                             <img class="img_profile rounded-circle shadow " :src="'storage/' + this.dati.profile_path">
                         </div>
                         <!-- INFO -->
-                        <div v-if="this.dati.address !== null || this.dati.phone_number !== null || this.dati.portfolio_url !==null || this.dati.cv_path !== null" class="d-flex flex-column align-items-start gap-5">
+                        <div v-if="this.dati.name !== null || this.dati.last !== null || this.dati.address !== null || this.dati.phone_number !== null || this.dati.portfolio_url !==null || this.dati.cv_path !== null" class="d-flex flex-column align-items-center align-items-lg-start gap-5">
+
+                            <div class="d-flex fs-3 gap-2">
+                                <span v-if="this.dati.name !== null" class="text-light fw-bold">
+                                    {{ this.dati.name }}
+                                </span> 
+                                <span v-if="this.dati.last !== null" class="text-light fw-bold">
+                                    {{ this.dati.last }}
+                                </span>
+                            </div>
 
                             <div class="d-flex flex-column align-items-start gap-3">
                                 <div v-if="this.dati.address !== null" class="my_login_button d-flex align-items-center rounded px-3 py-2 gap-3" style="max-width: 350px;">
@@ -87,7 +96,7 @@ export default {
                                 </div>
                             </div>
 
-                            <div class="d-flex justify-content-between gap-4 w-100">
+                            <div class="d-flex justify-content-center justify-content-lg-center gap-4 w-100">
                                 <a class="btn btn-danger my_register_button border-0 rounded-pill text-light px-3 py-2" :href="this.dati.portfolio_url" v-if="this.dati.portfolio_url !== null">
                                     Show my portfolio
                                 </a>
