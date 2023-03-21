@@ -193,24 +193,7 @@ function myGetTime(stringa) {
     return result;
 }
 
-function myRatingsAv() {
-    let result = {
-        'integer': Math.floor(props.developer.ratings_avg_value),
-        'half': false,
-    }
 
-
-    let scarto = props.developer.ratings_avg_value - (result.integer);
-
-    if (scarto > 0.25 && scarto <= 0.75) {
-        result.half = true;
-
-    } else if (scarto > 0.75) {
-
-        (result.integer)++;
-    };
-    return (result);
-}
 const form = useForm({
     profile_path: null,
 });
@@ -275,7 +258,11 @@ function lastSponsor() {
 
 
 <script>
+import StarRating from 'vue-star-rating';
 export default {
+    components:{
+        StarRating,
+    },
     data() {
         return {
             new_profile_path: undefined,
@@ -284,7 +271,7 @@ export default {
     methods: {
         updateImg() {
             axios.get('http://localhost:8000/api/v1/profile_path' + usePage().props.auth.user.id)
-                .then((res) => { this.new_profile_path = 'sthourge/' + res.data.response.path })
+                .then((res) => { this.new_profile_path = 'storage/' + res.data.response.path })
                 .catch((error) => console.log(error))
         }
     }
@@ -385,31 +372,34 @@ export default {
                         <!-- image and data user developer -->
                         <div class="right">
 
-                            <div class="my-border my-shadow">
+                            <div class="my-border my-shadow p-5">
 
-                                <div class="d-flex justify-content-center">
-                                    <a href="/developer" class="my-edit">
-                                        Developer Settings
+                                <div class="d-flex flex-column align-items-center">
 
-                                    </a>
+                                    <div class="my-img-container mx-auto my-3">
+    
+                                        <img
+                                            :src="(this.new_profile_path == undefined ? data.profile_path : this.new_profile_path)">
+                                        <form class="d-flex justify-content-center align-items-center" method="post"
+                                            enctype="multipart/form-data">
+                                            <label for="profile_path" class="my-layover"> <i class="fa-solid fa-pencil"></i>
+                                            </label>
+    
+                                            <input id="profile_path" type="file" name="profile_path"
+                                                @input="form.profile_path = $event.target.files[0]; sendImg(); updateImg();">
+    
+                                        </form>
+                                        
+                                    </div>
+    
+                                    <div class="d-flex justify-content-center" style="width: 200px;">
+                                        <a href="/developer" class="btn my_register_button btn-secondary border-0 rounded-pill">
+                                            Developer Settings
+    
+                                        </a>
+                                    </div>
+                                    
                                 </div>
-
-                                <div class="my-img-container mx-auto my-3">
-
-                                    <img
-                                        :src="(this.new_profile_path == undefined ? data.profile_path : this.new_profile_path)">
-                                    <form class="d-flex justify-content-center align-items-center" method="post"
-                                        enctype="multipart/form-data">
-                                        <label for="profile_path" class="my-layover"> <i class="fa-solid fa-pencil"></i>
-                                        </label>
-
-                                        <input id="profile_path" type="file" name="profile_path"
-                                            @input="form.profile_path = $event.target.files[0]; sendImg(); updateImg();">
-
-                                    </form>
-
-                                </div>
-
 
 
 
@@ -420,8 +410,8 @@ export default {
                                         Full Name
                                     </div>
                                 </div>
-                                <div class="info text-truncate" v-if="data.email">
-                                    {{ data.email }}
+                                <div class="info" v-if="data.email">
+                                    <span class="text-truncate">{{ data.email }}</span>
                                     <div class="title">
                                         E-mail
                                     </div>
@@ -484,19 +474,18 @@ export default {
                                     <div class="d-flex align-text-bottom">
                                         {{ Math.round(developer.ratings_avg_value * 100) / 100 }}
                                     </div>
-                                    <div class="d-flex">
-                                        <div v-for="any in (myRatingsAv(data.ratings)).integer">
-                                            <i class="fa-solid fa-star"></i>
-                                        </div>
-                                        <div v-if="(myRatingsAv(data.ratings)).half">
-                                            <i class="fa-solid fa-star-half-stroke"></i>
-                                        </div>
-                                        <div
-                                            v-for="index in (5 - ((myRatingsAv(data.ratings))).integer - (((myRatingsAv(data.ratings)).half) ? 1 : 0))">
-                                            <i class="fa-regular fa-star"></i>
-                                        </div>
-
-                                    </div>
+                                    <star-rating class="text-light" 
+                                    v-model:rating="developer.ratings_avg_value" 
+                                    :active-color="['#410000', '#410000', '#f7a531']" 
+                                    :border-width="0" 
+                                    :star-points="[23,2, 14,17, 0,19, 10,34, 7,50, 23,43, 38,50, 36,34, 46,19, 31,17]" 
+                                    :active-on-click="true" 
+                                    :clearable="false" 
+                                    :show-rating="false"
+                                    :star-size="25"
+                                    :increment="0.01"
+                                    :read-only="true"
+                                    ></star-rating>
 
                                 </div>
                                 <!-- sponsors -->
@@ -529,8 +518,11 @@ export default {
 <style lang="scss" scoped>
 @use 'resources/sass/general.scss' as *;
 @use 'resources/sass/variable.scss';
+@use 'resources/sass/form-style.scss';
 
-
+input[type=file]{
+   display: none;
+}
 
 $grigio-my-background: #424242;
 $color-scritte: white;
@@ -886,12 +878,13 @@ body {
                         }
                     }
 
-                    .my-technologies {
-                        margin: 50px 0;
-                        display: flex;
-                        justify-content: center;
-                        flex-wrap: wrap;
-                        // gap: 10px;
+                        .my-technologies {
+                            max-width: 550px;
+                            margin: 50px 0;
+                            display: flex;
+                            justify-content: start;
+                            flex-wrap: wrap;
+                            // gap: 10px;
 
                         .my-technology {
                             width: 70px;

@@ -1,10 +1,9 @@
 <script>
-import ReviewForm from '@/Pages/ShowComponents/ReviewForm.vue'
-import MessageForm from '@/Pages/ShowComponents/MessageForm.vue'
-import RatingForm from '@/Pages/ShowComponents/RatingForm.vue'
-import ApplicationLogo from '@/Components/ApplicationLogo.vue';
+import ReviewForm from '@/Pages/ShowComponents/ReviewForm.vue';
+import MessageForm from '@/Pages/ShowComponents/MessageForm.vue';
+import RatingForm from '@/Pages/ShowComponents/RatingForm.vue';
+import StarRating from 'vue-star-rating';
 import { Head } from '@inertiajs/vue3';
-
 
 // AuthenticatedLayout
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
@@ -12,8 +11,9 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 const link = 'http://localhost:8000/api/v1/';
 
 export default {
-    props: ['developer'],
-    components: {
+    props:['developer'],
+    components:{
+        StarRating,
         ReviewForm,
         MessageForm,
         RatingForm,
@@ -36,6 +36,8 @@ export default {
                 performances: this.developer.performances,
                 reviews: this.developer.reviews,
             },
+
+            voidMessage: 'This field has not been filled yet',
         }
     },
     methods: {
@@ -45,9 +47,10 @@ export default {
         },
         updateReviews() {
             axios.get(link + 'reviews' + this.developer.id)
-                .then((res) => { this.dati.reviews = res.data.response.reviews })
-                .catch((error) => console.log(error))
-        }
+            .then((res) => {this.dati.reviews = res.data.response.reviews})
+            .catch((error) => console.log(error))
+        },
+
     }
 }
 </script>
@@ -62,15 +65,39 @@ export default {
             <!-- contacts -->
             <div class="container mt-5 py-5">
 
-                <div class="d-flex justify-content-around align-items-center flex-column flex-lg-row gap-5">
+                <div class="d-flex justify-content-around align-items-center flex-column flex-xl-row gap-5">
 
-                    <div class="d-flex flex-lg-row align-items-lg-center gap-lg-3 flex-column">
+                    <div class="d-flex flex-lg-row align-items-lg-center gap-lg-3 flex-column align-items-center">
                         <div>
                             <img class="img_profile rounded-circle shadow " :src="'storage/' + this.dati.profile_path">
                         </div>
                         <!-- INFO -->
-                        <div v-if="this.dati.address !== null || this.dati.phone_number !== null || this.dati.portfolio_url !== null || this.dati.cv_path !== null"
-                            class="d-flex flex-column align-items-start gap-5">
+                        <div v-if="this.dati.name !== null || this.dati.last !== null || this.dati.address !== null || this.dati.phone_number !== null || this.dati.portfolio_url !==null || this.dati.cv_path !== null" class="d-flex flex-column align-items-center align-items-lg-start gap-5">
+
+                            <div class="d-flex fs-3 gap-2 pt-2">
+                                <span v-if="this.dati.name !== null" class="text-light fw-bold">
+                                    {{ this.dati.name }}
+                                </span> 
+                                <span v-if="this.dati.last !== null" class="text-light fw-bold">
+                                    {{ this.dati.last }}
+                                </span>
+                            </div>
+                            
+                            <!-- RatingAVG -->
+                            <div>
+                                <star-rating class="text-light" 
+                                v-model:rating="developer.ratings_avg_value" 
+                                :active-color="['#410000', '#410000', '#f7a531']" 
+                                :border-width="0" 
+                                :star-points="[23,2, 14,17, 0,19, 10,34, 7,50, 23,43, 38,50, 36,34, 46,19, 31,17]" 
+                                :active-on-click="true" 
+                                :clearable="false" 
+                                :show-rating="false"
+                                :star-size="25"
+                                :increment="0.01"
+                                :read-only="true"
+                                ></star-rating>
+                            </div>
 
                             <div class="d-flex flex-column align-items-start gap-3">
                                 <div v-if="this.dati.address !== null"
@@ -103,9 +130,8 @@ export default {
                                 </div>
                             </div>
 
-                            <div class="d-flex justify-content-between w-100">
-                                <a class="btn btn-danger my_register_button border-0 rounded-pill text-light px-3 py-2"
-                                    :href="this.dati.portfolio_url" v-if="this.dati.portfolio_url !== null">
+                            <div class="d-flex justify-content-center justify-content-lg-center gap-4 w-100">
+                                <a class="btn btn-danger my_register_button border-0 rounded-pill text-light px-3 py-2" :href="this.dati.portfolio_url" v-if="this.dati.portfolio_url !== null">
                                     Show my portfolio
                                 </a>
 
@@ -120,8 +146,7 @@ export default {
 
                     <div class="d-flex justify-content-center">
                         <a href="#ancor" class="btn btn-primary rounded-pill my_login_button text-light">
-                            Send a Message, Leave a
-                            Reviews or a Star
+                            Send a Message, Reviews or a Star
                         </a>
                     </div>
                 </div>
@@ -131,17 +156,27 @@ export default {
 
                 <div class="d-flex flex-column gap-4">
                     <!-- About -->
-                    <div
-                        class="d-flex flex-column gap-3 flex-lg-row gap-lg-0 justify-content-between my_login_button p-3 rounded mt-4">
-                        <div class="order-2 order-lg-2 text-light">{{ this.dati.about_me }}</div>
-                        <h3 class="order-1 order-lg-1 col-lg-3 text-light">"About me"</h3>
+                    <div class="d-flex flex-column gap-3 flex-lg-row gap-lg-0 justify-content-between my_login_button p-3 rounded mt-4">
+                        <div v-if="this.dati.about_me !== null" class="order-2 order-lg-2 text-light">
+                            {{ this.dati.about_me }}
+                        </div>
+                        <!-- Empty Messsage -->
+                        <div v-else class="order-2 order-lg-2 text-primary d-flex align-items-center justify-content-center border-primary border-2 border rounded px-3 py-2"> 
+                            <h6>{{this.voidMessage}}</h6>   
+                        </div>
+                        <h3 class="order-1 order-lg-1 col-lg-3 text-light">About me</h3>
                     </div>
 
                     <!-- My Performance -->
-                    <div
-                        class="d-flex flex-column gap-3 flex-lg-row gap-lg-0 justify-content-between my_login_button p-3 rounded mt-4">
-                        <div class="order-2 order-lg-1 text-light">{{ this.dati.performances }}</div>
-                        <h3 class="order-1 order-lg-2 col-lg-3 text-light text-start text-lg-end">"My Performances"</h3>
+                    <div class="d-flex flex-column gap-3 flex-lg-row gap-lg-0 justify-content-between my_login_button p-3 rounded mt-4">
+                        <div v-if="this.dati.performances !== null" class="order-2 order-lg-1 text-light">
+                            {{ this.dati.performances }}
+                        </div>
+                        <!-- Empty Messsage -->
+                        <div v-else class="order-2 order-lg-1 text-primary d-flex align-items-center justify-content-center border-primary border-2 border rounded px-3 py-2">
+                            <h6>{{this.voidMessage}}</h6> 
+                        </div>
+                        <h3 class="order-1 order-lg-2 col-lg-3 text-light text-start text-lg-end">My Performances</h3>
                     </div>
 
                 </div>

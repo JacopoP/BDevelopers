@@ -16,6 +16,7 @@ export default{
     data(){
         return{
             imgPath: '',
+            defaultImg: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png',
         }
     },
     mounted(){
@@ -66,7 +67,7 @@ export default{
                         <a class="d-flex flex-column align-items-center btn text-light border-0" href="#" role="button" id="userDropdown"
                         data-bs-toggle="dropdown" aria-expanded="false">
                             <div style="width: 50px;">
-                                <img class="rounded-circle" :src="'storage/' + imgPath">
+                                <img class="rounded-circle" :src="imgPath !== null ? ('storage/' + imgPath) : defaultImg">
                             </div>
                             <!-- <a class="dropdown-toggle text-light nav-link" style="font-size: 10px;">
                                 <span>

@@ -18,7 +18,7 @@ class Emacontroller extends Controller
     public function DevShow($id)
     {
 
-        $developer = Developer::with('user', 'ratings', 'reviews')->find($id);
+        $developer = Developer::with('user', 'ratings', 'reviews')->withAvg('ratings', 'value')->find($id);
 
         return Inertia::render('DevShow', compact('developer'));
     }

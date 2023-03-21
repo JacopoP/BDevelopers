@@ -12,8 +12,8 @@
                 <div class="d-flex flex-column pb-3 align-items-center _width _breakpoints">
                     <h3 class="text-light pb-2">Authors</h3>
                     <div class="d-flex flex-column">
-                        <a class="text-light" href="https://github.com/VolxDarkTV"><i class="fa-brands fa-github pe-1"></i>Vincenzo</a>
                         <a class="text-light" href="https://github.com/FrancescoLimpias"><i class="fa-brands fa-github pe-1"></i>Francesco</a>
+                        <a class="text-light" href="https://github.com/VolxDarkTV"><i class="fa-brands fa-github pe-1"></i>Vincenzo</a>
                         <a class="text-light" href="https://github.com/edaless"><i class="fa-brands fa-github pe-1"></i>Emanuele</a>
                         <a class="text-light" href="https://github.com/JacopoP"><i class="fa-brands fa-github pe-1"></i>Jacopo</a>
                         <a class="text-light" href="https://github.com/Emanuela91"><i class="fa-brands fa-github pe-1"></i>Emanuela</a>
@@ -28,7 +28,7 @@
                     </div>
                 </div>
             </div>
-            <div class="d-flex justify-content-center text-light pt-5 pb-3" style="font-size: 10px; opacity: 0.6;">
+            <div class="d-flex justify-content-center text-light text-center pt-5 pb-3" style="font-size: 10px; opacity: 0.6;">
                 Copyright<i class="fa-regular fa-copyright pe-1"></i> Web BDevelopers - Milan (IT), 2023 -
                 All Rights
                 Reserved</div>

@@ -88,7 +88,9 @@ export default{
                     autocomplete="last"
                     cols="30" rows="5" 
                 ></textarea>
-                
+                <p v-if="show && !borderColor" class="fw-bold text-danger">
+                Add Text
+            </p>
             </div>
     
             <!-- Button SUBMIT -->
@@ -101,9 +103,6 @@ export default{
         <div v-if="show" class="fw-bold text-center text-secondary" style="--bs-text-opacity: .4;">
             <p v-if="send_success">
                 Thank you for your review!!
-            </p>
-            <p v-else class="fw-bold text-danger">
-                Add Text
             </p>
         </div>
     </div>
