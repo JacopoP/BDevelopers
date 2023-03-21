@@ -55,11 +55,11 @@ export default {
         <div class="hero-section fixed-top">
             <div class="container">
                 <div class="row justify-content-center" style="height: 100vh;">
-                    <div class="col-md-7 d-flex align-items-center">
+                    <div class="col col-md-7">
 
-                        <div class="main-div">
-                            <h1 class="text-center mb-4 text-light">Start your research</h1>
-                            <form class="form-inline d-flex justify-content-center">
+                        <div class="main-div rounded">
+                            <h1 class="text-center mb-4 text-light">Start here!</h1>
+                            <form class="form-inline d-flex justify-content-center gap-2">
 
                                 <div class="input-group">
                                     <div class="form-floating">
@@ -82,7 +82,7 @@ export default {
                                 </div>
 
                                 <Link href="/index" method="post" :data="this.form" as="button"
-                                    class="btn btn-lg btn-primary ml-2"> Go </Link>
+                                    class="btn btn-lg btn-primary color-block sunny-morning-gradient"> Go </Link>
                             </form>
                         </div>
 
@@ -104,14 +104,17 @@ export default {
     background-color: #121212;
 
     .hero-section {
+        padding-top: 10rem;
+        pointer-events: none;
 
         // background-color: #1d1d1d16;
         // backdrop-filter: blur(.6px);
 
         .main-div {
+            pointer-events: auto;
             background-color: rgba(0, 0, 0, .5);
             backdrop-filter: blur(2px);
-            border-radius: 20px;
+            // border-radius: 20px;
             padding: 1rem;
 
             h1 {
@@ -121,12 +124,33 @@ export default {
 
             form {
                 button {
-                    background-color: #ff6769;
-                    border-color: #ff6769;
+                    border-color: #E8763D;
+                    // border: none;
+                    background-image: linear-gradient(45deg,
+                            hsl(357deg 76% 56%) 0%,
+                            hsl(2deg 80% 58%) 11%,
+                            hsl(7deg 84% 58%) 22%,
+                            hsl(12deg 88% 58%) 33%,
+                            hsl(16deg 91% 57%) 44%,
+                            hsl(20deg 94% 57%) 56%,
+                            hsl(23deg 97% 56%) 67%,
+                            hsl(27deg 98% 55%) 78%,
+                            hsl(30deg 99% 54%) 89%,
+                            hsl(34deg 100% 53%) 100%);
 
                     &:hover {
-                        background-color: darken(#ff6769, 10%);
-                        border-color: darken(#ff6769, 10%);
+                        border-color: darken(#E8763D, 10%);
+                        background-image: linear-gradient(45deg,
+                                hsl(357deg 76% 56%) 1%,
+                                hsl(2deg 80% 58%) 35%,
+                                hsl(7deg 84% 58%) 43%,
+                                hsl(12deg 88% 58%) 47%,
+                                hsl(16deg 91% 57%) 49%,
+                                hsl(20deg 94% 57%) 50%,
+                                hsl(23deg 97% 56%) 52%,
+                                hsl(27deg 98% 55%) 56%,
+                                hsl(30deg 99% 54%) 63%,
+                                hsl(34deg 100% 53%) 99%);
                     }
                 }
             }
