@@ -22,7 +22,7 @@ const form = useForm({
 // Regex
 const mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 const submit = () => {
-    if(!(!form.email.match(mailformat)) && !((form.password.length < 8))) {
+    if (!(!form.email.match(mailformat)) && !((form.password.length < 8))) {
         form.post(route('login'), {
             onFinish: () => form.reset('password'),
         });
@@ -34,7 +34,7 @@ const submit = () => {
 
 <!-- Show password -->
 <script>
-    export default{
+export default {
     data() {
         return {
             // Password view func
@@ -52,7 +52,8 @@ const submit = () => {
 
 <template>
     <GuestLayout class="container-fluid bg-dark overflow-hidden py-5">
-        <Head title="Log in" />
+
+        <Head title="Log In" />
 
         <div v-if="status" class="mb-4 text-success">
             {{ status }}
@@ -70,15 +71,8 @@ const submit = () => {
             <div class="my_text_input_label">
                 <InputLabel class="my_input_label bg-dark" for="email" value="Email" />
 
-                <TextInput 
-                    id="email" 
-                    type="email" 
-                    class="mt-1 w-100" 
-                    v-model="form.email" 
-                    required 
-                    autofocus
-                    autocomplete="username" 
-                />
+                <TextInput id="email" type="email" class="mt-1 w-100" v-model="form.email" required autofocus
+                    autocomplete="username" />
 
                 <InputError class="mt-2" :message="form.errors.email" />
                 <!-- Email Verify -->
@@ -95,21 +89,15 @@ const submit = () => {
             <div class="my_text_input_label mt-4">
                 <InputLabel class="my_input_label bg-dark" for="password" value="Password" />
 
-                <TextInput
-                    id = "password" 
-                    :type="this.view ? 'text' : 'password'" 
-                    class="mt-1 w-100" 
-                    v-model="form.password" 
-                    required
-                    :autocomplete="this.view ? 'off' : 'current-password'"
-                />
+                <TextInput id="password" :type="this.view ? 'text' : 'password'" class="mt-1 w-100" v-model="form.password"
+                    required :autocomplete="this.view ? 'off' : 'current-password'" />
                 <button v-if="this.view == false" type="button" class="my_password_view text-light btn" @click="setView()">
                     <i class="fa-solid fa-eye"></i>
                 </button>
                 <button v-if="this.view == true" type="button" class="my_password_view text-light btn" @click="setView()">
                     <i class="fa-solid fa-eye-slash"></i>
                 </button>
-                
+
                 <InputError class="mt-2" :message="form.errors.password" />
                 <!-- Password Min -->
                 <div v-show="(form.password.length < 8) && form.password.length">
@@ -132,15 +120,13 @@ const submit = () => {
             <div class="d-flex flex-column mt-4 gap-4">
 
 
-                <PrimaryButton class="my_login_button mt-3" :class="{ 'text-opacity-50': form.processing }" :disabled="form.processing">
+                <PrimaryButton class="my_login_button mt-3" :class="{ 'text-opacity-50': form.processing }"
+                    :disabled="form.processing">
                     Log in
                 </PrimaryButton>
 
-                <Link 
-                    v-if="canResetPassword" 
-                    :href="route('password.request')"
-                    class="text-decoration-underline fs-6 text-secondary text-center"
-                >
+                <Link v-if="canResetPassword" :href="route('password.request')"
+                    class="text-decoration-underline fs-6 text-secondary text-center">
                 Forgot your password?
                 </Link>
             </div>

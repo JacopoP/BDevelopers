@@ -292,6 +292,8 @@ export default {
 </script>
 
 <template>
+    <Head title="Dashboard" />
+
     <AuthenticatedLayout>
 
         <template #header>
@@ -306,7 +308,8 @@ export default {
 
                 <div class="container pb-5">
 
-                    <main class="d-flex flex-column-reverse flex-lg-row align-items-center align-items-lg-start justify-content-center position-relative">
+                    <main
+                        class="d-flex flex-column-reverse flex-lg-row align-items-center align-items-lg-start justify-content-center position-relative">
 
                         <div class="left overflow-scroll" v-if="(data.reviews).length || (data.messages).length">
 
@@ -378,7 +381,7 @@ export default {
                             </div>
 
                         </div>
-                        
+
                         <!-- image and data user developer -->
                         <div class="right">
 
@@ -676,270 +679,270 @@ body {
 
 
 
-            main {
+        main {
 
 
 
-                .left {
-                    margin: 10px;
-                    width: 100%;
-                    padding: 0 10px;
+            .left {
+                margin: 10px;
+                width: 100%;
+                padding: 0 10px;
 
 
 
-                    .my-border {
-                        position: relative;
-                        margin: 50px 0 100px;
-                        max-height: calc(100vh - 140px);
-                        // max-height: $h-main;
+                .my-border {
+                    position: relative;
+                    margin: 50px 0 100px;
+                    max-height: calc(100vh - 140px);
+                    // max-height: $h-main;
 
-                        // overflow per il title
-                        overflow: visible;
-
-                        .title {
-
-                            background-color: #212529;
-                            position: absolute;
-                            top: -40px;
-                            left: -8px;
-                            font-size: 30px;
-                            color: $color-titles;
-                        }
-
-
-                    }
-
-                }
-
-
-                .right {
-
-                    // width: 40%;
-                    display: flex;
-                    flex-direction: column;
-                    margin: 10px;
-
-
+                    // overflow per il title
+                    overflow: visible;
 
                     .title {
 
-                        font-weight: bold;
-
-                        top: -20px;
-                        right: 0px;
+                        background-color: #212529;
+                        position: absolute;
+                        top: -40px;
+                        left: -8px;
+                        font-size: 30px;
+                        color: $color-titles;
                     }
 
 
-                    .my-border {
-                        // overflow: visible;
+                }
+
+            }
+
+
+            .right {
+
+                // width: 40%;
+                display: flex;
+                flex-direction: column;
+                margin: 10px;
+
+
+
+                .title {
+
+                    font-weight: bold;
+
+                    top: -20px;
+                    right: 0px;
+                }
+
+
+                .my-border {
+                    // overflow: visible;
+                    color: white;
+                    margin-top: 50px;
+                    border-radius: 0 0 20px 0;
+
+
+
+
+                    .my-edit {
+
+                        // no anchor dechourrion
+                        text-decoration: inherit;
+                        color: inherit;
+                        border-radius: 20px;
+
+
+
+                        background-color: $brand_third;
                         color: white;
-                        margin-top: 50px;
-                        border-radius: 0 0 20px 0;
+                        height: 40px;
+                        width: 90%;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        // position: absolute;
+
+                        // z-index necessary to stop propagation click
+                        z-index: 100;
 
 
+                        // transition doesn't seems to work.
+                        transition: all 0.5s ease-in-out 0.2s;
+
+                        &:hover {
+                            background-color: $brand_secondary;
+                        }
+                    }
+
+                    .my-img-container {
+
+                        width: 300px;
+                        height: 300px;
+                        position: relative;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
 
 
-                        .my-edit {
-
-                            // no anchor dechourrion
-                            text-decoration: inherit;
-                            color: inherit;
-                            border-radius: 20px;
-
-
-
-                            background-color: $brand_third;
-                            color: white;
-                            height: 40px;
-                            width: 90%;
-                            display: flex;
-                            justify-content: center;
-                            align-items: center;
-                            // position: absolute;
-
-                            // z-index necessary to stop propagation click
-                            z-index: 100;
-
-
-                            // transition doesn't seems to work.
-                            transition: all 0.5s ease-in-out 0.2s;
-
-                            &:hover{
-                                background-color: $brand_secondary;
-                            }
+                        img {
+                            position: absolute;
+                            max-width: 100%;
+                            object-fit: cover;
+                            border-radius: 80px;
                         }
 
-                        .my-img-container {
-
-                            width: 300px;
-                            height: 300px;
-                            position: relative;
-                            display: flex;
+                        .my-layover {
+                            cursor: pointer;
+                            background-color: rgba(48, 48, 48, 0.675);
+                            width: 100%;
+                            height: 100%;
                             justify-content: center;
                             align-items: center;
+                            position: absolute;
+                            display: none;
+                            font-size: 40px;
+                            border-radius: 80px;
+                        }
 
 
-                            img {
-                                position: absolute;
-                                max-width: 100%;
-                                object-fit: cover;
-                                border-radius: 80px;
-                            }
+
+                        &:hover {
 
                             .my-layover {
-                                cursor: pointer;
-                                background-color: rgba(48, 48, 48, 0.675);
-                                width: 100%;
-                                height: 100%;
-                                justify-content: center;
-                                align-items: center;
-                                position: absolute;
-                                display: none;
-                                font-size: 40px;
-                                border-radius: 80px;
-                            }
-
-
-
-                            &:hover {
-
-                                .my-layover {
-                                    display: flex;
-
-
-                                }
-
-                            }
-
-
-
-
-
-                        }
-
-
-                        .info {
-                            margin-top: 30px;
-                            border-radius: 20px;
-                            padding: 10px;
-                            color: white;
-                            position: relative;
-                            transition: all 0.1s linear 0s;
-
-
-                            &.name {
-                                border-radius: 0 0 10px 10px;
-                                padding: 30px 10px;
-                                font-size: 25px;
-                                font-weight: bold;
-
-
-                            }
-
-                            &:hover {
-                                position: relative;
-                                padding-left: 20px;
-                            }
-
-
-
-
-
-                        }
-
-                        .my-border {
-                            position: relative;
-                            max-height: 300px;
-                            margin: 10px 0 0;
-                            padding-right: 20px;
-                            border-radius: 0 0 10px 0;
-                            margin-top: 30px;
-
-
-
-                            &:hover {
-                                .title {
-                                    color: $color-shadow;
-                                }
-
-                            }
-
-
-
-                        }
-
-                        a.my-border {
-                            width: 70%;
-                            margin-bottom: 10px;
-                            text-decoration: none;
-                            border-radius: 0 0 20px 0;
-                            font-weight: bold;
-                            font-size: 20px;
-
-                            &:hover {
-                                background-color: white;
-                                color: #212529;
-                                box-shadow: none;
-                            }
-                        }
-
-                        .my-technologies {
-                            margin: 50px 0;
-                            display: flex;
-                            justify-content: center;
-                            flex-wrap: wrap;
-                            // gap: 10px;
-
-                            .my-technology {
-                                width: 70px;
-                                height: 70px;
-                                margin: 5px;
-                                padding: 10px;
-                                border-radius: 5px;
-                                position: relative;
                                 display: flex;
-                                flex-direction: column;
-                                align-items: center;
-                                justify-content: center;
 
 
-                                // img {
-                                //     width: 50px;
-                                //     height: 50px;
-                                //     object-fit: contain;
-                                //     padding: 5px;
-
-
-
-
-
-                                // }
-
-                                .titolo {
-                                    display: none;
-                                    transition: all 0.1s linear 0s;
-
-
-                                }
-
-
-                                &:hover {
-                                    background-color: rgba(255, 255, 255, 0.151);
-
-                                    .titolo {
-                                        display: block;
-
-
-                                    }
-                                }
                             }
+
+                        }
+
+
+
+
+
+                    }
+
+
+                    .info {
+                        margin-top: 30px;
+                        border-radius: 20px;
+                        padding: 10px;
+                        color: white;
+                        position: relative;
+                        transition: all 0.1s linear 0s;
+
+
+                        &.name {
+                            border-radius: 0 0 10px 10px;
+                            padding: 30px 10px;
+                            font-size: 25px;
+                            font-weight: bold;
+
+
+                        }
+
+                        &:hover {
+                            position: relative;
+                            padding-left: 20px;
+                        }
+
+
+
+
+
+                    }
+
+                    .my-border {
+                        position: relative;
+                        max-height: 300px;
+                        margin: 10px 0 0;
+                        padding-right: 20px;
+                        border-radius: 0 0 10px 0;
+                        margin-top: 30px;
+
+
+
+                        &:hover {
+                            .title {
+                                color: $color-shadow;
+                            }
+
                         }
 
 
 
                     }
+
+                    a.my-border {
+                        width: 70%;
+                        margin-bottom: 10px;
+                        text-decoration: none;
+                        border-radius: 0 0 20px 0;
+                        font-weight: bold;
+                        font-size: 20px;
+
+                        &:hover {
+                            background-color: white;
+                            color: #212529;
+                            box-shadow: none;
+                        }
+                    }
+
+                    .my-technologies {
+                        margin: 50px 0;
+                        display: flex;
+                        justify-content: center;
+                        flex-wrap: wrap;
+                        // gap: 10px;
+
+                        .my-technology {
+                            width: 70px;
+                            height: 70px;
+                            margin: 5px;
+                            padding: 10px;
+                            border-radius: 5px;
+                            position: relative;
+                            display: flex;
+                            flex-direction: column;
+                            align-items: center;
+                            justify-content: center;
+
+
+                            // img {
+                            //     width: 50px;
+                            //     height: 50px;
+                            //     object-fit: contain;
+                            //     padding: 5px;
+
+
+
+
+
+                            // }
+
+                            .titolo {
+                                display: none;
+                                transition: all 0.1s linear 0s;
+
+
+                            }
+
+
+                            &:hover {
+                                background-color: rgba(255, 255, 255, 0.151);
+
+                                .titolo {
+                                    display: block;
+
+
+                                }
+                            }
+                        }
+                    }
+
+
+
                 }
             }
+        }
 
     }
 }

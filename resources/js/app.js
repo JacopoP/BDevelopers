@@ -16,10 +16,10 @@ library.add(faEye, faEyeSlash, faStar, starEmpty, faStarHalfStroke, faPencil, fa
 import { dom } from "@fortawesome/fontawesome-svg-core";
 dom.watch();
 
-const appName = window.document.getElementsByTagName('title')[0]?.innerText || 'Laravel';
+// const appName = window.document.getElementsByTagName('title')[0]?.innerText || 'Laravel';
 
 createInertiaApp({
-    title: (title) => `${title} - ${appName}`,
+    title: (title) => `${title} | BDevelopers`,
     resolve: (name) => resolvePageComponent(`./Pages/${name}.vue`, import.meta.glob('./Pages/**/*.vue')),
     setup({ el, App, props, plugin }) {
         return createApp({ render: () => h(App, props) })
