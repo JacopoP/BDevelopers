@@ -84,10 +84,13 @@ export default {
 <style lang="scss" scoped>
 // Accent outline for main navbar elements
 @import '../../sass/variable.scss';
+
 .left>*,
 .right>* {
-    outline: solid 2px $brand_fourth;
+    outline: solid 3px $brand_fourth;
     outline-offset: 2px;
+    // box-shadow: 0 0 15px 3px inset snow;
+    backdrop-filter: blur(2px);
 }
 
 img {
@@ -134,10 +137,21 @@ img {
         background-color: #00000000 !important;
 
         &:hover {
-            background-color: #E8763D !important;
+            // background-color: $brand_fourth !important;
+            background-image: linear-gradient(315deg,
+                    hsl(219deg 40% 25%) 0%,
+                    hsl(233deg 29% 32%) 11%,
+                    hsl(256deg 27% 37%) 22%,
+                    hsl(278deg 28% 39%) 33%,
+                    hsl(301deg 29% 41%) 44%,
+                    hsl(319deg 36% 47%) 56%,
+                    hsl(331deg 46% 53%) 67%,
+                    hsl(340deg 63% 59%) 78%,
+                    hsl(349deg 81% 64%) 89%,
+                    hsl(360deg 100% 70%) 100%);
 
             &:last-child {
-                color: #121212 !important;
+                color: snow !important;
             }
         }
 
