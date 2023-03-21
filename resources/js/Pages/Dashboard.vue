@@ -284,7 +284,7 @@ export default {
     methods: {
         updateImg() {
             axios.get('http://localhost:8000/api/v1/profile_path' + usePage().props.auth.user.id)
-                .then((res) => { this.new_profile_path = 'sthourge/' + res.data.response.path })
+                .then((res) => { this.new_profile_path = 'storage/' + res.data.response.path })
                 .catch((error) => console.log(error))
         }
     }
@@ -382,31 +382,34 @@ export default {
                         <!-- image and data user developer -->
                         <div class="right">
 
-                            <div class="my-border my-shadow">
+                            <div class="my-border my-shadow p-5">
 
-                                <div class="d-flex justify-content-center">
-                                    <a href="/developer" class="my-edit">
-                                        Developer Settings
+                                <div class="d-flex flex-column align-items-center">
 
-                                    </a>
+                                    <div class="my-img-container mx-auto my-3">
+    
+                                        <img
+                                            :src="(this.new_profile_path == undefined ? data.profile_path : this.new_profile_path)">
+                                        <form class="d-flex justify-content-center align-items-center" method="post"
+                                            enctype="multipart/form-data">
+                                            <label for="profile_path" class="my-layover"> <i class="fa-solid fa-pencil"></i>
+                                            </label>
+    
+                                            <input id="profile_path" type="file" name="profile_path"
+                                                @input="form.profile_path = $event.target.files[0]; sendImg(); updateImg();">
+    
+                                        </form>
+                                        
+                                    </div>
+    
+                                    <div class="d-flex justify-content-center" style="width: 200px;">
+                                        <a href="/developer" class="btn my_register_button btn-secondary border-0 rounded-pill">
+                                            Developer Settings
+    
+                                        </a>
+                                    </div>
+                                    
                                 </div>
-
-                                <div class="my-img-container mx-auto my-3">
-
-                                    <img
-                                        :src="(this.new_profile_path == undefined ? data.profile_path : this.new_profile_path)">
-                                    <form class="d-flex justify-content-center align-items-center" method="post"
-                                        enctype="multipart/form-data">
-                                        <label for="profile_path" class="my-layover"> <i class="fa-solid fa-pencil"></i>
-                                        </label>
-
-                                        <input id="profile_path" type="file" name="profile_path"
-                                            @input="form.profile_path = $event.target.files[0]; sendImg(); updateImg();">
-
-                                    </form>
-
-                                </div>
-
 
 
 
@@ -417,8 +420,8 @@ export default {
                                         Full Name
                                     </div>
                                 </div>
-                                <div class="info text-truncate" v-if="data.email">
-                                    {{ data.email }}
+                                <div class="info" v-if="data.email">
+                                    <span class="text-truncate">{{ data.email }}</span>
                                     <div class="title">
                                         E-mail
                                     </div>
@@ -526,6 +529,7 @@ export default {
 <style lang="scss" scoped>
 @use 'resources/sass/general.scss' as *;
 @use 'resources/sass/variable.scss';
+@use 'resources/sass/form-style.scss';
 
 
 
@@ -884,9 +888,10 @@ body {
                         }
 
                         .my-technologies {
+                            max-width: 550px;
                             margin: 50px 0;
                             display: flex;
-                            justify-content: center;
+                            justify-content: start;
                             flex-wrap: wrap;
                             // gap: 10px;
 
