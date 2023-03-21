@@ -266,12 +266,14 @@ export default {
     data() {
         return {
             new_profile_path: undefined,
+            reloadNavbar: true,
         }
     },
     methods: {
         updateImg() {
+            this.reloadNavbar=false;
             axios.get('http://localhost:8000/api/v1/profile_path' + usePage().props.auth.user.id)
-                .then((res) => { this.new_profile_path = 'storage/' + res.data.response.path })
+                .then((res) => { this.new_profile_path = 'storage/' + res.data.response.path; this.reloadNavbar=true})
                 .catch((error) => console.log(error))
         }
     }
@@ -281,7 +283,7 @@ export default {
 <template>
     <Head title="Dashboard" />
 
-    <AuthenticatedLayout>
+    <AuthenticatedLayout :reloadNavbar="this.reloadNavbar">
 
         <template #header>
             <div class="d-flex justify-content-between">
@@ -776,7 +778,8 @@ body {
 
                         img {
                             position: absolute;
-                            max-width: 100%;
+                            width: 100%;
+                            height: 100%;
                             object-fit: cover;
                             border-radius: 80px;
                         }
