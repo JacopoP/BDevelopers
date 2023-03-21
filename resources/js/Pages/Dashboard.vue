@@ -884,7 +884,7 @@ body {
                     }
 
                     .my-technologies {
-                        max-width: 80%;
+                        max-width: 90%;
                         margin: 50px 0;
                         display: flex;
                         justify-content: start;

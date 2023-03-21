@@ -256,5 +256,7 @@ img.profile {
 
 img.img_profile {
     width: 400px;
+    height: 400px;
+    object-fit: cover;
 }
 </style>
