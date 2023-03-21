@@ -204,16 +204,18 @@ export default {
                                         <!-- <div class="mb-2"><strong>Rating:</strong> {{ developer.rating }} stars</div> -->
                                         <!-- <div class="mb-2"><strong>Reviews:</strong> {{ developer.reviews }} reviews</div> -->
                                         <a :href="($page.props.auth.user != null && $page.props.auth.user.id == developer.id ? route('dashboard') : '/show' + developer.id)" class="my_image_position img">
-                                            <img class="my_profile_img" :src="developer.profile_path !== null ? ('storage/' + developer.profile_path) : defaultImg" alt="">
+                                            <img :class="(developer.sponsored ? 'border border-3 border-warning' : '')" class="my_profile_img" :src="developer.profile_path !== null ? ('storage/' + developer.profile_path) : defaultImg" alt="">
                                         </a>
                                         <!-- {{ developer.user.name }} {{ developer.user.last }} <br> -->
                                         <br>
-                                        <Link
-                                            :href="($page.props.auth.user != null && $page.props.auth.user.id == developer.id ? route('dashboard') : '/show' + developer.id)"
-                                            class="btn btn-outline-primary rounded-pill">
-                                        Profile
-                                        </Link>
-
+                                        <div class="d-flex justify-content-between">
+                                            <Link
+                                                :href="($page.props.auth.user != null && $page.props.auth.user.id == developer.id ? route('dashboard') : '/show' + developer.id)"
+                                                class="btn btn-outline-primary rounded-pill">
+                                            Profile
+                                            </Link>
+                                            <div v-if="developer.sponsored" class="d-flex gap-1 align-items-center text-dark px-3 py-1 bg-warning rounded-pill">Pro<i class="fa-solid fa-star"></i></div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
