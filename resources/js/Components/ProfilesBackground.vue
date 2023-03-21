@@ -274,6 +274,8 @@ function rangeMap(number, inMin, inMax, outMin, outMax) {
 </template>
 
 <style lang="scss" scoped>
+@import '../../sass/variable.scss';
+
 .ProfilesBackground {
 
     // Background
@@ -295,7 +297,7 @@ function rangeMap(number, inMin, inMax, outMin, outMax) {
         background-color: #2024287f !important;
 
         // Sizing and style
-        outline: solid 4px #E8763D;
+        outline: solid 4px $brand_third;
         outline-offset: 2px;
 
         // Card profile picture
@@ -341,7 +343,7 @@ function rangeMap(number, inMin, inMax, outMin, outMax) {
             display: block;
             width: 2px;
             height: 97px;
-            background-color: #E8763D;
+            background-color: $brand_third;
         }
 
         // Card links
