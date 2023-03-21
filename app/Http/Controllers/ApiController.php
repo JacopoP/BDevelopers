@@ -39,7 +39,9 @@ class ApiController extends Controller
         ->Has('reviews', '>=', $data['reviewFilter'])
         // filter per rating avg
         ->withAvg('ratings as avg_rating', 'value')
-        ->having('avg_rating', '>=', $data['ratingFilter'])
+        ->when($data['ratingFilter'] != 0, function($query) use ($data){
+            $query->having('avg_rating', '>=', $data['ratingFilter']);
+        })
         // filter per technologies
         ->whereHas('technologies', function($query) use ($techList){
             $query->whereIn('id', $techList);
