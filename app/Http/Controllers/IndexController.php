@@ -8,6 +8,8 @@ use Inertia\Response;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
+
 
 // Models
 use App\Models\User;
@@ -29,10 +31,15 @@ class IndexController extends Controller
         $technologies = Technology::all();
         $developers = Developer::with('user', 'ratings', 'reviews')
         ->join('developer_sponsor', 'developers.id', '=', 'developer_sponsor.developer_id')
-        // ->whereDate('date_start', '<=', date('2021-01-01'))
-        // ->whereDate('date_end', '>=', date('2021-01-01'))
+        ->whereDate('date_start', '<=', date('Y-m-d'))
+        ->whereDate('date_end', '>=', date('Y-m-d'))
         ->limit(30)
         ->get();
+
+        $logged_user=null;
+        if(Auth::check()){
+            $logged_user = Developer::with('user')->find(Auth::id());
+        }
 
         return Inertia::render('Welcome', [
             'canLogin' => Route::has('login'),
@@ -41,6 +48,7 @@ class IndexController extends Controller
             'phpVersion' => PHP_VERSION,
             'technologies' => $technologies,
             'developers' => $developers,
+            'logged_user' => $logged_user,
         ]);
     }
 }

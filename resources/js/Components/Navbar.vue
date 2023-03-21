@@ -1,5 +1,9 @@
 <script>
+import { Link } from '@inertiajs/vue3';
 export default {
+    components: {
+        Link,
+    },
     name: "Navbar",
     props: {
         // If user is logged, 
@@ -33,7 +37,7 @@ export default {
                     <div class="card-info volatile">
                         <div class="m-3">
                             <template v-if="auth_user">
-                                {{ auth_user.name }}
+                                {{ auth_user.user.name }}
                             </template>
                             <template v-else>
                                 Welcome!
@@ -42,7 +46,7 @@ export default {
                     </div>
 
                     <!-- Profile pic -->
-                    <img v-if="auth_user" class="card-profile" src="http://placeimg.com/400/400/people"
+                    <img v-if="auth_user" class="card-profile" :src="'storage/' + auth_user.profile_path"
                         alt="Card image cap">
                     <img v-else class="card-profile" src="../../img/unknown_profile.jpg" alt="">
 
@@ -53,15 +57,12 @@ export default {
 
                     <!-- authenticated user links -->
                     <template v-if="auth_user">
-                        <a class="list-group-item px-3 text-white" href="">
+                        <a class="list-group-item px-3 text-white" href="/dashboard">
                             Profile Info
                         </a>
-                        <a class="list-group-item px-3 text-white" href="">
-                            Account Settings
-                        </a>
-                        <a class="list-group-item px-3 text-white" href="">
+                        <Link class="list-group-item px-3 text-white" :href="route('logout')" method="post">
                             Logout
-                        </a>
+                        </Link>
                     </template>
 
                     <!-- guest links -->

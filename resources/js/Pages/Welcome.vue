@@ -23,6 +23,7 @@ export default {
         phpVersion: String,
         technologies: Array,
         developers: Object,
+        logged_user: Object,
     },
     data() {
         return {
@@ -92,7 +93,7 @@ export default {
         </div>
 
         <!-- Navbar -->
-        <Navbar />
+        <Navbar :auth_user=logged_user />
 
     </div>
 </template>

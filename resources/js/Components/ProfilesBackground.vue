@@ -19,15 +19,6 @@ export default {
     },
     methods: {
 
-        // Dynamic image retrieval
-        getBubbleImage(index) {
-            let n = index + 1;
-            return new URL(
-                '../../../../public/storage/uploads/profile_photo/profile' + n + '.png',
-                import.meta.url)
-                .href;
-        },
-
         // Set bubbles position on screen
         positionBubbles() {
 
@@ -258,7 +249,7 @@ function rangeMap(number, inMin, inMax, outMin, outMax) {
                 </div>
 
                 <!-- Profile pic -->
-                <img :src="getBubbleImage(index)" class="card-profile rounded-top">
+                <img :src="'storage/' + developer.profile_path" class="card-profile rounded-top">
 
             </div>
 
