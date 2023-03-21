@@ -5,6 +5,9 @@ import RatingForm from '@/Pages/ShowComponents/RatingForm.vue'
 
 // AuthenticatedLayout
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
+
+const link = 'http://localhost:8000/api/v1/';
+
 export default {
     props:['developer'],
     components:{
@@ -35,6 +38,11 @@ export default {
         copyText(id) {
         const testoDaCopiare = document.querySelector(`#${id}`)
         navigator.clipboard.writeText(testoDaCopiare.innerText)
+        },
+        updateReviews(){
+            axios.get(link + 'reviews' + this.developer.id)
+            .then((res) => {this.dati.reviews = res.data.response.reviews})
+            .catch((error) => console.log(error))
         }
     }
 }
@@ -145,7 +153,7 @@ export default {
 
                     <div class="d-flex flex-column align-items-center gap-5">
                         <h3 class="text-light">Review</h3>
-                        <ReviewForm :developer="developer" />
+                        <ReviewForm :developer="developer" @updateReviews="updateReviews()" />
                     </div>
                     <div class="d-flex flex-column align-items-center gap-5">
                         <h3 class="text-light">Rating</h3>
