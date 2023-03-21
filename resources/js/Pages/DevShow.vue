@@ -1,7 +1,8 @@
 <script>
-import ReviewForm from '@/Pages/ShowComponents/ReviewForm.vue'
-import MessageForm from '@/Pages/ShowComponents/MessageForm.vue'
-import RatingForm from '@/Pages/ShowComponents/RatingForm.vue'
+import ReviewForm from '@/Pages/ShowComponents/ReviewForm.vue';
+import MessageForm from '@/Pages/ShowComponents/MessageForm.vue';
+import RatingForm from '@/Pages/ShowComponents/RatingForm.vue';
+import StarRating from 'vue-star-rating';
 
 // AuthenticatedLayout
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
@@ -11,6 +12,7 @@ const link = 'http://localhost:8000/api/v1/';
 export default {
     props:['developer'],
     components:{
+        StarRating,
         ReviewForm,
         MessageForm,
         RatingForm,
@@ -45,7 +47,26 @@ export default {
             axios.get(link + 'reviews' + this.developer.id)
             .then((res) => {this.dati.reviews = res.data.response.reviews})
             .catch((error) => console.log(error))
+        },
+        myRatingsAv() {
+            let result = {
+                'integer': Math.floor(props.developer.ratings_avg_value),
+                'half': false,
+            }
+
+
+            let scarto = props.developer.ratings_avg_value - (result.integer);
+
+            if (scarto > 0.25 && scarto <= 0.75) {
+                result.half = true;
+
+            } else if (scarto > 0.75) {
+
+                (result.integer)++;
+            };
+            return (result);
         }
+
     }
 }
 </script>
@@ -67,13 +88,29 @@ export default {
                         <!-- INFO -->
                         <div v-if="this.dati.name !== null || this.dati.last !== null || this.dati.address !== null || this.dati.phone_number !== null || this.dati.portfolio_url !==null || this.dati.cv_path !== null" class="d-flex flex-column align-items-center align-items-lg-start gap-5">
 
-                            <div class="d-flex fs-3 gap-2">
+                            <div class="d-flex fs-3 gap-2 pt-2">
                                 <span v-if="this.dati.name !== null" class="text-light fw-bold">
                                     {{ this.dati.name }}
                                 </span> 
                                 <span v-if="this.dati.last !== null" class="text-light fw-bold">
                                     {{ this.dati.last }}
                                 </span>
+                            </div>
+                            
+                            <!-- RatingAVG -->
+                            <div>
+                                <star-rating class="text-light" 
+                                v-model:rating="developer.ratings_avg_value" 
+                                :active-color="['#410000', '#410000', '#f7a531']" 
+                                :border-width="0" 
+                                :star-points="[23,2, 14,17, 0,19, 10,34, 7,50, 23,43, 38,50, 36,34, 46,19, 31,17]" 
+                                :active-on-click="true" 
+                                :clearable="false" 
+                                :show-rating="false"
+                                :star-size="25"
+                                :increment="0.01"
+                                :read-only="true"
+                                ></star-rating>
                             </div>
 
                             <div class="d-flex flex-column align-items-start gap-3">
