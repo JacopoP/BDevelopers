@@ -139,6 +139,29 @@ export default {
 
         // Listen for window resizes
         window.addEventListener('resize', this.positionBubbles);
+
+        // 
+        var vueInstance = this;
+        let shownBubbles = [];
+        function carouselBubble() {
+            // clear show tags
+            vueInstance.bubbles.forEach(b => b.classList.remove("show"));
+
+            // check which bubbles are available
+            let availableBubbles = vueInstance.bubbles.filter(b => b.style.display != "none");
+
+            setTimeout(() => {
+                availableBubbles[Math.floor(Math.random() * availableBubbles.length)].classList.toggle("show");
+            }, 700);
+        }
+
+        // Start Carousel mechanism
+        setTimeout(() => {
+            carouselBubble();
+        }, 400);
+        setInterval(() => {
+            carouselBubble();
+        }, 6000, 400);
     },
 }
 
@@ -201,11 +224,11 @@ function rangeMap(number, inMin, inMax, outMin, outMax) {
 
         <!-- Populate with bubbles -->
         <!-- <div :id="'bubble' + index" v-for="(developer, index) in profiledDevelopers" class="bubble rounded">
-                                            <img :src="getBubbleImage(index)" class="rounded">
-                                            <div class="volatile">
-                                                Ciao
-                                            </div>
-                                        </div> -->
+                                                                <img :src="getBubbleImage(index)" class="rounded">
+                                                                <div class="volatile">
+                                                                    Ciao
+                                                                </div>
+                                                            </div> -->
 
         <div :id="'bubble' + index" v-for="(developer, index) in profiledDevelopers"
             class="bubble card text-white bg-dark rounded">
@@ -228,8 +251,8 @@ function rangeMap(number, inMin, inMax, outMin, outMax) {
             <!-- Card 'body' (navigation links) -->
             <ul class="list-group list-group-flush volatile overflow-hidden">
                 <!-- <a class="list-group-item px-3 bg-dark text-white" href="">
-                        Connect
-                    </a> -->
+                                            Connect
+                                        </a> -->
                 <a class="list-group-item px-3 bg-dark text-white" href="">
                     Connect
                 </a>
@@ -274,7 +297,6 @@ function rangeMap(number, inMin, inMax, outMin, outMax) {
         .volatile {
             position: relative;
             z-index: 50;
-            display: none;
             width: 0;
             height: 0;
             overflow: hidden;
@@ -284,13 +306,14 @@ function rangeMap(number, inMin, inMax, outMin, outMax) {
             transition: all .3s ease;
         }
 
-        &:hover {
+        &:hover,
+        &.show {
 
             z-index: 40;
             width: auto !important;
+            box-shadow: 0 0 15px 3px snow;
 
             .volatile {
-                display: block;
                 width: 100%;
                 height: 100%;
                 opacity: 1;
