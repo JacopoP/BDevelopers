@@ -9,13 +9,10 @@ import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { ZiggyVue } from '../../vendor/tightenco/ziggy/dist/vue.m';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
-import { faCopy } from '@fortawesome/free-regular-svg-icons';
-import { faCopyright } from '@fortawesome/free-regular-svg-icons';
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
-import { faPhone } from '@fortawesome/free-solid-svg-icons';
-import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
-library.add(faEye, faEyeSlash, faCopy, faCopyright, faGithub, faPhone, faEnvelope);
+import { faEye, faEyeSlash, faStar, faStarHalfStroke, faPencil, faPhone, faEnvelope } from '@fortawesome/free-solid-svg-icons';
+import { faStar as starEmpty, faCopy, faCopyright } from '@fortawesome/free-regular-svg-icons';
+library.add(faEye, faEyeSlash, faStar, starEmpty, faStarHalfStroke, faPencil, faCopy, faCopyright, faGithub, faPhone, faEnvelope);
 import { dom } from "@fortawesome/fontawesome-svg-core";
 dom.watch();
 

@@ -49,7 +49,7 @@ class DeveloperSeeder extends Seeder
             $new_developer->save();
 
             // Rating
-            $ratings = Rating::inRandomOrder()->limit(rand(1, 5))->get();
+            $ratings = Rating::inRandomOrder()->limit(10)->get();
             $new_developer->ratings()->attach($ratings);
 
             // Technologies

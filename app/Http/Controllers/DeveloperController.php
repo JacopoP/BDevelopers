@@ -44,12 +44,18 @@ class DeveloperController extends Controller
     
             // Files update logics
             if(isset($data['profile_path'])){
+                if(isset($developer->profile_path)){
+                    Storage::delete([$developer->profile_path]);
+                }
                 $profile_path = Storage::put('uploads/profile_photo', $data['profile_path']);
                 $data['profile_path'] = $profile_path;
             }else{
                 $data['profile_path'] = $developer -> profile_path;
             }
             if(isset($data['cv_path'])){
+                if(isset($developer->cv_path)){
+                    Storage::delete([$developer->cv_path]);
+                }
                 $cv_path = Storage::put('uploads/profile_cv', $data['cv_path']);
                 $data['cv_path'] = $cv_path;
             }else{

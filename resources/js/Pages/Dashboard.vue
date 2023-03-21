@@ -1,6 +1,13 @@
+    
+
+
+
+
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head } from '@inertiajs/vue3';
+import { useForm, usePage } from '@inertiajs/vue3';
+import axios from 'axios';
 
 
 
@@ -19,7 +26,6 @@ const data = {
     address: props.developer.address,
     phone_number: props.developer.phone_number,
     profile_path: props.developer.profile_path
-        // ? props.developer.profile_path
         ? 'storage/' + props.developer.profile_path
         : default_profile_path,
     cv_path: props.developer.cv_path,
@@ -30,6 +36,12 @@ const data = {
     reviews: props.developer.reviews,
     // messages
     messages: props.developer.messages,
+    // ratings
+    ratings: props.developer.ratings,
+    // technologies
+    technologies: props.developer.technologies,
+    // sponsors
+    sponsors: props.developer.sponsors,
 
 
 };
@@ -51,6 +63,73 @@ function stringToObj(stringa) {
     return time;
 }
 
+function nameMonth(integer) {
+
+    let month_word = null;
+
+    if (integer === 1) {
+        month_word = 'Jan';
+
+    } else if (integer === 2) {
+        month_word = 'Feb';
+
+    } else if (integer === 3) {
+        month_word = 'Mar';
+
+    } else if (integer === 4) {
+        month_word = 'Apr';
+
+    } else if (integer === 5) {
+        month_word = 'May';
+
+    } else if (integer === 6) {
+        month_word = 'Jun';
+
+    } else if (integer === 7) {
+        month_word = 'Jul';
+
+    } else if (integer === 8) {
+        month_word = 'Aug';
+
+    } else if (integer === 9) {
+        month_word = 'Sep';
+
+    } else if (integer === 10) {
+        month_word = 'Oct';
+
+    } else if (integer === 11) {
+        month_word = 'Nov';
+
+    } else if (integer === 12) {
+        month_word = 'Dec';
+
+    } else {
+        month_word = 'wrong month';
+    };
+
+    return month_word;
+}
+
+function daySuffix(integer) {
+
+
+    let suffix = 'th';
+
+    if (integer === 1 || integer === 21 || integer === 31) {
+        suffix = 'st';
+
+    } else if (integer === 2 || integer === 22) {
+        suffix = 'nd';
+
+    } else if (integer === 3 || integer === 23) {
+        suffix = 'rd';
+
+    };
+
+    return suffix;
+
+}
+
 function now() {
     const now = new Date(Date.now());
 
@@ -58,7 +137,7 @@ function now() {
         'year': now.getFullYear(),
         // .getMonth() restituisce da 0 a 11
         'month': (now.getMonth() + 1),
-        // .getDate() restituisce giorno del mese
+        // .getDate() restituisce day del mese
         'day': now.getDate(),
         'hour': now.getHours(),
         'min': now.getMinutes(),
@@ -66,7 +145,7 @@ function now() {
 
 
 
-        // .getDay() restituisce giorno della settimana in numero
+        // .getDay() restituisce day della settimana in numero
     };
 
     return time;
@@ -74,8 +153,10 @@ function now() {
 
 }
 
+function formalDate(obj) {
+    return nameMonth(obj.month) + ' ' + (obj.day).toString() + daySuffix(obj.day) + ' ' + (obj.year).toString();
 
-
+}
 
 function myGetTime(stringa) {
 
@@ -83,9 +164,10 @@ function myGetTime(stringa) {
     const obj2 = now();
 
 
+
     let result = {
-        'giorno': null,
-        'ora': (obj1.hour).toString() + ':' + (obj1.min).toString(),
+        'day': null,
+        'hour': (obj1.hour).toString() + ':' + (obj1.min).toString(),
     }
 
     if (
@@ -93,28 +175,120 @@ function myGetTime(stringa) {
         obj1.month === obj2.month &&
         obj1.day === obj2.day
     ) {
-        result.giorno = 'today';
+        result.day = 'today';
     } else if (
         obj1.year === obj2.year &&
         obj1.month === obj2.month &&
         obj1.day === (obj2.day - 1)
     ) {
-        result.giorno = 'yesterday';
+        result.day = 'yesterday';
 
 
     } else {
-        result.giorno = (obj1.day).toString() + '-' + (obj1.month).toString() + '-' + (obj1.year).toString();
 
-
+        result.day = formalDate(obj1);
     }
 
 
     return result;
 }
 
+function myRatingsAv() {
+    let result = {
+        'integer': Math.floor(props.developer.ratings_avg_value),
+        'half': false,
+    }
+
+
+    let scarto = props.developer.ratings_avg_value - (result.integer);
+
+    if (scarto > 0.25 && scarto <= 0.75) {
+        result.half = true;
+
+    } else if (scarto > 0.75) {
+
+        (result.integer)++;
+    };
+    return (result);
+}
+const form = useForm({
+    profile_path: null,
+});
+function sendImg() {
+    form.post(route('profile.dev.store'));
+}
+
+
+function lastSponsor() {
+    let dataFine = null;
+    // ottengo la data più recende delle sponsors.date_end
+    data.sponsors.forEach(element => {
+        const dataSponsor = stringToObj(element.pivot.date_end);
 
 
 
+        // se la data è successiva a oggi
+        if (
+            dataSponsor.year > now().year ||
+            dataSponsor.year === now().year && dataSponsor.month > now().month ||
+            dataSponsor.year === now().year && dataSponsor.month === now().month && dataSponsor.day > now().day
+
+
+
+            // debug
+            // dataSponsor.year > 1998 ||
+            // dataSponsor.year === 1998 && dataSponsor.month > 3 ||
+            // dataSponsor.year === 1998 && dataSponsor.month === 3 && dataSponsor.day > 20
+        ) {
+
+            // se dataFine è anchour vuoto lo riempo
+            if (dataFine === null) {
+                dataFine = dataSponsor;
+
+                // altrimenti se la dataSponsor è maggiore della dataFine (già salvata)
+            } else if (
+                dataSponsor.year > dataFine.year ||
+                dataSponsor.year === dataFine.year && dataSponsor.month > dataFine.month ||
+                dataSponsor.year === dataFine.year && dataSponsor.month === dataFine.month && dataSponsor.day > dataFine.day
+            ) {
+                dataFine = dataSponsor;
+
+            }
+
+
+        }
+
+
+
+    }
+    )
+    if (dataFine === null) {
+        return false;
+    } else {
+        return (formalDate(dataFine));
+    }
+}
+</script>
+
+
+
+
+
+<script>
+export default {
+    data() {
+        return {
+            new_profile_path: undefined,
+        }
+    },
+    methods: {
+        updateImg() {
+            axios.get('http://localhost:8000/api/v1/profile_path' + usePage().props.auth.user.id)
+                .then((res) => { this.new_profile_path = 'sthourge/' + res.data.response.path })
+                .catch((error) => console.log(error))
+        }
+    }
+}
 </script>
 
 <template>
@@ -128,71 +302,74 @@ function myGetTime(stringa) {
 
         <template #main>
 
-            <div class="sfondo">
-                <!-- <header class="d-flex justify-between ">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <h1>Your profile</h1>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </header> -->
-                <div class="container p-0">
+            <div class="my-background b-dark container">
 
-                    <main class="d-flex justify-content-center">
-                        <!-- <main class="d-flex justify-between"> -->
-                        <div class="sinistra  overflow-scroll" v-if="(data.reviews).length || (data.messages).length">
+                <div class="container">
+
+                    <main class="d-flex flex-column-reverse flex-lg-row align-items-center align-items-lg-start position-relative">
+
+                        <div class="left overflow-scroll" v-if="(data.reviews).length || (data.messages).length">
+
+
+
 
                             <!-- reviews -->
-                            <div class="my-cornice" v-if="(data.reviews).length">
-                                <div class="titolo">
+                            <div class="my-border" v-if="(data.reviews).length">
+                                <div class="title">
                                     My reviews
                                 </div>
                                 <ul class="principale">
 
-                                    <li v-for="review in data.reviews" class="shadow-lg mb-5 bg-white margin secondario">
-                                        <div v-if="review.full_name != undefined" class="reviewer">
-                                            {{ review.full_name }}
+                                    <li v-for="review in data.reviews">
+                                        <div class=" mb-5 margin message">
+                                            <div v-if="review.full_name != undefined" class="reviewer">
+                                                {{ review.full_name }}
 
-                                        </div>
-                                        <div v-else class="anonymous">
-                                            anonymous
-                                        </div>
-                                        <p>
-                                            {{ review.text }}
-                                        </p>
-                                        <div class="created-at">
-                                            {{ myGetTime(review.created_at).giorno }}
-                                            {{ myGetTime(review.created_at).ora }}
+                                            </div>
+                                            <div v-else class="anonymous">
+                                                anonymous
+                                            </div>
+                                            <p>
+                                                {{ review.text }}
+                                            </p>
+                                            <div class="created-at">
+                                                {{ myGetTime(review.created_at).day }}
+                                                {{ myGetTime(review.created_at).hour }}
 
+                                            </div>
                                         </div>
 
 
                                     </li>
                                 </ul>
                             </div>
+
                             <!-- messages -->
-                            <div class="my-cornice" v-if="(data.messages).length">
-                                <div class="titolo">
+                            <div class="my-border" v-if="(data.messages).length">
+                                <div class="title">
                                     My messages
                                 </div>
                                 <ul class="principale">
+                                    <li v-for="message in data.messages">
+                                        <div class=" mb-5 margin message">
 
-                                    <li v-for="message in data.messages" class="shadow-lg mb-5 bg-white margin secondario">
-                                        <div v-if="message.full_name != undefined" class="reviewer">
-                                            {{ message.full_name }}
 
-                                        </div>
-                                        <div v-else class="anonymous">
-                                            anonymous
-                                        </div>
-                                        <a href="mailto:{{ message.email }}" class="email">{{ message.email }}</a>
-                                        <!-- <div class="email">
-                                                {{ message.email }}
+                                            <div v-if="message.full_name != undefined" class="reviewer">
+                                                {{ message.full_name }}
 
-                                            </div> -->
-                                        <p>
-                                            {{ message.text }}
-                                        </p>
-                                        <div class="created-at">
-                                            {{ myGetTime(message.created_at).giorno }}
-                                            {{ myGetTime(message.created_at).ora }}
+                                            </div>
+                                            <div v-else class="anonymous">
+                                                anonymous
+                                            </div>
+                                            <a href="mailto:{{ message.email }}" class="email">{{ message.email }}</a>
+                                            <p>
+                                                {{ message.text }}
+                                            </p>
+                                            <div class="created-at">
+                                                {{ myGetTime(message.created_at).day }}
+                                                {{ myGetTime(message.created_at).hour }}
 
+                                            </div>
                                         </div>
 
 
@@ -201,62 +378,138 @@ function myGetTime(stringa) {
                             </div>
 
                         </div>
+                        
                         <!-- image and data user developer -->
-                        <div class="destra">
+                        <div class="right">
 
-                            <div class="my-cornice">
-                                <div class="my-img-container ">
-                                    <!-- :class="data.profile_path === default_profile_path ? 'no-pic' : null" -->
+                            <div class="my-border my-shadow">
 
-                                    <img :src="data.profile_path">
+                                <div class="d-flex justify-content-center">
+                                    <a href="/developer" class="my-edit">
+                                        Developer Settings
 
+                                    </a>
+                                </div>
+
+                                <div class="my-img-container mx-auto my-3">
+
+                                    <img
+                                        :src="(this.new_profile_path == undefined ? data.profile_path : this.new_profile_path)">
+                                    <form class="d-flex justify-content-center align-items-center" method="post"
+                                        enctype="multipart/form-data">
+                                        <label for="profile_path" class="my-layover"> <i class="fa-solid fa-pencil"></i>
+                                        </label>
+
+                                        <input id="profile_path" type="file" name="profile_path"
+                                            @input="form.profile_path = $event.target.files[0]; sendImg(); updateImg();">
+
+                                    </form>
 
                                 </div>
 
 
-                                <div class="">
-                                    <div class="dato">
-                                        {{ data.name }}
-                                        {{ data.last }}
-                                        <div class="titolo">
-                                            Full Name
-                                        </div>
-                                    </div>
-                                    <div class="dato" v-if="data.email">
-                                        {{ data.email }}
-                                        <div class="titolo">
-                                            E-mail
-                                        </div>
-                                    </div>
-                                    <div class="dato" v-if="data.address">
-                                        {{ data.address }}
-                                        <div class="titolo">
-                                            Address
-                                        </div>
-                                    </div>
-                                    <div class="dato" v-if="data.phone_number">
-                                        {{ data.phone_number }}
-                                        <div class="titolo">Phone Number</div>
-                                    </div>
-                                    <div class="my-cornice" v-if="data.about_me">
-                                        <div class="titolo">
-                                            About me
-                                        </div>
-                                        <div class="principale">
-                                            {{ data.about_me }}
-                                        </div>
-                                    </div>
-                                    <div class="my-cornice" v-if="data.performances">
 
-                                        <div class="titolo">
-                                            My performances
-                                        </div>
-                                        <div class="principale">
-                                            {{ data.performances }}
-                                        </div>
+
+                                <div class="info name">
+                                    {{ data.name }}
+                                    {{ data.last }}
+                                    <div class="title">
+                                        Full Name
                                     </div>
-                                    <!-- cv_path -->
-                                    <a :href="data.portfolio_url"></a>
+                                </div>
+                                <div class="info text-truncate" v-if="data.email">
+                                    {{ data.email }}
+                                    <div class="title">
+                                        E-mail
+                                    </div>
+                                </div>
+                                <div class="info" v-if="data.address">
+                                    {{ data.address }}
+                                    <div class="title">
+                                        Address
+                                    </div>
+                                </div>
+                                <div class="info" v-if="data.phone_number">
+                                    {{ data.phone_number }}
+                                    <div class="title">Phone Number</div>
+                                </div>
+                                <div class="my-border" v-if="data.about_me">
+                                    <div class="title">
+                                        About me
+                                    </div>
+                                    <div class="principale">
+                                        {{ data.about_me }}
+                                    </div>
+                                </div>
+                                <div class="my-border" v-if="data.performances">
+
+                                    <div class="title">
+                                        My performances
+                                    </div>
+                                    <div class="principale">
+                                        {{ data.performances }}
+                                    </div>
+                                </div>
+                                <!-- cv_path -->
+                                <a :href="data.portfolio_url"></a>
+
+                                <div class="my-technologies">
+                                    <div v-for="technology in data.technologies" class="my-technology">
+                                        <img :src="technology.logo_path" alt="">
+                                        <div class="titolo">
+                                            {{ technology.name }}
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="rat-spon-cont">
+                                <!-- ratings -->
+                                <!-- only if there are more than 0 ratings  -->
+                                <div class="my-border" v-if="data.ratings.length">
+                                    <div>You've got
+                                        <b>
+                                            {{ data.ratings.length }}
+                                        </b>
+                                        ratings!
+                                    </div>
+                                    <div>
+                                        Average:
+                                    </div>
+                                    <div class="d-flex align-text-bottom">
+                                        {{ Math.round(developer.ratings_avg_value * 100) / 100 }}
+                                    </div>
+                                    <div class="d-flex">
+                                        <div v-for="any in (myRatingsAv(data.ratings)).integer">
+                                            <i class="fa-solid fa-star"></i>
+                                        </div>
+                                        <div v-if="(myRatingsAv(data.ratings)).half">
+                                            <i class="fa-solid fa-star-half-stroke"></i>
+                                        </div>
+                                        <div
+                                            v-for="index in (5 - ((myRatingsAv(data.ratings))).integer - (((myRatingsAv(data.ratings)).half) ? 1 : 0))">
+                                            <i class="fa-regular fa-star"></i>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                                <!-- sponsors -->
+                                <!-- only if there are more than 0 sponsors  -->
+                                <div class="my-border sponsor">
+                                    <template v-if="lastSponsor()">
+                                        <div>You are sponsored!</div>
+
+                                        <div>Sponsor expires: {{ lastSponsor() }}</div>
+                                    </template>
+
+                                    <div v-else>You aren't sponsored!</div>
+
+                                    <a :href="route('braintree')" class="my-border">Get sponsored!</a>
+
+
                                 </div>
                             </div>
                         </div>
@@ -264,7 +517,6 @@ function myGetTime(stringa) {
                 </div>
             </div>
         </template>
-
     </AuthenticatedLayout>
 </template>
 
@@ -273,101 +525,130 @@ function myGetTime(stringa) {
 
 <style lang="scss" scoped>
 @use 'resources/sass/general.scss' as *;
+@use 'resources/sass/variable.scss';
 
-$grigio-sfondo: #424242;
+
+
+$grigio-my-background: #424242;
 $color-scritte: white;
-$color-titles: yellow;
-$h-header: 50px;
+$color-titles: $brand_fourth;
+$color-shadow: $brand_fourth;
 
 
-$h-sfondo: calc(100vh - 100px);
-$w-sfondo: calc(100vw);
 
 
-$h-main: calc($h-sfondo - 70px);
+
+$h-main: calc(100vh - 170px);
 
 
-// $h-principale: calc($h-main - 150px);
 
-
+// DEBUG
+.DEBUG {
+    background-color: red;
+}
 
 
 
 
 .principale {
+    padding-right: 20px;
+
+
+
+
     overflow: scroll;
 
+    // no scrollbar Chrome, Safari and Opera
     &::-webkit-scrollbar {
         display: none;
     }
 
-    .secondario {
-        list-style: none;
-        padding: 15px 25px;
-        border-radius: 0 13px 13px 13px;
-        margin-top: 30px;
-        // margin: 10px;
+    /* IE and Edge */
+    -ms-overflow-style: none;
+    /* Firefox */
+    scrollbar-width: none;
 
-        .reviewer {
-            font-weight: bold;
-            color: $brand_fourth;
+    li {
+
+        .message {
+            list-style: none;
+            padding: 15px 25px;
+            border-radius: 0 13px 13px 13px;
+            margin-top: 30px;
+            // max-width: 70%;
+            background-color: #fff;
+
+
+
+            .reviewer {
+                font-weight: bold;
+                color: $brand_fourth;
+            }
+
+            .email {
+
+                color: rgb(2, 91, 91);
+            }
+
+            .anonymous {
+                font-style: italic;
+                font-size: 12px;
+                color: rgb(67, 67, 67);
+            }
+
+            p {
+                margin-top: 5px;
+            }
+
+            .created-at {
+                text-align: end;
+                font-size: 12px;
+            }
+
         }
 
-        .email {
-            color: rgb(2, 91, 91);
+        &:hover {
+            .message {
+                box-shadow: 5px 10px 5px $brand_third;
+            }
         }
-
-        .anonymous {
-            font-style: italic;
-            font-size: 12px;
-            color: rgb(67, 67, 67);
-        }
-
-        p {
-            margin-top: 5px;
-        }
-
-        .created-at {
-            text-align: end;
-            font-size: 12px;
-        }
-
     }
 }
 
-.dato {
-    margin: 25px 5px;
-    padding: 5px 15px 0px;
-    // max-width: 300px;
-    border-bottom: 1px solid white;
-    color: white;
-    position: relative;
 
-    &:first-child {
-        border-radius: 0 0 0 10px;
-        border-bottom: 2px solid white;
 
-    }
 
-    .titolo {
-        right: -8px;
-        bottom: 0;
-    }
-}
 
-.my-cornice {
-    border: 1px solid white;
+
+
+.my-border {
+    background-color: $brand_primary;
+    // border: 1px solid white;
     border-radius: 0 0 10px 0;
     padding: 10px;
     display: flex;
     flex-direction: column;
-    box-shadow: 20px black;
+
     position: relative;
-    margin: 50px 0 100px;
     overflow: scroll;
 
-    .titolo {
-        background-color: $grigio-sfondo;
+    // no scrollbar Chrome, Safari and Opera
+    &::-webkit-scrollbar {
+        display: none;
+    }
+
+    /* IE and Edge */
+    -ms-overflow-style: none;
+    /* Firefox */
+    scrollbar-width: none;
+
+
+    &:hover {
+        box-shadow: 2px 2px 2px 2px $color-shadow;
+    }
+
+    .title {
+        // background-color: $grigio-my-background;
         padding: 0 8px;
         font-size: 12px;
         color: white;
@@ -375,14 +656,7 @@ $h-main: calc($h-sfondo - 70px);
 
     }
 
-    .testo {
 
-        li {
-            margin-bottom: 20px;
-            padding: 0 20px;
-        }
-
-    }
 
 }
 
@@ -392,54 +666,39 @@ $h-main: calc($h-sfondo - 70px);
 body {
 
 
-    .sfondo {
-        background-color: $grigio-sfondo;
+    .my-background {
+        // background-color: $grigio-my-background;
 
 
 
-        header {
-            height: $h-header;
-            // background-color: aqua;
 
-            h1 {
-                font-size: 2.5rem;
-                font-weight: bold;
-            }
-        }
 
-        .container {
-            width: 100vw;
+
 
 
             main {
 
 
 
-                .sinistra {
+                .left {
                     margin: 10px;
                     width: 100%;
                     padding: 0 10px;
 
-                    // no scrollbar Chrome, Safari and Opera
-                    &::-webkit-scrollbar {
-                        display: none;
-                    }
-
-                    /* IE and Edge */
-                    -ms-overflow-style: none;
-                    /* Firefox */
-                    scrollbar-width: none;
-                    // con firefox non sembra funzionare
 
 
-                    .my-cornice {
+                    .my-border {
                         position: relative;
-                        max-height: $h-main;
+                        margin: 50px 0 100px;
+                        max-height: calc(100vh - 140px);
+                        // max-height: $h-main;
 
-                        // overflow per il titolo
+                        // overflow per il title
                         overflow: visible;
 
-                        .titolo {
+                        .title {
+
+                            background-color: #212529;
                             position: absolute;
                             top: -40px;
                             left: -8px;
@@ -453,115 +712,797 @@ body {
                 }
 
 
-                .destra {
+                .right {
 
-                    width: 40%;
+                    // width: 40%;
                     display: flex;
                     flex-direction: column;
                     margin: 10px;
 
 
 
+                    .title {
+
+                        font-weight: bold;
+
+                        top: -20px;
+                        right: 0px;
+                    }
 
 
-                    .my-cornice {
-                        overflow: visible;
+                    .my-border {
+                        // overflow: visible;
                         color: white;
+                        margin-top: 50px;
                         border-radius: 0 0 20px 0;
 
-                        .my-img-container {
-                            $w-img: 300px;
+
+
+
+                        .my-edit {
+
+                            // no anchor dechourrion
+                            text-decoration: inherit;
+                            color: inherit;
+                            border-radius: 20px;
+
+
+
+                            background-color: $brand_third;
+                            color: white;
+                            height: 40px;
+                            width: 90%;
                             display: flex;
                             justify-content: center;
                             align-items: center;
-                            width: 100%;
-                            height: calc($w-img + 150px);
+                            // position: absolute;
 
-                            img {
-                                width: $w-img;
-                                height: $w-img;
-                                object-fit: cover;
-                                border-radius: 30%;
+                            // z-index necessary to stop propagation click
+                            z-index: 100;
+
+
+                            // transition doesn't seems to work.
+                            transition: all 0.5s ease-in-out 0.2s;
+
+                            &:hover{
+                                background-color: $brand_secondary;
                             }
                         }
-
-                        .my-cornice {
-                            max-height: 300px;
-                            margin: 50px 0 0;
-                            padding-right: 20px;
-                            border-radius: 0 0 10px 0;
-
-                            .titolo {
-
-                                font-weight: bold;
-
-                                top: -20px;
-                                right: 0px;
-                            }
-                        }
-
-
-
-                    }
-                }
-            }
-        }
-    }
-}
-
-
-
-
-
-@media screen and (max-width: 1200px) {
-
-
-    body {
-        .sfondo {
-            .container {
-                header {
-
-                    h1 {}
-                }
-
-                main {
-
-
-
-                    .sinistra {
-
-
-
-                        .my-cornice {
-
-                            .titolo {}
-
-
-                        }
-
-                    }
-
-
-                    .destra {
-
 
                         .my-img-container {
-                            $w-img: 100px;
-                            height: $w-img;
+
+                            width: 300px;
+                            height: 300px;
+                            position: relative;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+
 
                             img {
-                                width: $w-img;
-                                height: $w-img;
+                                position: absolute;
+                                max-width: 100%;
+                                object-fit: cover;
+                                border-radius: 80px;
+                            }
+
+                            .my-layover {
+                                cursor: pointer;
+                                background-color: rgba(48, 48, 48, 0.675);
+                                width: 100%;
+                                height: 100%;
+                                justify-content: center;
+                                align-items: center;
+                                position: absolute;
+                                display: none;
+                                font-size: 40px;
+                                border-radius: 80px;
+                            }
+
+
+
+                            &:hover {
+
+                                .my-layover {
+                                    display: flex;
+
+
+                                }
+
+                            }
+
+
+
+
+
+                        }
+
+
+                        .info {
+                            margin-top: 30px;
+                            border-radius: 20px;
+                            padding: 10px;
+                            color: white;
+                            position: relative;
+                            transition: all 0.1s linear 0s;
+
+
+                            &.name {
+                                border-radius: 0 0 10px 10px;
+                                padding: 30px 10px;
+                                font-size: 25px;
+                                font-weight: bold;
+
+
+                            }
+
+                            &:hover {
+                                position: relative;
+                                padding-left: 20px;
+                            }
+
+
+
+
+
+                        }
+
+                        .my-border {
+                            position: relative;
+                            max-height: 300px;
+                            margin: 10px 0 0;
+                            padding-right: 20px;
+                            border-radius: 0 0 10px 0;
+                            margin-top: 30px;
+
+
+
+                            &:hover {
+                                .title {
+                                    color: $color-shadow;
+                                }
+
+                            }
+
+
+
+                        }
+
+                        a.my-border {
+                            width: 70%;
+                            margin-bottom: 10px;
+                            text-decoration: none;
+                            border-radius: 0 0 20px 0;
+                            font-weight: bold;
+                            font-size: 20px;
+
+                            &:hover {
+                                background-color: white;
+                                color: #212529;
+                                box-shadow: none;
                             }
                         }
+
+                        .my-technologies {
+                            margin: 50px 0;
+                            display: flex;
+                            justify-content: center;
+                            flex-wrap: wrap;
+                            // gap: 10px;
+
+                            .my-technology {
+                                width: 70px;
+                                height: 70px;
+                                margin: 5px;
+                                padding: 10px;
+                                border-radius: 5px;
+                                position: relative;
+                                display: flex;
+                                flex-direction: column;
+                                align-items: center;
+                                justify-content: center;
+
+
+                                // img {
+                                //     width: 50px;
+                                //     height: 50px;
+                                //     object-fit: contain;
+                                //     padding: 5px;
+
+
+
+
+
+                                // }
+
+                                .titolo {
+                                    display: none;
+                                    transition: all 0.1s linear 0s;
+
+
+                                }
+
+
+                                &:hover {
+                                    background-color: rgba(255, 255, 255, 0.151);
+
+                                    .titolo {
+                                        display: block;
+
+
+                                    }
+                                }
+                            }
+                        }
+
 
 
                     }
                 }
             }
-        }
+
     }
-
-
 }
+
+
+
+
+
+// @media screen and (max-width: 992px) {
+//     .principale {
+//         padding: 0 10px;
+
+
+
+//         li {
+
+//             .message {
+
+//                 max-width: 100%;
+
+
+
+//                 .reviewer {}
+
+//                 .email {}
+
+//                 .anonymous {}
+
+//                 p {}
+
+//                 .created-at {}
+
+//             }
+
+//             &:hover {
+//                 .message {}
+//             }
+//         }
+//     }
+
+//     .my-border {
+
+
+//         &:hover {}
+
+//         .title {}
+
+
+
+//     }
+
+//     body {
+
+
+//         .my-background {
+
+
+//             .container {
+
+
+
+//                 main {
+
+
+
+//                     .left {
+
+
+
+
+//                         .my-border {
+
+
+//                             .title {}
+
+
+//                         }
+
+//                     }
+
+
+//                     .right {
+
+
+
+//                         .title {}
+
+
+//                         .my-border {
+
+
+
+
+
+//                             .my-edit {}
+
+//                             .my-img-container {
+
+//                                 width: 200px;
+//                                 height: 200px;
+
+
+
+
+//                                 .my-layover {
+
+//                                     font-size: 20px;
+
+
+
+//                                 }
+
+
+
+
+
+
+
+
+
+//                             }
+
+
+//                             .info {
+
+
+
+//                                 &.name {}
+
+//                                 &:hover {}
+
+
+
+
+
+//                             }
+
+//                             .my-border {
+
+
+
+
+//                                 &:hover {
+//                                     .title {}
+
+//                                 }
+
+
+
+//                             }
+
+//                             a.my-border {
+
+
+//                                 &:hover {}
+//                             }
+
+//                             .my-technologies {
+
+
+//                                 .my-technology {
+
+
+
+//                                     img {}
+
+//                                     .titolo {}
+
+
+//                                     &:hover {
+
+
+//                                         .titolo {}
+//                                     }
+//                                 }
+//                             }
+
+
+
+//                         }
+//                     }
+//                 }
+//             }
+//         }
+//     }
+// }
+
+
+
+// @media screen and (max-width: 768px) {
+//     .principale {
+
+
+
+
+//         li {
+
+//             .message {
+
+
+
+
+
+//                 .reviewer {}
+
+//                 .email {}
+
+//                 .anonymous {}
+
+//                 p {}
+
+//                 .created-at {}
+
+//             }
+
+//             &:hover {
+//                 .message {}
+//             }
+//         }
+//     }
+
+//     .my-border {
+
+
+//         &:hover {}
+
+//         .title {}
+
+
+
+//     }
+
+//     body {
+
+
+//         .my-background {
+
+
+//             .container {
+
+
+
+//                 main {
+//                     flex-direction: column-reverse;
+
+
+
+//                     .left {
+
+//                         margin-bottom: 0;
+
+
+
+//                         .my-border {
+
+
+//                             .title {}
+
+
+//                         }
+
+//                     }
+
+
+//                     .right {
+
+//                         margin: 0;
+//                         display: flex;
+//                         justify-content: space-between;
+//                         flex-direction: row;
+//                         width: 100%;
+
+
+//                         .title {}
+
+
+//                         .my-border {
+//                             width: 45%;
+
+
+
+
+
+//                             .my-edit {}
+
+//                             .my-img-container {
+
+
+
+
+
+
+//                                 .my-layover {}
+
+
+
+
+
+
+
+
+
+//                             }
+
+
+//                             .info {
+
+
+
+//                                 &.name {}
+
+//                                 &:hover {}
+
+
+
+
+
+//                             }
+
+//                             .my-border {
+
+
+
+
+//                                 &:hover {
+//                                     .title {}
+
+//                                 }
+
+
+
+//                             }
+
+//                             a.my-border {
+
+
+//                                 &:hover {}
+//                             }
+
+//                             .my-technologies {
+
+
+//                                 .my-technology {
+
+
+
+//                                     img {}
+
+//                                     .titolo {}
+
+
+//                                     &:hover {
+
+
+//                                         .titolo {}
+//                                     }
+//                                 }
+//                             }
+
+
+
+//                         }
+
+//                         .rat-spon-cont {
+//                             width: 45%;
+
+//                             .my-border {
+//                                 width: 100%;
+//                             }
+//                         }
+//                     }
+//                 }
+//             }
+//         }
+//     }
+// }
+
+
+// @media screen and (max-width: 490px) {
+//     .principale {
+
+
+
+
+//         li {
+
+//             .message {
+
+
+
+
+
+//                 .reviewer {}
+
+//                 .email {}
+
+//                 .anonymous {}
+
+//                 p {}
+
+//                 .created-at {}
+
+//             }
+
+//             &:hover {
+//                 .message {}
+//             }
+//         }
+//     }
+
+//     .my-border {
+
+
+//         &:hover {}
+
+//         .title {}
+
+
+
+//     }
+
+//     body {
+
+
+//         .my-background {
+
+
+
+//             .container {
+//                 margin: 0 50px;
+
+
+
+
+
+//                 main {
+
+
+
+
+//                     .left {
+//                         padding: 0;
+//                         margin: 0;
+
+
+
+
+//                         .my-border {
+//                             margin-left: 0;
+
+
+//                             .title {}
+
+
+//                         }
+
+//                     }
+
+
+//                     .right {
+//                         display: flex;
+
+//                         flex-direction: column;
+
+
+//                         .title {}
+
+
+//                         .my-border {
+//                             width: 100%;
+
+
+
+
+
+//                             .my-edit {}
+
+//                             .my-img-container {
+
+
+
+
+
+//                                 .my-layover {}
+
+
+
+
+
+
+
+
+
+//                             }
+
+
+//                             .info {
+
+
+
+//                                 &.name {}
+
+//                                 &:hover {}
+
+
+
+
+
+//                             }
+
+//                             .my-border {
+
+
+
+
+//                                 &:hover {
+//                                     .title {}
+
+//                                 }
+
+
+
+//                             }
+
+//                             a.my-border {
+
+
+//                                 &:hover {}
+//                             }
+
+//                             .my-technologies {
+
+
+//                                 .my-technology {
+
+
+
+//                                     img {}
+
+//                                     .titolo {}
+
+
+//                                     &:hover {
+
+
+//                                         .titolo {}
+//                                     }
+//                                 }
+//                             }
+
+
+
+//                         }
+
+//                         .rat-spon-cont {
+//                             width: 100%;
+
+//                             .my-border {}
+//                         }
+//                     }
+//                 }
+//             }
+//         }
+//     }
+// }
 </style>
