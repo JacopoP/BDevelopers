@@ -68,6 +68,12 @@ class ProfileController extends Controller
         Auth::logout();
 
 
+        if(isset($developer->cv_path)){
+            Storage::delete([$developer->cv_path]);
+        }
+        if(isset($developer->profile_path)){
+            Storage::delete([$developer->profile_path]);
+        }
         $developer->technologies()->sync([]);
         $developer->sponsors()->sync([]);
         $developer->reviews()->delete();
