@@ -83,9 +83,10 @@ export default {
 
 <style lang="scss" scoped>
 // Accent outline for main navbar elements
+@import '../../sass/variable.scss';
 .left>*,
 .right>* {
-    outline: solid 2px #E8763D;
+    outline: solid 2px $brand_fourth;
     outline-offset: 2px;
 }
 
@@ -141,7 +142,7 @@ img {
         }
 
         &:last-child {
-            color: #E8763D !important;
+            color: $brand_fourth !important;
         }
     }
 }
