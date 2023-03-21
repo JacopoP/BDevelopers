@@ -260,7 +260,7 @@ function lastSponsor() {
 <script>
 import StarRating from 'vue-star-rating';
 export default {
-    components:{
+    components: {
         StarRating,
     },
     data() {
@@ -271,9 +271,9 @@ export default {
     },
     methods: {
         updateImg() {
-            this.reloadNavbar=false;
+            this.reloadNavbar = false;
             axios.get('http://localhost:8000/api/v1/profile_path' + usePage().props.auth.user.id)
-                .then((res) => { this.new_profile_path = 'storage/' + res.data.response.path; this.reloadNavbar=true})
+                .then((res) => { this.new_profile_path = 'storage/' + res.data.response.path; this.reloadNavbar = true })
                 .catch((error) => console.log(error))
         }
     }
@@ -379,28 +379,29 @@ export default {
                                 <div class="d-flex flex-column align-items-center">
 
                                     <div class="my-img-container mx-auto my-3">
-    
+
                                         <img
                                             :src="(this.new_profile_path == undefined ? data.profile_path : this.new_profile_path)">
                                         <form class="d-flex justify-content-center align-items-center" method="post"
                                             enctype="multipart/form-data">
                                             <label for="profile_path" class="my-layover"> <i class="fa-solid fa-pencil"></i>
                                             </label>
-    
+
                                             <input id="profile_path" type="file" name="profile_path"
                                                 @input="form.profile_path = $event.target.files[0]; sendImg(); updateImg();">
-    
+
                                         </form>
-                                        
+
                                     </div>
-    
+
                                     <div class="d-flex justify-content-center" style="width: 200px;">
-                                        <a href="/developer" class="btn my_register_button btn-secondary border-0 rounded-pill">
+                                        <a href="/developer"
+                                            class="btn my_register_button btn-secondary border-0 rounded-pill">
                                             Developer Settings
-    
+
                                         </a>
                                     </div>
-                                    
+
                                 </div>
 
 
@@ -445,7 +446,15 @@ export default {
                                         {{ data.performances }}
                                     </div>
                                 </div>
-                                <!-- cv_path -->
+
+                                <!-- CV -->
+                                <a v-if="data.cv_path !== null"
+                                    class="btn btn-outline-secondary rounded-pill d-flex align-items-center m-5"
+                                    :href="'storage/' + data.cv_path" download>Download CV
+                                </a>
+
+
+
                                 <a :href="data.portfolio_url"></a>
 
                                 <div class="my-technologies">
@@ -476,18 +485,11 @@ export default {
                                     <div class="d-flex align-text-bottom">
                                         {{ Math.round(developer.ratings_avg_value * 100) / 100 }}
                                     </div>
-                                    <star-rating class="text-light" 
-                                    v-model:rating="developer.ratings_avg_value" 
-                                    :active-color="['#410000', '#410000', '#f7a531']" 
-                                    :border-width="0" 
-                                    :star-points="[23,2, 14,17, 0,19, 10,34, 7,50, 23,43, 38,50, 36,34, 46,19, 31,17]" 
-                                    :active-on-click="true" 
-                                    :clearable="false" 
-                                    :show-rating="false"
-                                    :star-size="25"
-                                    :increment="0.01"
-                                    :read-only="true"
-                                    ></star-rating>
+                                    <star-rating class="text-light" v-model:rating="developer.ratings_avg_value"
+                                        :active-color="['#410000', '#410000', '#f7a531']" :border-width="0"
+                                        :star-points="[23, 2, 14, 17, 0, 19, 10, 34, 7, 50, 23, 43, 38, 50, 36, 34, 46, 19, 31, 17]"
+                                        :active-on-click="true" :clearable="false" :show-rating="false" :star-size="25"
+                                        :increment="0.01" :read-only="true"></star-rating>
 
                                 </div>
                                 <!-- sponsors -->
@@ -522,8 +524,8 @@ export default {
 @use 'resources/sass/variable.scss';
 @use 'resources/sass/form-style.scss';
 
-input[type=file]{
-   display: none;
+input[type=file] {
+    display: none;
 }
 
 $grigio-my-background: #424242;
@@ -827,7 +829,6 @@ body {
 
                         &.name {
                             border-radius: 0 0 10px 10px;
-                            padding: 30px 10px;
                             font-size: 25px;
                             font-weight: bold;
 
@@ -881,13 +882,13 @@ body {
                         }
                     }
 
-                        .my-technologies {
-                            max-width: 550px;
-                            margin: 50px 0;
-                            display: flex;
-                            justify-content: start;
-                            flex-wrap: wrap;
-                            // gap: 10px;
+                    .my-technologies {
+                        max-width: 550px;
+                        margin: 50px 0;
+                        display: flex;
+                        justify-content: start;
+                        flex-wrap: wrap;
+                        // gap: 10px;
 
                         .my-technology {
                             width: 70px;
