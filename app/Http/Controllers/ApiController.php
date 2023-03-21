@@ -39,6 +39,11 @@ class ApiController extends Controller
         ->Has('reviews', '>=', $data['reviewFilter'])
         // filter per rating avg
         ->withAvg('ratings as avg_rating', 'value')
+        ->withExists(['sponsors as sponsored' => function($query){
+            return $query
+            ->whereDate('date_start', '<=', date('Y-m-d'))
+            ->whereDate('date_end', '>=', date('Y-m-d'));
+        }])
         ->when($data['ratingFilter'] != 0, function($query) use ($data){
             $query->having('avg_rating', '>=', $data['ratingFilter']);
         })
@@ -46,6 +51,7 @@ class ApiController extends Controller
         ->whereHas('technologies', function($query) use ($techList){
             $query->whereIn('id', $techList);
         }, '>=', $techN)
+        ->orderBy('sponsored', 'desc')
         ->paginate(24);
 
         return response()->json([

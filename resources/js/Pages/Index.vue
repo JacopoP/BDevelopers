@@ -62,6 +62,7 @@ export default {
                     this.pageN = res.data.response.developers.last_page;
                     this.pageShow = 1;
                     this.isLoading = false;
+                    console.log(this.developers);
                 })
                 .catch((err) => console.log(err));
         },
