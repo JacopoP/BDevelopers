@@ -34,6 +34,7 @@ export default {
                 techFilter: [],
             },
             isActive: false,
+            defaultImg: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png',
         }
     },
     methods: {
@@ -172,7 +173,7 @@ export default {
                         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3">
                             <div class="col" v-for="developer in this.developers">
                                 <div class="my_login_button_2 text-light card mb-4 position-relative">
-                                    <div class="card-header">{{ developer.user.name }} {{ developer.user.last }}</div>
+                                    <a :href="($page.props.auth.user != null && $page.props.auth.user.id == developer.id ? route('dashboard') : '/show' + developer.id)" class="nav-link card-header">{{ developer.user.name }} {{ developer.user.last }}</a>
                                     <div class="card-body">
                                         <!-- <div class="mb-2"><strong>Skills:</strong> {{ developer.skills.join(', ') }}</div> -->
                                         <div class="text-truncate mb-2"><strong>Mail:</strong> {{ developer.user.email }}</div>
@@ -183,9 +184,9 @@ export default {
         
                                         <!-- <div class="mb-2"><strong>Rating:</strong> {{ developer.rating }} stars</div> -->
                                         <!-- <div class="mb-2"><strong>Reviews:</strong> {{ developer.reviews }} reviews</div> -->
-                                        <div class="my_image_position img">
-                                            <img class="my_profile_img" :src="'storage/' + developer.profile_path" alt="">
-                                        </div>
+                                        <a :href="($page.props.auth.user != null && $page.props.auth.user.id == developer.id ? route('dashboard') : '/show' + developer.id)" class="my_image_position img">
+                                            <img class="my_profile_img" :src="developer.profile_path !== null ? ('storage/' + developer.profile_path) : defaultImg" alt="">
+                                        </a>
                                         <!-- {{ developer.user.name }} {{ developer.user.last }} <br> -->
                                         <br>
                                         <Link :href="($page.props.auth.user != null && $page.props.auth.user.id == developer.id ? route('dashboard') : '/show' + developer.id)" class="btn btn-outline-primary rounded-pill">
