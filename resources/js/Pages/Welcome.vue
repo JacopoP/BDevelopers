@@ -98,6 +98,8 @@ export default {
 </template>
   
 <style lang="scss" scoped>
+@import '../../sass/variable.scss';
+
 // Define custom styles for the landing page
 .landing-page {
 
@@ -124,33 +126,33 @@ export default {
 
             form {
                 button {
-                    border-color: #E8763D;
+                    border-color: $brand_third;
                     // border: none;
-                    background-image: linear-gradient(45deg,
-                            hsl(357deg 76% 56%) 0%,
-                            hsl(2deg 80% 58%) 11%,
-                            hsl(7deg 84% 58%) 22%,
-                            hsl(12deg 88% 58%) 33%,
-                            hsl(16deg 91% 57%) 44%,
-                            hsl(20deg 94% 57%) 56%,
-                            hsl(23deg 97% 56%) 67%,
-                            hsl(27deg 98% 55%) 78%,
-                            hsl(30deg 99% 54%) 89%,
-                            hsl(34deg 100% 53%) 100%);
+                    background-image: linear-gradient(315deg,
+                            hsl(219deg 40% 25%) 0%,
+                            hsl(233deg 29% 32%) 11%,
+                            hsl(256deg 27% 37%) 22%,
+                            hsl(278deg 28% 39%) 33%,
+                            hsl(301deg 29% 41%) 44%,
+                            hsl(319deg 36% 47%) 56%,
+                            hsl(331deg 46% 53%) 67%,
+                            hsl(340deg 63% 59%) 78%,
+                            hsl(349deg 81% 64%) 89%,
+                            hsl(360deg 100% 70%) 100%);
 
                     &:hover {
-                        border-color: darken(#E8763D, 10%);
-                        background-image: linear-gradient(45deg,
-                                hsl(357deg 76% 56%) 1%,
-                                hsl(2deg 80% 58%) 35%,
-                                hsl(7deg 84% 58%) 43%,
-                                hsl(12deg 88% 58%) 47%,
-                                hsl(16deg 91% 57%) 49%,
-                                hsl(20deg 94% 57%) 50%,
-                                hsl(23deg 97% 56%) 52%,
-                                hsl(27deg 98% 55%) 56%,
-                                hsl(30deg 99% 54%) 63%,
-                                hsl(34deg 100% 53%) 99%);
+                        border-color: darken($brand_third, 10%);
+                        background-image: linear-gradient(315deg,
+                                hsl(219deg 40% 25%) 1%,
+                                hsl(233deg 29% 32%) 37%,
+                                hsl(256deg 27% 37%) 45%,
+                                hsl(278deg 28% 39%) 49%,
+                                hsl(301deg 29% 41%) 51%,
+                                hsl(319deg 36% 47%) 53%,
+                                hsl(331deg 46% 53%) 55%,
+                                hsl(340deg 63% 59%) 58%,
+                                hsl(349deg 81% 64%) 66%,
+                                hsl(360deg 100% 70%) 100%);
                     }
                 }
             }
