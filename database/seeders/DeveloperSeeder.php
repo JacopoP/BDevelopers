@@ -43,7 +43,8 @@ class DeveloperSeeder extends Seeder
             $new_developer->profile_path = 'uploads/profile_photo/profile' . $User->id . '.png';
             Storage::put(
                 $new_developer->profile_path,
-                file_get_contents('http://placeimg.com/400/400/' . $categories[array_rand($categories)])
+                // file_get_contents('http://placeimg.com/400/400/' . $categories[array_rand($categories)])
+                file_get_contents('https://api.lorem.space/image/face?w=400&h=400')
             );
 
             $new_developer->save();
