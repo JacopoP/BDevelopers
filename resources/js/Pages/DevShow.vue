@@ -102,8 +102,7 @@ export default {
 
                     <div class="d-flex justify-content-center">
                         <a href="#ancor" class="btn btn-primary rounded-pill my_login_button text-light">
-                            Send a Message, Leave a
-                            Reviews or a Star
+                            Send a Message, Reviews or a Star
                         </a>
                     </div>
                 </div>
