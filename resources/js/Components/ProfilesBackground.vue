@@ -40,7 +40,7 @@ export default {
 
             // Bubble size
             let bRadius = 60; /* about */
-            let bMargin = 50;
+            let bMargin = 120;
             let bDistance = (bRadius + bMargin) * 2;
 
             // Column size
@@ -62,14 +62,17 @@ export default {
 
                     // Check if bubble is skipped
                     let skipped =
-                        index > 1 /* first and second bubbles are granted */
-                        && Math.floor( /* remaining are decided by noise */
-                            (index <= 3 ? 1.3 : 1) /* 3rd and 4th are slightly weighted for displaying purposes */
-                            + hiddenNoise.get(
-                                (index + 2) * Math.cos(index + Math.PI),
-                                (index + 2) * Math.sin(index + Math.PI)
+                        index > 1 //first and second bubbles are granted
+                        && /* Math.floor( // remaining are decided by noise
+                            rangeMap(
+                                (index <= 3 ? 1.3 : 1) // 3rd and 4th are slightly weighted for displaying purposes
+                                + hiddenNoise.get(
+                                    (index + 2) * Math.cos(index + Math.PI),
+                                    (index + 2) * Math.sin(index + Math.PI)
+                                ),
+                                -1, 1, 1, 0
                             )
-                        );
+                        ) */0;
 
                     if (skipped) {
                         bubble.style.display = "none";
@@ -230,14 +233,6 @@ function rangeMap(number, inMin, inMax, outMin, outMax) {
 <template>
     <div class="ProfilesBackground fixed-top overflow-hidden">
 
-        <!-- Populate with bubbles -->
-        <!-- <div :id="'bubble' + index" v-for="(developer, index) in profiledDevelopers" class="bubble rounded">
-                                                                            <img :src="getBubbleImage(index)" class="rounded">
-                                                                            <div class="volatile">
-                                                                                Ciao
-                                                                            </div>
-                                                                        </div> -->
-
         <div :id="'bubble' + index" v-for="(developer, index) in profiledDevelopers"
             class="bubble card text-white bg-dark rounded">
 
@@ -258,9 +253,6 @@ function rangeMap(number, inMin, inMax, outMin, outMax) {
 
             <!-- Card 'body' (navigation links) -->
             <ul class="list-group list-group-flush volatile overflow-hidden">
-                <!-- <a class="list-group-item px-3 bg-dark text-white" href="">
-                                                        Connect
-                                                    </a> -->
                 <a class="list-group-item px-3 bg-dark text-white" href="">
                     Connect
                 </a>
@@ -289,9 +281,10 @@ function rangeMap(number, inMin, inMax, outMin, outMax) {
 
         // Position
         position: absolute;
+        background-color: #2024287f !important;
 
         // Sizing and style
-        outline: solid 4px #cf815b;
+        outline: solid 4px #E8763D;
         outline-offset: 2px;
 
         // Card profile picture
@@ -337,24 +330,37 @@ function rangeMap(number, inMin, inMax, outMin, outMax) {
             display: block;
             width: 2px;
             height: 97px;
-            background-color: #cf815b;
+            background-color: #E8763D;
         }
 
         // Card links
         // used !important to override Bootstrap
         a {
+            // background-color: #E8763D !important;
+            background-image: linear-gradient(45deg,
+                    hsl(357deg 76% 56%) 0%,
+                    hsl(2deg 80% 58%) 11%,
+                    hsl(7deg 84% 58%) 22%,
+                    hsl(12deg 88% 58%) 33%,
+                    hsl(16deg 91% 57%) 44%,
+                    hsl(20deg 94% 57%) 56%,
+                    hsl(23deg 97% 56%) 67%,
+                    hsl(27deg 98% 55%) 78%,
+                    hsl(30deg 99% 54%) 89%,
+                    hsl(34deg 100% 53%) 100%);
+
             &:hover {
-                background-color: #cf815b !important;
-
-                &:last-child {
-                    background-color: #d68c67 !important;
-                    // color: #cf815b !important;
-                }
-            }
-
-            &:last-child {
-                background-color: #cf815b !important;
-                // color: #cf815b !important;
+                background-image: linear-gradient(45deg,
+                        hsl(357deg 76% 56%) 1%,
+                        hsl(2deg 80% 58%) 35%,
+                        hsl(7deg 84% 58%) 43%,
+                        hsl(12deg 88% 58%) 47%,
+                        hsl(16deg 91% 57%) 49%,
+                        hsl(20deg 94% 57%) 50%,
+                        hsl(23deg 97% 56%) 52%,
+                        hsl(27deg 98% 55%) 56%,
+                        hsl(30deg 99% 54%) 63%,
+                        hsl(34deg 100% 53%) 99%);
             }
         }
     }

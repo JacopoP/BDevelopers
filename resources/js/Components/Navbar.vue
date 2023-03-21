@@ -13,10 +13,11 @@ export default {
     <div class="d-flex justify-content-between fixed-top m-3 ">
 
         <!-- NavBar LEFT-->
-        <nav class="left">
+        <nav class="left rounded ">
 
             <!-- BDevelopers logo + title -->
-            <a class="btn btn-dark shadow-sm shadow-lg" href="/">BDevelopers</a>
+            <!-- <a class="btn btn-dark shadow-sm shadow-lg" href="/">BDevelopers</a> -->
+            <img class="rounded" src="../../img/logo.png" alt="">
 
         </nav>
 
@@ -84,8 +85,14 @@ export default {
 // Accent outline for main navbar elements
 .left>*,
 .right>* {
-    outline: solid 1px #cf815b;
+    outline: solid 2px #E8763D;
     outline-offset: 2px;
+}
+
+img {
+    object-fit: cover;
+    width: 4rem;
+    height: 4rem;
 }
 
 // Right card style
@@ -116,16 +123,13 @@ export default {
     // Card profile picture
     .card-profile {
         position: relative;
-        object-fit: cover;
-        width: 4rem;
-        height: 4rem;
     }
 
     // Card links
     // used !important to override Bootstrap
     a {
         &:hover {
-            background-color: #cf815b !important;
+            background-color: #E8763D !important;
 
             &:last-child {
                 color: #121212 !important;
@@ -133,7 +137,7 @@ export default {
         }
 
         &:last-child {
-            color: #cf815b !important;
+            color: #E8763D !important;
         }
     }
 }
