@@ -28,7 +28,7 @@
                     </div>
                 </div>
             </div>
-            <div class="d-flex justify-content-center text-light pt-5 pb-3" style="font-size: 10px; opacity: 0.6;">
+            <div class="d-flex justify-content-center text-light text-center pt-5 pb-3" style="font-size: 10px; opacity: 0.6;">
                 Copyright<i class="fa-regular fa-copyright pe-1"></i> Web BDevelopers - Milan (IT), 2023 -
                 All Rights
                 Reserved</div>
