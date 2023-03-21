@@ -87,7 +87,7 @@ export default {
                                 </div>
                             </div>
 
-                            <div class="d-flex justify-content-between w-100">
+                            <div class="d-flex justify-content-between gap-4 w-100">
                                 <a class="btn btn-danger my_register_button border-0 rounded-pill text-light px-3 py-2" :href="this.dati.portfolio_url" v-if="this.dati.portfolio_url !== null">
                                     Show my portfolio
                                 </a>
