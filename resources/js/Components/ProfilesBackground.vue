@@ -274,6 +274,8 @@ function rangeMap(number, inMin, inMax, outMin, outMax) {
 </template>
 
 <style lang="scss" scoped>
+@import '../../sass/variable.scss';
+
 .ProfilesBackground {
 
     // Background
@@ -293,9 +295,10 @@ function rangeMap(number, inMin, inMax, outMin, outMax) {
         // Position
         position: absolute;
         background-color: #2024287f !important;
+        box-shadow: 0 0 15px 3px snow;
 
         // Sizing and style
-        outline: solid 4px #E8763D;
+        outline: solid 4px $brand_third;
         outline-offset: 2px;
 
         // Card profile picture
@@ -339,39 +342,49 @@ function rangeMap(number, inMin, inMax, outMin, outMax) {
             bottom: -100px;
             right: 3rem;
             display: block;
-            width: 2px;
+            width: 3px;
             height: 97px;
-            background-color: #E8763D;
+            background-image: linear-gradient(140deg,
+                    hsl(219deg 40% 25%) 0%,
+                    hsl(233deg 29% 32%) 11%,
+                    hsl(256deg 27% 37%) 22%,
+                    hsl(278deg 28% 39%) 33%,
+                    hsl(301deg 29% 41%) 44%,
+                    hsla(319deg, 36%, 47%, 1) 56%,
+                    hsla(331deg, 46%, 53%, .8) 67%,
+                    hsla(340deg, 63%, 59%, .5) 78%,
+                    hsla(349deg, 81%, 64%, .1) 89%,
+                    hsla(360deg, 100%, 70%, .1) 100%);
         }
 
         // Card links
         // used !important to override Bootstrap
         a {
             // background-color: #E8763D !important;
-            background-image: linear-gradient(45deg,
-                    hsl(357deg 76% 56%) 0%,
-                    hsl(2deg 80% 58%) 11%,
-                    hsl(7deg 84% 58%) 22%,
-                    hsl(12deg 88% 58%) 33%,
-                    hsl(16deg 91% 57%) 44%,
-                    hsl(20deg 94% 57%) 56%,
-                    hsl(23deg 97% 56%) 67%,
-                    hsl(27deg 98% 55%) 78%,
-                    hsl(30deg 99% 54%) 89%,
-                    hsl(34deg 100% 53%) 100%);
+            background-image: linear-gradient(315deg,
+                    hsl(219deg 40% 25%) 0%,
+                    hsl(233deg 29% 32%) 11%,
+                    hsl(256deg 27% 37%) 22%,
+                    hsl(278deg 28% 39%) 33%,
+                    hsl(301deg 29% 41%) 44%,
+                    hsl(319deg 36% 47%) 56%,
+                    hsl(331deg 46% 53%) 67%,
+                    hsl(340deg 63% 59%) 78%,
+                    hsl(349deg 81% 64%) 89%,
+                    hsl(360deg 100% 70%) 100%);
 
             &:hover {
-                background-image: linear-gradient(45deg,
-                        hsl(357deg 76% 56%) 1%,
-                        hsl(2deg 80% 58%) 35%,
-                        hsl(7deg 84% 58%) 43%,
-                        hsl(12deg 88% 58%) 47%,
-                        hsl(16deg 91% 57%) 49%,
-                        hsl(20deg 94% 57%) 50%,
-                        hsl(23deg 97% 56%) 52%,
-                        hsl(27deg 98% 55%) 56%,
-                        hsl(30deg 99% 54%) 63%,
-                        hsl(34deg 100% 53%) 99%);
+                background-image: linear-gradient(315deg,
+                        hsl(219deg 40% 25%) 1%,
+                        hsl(233deg 29% 32%) 37%,
+                        hsl(256deg 27% 37%) 45%,
+                        hsl(278deg 28% 39%) 49%,
+                        hsl(301deg 29% 41%) 51%,
+                        hsl(319deg 36% 47%) 53%,
+                        hsl(331deg 46% 53%) 55%,
+                        hsl(340deg 63% 59%) 58%,
+                        hsl(349deg 81% 64%) 66%,
+                        hsl(360deg 100% 70%) 100%);
             }
         }
     }
