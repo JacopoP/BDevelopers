@@ -193,24 +193,7 @@ function myGetTime(stringa) {
     return result;
 }
 
-function myRatingsAv() {
-    let result = {
-        'integer': Math.floor(props.developer.ratings_avg_value),
-        'half': false,
-    }
 
-
-    let scarto = props.developer.ratings_avg_value - (result.integer);
-
-    if (scarto > 0.25 && scarto <= 0.75) {
-        result.half = true;
-
-    } else if (scarto > 0.75) {
-
-        (result.integer)++;
-    };
-    return (result);
-}
 const form = useForm({
     profile_path: null,
 });
@@ -275,7 +258,11 @@ function lastSponsor() {
 
 
 <script>
+import StarRating from 'vue-star-rating';
 export default {
+    components:{
+        StarRating,
+    },
     data() {
         return {
             new_profile_path: undefined,
@@ -484,19 +471,18 @@ export default {
                                     <div class="d-flex align-text-bottom">
                                         {{ Math.round(developer.ratings_avg_value * 100) / 100 }}
                                     </div>
-                                    <div class="d-flex">
-                                        <div v-for="any in (myRatingsAv(data.ratings)).integer">
-                                            <i class="fa-solid fa-star"></i>
-                                        </div>
-                                        <div v-if="(myRatingsAv(data.ratings)).half">
-                                            <i class="fa-solid fa-star-half-stroke"></i>
-                                        </div>
-                                        <div
-                                            v-for="index in (5 - ((myRatingsAv(data.ratings))).integer - (((myRatingsAv(data.ratings)).half) ? 1 : 0))">
-                                            <i class="fa-regular fa-star"></i>
-                                        </div>
-
-                                    </div>
+                                    <star-rating class="text-light" 
+                                    v-model:rating="developer.ratings_avg_value" 
+                                    :active-color="['#410000', '#410000', '#f7a531']" 
+                                    :border-width="0" 
+                                    :star-points="[23,2, 14,17, 0,19, 10,34, 7,50, 23,43, 38,50, 36,34, 46,19, 31,17]" 
+                                    :active-on-click="true" 
+                                    :clearable="false" 
+                                    :show-rating="false"
+                                    :star-size="25"
+                                    :increment="0.01"
+                                    :read-only="true"
+                                    ></star-rating>
 
                                 </div>
                                 <!-- sponsors -->

@@ -48,24 +48,6 @@ export default {
             .then((res) => {this.dati.reviews = res.data.response.reviews})
             .catch((error) => console.log(error))
         },
-        myRatingsAv() {
-            let result = {
-                'integer': Math.floor(props.developer.ratings_avg_value),
-                'half': false,
-            }
-
-
-            let scarto = props.developer.ratings_avg_value - (result.integer);
-
-            if (scarto > 0.25 && scarto <= 0.75) {
-                result.half = true;
-
-            } else if (scarto > 0.75) {
-
-                (result.integer)++;
-            };
-            return (result);
-        }
 
     }
 }
