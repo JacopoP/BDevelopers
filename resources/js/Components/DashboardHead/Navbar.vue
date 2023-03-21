@@ -66,8 +66,8 @@ export default{
                         
                         <a class="d-flex flex-column align-items-center btn text-light border-0" href="#" role="button" id="userDropdown"
                         data-bs-toggle="dropdown" aria-expanded="false">
-                            <div style="width: 50px;">
-                                <img class="rounded-circle" :src="imgPath !== null ? ('storage/' + imgPath) : defaultImg">
+                            <div style="width: 50px; height: 50px;">
+                                <img style="max-width: 100%; max-height: 100%;" class="rounded-circle" :src="imgPath !== null ? ('storage/' + imgPath) : defaultImg">
                             </div>
                             <!-- <a class="dropdown-toggle text-light nav-link" style="font-size: 10px;">
                                 <span>

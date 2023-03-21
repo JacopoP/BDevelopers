@@ -450,6 +450,7 @@ export default {
                                 <!-- CV -->
                                 <a v-if="data.cv_path !== null"
                                     class="btn btn-outline-secondary rounded-pill d-flex align-items-center m-5"
+                                    style="width:fit-content"
                                     :href="'storage/' + data.cv_path" download>Download CV
                                 </a>
 
@@ -457,7 +458,7 @@ export default {
 
                                 <a :href="data.portfolio_url"></a>
 
-                                <div class="my-technologies">
+                                <div class="my-technologies mx-auto">
                                     <div v-for="technology in data.technologies" class="my-technology">
                                         <img :src="technology.logo_path" alt="">
                                         <div class="titolo">
@@ -883,7 +884,7 @@ body {
                     }
 
                     .my-technologies {
-                        max-width: 550px;
+                        max-width: 80%;
                         margin: 50px 0;
                         display: flex;
                         justify-content: start;
