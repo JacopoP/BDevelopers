@@ -155,7 +155,8 @@ export default {
             do {
                 availableBubbles = vueInstance.bubbles.filter(b => b.style.display != "none" && !shownBubbles.includes(b))
                 if (!availableBubbles.length) {
-                    shownBubbles = shownBubbles.slice(-1);
+                    shownBubbles = shownBubbles.length <= 1 ? [] : shownBubbles.slice(-1);
+                    
                 }
             } while (!availableBubbles.length)
 

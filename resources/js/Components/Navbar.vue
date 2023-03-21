@@ -98,6 +98,8 @@ img {
 // Right card style
 .right .card {
 
+    background-color: #2024287f !important;
+
     .volatile {
         width: 0;
         height: 0;
@@ -128,6 +130,8 @@ img {
     // Card links
     // used !important to override Bootstrap
     a {
+        background-color: #2024287f !important;
+
         &:hover {
             background-color: #E8763D !important;
 
