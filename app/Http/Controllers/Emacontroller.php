@@ -69,10 +69,10 @@ class Emacontroller extends Controller
     {
 
         // Get currently logged developer
-        // $developer = Developer::with('user', 'ratings', 'reviews', 'technologies', 'messages', 'sponsors')->withAvg('ratings', 'value')->find(Auth::id());
+        $developer = Developer::with('user', 'ratings', 'reviews', 'technologies', 'messages', 'sponsors')->withAvg('ratings', 'value')->find(Auth::id());
 
         // DEBUG
-        $developer = Developer::with('user', 'ratings', 'reviews', 'technologies', 'messages', 'sponsors')->withAvg('ratings', 'value')->find(4);
+        // $developer = Developer::with('user', 'ratings', 'reviews', 'technologies', 'messages', 'sponsors')->withAvg('ratings', 'value')->find(4);
         // $developer = Developer::with('user', 'ratings', 'reviews', 'technologies', 'messages', 'sponsors')->withAvg('ratings', 'value')->find(rand(1, 300));
 
 

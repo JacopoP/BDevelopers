@@ -302,12 +302,13 @@ export default {
 
         <template #main>
 
-            <div class="my-background b-dark">
+            <div class="my-background b-dark container">
 
-                <div class="container p-0">
+                <div class="container">
 
-                    <main class="d-flex justify-content-center position-relative">
-                        <div class="left  overflow-scroll" v-if="(data.reviews).length || (data.messages).length">
+                    <main class="d-flex flex-column-reverse flex-lg-row align-items-center align-items-lg-start position-relative">
+
+                        <div class="left overflow-scroll" v-if="(data.reviews).length || (data.messages).length">
 
 
 
@@ -342,6 +343,7 @@ export default {
                                     </li>
                                 </ul>
                             </div>
+
                             <!-- messages -->
                             <div class="my-border" v-if="(data.messages).length">
                                 <div class="title">
@@ -376,6 +378,7 @@ export default {
                             </div>
 
                         </div>
+                        
                         <!-- image and data user developer -->
                         <div class="right">
 
@@ -403,11 +406,6 @@ export default {
                                     </form>
 
                                 </div>
-
-
-
-
-
 
 
 
@@ -577,8 +575,8 @@ $h-main: calc(100vh - 170px);
             padding: 15px 25px;
             border-radius: 0 13px 13px 13px;
             margin-top: 30px;
-            max-width: 70%;
-            background-color: #a5a5a5;
+            // max-width: 70%;
+            background-color: #fff;
 
 
 
@@ -611,8 +609,7 @@ $h-main: calc(100vh - 170px);
 
         &:hover {
             .message {
-                background-color: white;
-                box-shadow: 20px white;
+                box-shadow: 5px 10px 5px $brand_third;
             }
         }
     }
@@ -675,7 +672,7 @@ body {
 
 
 
-        .container {
+
 
 
 
@@ -693,7 +690,8 @@ body {
                     .my-border {
                         position: relative;
                         margin: 50px 0 100px;
-                        max-height: $h-main;
+                        max-height: calc(100vh - 140px);
+                        // max-height: $h-main;
 
                         // overflow per il title
                         overflow: visible;
@@ -716,7 +714,7 @@ body {
 
                 .right {
 
-                    width: 40%;
+                    // width: 40%;
                     display: flex;
                     flex-direction: column;
                     margin: 10px;
@@ -733,7 +731,7 @@ body {
 
 
                     .my-border {
-                        overflow: visible;
+                        // overflow: visible;
                         color: white;
                         margin-top: 50px;
                         border-radius: 0 0 20px 0;
@@ -746,10 +744,11 @@ body {
                             // no anchor dechourrion
                             text-decoration: inherit;
                             color: inherit;
+                            border-radius: 20px;
 
 
 
-                            background-color: rgba(255, 255, 255, 0.17);
+                            background-color: $brand_third;
                             color: white;
                             height: 40px;
                             width: 90%;
@@ -763,12 +762,11 @@ body {
 
 
                             // transition doesn't seems to work.
-                            transition: all 1s linear 1s;
+                            transition: all 0.5s ease-in-out 0.2s;
 
-
-
-
-
+                            &:hover{
+                                background-color: $brand_secondary;
+                            }
                         }
 
                         .my-img-container {
@@ -779,30 +777,26 @@ body {
                             display: flex;
                             justify-content: center;
                             align-items: center;
-                            border-radius: 30%;
-                            overflow: hidden;
 
 
                             img {
                                 position: absolute;
                                 max-width: 100%;
                                 object-fit: cover;
-
+                                border-radius: 80px;
                             }
 
                             .my-layover {
                                 cursor: pointer;
                                 background-color: rgba(48, 48, 48, 0.675);
-                                width: 300px;
-                                height: 300px;
+                                width: 100%;
+                                height: 100%;
                                 justify-content: center;
                                 align-items: center;
                                 position: absolute;
                                 display: none;
                                 font-size: 40px;
-
-
-
+                                border-radius: 80px;
                             }
 
 
@@ -894,11 +888,13 @@ body {
                             display: flex;
                             justify-content: center;
                             flex-wrap: wrap;
+                            // gap: 10px;
 
                             .my-technology {
-                                width: 100px;
-                                height: 100px;
+                                width: 70px;
+                                height: 70px;
                                 margin: 5px;
+                                padding: 10px;
                                 border-radius: 5px;
                                 position: relative;
                                 display: flex;
@@ -944,7 +940,7 @@ body {
                     }
                 }
             }
-        }
+
     }
 }
 
@@ -952,109 +948,109 @@ body {
 
 
 
-@media screen and (max-width: 992px) {
-    .principale {
-        padding: 0 10px;
+// @media screen and (max-width: 992px) {
+//     .principale {
+//         padding: 0 10px;
 
 
 
-        li {
+//         li {
 
-            .message {
+//             .message {
 
-                max-width: 100%;
+//                 max-width: 100%;
 
 
 
-                .reviewer {}
+//                 .reviewer {}
 
-                .email {}
+//                 .email {}
 
-                .anonymous {}
+//                 .anonymous {}
 
-                p {}
+//                 p {}
 
-                .created-at {}
+//                 .created-at {}
 
-            }
+//             }
 
-            &:hover {
-                .message {}
-            }
-        }
-    }
+//             &:hover {
+//                 .message {}
+//             }
+//         }
+//     }
 
-    .my-border {
+//     .my-border {
 
 
-        &:hover {}
+//         &:hover {}
 
-        .title {}
+//         .title {}
 
 
 
-    }
+//     }
 
-    body {
+//     body {
 
 
-        .my-background {
+//         .my-background {
 
 
-            .container {
+//             .container {
 
 
 
-                main {
+//                 main {
 
 
 
-                    .left {
+//                     .left {
 
 
 
 
-                        .my-border {
+//                         .my-border {
 
 
-                            .title {}
+//                             .title {}
 
 
-                        }
+//                         }
 
-                    }
+//                     }
 
 
-                    .right {
+//                     .right {
 
 
 
-                        .title {}
+//                         .title {}
 
 
-                        .my-border {
+//                         .my-border {
 
 
 
 
 
-                            .my-edit {}
+//                             .my-edit {}
 
-                            .my-img-container {
+//                             .my-img-container {
 
-                                width: 200px;
-                                height: 200px;
+//                                 width: 200px;
+//                                 height: 200px;
 
 
 
 
-                                .my-layover {
+//                                 .my-layover {
 
-                                    font-size: 20px;
+//                                     font-size: 20px;
 
 
 
-                                }
+//                                 }
 
 
 
@@ -1064,179 +1060,179 @@ body {
 
 
 
-                            }
+//                             }
 
 
-                            .info {
+//                             .info {
 
 
 
-                                &.name {}
+//                                 &.name {}
 
-                                &:hover {}
+//                                 &:hover {}
 
 
 
 
 
-                            }
+//                             }
 
-                            .my-border {
+//                             .my-border {
 
 
 
 
-                                &:hover {
-                                    .title {}
+//                                 &:hover {
+//                                     .title {}
 
-                                }
+//                                 }
 
 
 
-                            }
+//                             }
 
-                            a.my-border {
+//                             a.my-border {
 
 
-                                &:hover {}
-                            }
+//                                 &:hover {}
+//                             }
 
-                            .my-technologies {
+//                             .my-technologies {
 
 
-                                .my-technology {
+//                                 .my-technology {
 
 
 
-                                    img {}
+//                                     img {}
 
-                                    .titolo {}
+//                                     .titolo {}
 
 
-                                    &:hover {
+//                                     &:hover {
 
 
-                                        .titolo {}
-                                    }
-                                }
-                            }
+//                                         .titolo {}
+//                                     }
+//                                 }
+//                             }
 
 
 
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
+//                         }
+//                     }
+//                 }
+//             }
+//         }
+//     }
+// }
 
 
 
-@media screen and (max-width: 768px) {
-    .principale {
+// @media screen and (max-width: 768px) {
+//     .principale {
 
 
 
 
-        li {
+//         li {
 
-            .message {
+//             .message {
 
 
 
 
 
-                .reviewer {}
+//                 .reviewer {}
 
-                .email {}
+//                 .email {}
 
-                .anonymous {}
+//                 .anonymous {}
 
-                p {}
+//                 p {}
 
-                .created-at {}
+//                 .created-at {}
 
-            }
+//             }
 
-            &:hover {
-                .message {}
-            }
-        }
-    }
+//             &:hover {
+//                 .message {}
+//             }
+//         }
+//     }
 
-    .my-border {
+//     .my-border {
 
 
-        &:hover {}
+//         &:hover {}
 
-        .title {}
+//         .title {}
 
 
 
-    }
+//     }
 
-    body {
+//     body {
 
 
-        .my-background {
+//         .my-background {
 
 
-            .container {
+//             .container {
 
 
 
-                main {
-                    flex-direction: column-reverse;
+//                 main {
+//                     flex-direction: column-reverse;
 
 
 
-                    .left {
+//                     .left {
 
-                        margin-bottom: 0;
+//                         margin-bottom: 0;
 
 
 
-                        .my-border {
+//                         .my-border {
 
 
-                            .title {}
+//                             .title {}
 
 
-                        }
+//                         }
 
-                    }
+//                     }
 
 
-                    .right {
+//                     .right {
 
-                        margin: 0;
-                        display: flex;
-                        justify-content: space-between;
-                        flex-direction: row;
-                        width: 100%;
+//                         margin: 0;
+//                         display: flex;
+//                         justify-content: space-between;
+//                         flex-direction: row;
+//                         width: 100%;
 
 
-                        .title {}
+//                         .title {}
 
 
-                        .my-border {
-                            width: 45%;
+//                         .my-border {
+//                             width: 45%;
 
 
 
 
 
-                            .my-edit {}
+//                             .my-edit {}
 
-                            .my-img-container {
+//                             .my-img-container {
 
 
 
 
 
 
-                                .my-layover {}
+//                                 .my-layover {}
 
 
 
@@ -1246,188 +1242,188 @@ body {
 
 
 
-                            }
+//                             }
 
 
-                            .info {
+//                             .info {
 
 
 
-                                &.name {}
+//                                 &.name {}
 
-                                &:hover {}
+//                                 &:hover {}
 
 
 
 
 
-                            }
+//                             }
 
-                            .my-border {
+//                             .my-border {
 
 
 
 
-                                &:hover {
-                                    .title {}
+//                                 &:hover {
+//                                     .title {}
 
-                                }
+//                                 }
 
 
 
-                            }
+//                             }
 
-                            a.my-border {
+//                             a.my-border {
 
 
-                                &:hover {}
-                            }
+//                                 &:hover {}
+//                             }
 
-                            .my-technologies {
+//                             .my-technologies {
 
 
-                                .my-technology {
+//                                 .my-technology {
 
 
 
-                                    img {}
+//                                     img {}
 
-                                    .titolo {}
+//                                     .titolo {}
 
 
-                                    &:hover {
+//                                     &:hover {
 
 
-                                        .titolo {}
-                                    }
-                                }
-                            }
+//                                         .titolo {}
+//                                     }
+//                                 }
+//                             }
 
 
 
-                        }
+//                         }
 
-                        .rat-spon-cont {
-                            width: 45%;
+//                         .rat-spon-cont {
+//                             width: 45%;
 
-                            .my-border {
-                                width: 100%;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
+//                             .my-border {
+//                                 width: 100%;
+//                             }
+//                         }
+//                     }
+//                 }
+//             }
+//         }
+//     }
+// }
 
 
-@media screen and (max-width: 490px) {
-    .principale {
+// @media screen and (max-width: 490px) {
+//     .principale {
 
 
 
 
-        li {
+//         li {
 
-            .message {
+//             .message {
 
 
 
 
 
-                .reviewer {}
+//                 .reviewer {}
 
-                .email {}
+//                 .email {}
 
-                .anonymous {}
+//                 .anonymous {}
 
-                p {}
+//                 p {}
 
-                .created-at {}
+//                 .created-at {}
 
-            }
+//             }
 
-            &:hover {
-                .message {}
-            }
-        }
-    }
+//             &:hover {
+//                 .message {}
+//             }
+//         }
+//     }
 
-    .my-border {
+//     .my-border {
 
 
-        &:hover {}
+//         &:hover {}
 
-        .title {}
+//         .title {}
 
 
 
-    }
+//     }
 
-    body {
+//     body {
 
 
-        .my-background {
+//         .my-background {
 
 
 
-            .container {
-                margin: 0 50px;
+//             .container {
+//                 margin: 0 50px;
 
 
 
 
 
-                main {
+//                 main {
 
 
 
 
-                    .left {
-                        padding: 0;
-                        margin: 0;
+//                     .left {
+//                         padding: 0;
+//                         margin: 0;
 
 
 
 
-                        .my-border {
-                            margin-left: 0;
+//                         .my-border {
+//                             margin-left: 0;
 
 
-                            .title {}
+//                             .title {}
 
 
-                        }
+//                         }
 
-                    }
+//                     }
 
 
-                    .right {
-                        display: flex;
+//                     .right {
+//                         display: flex;
 
-                        flex-direction: column;
+//                         flex-direction: column;
 
 
-                        .title {}
+//                         .title {}
 
 
-                        .my-border {
-                            width: 100%;
+//                         .my-border {
+//                             width: 100%;
 
 
 
 
 
-                            .my-edit {}
+//                             .my-edit {}
 
-                            .my-img-container {
+//                             .my-img-container {
 
 
 
 
 
-                                .my-layover {}
+//                                 .my-layover {}
 
 
 
@@ -1437,76 +1433,76 @@ body {
 
 
 
-                            }
+//                             }
 
 
-                            .info {
+//                             .info {
 
 
 
-                                &.name {}
+//                                 &.name {}
 
-                                &:hover {}
+//                                 &:hover {}
 
 
 
 
 
-                            }
+//                             }
 
-                            .my-border {
+//                             .my-border {
 
 
 
 
-                                &:hover {
-                                    .title {}
+//                                 &:hover {
+//                                     .title {}
 
-                                }
+//                                 }
 
 
 
-                            }
+//                             }
 
-                            a.my-border {
+//                             a.my-border {
 
 
-                                &:hover {}
-                            }
+//                                 &:hover {}
+//                             }
 
-                            .my-technologies {
+//                             .my-technologies {
 
 
-                                .my-technology {
+//                                 .my-technology {
 
 
 
-                                    img {}
+//                                     img {}
 
-                                    .titolo {}
+//                                     .titolo {}
 
 
-                                    &:hover {
+//                                     &:hover {
 
 
-                                        .titolo {}
-                                    }
-                                }
-                            }
+//                                         .titolo {}
+//                                     }
+//                                 }
+//                             }
 
 
 
-                        }
+//                         }
 
-                        .rat-spon-cont {
-                            width: 100%;
+//                         .rat-spon-cont {
+//                             width: 100%;
 
-                            .my-border {}
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
+//                             .my-border {}
+//                         }
+//                     }
+//                 }
+//             }
+//         }
+//     }
+// }
 </style>
