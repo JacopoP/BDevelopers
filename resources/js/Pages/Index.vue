@@ -1,5 +1,7 @@
 <script>
 import ApplicationLogo from '../Components/ApplicationLogo.vue';
+import { Head } from '@inertiajs/vue3';
+
 // AuthenticatedLayout
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import axios from 'axios';
@@ -11,6 +13,7 @@ const api = apiUrl + apiVersion;
 export default {
     components: {
         Link,
+        Head,
         ApplicationLogo,
         AuthenticatedLayout,
     },
@@ -38,7 +41,7 @@ export default {
     },
     methods: {
         goFilter: function () {
-            this.isLoading=true;
+            this.isLoading = true;
             let textArray = this.nameFilter.split(' ');
             this.post.nFilter = textArray[0];
             if (textArray.length >= 1) { textArray.shift() };
@@ -56,15 +59,15 @@ export default {
                 .then((res) => {
                     this.developers = res.data.response.developers.data;
                     this.pageN = res.data.response.developers.last_page;
-                    this.pageShow=1;
-                    this.isLoading=false;
+                    this.pageShow = 1;
+                    this.isLoading = false;
                 })
                 .catch((err) => console.log(err));
         },
 
-        nextPage: function(){
+        nextPage: function () {
             this.pageShow++;
-            this.isLoading=true;
+            this.isLoading = true;
 
             const params = {
                 post: this.post,
@@ -74,7 +77,7 @@ export default {
             axios.get(api + 'search', { params })
                 .then((res) => {
                     this.developers = this.developers.concat(res.data.response.developers.data);
-                    this.isLoading=false;
+                    this.isLoading = false;
                 })
                 .catch((err) => console.log(err));
         }
@@ -90,6 +93,8 @@ export default {
 </script>
 
 <template>
+    <Head title="Index" />
+
     <AuthenticatedLayout>
 
         <template #header>
@@ -98,45 +103,53 @@ export default {
             </h2>
         </template>
         <template #main>
-            
+
             <div class="results-page pt-5">
-        
+
                 <!-- Filters -->
                 <div class="filters">
                     <form @submit.prevent="goFilter">
-        
+
                         <div class="container">
                             <div class="row justify-content-between gap-5 pt-4">
-        
+
                                 <!-- filter by name -->
                                 <div class="d-flex flex-column gap-2">
                                     <div class="d-inline">
-                                        <label for="nameFilter" class="my_register_button text-light rounded-pill px-2 py-0">Search Name</label>
+                                        <label for="nameFilter"
+                                            class="my_register_button text-light rounded-pill px-2 py-0">Search Name</label>
                                     </div>
-                                    <input type="text" v-model="this.nameFilter" name="nameFilter" placeholder="Search name..." class="rounded-pill border border-0 p-2 px-4">
+                                    <input type="text" v-model="this.nameFilter" name="nameFilter"
+                                        placeholder="Search name..." class="rounded-pill border border-0 p-2 px-4">
                                 </div>
-        
+
                                 <!-- filter by rating -->
                                 <div class="col-md-4 mb-3 mb-md-0">
                                     <div class="form-group d-flex flex-column gap-2">
                                         <div class="d-inline">
-                                            <label for="min-rating" class="my_register_button text-light rounded-pill px-2 py-0">Minimum rating:</label>
+                                            <label for="min-rating"
+                                                class="my_register_button text-light rounded-pill px-2 py-0">Minimum
+                                                rating:</label>
                                         </div>
-                                        <select class="form-control border border-0 rounded-pill" v-model="this.ratingFilter" id="raitingFilter">
+                                        <select class="form-control border border-0 rounded-pill"
+                                            v-model="this.ratingFilter" id="raitingFilter">
                                             <option value="0">Any</option>
                                             <option v-for="n in 5" :value="n" :key="n">{{ n }} star{{ n !== 1 ? 's' : '' }}
                                             </option>
                                         </select>
                                     </div>
                                 </div>
-        
+
                                 <!-- filter by review -->
                                 <div class="col-md-4">
                                     <div class="form-group d-flex flex-column gap-2">
                                         <div class="d-inline">
-                                            <label for="min-reviews" class="my_register_button text-light rounded-pill px-2 py-0" >Minimum reviews:</label>
+                                            <label for="min-reviews"
+                                                class="my_register_button text-light rounded-pill px-2 py-0">Minimum
+                                                reviews:</label>
                                         </div>
-                                        <select class="form-control border border-0 rounded-pill" v-model="this.reviewFilter" id="raitingFilter">
+                                        <select class="form-control border border-0 rounded-pill"
+                                            v-model="this.reviewFilter" id="raitingFilter">
                                             <option value="0">Any</option>
                                             <option value="5">5+</option>
                                             <option value="10">10+</option>
@@ -146,26 +159,30 @@ export default {
                                     </div>
                                 </div>
                             </div>
-        
+
                             <!-- filter by technology -->
                             <h2>Technology filter</h2>
                             <div class="d-flex gap-2 text-light flex-wrap">
-                                <div v-for="(technology, index) in this.technologies" :key="index" class="d-flex gap-1 align-items-center">
+                                <div v-for="(technology, index) in this.technologies" :key="index"
+                                    class="d-flex gap-1 align-items-center">
 
-                                    <input class="d-none" :id="'techFilter[]' + index" type="checkbox" v-model="this.techFilter" :value="technology.id">
+                                    <input class="d-none" :id="'techFilter[]' + index" type="checkbox"
+                                        v-model="this.techFilter" :value="technology.id">
 
-                                    <label class="my_register_button btn rounded-pill" :class="{'text-light': this.techFilter.includes(technology.id)}" :for="'techFilter[]' + index ">{{ technology.name }}
+                                    <label class="my_register_button btn rounded-pill"
+                                        :class="{ 'text-light': this.techFilter.includes(technology.id) }"
+                                        :for="'techFilter[]' + index">{{ technology.name }}
                                     </label>
                                 </div>
                             </div>
-        
+
                             <!-- Submit -->
                             <input type="submit" value="Filter" class="btn btn-primary my-4">
                         </div>
-        
+
                     </form>
                 </div>
-        
+
                 <!-- Results -->
                 <div class="results pb-5">
                     <div class="container">
@@ -175,12 +192,13 @@ export default {
                                     <div class="card-header">{{ developer.user.name }} {{ developer.user.last }}</div>
                                     <div class="card-body">
                                         <!-- <div class="mb-2"><strong>Skills:</strong> {{ developer.skills.join(', ') }}</div> -->
-                                        <div class="text-truncate mb-2"><strong>Mail:</strong> {{ developer.user.email }}</div>
+                                        <div class="text-truncate mb-2"><strong>Mail:</strong> {{ developer.user.email }}
+                                        </div>
 
                                         <div class="text-truncate">
                                             <span v-for="tech in developer.technologies">{{ tech.name }}&nbsp;</span>
                                         </div>
-        
+
                                         <!-- <div class="mb-2"><strong>Rating:</strong> {{ developer.rating }} stars</div> -->
                                         <!-- <div class="mb-2"><strong>Reviews:</strong> {{ developer.reviews }} reviews</div> -->
                                         <div class="my_image_position img">
@@ -188,25 +206,27 @@ export default {
                                         </div>
                                         <!-- {{ developer.user.name }} {{ developer.user.last }} <br> -->
                                         <br>
-                                        <Link :href="($page.props.auth.user != null && $page.props.auth.user.id == developer.id ? route('dashboard') : '/show' + developer.id)" class="btn btn-outline-primary rounded-pill">
-                                            Profile
+                                        <Link
+                                            :href="($page.props.auth.user != null && $page.props.auth.user.id == developer.id ? route('dashboard') : '/show' + developer.id)"
+                                            class="btn btn-outline-primary rounded-pill">
+                                        Profile
                                         </Link>
-                                        
+
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <button class="d-block btn next_page_btn my_login_button_2 mt-2 mx-auto text-light px-3 py-1 border border-light" v-if="this.pageShow < this.pageN && !this.isLoading" @click="this.nextPage()">More results</button>
+                    <button
+                        class="d-block btn next_page_btn my_login_button_2 mt-2 mx-auto text-light px-3 py-1 border border-light"
+                        v-if="this.pageShow < this.pageN && !this.isLoading" @click="this.nextPage()">More results</button>
                 </div>
-        
+
             </div>
 
         </template>
 
     </AuthenticatedLayout>
-
-
 </template>
 
 <style lang="scss" scoped>
@@ -220,27 +240,29 @@ ul {
     list-style: none;
 }
 
-img{
+img {
     width: 100%;
 }
-.my_profile_img{
+
+.my_profile_img {
     width: 100px;
     height: 100px;
     border-radius: 100%;
     object-fit: cover;
 }
 
-.my_image_position{
+.my_image_position {
     position: absolute;
     top: -20px;
     right: 20px;
 }
 
-.next_page_btn{
+.next_page_btn {
     width: fit-content;
     border-radius: 50px;
     opacity: .7;
-    &:hover{
+
+    &:hover {
         opacity: 1;
     }
 }

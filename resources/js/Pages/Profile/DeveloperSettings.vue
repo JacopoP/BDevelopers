@@ -66,9 +66,9 @@ props.technologies.forEach((technology) => {
 </script>
     
 <template>
+    <Head title="Settings" />
     <AuthenticatedLayout class="overflow-hidden">
 
-        <Head title="Settings" />
         <template #header>
             <div class="d-flex justify-content-between">
                 <h2>Developer Settings</h2>
@@ -112,10 +112,9 @@ props.technologies.forEach((technology) => {
                                         Image</label>
                                 </div>
                                 <input id="profile_path" class="form-control border-dark px-4 py-3" type="file"
-                                    name="profile_path" @input="form.profile_path = $event.target.files[0]"
-                                >
+                                    name="profile_path" @input="form.profile_path = $event.target.files[0]">
                             </div>
-    
+
                             <!-- Profile FILE -->
                             <div class="d-flex flex-column align-items-center gap-4">
                                 <div class="mx-auto">
@@ -124,8 +123,7 @@ props.technologies.forEach((technology) => {
                                         Vitae</label>
                                 </div>
                                 <input id="cv_path" class="form-control border-dark px-4 py-3" type="file" name="cv_path"
-                                    @input="form.cv_path = $event.target.files[0]"
-                                >
+                                    @input="form.cv_path = $event.target.files[0]">
                             </div>
                         </div>
 
@@ -143,9 +141,10 @@ props.technologies.forEach((technology) => {
                         <div class="my_text_input_label">
                             <InputLabel class="my_input_label bg-dark" for="about_me" value="About ME" />
 
-                            <textarea id="about_me" class="bg-dark text-light rounded px-4 w-100 border-secondary py-3" style="padding-left: 1rem !important;" name="about_me" cols="30"
-                                rows="3" placeholder="Write about you" v-model="form.about_me">
-                            </textarea>
+                            <textarea id="about_me" class="bg-dark text-light rounded px-4 w-100 border-secondary py-3"
+                                style="padding-left: 1rem !important;" name="about_me" cols="30" rows="3"
+                                placeholder="Write about you" v-model="form.about_me">
+                                </textarea>
                         </div>
 
 
@@ -153,9 +152,10 @@ props.technologies.forEach((technology) => {
                         <div class="my_text_input_label">
                             <InputLabel class="my_input_label bg-dark" for="performances" value="Performances" />
 
-                            <textarea id="performances" class="bg-dark text-light rounded px-4 w-100 border-secondary py-3" style="padding-left: 1rem !important;" name="performances"
-                                cols="30" rows="3" placeholder="About your Job" v-model="form.performances">
-                            </textarea>
+                            <textarea id="performances" class="bg-dark text-light rounded px-4 w-100 border-secondary py-3"
+                                style="padding-left: 1rem !important;" name="performances" cols="30" rows="3"
+                                placeholder="About your Job" v-model="form.performances">
+                                </textarea>
                         </div>
 
 
@@ -273,17 +273,19 @@ props.technologies.forEach((technology) => {
 // input[type="file"] {
 //     display: none;
 // }
-input[type=file]{
+input[type=file] {
     border-radius: 10px;
     background: $brand_primary;
     color: #fff;
     font-weight: 500;
 }
+
 input[type=file]:hover {
     transition: .4s ease-in-out;
     color: $brand_primary;
     background: $brand_secondary;
 }
+
 input[type=file]::file-selector-button {
     margin-right: 20px;
     border: none;
@@ -293,6 +295,7 @@ input[type=file]::file-selector-button {
     color: #fff;
     cursor: pointer;
 }
+
 input[type=file]:hover::file-selector-button {
     transition: .4s ease-in-out;
     color: $brand_fourth;
@@ -318,7 +321,6 @@ input[type=file]:hover::file-selector-button {
     transform: translateY(-5px);
 }
 
-img{
+img {
     width: 100%;
-}
-</style>
+}</style>
