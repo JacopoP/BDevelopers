@@ -169,7 +169,7 @@ export default {
         carouselBubble();
         setInterval(() => {
             carouselBubble();
-        }, 6000, 400);
+        }, 8000, 400);
     },
 }
 
