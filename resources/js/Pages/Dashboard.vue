@@ -419,7 +419,7 @@ export default {
                                         Full Name
                                     </div>
                                 </div>
-                                <div class="info" v-if="data.email">
+                                <div class="info text-truncate" v-if="data.email">
                                     {{ data.email }}
                                     <div class="title">
                                         E-mail
@@ -527,13 +527,14 @@ export default {
 
 <style lang="scss" scoped>
 @use 'resources/sass/general.scss' as *;
+@use 'resources/sass/variable.scss';
 
 
 
 $grigio-my-background: #424242;
 $color-scritte: white;
-$color-titles: yellow;
-$color-shadow: yellow;
+$color-titles: $brand_fourth;
+$color-shadow: $brand_fourth;
 
 
 
@@ -577,9 +578,7 @@ $h-main: calc(100vh - 170px);
             border-radius: 0 13px 13px 13px;
             margin-top: 30px;
             max-width: 70%;
-            background-color: #757575;
-            // margin: 10px;
-            transition: all 0.7s linear 0s;
+            background-color: #a5a5a5;
 
 
 
@@ -589,6 +588,7 @@ $h-main: calc(100vh - 170px);
             }
 
             .email {
+
                 color: rgb(2, 91, 91);
             }
 
@@ -625,7 +625,8 @@ $h-main: calc(100vh - 170px);
 
 
 .my-border {
-    border: 1px solid white;
+    background-color: $brand_primary;
+    // border: 1px solid white;
     border-radius: 0 0 10px 0;
     padding: 10px;
     display: flex;
@@ -675,7 +676,7 @@ body {
 
 
         .container {
-            width: 100vw;
+
 
 
             main {
@@ -784,8 +785,7 @@ body {
 
                             img {
                                 position: absolute;
-                                width: 330px;
-                                height: 330px;
+                                max-width: 100%;
                                 object-fit: cover;
 
                             }
@@ -907,17 +907,17 @@ body {
                                 justify-content: center;
 
 
-                                img {
-                                    width: 50px;
-                                    height: 50px;
-                                    object-fit: contain;
-                                    padding: 5px;
+                                // img {
+                                //     width: 50px;
+                                //     height: 50px;
+                                //     object-fit: contain;
+                                //     padding: 5px;
 
 
 
 
 
-                                }
+                                // }
 
                                 .titolo {
                                     display: none;
@@ -1371,7 +1371,11 @@ body {
         .my-background {
 
 
+
             .container {
+                margin: 0 50px;
+
+
 
 
 
